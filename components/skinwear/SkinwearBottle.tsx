@@ -4,6 +4,7 @@ import React, { useRef, useMemo, Suspense } from 'react';
 import { Canvas, useFrame, extend } from '@react-three/fiber';
 import { useGLTF, Center, ContactShadows, Billboard, shaderMaterial } from '@react-three/drei';
 import * as THREE from 'three';
+import { asset } from '@/lib/asset';
 
 /* ─── Aura Pearl glow shader ───
    Soft radial bloom sitting behind the bottle. Warm pearl tone so it belongs
@@ -31,7 +32,7 @@ function Model({
   reduced: boolean;
 }) {
   const group = useRef<THREE.Group>(null!);
-  const { scene } = useGLTF('/2.glb');
+  const { scene } = useGLTF(asset('/2.glb'));
   // Clone so multiple mounts of the bottle across the page never fight over one instance.
   const cloned = useMemo(() => scene.clone(true), [scene]);
 
@@ -130,4 +131,4 @@ export default function SkinwearBottle({
   );
 }
 
-useGLTF.preload('/2.glb');
+useGLTF.preload(asset('/2.glb'));

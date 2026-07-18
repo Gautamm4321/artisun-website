@@ -3,6 +3,7 @@
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { asset } from '@/lib/asset';
 
 const keyholeTitle = "Welcome to Climate-smart Skinwear™";
 const keyholeSubtitle = "Clothing for your skin, built for daily life.";
@@ -109,7 +110,7 @@ export default function KeyholeSection() {
       <div ref={imageLayerRef} className="absolute inset-0 z-0">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src="/keyhole-bg.webp"
+          src={asset('/keyhole-bg.webp')}
           alt="Keyhole Background"
           className="w-full h-[120vh] object-cover scale-110"
         />

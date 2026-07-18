@@ -3,6 +3,7 @@
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { asset } from '@/lib/asset';
 
 const line1 = "Suncare needed to evolve";
 const line2 = "and Artisun begins with this understanding.";
@@ -117,7 +118,7 @@ export default function EvolutionSection() {
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src="/logo-artisun.svg"
+          src={asset('/logo-artisun.svg')}
           alt="Artisun Monogram"
           className="w-full h-full object-contain"
         />
