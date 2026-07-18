@@ -4,6 +4,7 @@ import React, { useRef, useMemo, useEffect, Suspense } from 'react';
 import { Canvas, useFrame, extend } from '@react-three/fiber';
 import { useGLTF, Center, Billboard, shaderMaterial } from '@react-three/drei';
 import * as THREE from 'three';
+import { asset } from '@/lib/asset';
 
 /* ───────────────────────────────────────────────────────────────────────────
    AuraJourney — one persistent Aura Pearl bottle that travels the whole page.
@@ -63,7 +64,7 @@ function readAnchors(): Anchor[] {
 function AuraBottle({ reduced }: { reduced: boolean }) {
   const travel = useRef<THREE.Group>(null!); // position + scale (the glide)
   const spin = useRef<THREE.Group>(null!); // rotation only
-  const { scene } = useGLTF('/2.glb');
+  const { scene } = useGLTF(asset('/2.glb'));
   const cloned = useMemo(() => scene.clone(true), [scene]);
 
   // Smoothed working values so nothing snaps.
@@ -275,4 +276,4 @@ export default function AuraJourney() {
   );
 }
 
-useGLTF.preload('/2.glb');
+useGLTF.preload(asset('/2.glb'));

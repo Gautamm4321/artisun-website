@@ -4,13 +4,14 @@ import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 import { preloadedAssets } from '../../lib/preloader';
+import { asset } from '@/lib/asset';
 
 const URLS = [
-  '/videos/climate/1.mp4',
-  '/videos/climate/2.mp4',
-  '/videos/climate/3.mp4',
-  '/videos/climate/4.mp4',
-  '/videos/climate/5.mp4',
+  asset('/videos/climate/1.mp4'),
+  asset('/videos/climate/2.mp4'),
+  asset('/videos/climate/3.mp4'),
+  asset('/videos/climate/4.mp4'),
+  asset('/videos/climate/5.mp4'),
 ];
 
 const SLIDE_LINES: [string, string][] = [

@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import MagneticLink from './MagneticLink';
+import { asset } from '@/lib/asset';
 
 export default function Navbar({ showIcon }: { showIcon: boolean }) {
   return (
@@ -23,7 +24,7 @@ export default function Navbar({ showIcon }: { showIcon: boolean }) {
           // eslint-disable-next-line @next/next/no-img-element
           <img 
             id="nav-icon"
-            src="/icon-artisun.png" 
+            src={asset('/icon-artisun.png')} 
             alt="ARTISUN" 
             className="w-7 h-7 object-contain filter brightness-0 invert sepia-[0.2] saturate-[0.6] brightness-[0.96] group-hover:scale-110 transition-transform duration-300" 
           />

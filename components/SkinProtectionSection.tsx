@@ -3,6 +3,7 @@
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { asset } from '@/lib/asset';
 
 const line1 = "Skin protection should exist in multiple";
 const line2 = "forms that fit seamlessly into daily living.";
@@ -115,7 +116,7 @@ export default function SkinProtectionSection() {
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           ref={bgRef}
-          src="/a-new-language-of-suncare-3.webp"
+          src={asset('/a-new-language-of-suncare-3.webp')}
           alt="Model side profile"
           className="w-full h-full object-cover blur-[16px]"
           style={{ willChange: 'transform, filter' }}

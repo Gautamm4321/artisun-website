@@ -3,6 +3,7 @@
 import { useEffect, useRef } from 'react';
 import Image from 'next/image';
 import gsap from 'gsap';
+import { asset } from '@/lib/asset';
 
 export default function HeroSection({ mouseProxy }: { mouseProxy: { current: { x: number; y: number, px: number, py: number } } }) {
   const textRef = useRef<HTMLDivElement>(null);
@@ -21,7 +22,7 @@ export default function HeroSection({ mouseProxy }: { mouseProxy: { current: { x
         <div className="hero-content-inner relative z-10 flex flex-col items-center justify-center gap-4 md:gap-6">
           <div ref={textRef} className="relative w-full max-w-[85vw] md:max-w-[750px]">
             <Image
-              src="/logo.png"
+              src={asset('/logo.png')}
               alt="ARTISUN"
               width={750}
               height={167}

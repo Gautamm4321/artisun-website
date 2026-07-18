@@ -1,5 +1,6 @@
 'use client';
 import Link from 'next/link';
+import { asset } from '@/lib/asset';
 
 export default function GlobalHeader({ startHidden = false }: { startHidden?: boolean }) {
   return (
@@ -13,7 +14,7 @@ export default function GlobalHeader({ startHidden = false }: { startHidden?: bo
       <Link href="/" className="w-8 h-8 md:w-10 md:h-10 flex items-center justify-center pointer-events-auto hover:opacity-80 transition-opacity">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img 
-          src="/icon-artisun.png" 
+          src={asset('/icon-artisun.png')} 
           alt="Artisun Icon" 
           className="w-full h-full object-contain"
         />
@@ -26,13 +27,13 @@ export default function GlobalHeader({ startHidden = false }: { startHidden?: bo
         <div className="flex items-end gap-[6px] md:gap-2">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img 
-            src="/b2.png" 
+            src={asset('/b2.png')} 
             alt="Artisun Bottle" 
             className="h-6 md:h-8 w-auto object-contain"
           />
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img 
-            src="/b1.png" 
+            src={asset('/b1.png')} 
             alt="Artisun Jar" 
             className="h-4 md:h-[22px] w-auto object-contain mb-[2px]"
           />

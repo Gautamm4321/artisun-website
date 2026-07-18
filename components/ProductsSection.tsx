@@ -7,6 +7,7 @@ import * as THREE from 'three';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
+import { asset } from '@/lib/asset';
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
@@ -20,7 +21,7 @@ const products = [
     ingredientsLabel: 'With Beta-Glucan and\nCamellia Sinensis Extract',
     ingredientsDesc: 'For Barrier Support and\nAntioxidant Protection',
     buttonText: 'Explore Origin',
-    model: '/1.glb',
+    model: asset('/1.glb'),
     color: '#D44026',
   },
   {
@@ -30,7 +31,7 @@ const products = [
     ingredientsLabel: 'With Ectoin and Bisabolol',
     ingredientsDesc: 'For Skin-Calming Protection and\nHydration Support',
     buttonText: 'Explore Aura',
-    model: '/2.glb',
+    model: asset('/2.glb'),
     color: '#8A2718',
   },
 ];
@@ -171,8 +172,8 @@ function Scene({ scrollProgress, activeIndex }: { scrollProgress: React.MutableR
       </group>
 
       {/* Centered Bottles */}
-      <Bottle modelPath="/1.glb" scrollProgress={scrollProgress} isActive={activeIndex === 0} scale={0.35} />
-      <Bottle modelPath="/2.glb" scrollProgress={scrollProgress} isActive={activeIndex === 1} scale={0.42} />
+      <Bottle modelPath={asset('/1.glb')} scrollProgress={scrollProgress} isActive={activeIndex === 0} scale={0.35} />
+      <Bottle modelPath={asset('/2.glb')} scrollProgress={scrollProgress} isActive={activeIndex === 1} scale={0.42} />
     </>
   );
 }
@@ -441,5 +442,5 @@ export default function ProductsSection() {
   );
 }
 
-useGLTF.preload('/1.glb');
-useGLTF.preload('/2.glb');
+useGLTF.preload(asset('/1.glb'));
+useGLTF.preload(asset('/2.glb'));

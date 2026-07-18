@@ -3,12 +3,13 @@
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { asset } from '@/lib/asset';
 
 const earthTitle = "A Climate-smart approach to Suncare";
 const earthSubtitle = "bringing protection that moves with climate, not just skin type.";
 const FRAME_COUNT = 240;
 
-const currentFrame = (index: number) => `/earth-frames/frame_${String(index).padStart(4, '0')}.jpg`;
+const currentFrame = (index: number) => asset(`/earth-frames/frame_${String(index).padStart(4, '0')}.jpg`);
 
 export default function EarthSection() {
   const sectionRef = useRef<HTMLElement>(null);

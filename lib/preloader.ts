@@ -1,24 +1,26 @@
+import { asset } from '@/lib/asset';
+
 
 
 const IMAGES = [
-  '/logo.png',
-  '/keyhole-bg.webp',
-  '/a-new-language-of-suncare.png',
-  '/a-new-language-of-suncare-2.webp',
-  '/a-new-language-of-suncare-3.webp',
+  asset('/logo.png'),
+  asset('/keyhole-bg.webp'),
+  asset('/a-new-language-of-suncare.png'),
+  asset('/a-new-language-of-suncare-2.webp'),
+  asset('/a-new-language-of-suncare-3.webp'),
 ];
 
 const VIDEOS = [
-  '/videos/climate/1.mp4',
-  '/videos/climate/2.mp4',
-  '/videos/climate/3.mp4',
-  '/videos/climate/4.mp4',
-  '/videos/climate/5.mp4',
+  asset('/videos/climate/1.mp4'),
+  asset('/videos/climate/2.mp4'),
+  asset('/videos/climate/3.mp4'),
+  asset('/videos/climate/4.mp4'),
+  asset('/videos/climate/5.mp4'),
 ];
 
 const MODELS: string[] = [];
 
-const FETCH_ASSETS = ['/1.glb', '/2.glb'];
+const FETCH_ASSETS = [asset('/1.glb'), asset('/2.glb')];
 
 export const preloadedAssets: {
   images: Record<string, HTMLImageElement>;

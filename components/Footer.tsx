@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { asset } from '@/lib/asset';
 
 const quickLinks = ['FAQs', 'Contact', 'Blog'];
 const policyLinks = ['Privacy Policy', 'Shipping Policy', 'Refunds & Cancellations'];
@@ -197,7 +198,7 @@ export default function Footer() {
         className="relative w-full flex justify-center overflow-hidden mt-8 md:mt-12 select-none pointer-events-none px-6 md:px-12 lg:px-20 pb-10"
       >
         <Image
-          src="/logo.png"
+          src={asset('/logo.png')}
           alt="ARTISUN"
           width={1200}
           height={267}
