@@ -105,9 +105,8 @@ export default function AboutHero() {
       {/* Top-left kicker (GAZU's "fashion that moves with you") */}
       <div className="absolute left-6 top-28 md:left-12 md:top-32 z-[5] pointer-events-none">
         <p className="font-suisse uppercase tracking-[0.32em] text-[10px] md:text-[12px] text-[var(--brand-cream)]/70 leading-[1.9]">
-          Indian Suncare
           <br />
-          Worn as Skinwear
+          
         </p>
       </div>
 

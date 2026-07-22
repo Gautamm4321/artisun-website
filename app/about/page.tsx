@@ -16,15 +16,16 @@ import FutureShowcase from '../../components/about/FutureShowcase';
 const ORIGIN_PARAS: StoryParagraph[] = [
   {
     text:
-      'Artisun was born out of refusal. After years of disconnect with every sunscreen it tried, it refused.',
+      'Artisun was born out of refusal. After years of experiencing disconnect with every sunscreen it tried, it refused. ',
   },
   {
     text:
-      'It refused to let sun care sit as an afterthought. It refused to treat sunscreen as occasional, when it should have been the foundation of every morning. It refused formulas built around skin type alone — with no regard for the climate the skin lives in.',
+      'It refused to let sun care sit as an afterthought in a long lineup of beauty products. It refused to treat sunscreen as an occasional use when it should have been the foundation of every morning.It refused formulas built around skin type alone, with no consideration for the climate the skin lives in.',
+
   },
   {
     text:
-      'So Artisun came forward. Not to add another sunscreen to a crowded shelf, but to do something the category had never quite done —',
+      'So Artisun came forward. Not to add another sunscreen to a crowded shelf,But to do something the category had never quite done — ',
     em: 'Take Indian sun protection seriously.',
   },
 ];
@@ -32,16 +33,13 @@ const ORIGIN_PARAS: StoryParagraph[] = [
 const AURA_PARAS: StoryParagraph[] = [
   {
     text:
-      'To formulate for the humidity of Mumbai’s monsoon. To stand up to the heat of Chennai’s afternoon. To hold its ground through the pollution of Delhi’s evening.',
+      'To formulate for the humidity of Mumbai’s monsoon. To stand up to the heat of  Chennai’s afternoon. To hold its ground through the pollution of Delhi’s evening.',
   },
   {
     text:
-      'Because the Indian sun is anything but forgiving. What pays the price is skin left unprotected — pigmentation that darkens slowly, fine lines that arrive earlier than they should, tone that loses its evenness across the year, damage that doesn’t show today but compounds over time.',
+      'Because the Indian sun is anything but forgiving. What pays the price is skin left unprotected — pigmentation that darkens slowly, fine lines that arrive earlier than they should, skin tone that loses its evenness across the year, damage that doesn’t show today but compounds over time.',
   },
-  {
-    text: 'Artisun brings you sun care, made the way it should always have been made.',
-    em: 'For the Indian skin. For the Indian climate. For the real Indian days.',
-  },
+  
 ];
 
 export default function AboutPage() {
@@ -120,18 +118,14 @@ export default function AboutPage() {
       <AboutHero />
 
       {/* 2 — THE ARTISUN PERSPECTIVE */}
-      <section className="relative z-10 text-center px-6 pt-32 md:pt-44 pb-4">
-        <p className="font-suisse uppercase tracking-[0.3em] text-[11px] md:text-[12px] text-[var(--brand-cream)]/60 mb-6">
-          Why we exist
-        </p>
-        <h2 className="about-shine font-editorial leading-[1.0] tracking-[-0.02em] text-[clamp(2.8rem,6.4vw,5.5rem)]">
-          The Artisun perspective
-        </h2>
+      <section className="relative z-16 text-center px-6 pt-6 md:pt-8 pb-4">
+        <p className="font-suisse uppercase tracking-[0.3em] text-[11px] md:text-[12px] text-[var(--brand-cream)]/60 mb-6"></p>
+        
       </section>
 
       <ProductScrollStory
         productLabel="Origin"
-        productSub="4-in-1 Milk Emulsion"
+        productSub=""
         paragraphs={ORIGIN_PARAS}
         images={['/about-media/origin-1.jpg', '/about-media/origin-2.jpg', '/about-media/origin-3.jpg']}
       />
