@@ -8,7 +8,7 @@ import * as THREE from 'three';
 import { asset } from '@/lib/asset';
 
 const HERO_SUB =
-  'Artisun is an Indian sun-care house, built around the sun and the way we live with it. We make Skinwear — wearable layers that protect, hydrate, and move with the day. For the Indian skin. For the Indian climate.';
+  'Artisun is an Indian sun-care house, built around the sun and the way we live with it. We make Skinwear — wearable layers that protect, hydrate, and move with the day.';
 
 /* ── The revolving Origin bottle (same model as the home page) ── */
 function OriginBottle({ scrollRef }: { scrollRef: React.MutableRefObject<number> }) {

@@ -39,7 +39,7 @@ const AURA_PARAS: StoryParagraph[] = [
     text:
       'Because the Indian sun is anything but forgiving. What pays the price is skin left unprotected — pigmentation that darkens slowly, fine lines that arrive earlier than they should, skin tone that loses its evenness across the year, damage that doesn’t show today but compounds over time.',
   },
-  
+
 ];
 
 export default function AboutPage() {
@@ -117,10 +117,13 @@ export default function AboutPage() {
       {/* 1 — HERO: revolving Origin bottle over the ARTISUN wordmark */}
       <AboutHero />
 
-      {/* 2 — THE ARTISUN PERSPECTIVE */}
-      <section className="relative z-16 text-center px-6 pt-6 md:pt-8 pb-4">
-        <p className="font-suisse uppercase tracking-[0.3em] text-[11px] md:text-[12px] text-[var(--brand-cream)]/60 mb-6"></p>
-        
+ {/* 2 — THE ARTISUN PERSPECTIVE */}
+      <section className="relative z-16 text-center px-4 pt-10 pb-8 w-full max-w-[100vw] mx-auto overflow-hidden">
+        <h2 className="font-editorial text-[clamp(2.5rem,5.5vw,7rem)] leading-[0.99] tracking-[-0.04em] text-[var(--brand-cream)] text-center uppercase">
+          <span className="block whitespace-nowrap">FOR THE INDIAN SKIN, FOR</span>
+          <span className="block whitespace-nowrap">THE INDIAN CLIMATES AND</span>
+          <span className="block whitespace-nowrap">FOR THE REAL INDIAN DAYS.</span>
+        </h2>
       </section>
 
       <ProductScrollStory

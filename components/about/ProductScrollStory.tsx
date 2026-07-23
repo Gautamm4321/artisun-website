@@ -30,7 +30,7 @@ function ImageSlot({
   });
 
   // small -> full size (center) -> small again
-const scale = useTransform(scrollYProgress, [0, 0.65, 1], [1, 1, 0.75]);
+  const scale = useTransform(scrollYProgress, [0, 0.65, 1], [1, 1, 0.75]);
   return (
     <div
       data-idx={i}
@@ -39,8 +39,8 @@ const scale = useTransform(scrollYProgress, [0, 0.65, 1], [1, 1, 0.75]);
         setRef(el);
       }}
     >
-      <div className="h-[100svh] flex flex-col items-center justify-center px-6 md:px-8">
 
+<div className="min-h-[100svh] flex flex-col items-center px-6 md:px-8 pt-20 pb-15">
         {/* Image */}
         <motion.div
           style={{ scale }}
@@ -56,20 +56,22 @@ const scale = useTransform(scrollYProgress, [0, 0.65, 1], [1, 1, 0.75]);
         </motion.div>
 
         {/* Text below image */}
-        <div className="mt-20 w-full max-w-[500px] text-center">
+        <div className="mt-20 w-full max-w-[350px]">
           <div
             className="transition-all duration-700 ease-out"
             style={{ opacity: active ? 1 : 0.35 }}
           >
-            <p className="font-editorial text-[var(--brand-cream)] text-[18px] md:text-[21px] lg:text-[24px] leading-[1.35]">
+            <p className="font-editorial text-[var(--brand-cream)] text-[18px] md:text-[21px] lg:text-[24px] leading-[1.35] text-justify [text-align-last:center]">
               {paragraph?.text}
             </p>
 
+
             {paragraph?.em && (
-              <p className="font-editorial italic text-[#F2A65C] text-[18px] md:text-[21px] lg:text-[24px] leading-[1.35] mt-2">
+              <p className="font-editorial text-[var(--brand-cream)] text-[18px] md:text-[21px] lg:text-[24px] leading-[1.35] mt-2 text-center">
                 {paragraph.em}
               </p>
             )}
+
           </div>
         </div>
 
@@ -122,11 +124,9 @@ export default function ProductScrollStory({
             }`}
         >
           <h2 className="font-editorial text-[clamp(4rem,7vw,8rem)] leading-[0.99] tracking-[-0.04em] text-[var(--brand-cream)] text-center">
-            The
+            The Artisun
             <br />
-            Artisun
-            <br />
-            perspective
+            Perspective
           </h2>
         </div>
 

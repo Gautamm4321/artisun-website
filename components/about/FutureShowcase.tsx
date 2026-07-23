@@ -18,7 +18,7 @@ export default function FutureShowcase() {
     <section className="relative w-full min-h-[100svh] flex items-center overflow-hidden py-20 md:py-0">
       <div className="w-full md:grid md:grid-cols-2 md:items-center gap-10 lg:gap-16 px-6 md:px-12 lg:px-20">
         {/* ── Both products ── */}
-        <div className="relative h-[46vh] md:h-[80vh] mb-12 md:mb-0">
+        <div className="relative h-[46vh] md:h-[80vh] mb-12 md:mb-0 md:order-2">
           <motion.div
             {...rise(0, reduce)}
             className="absolute left-0 bottom-0 w-[52%] h-[80%] rounded-[22px] overflow-hidden shadow-[0_40px_90px_-30px_rgba(0,0,0,0.75)] ring-1 ring-white/5"
@@ -40,11 +40,10 @@ export default function FutureShowcase() {
         </div>
 
         {/* ── Copy + CTA ── */}
-        <div className="max-w-[520px]">
+        <div className="max-w-[520px] md:order-1">
           <motion.div {...rise(0, reduce)} className="mb-6 flex items-center gap-4">
             <span className="h-px w-10 bg-[var(--brand-cream)]/40" />
             <span className="font-suisse uppercase tracking-[0.28em] text-[11px] md:text-[12px] text-[var(--brand-cream)]/70">
-              The collection
             </span>
           </motion.div>
 
