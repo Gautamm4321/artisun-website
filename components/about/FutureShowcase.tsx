@@ -54,7 +54,7 @@ export default function FutureShowcase() {
             In years to come..
           </motion.h2>
 
-          <motion.div {...rise(0.16, reduce)} className="mt-8 space-y-5 font-editorial text-[var(--brand-cream)]/80 text-[17px] md:text-[19px] leading-[1.55]">
+         <motion.div {...rise(0.16, reduce)} className="mt-8 space-y-5 font-editorial text-[var(--brand-cream)]/80 text-[17px] md:text-[19px] leading-[1.55]">
             <p>
               Artisun is just getting started. What you see today is the beginning of a longer
               collection — one focused on suncare and designed as skinwear.
@@ -63,7 +63,7 @@ export default function FutureShowcase() {
               Different layers for different mornings and different climates, each one built to the
               same standard. Artisun is bringing you two layers to begin.
             </p>
-            <p className="font-editorial italic text-[#F2A65C]">
+            <p>
               In years to come, it’ll grow with you, for you. For your skin, your needs and your climate.
             </p>
           </motion.div>

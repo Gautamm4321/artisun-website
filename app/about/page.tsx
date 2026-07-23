@@ -117,12 +117,12 @@ export default function AboutPage() {
       {/* 1 — HERO: revolving Origin bottle over the ARTISUN wordmark */}
       <AboutHero />
 
- {/* 2 — THE ARTISUN PERSPECTIVE */}
-      <section className="relative z-16 text-center px-4 pt-10 pb-8 w-full max-w-[100vw] mx-auto overflow-hidden">
-        <h2 className="font-editorial text-[clamp(2.5rem,5.5vw,7rem)] leading-[0.99] tracking-[-0.04em] text-[var(--brand-cream)] text-center uppercase">
-          <span className="block whitespace-nowrap">FOR THE INDIAN SKIN, FOR</span>
-          <span className="block whitespace-nowrap">THE INDIAN CLIMATES AND</span>
-          <span className="block whitespace-nowrap">FOR THE REAL INDIAN DAYS.</span>
+{/* 2 — THE ARTISUN PERSPECTIVE */}
+      <section className="relative z-16 w-full px-1 md:px-2 pt-12 pb-8 mx-auto overflow-hidden flex flex-col items-center justify-center">
+        <h2 className="font-editorial text-[clamp(2.5rem,6.8vw,8rem)] leading-[1.18] tracking-[-0.03em] text-[var(--brand-cream)] uppercase text-justify [text-align-last:justify] w-full">
+          <span className="block w-full mb-1">FOR THE INDIAN SKIN, FOR</span>
+          <span className="block w-full mb-1">THE INDIAN CLIMATES AND</span>
+          <span className="block w-full">FOR THE REAL INDIAN DAYS.</span>
         </h2>
       </section>
 
