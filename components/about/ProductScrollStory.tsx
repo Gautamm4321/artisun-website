@@ -63,7 +63,8 @@ function ImageSlot({
             className="transition-all duration-700 ease-out"
             style={{ opacity: active ? 1 : 0.35 }}
           >
-            <p className="font-suisse text-[var(--brand-cream)] text-[18px] md:text-[21px] lg:text-[24px] leading-[1.35] text-justify [text-align-last:left]">
+
+            <p className={`font-suisse text-[var(--brand-cream)] text-[18px] md:text-[21px] lg:text-[24px] leading-[1.35] text-justify ${flip ? '[text-align-last:left]' : '[text-align-last:right]'}`}>
               {paragraph?.text}
             </p>
 

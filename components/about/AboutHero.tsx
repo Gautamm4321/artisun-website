@@ -110,19 +110,14 @@ export default function AboutHero() {
         </p>
       </div>
 
-      {/* Intro paragraph — bottom-left, editorial, matching the site aesthetic */}
-      <div className="absolute left-6 bottom-14 md:left-12 md:bottom-16 z-[5] max-w-[92vw] md:max-w-[420px]">
-        <p className="font-suisse text-[var(--brand-cream)]/85 text-[15px] md:text-[18px] leading-[1.6]">
-          {HERO_SUB}
-        </p>
-      </div>
+
 
       {/* Scroll cue — bottom-right (GAZU's "new collection 2024") */}
       <div className="hidden md:block absolute right-6 bottom-14 md:right-12 md:bottom-16 z-[5] pointer-events-none text-right">
         <p className="font-suisse uppercase tracking-[0.28em] text-[10px] md:text-[11px] text-[var(--brand-cream)]/55">
-          Scroll to
+
           <br />
-          discover
+  
         </p>
       </div>
     </section>
