@@ -117,8 +117,8 @@ export default function AboutPage() {
       {/* 1 — HERO: revolving Origin bottle over the ARTISUN wordmark */}
       <AboutHero />
 
-{/* 2 — THE ARTISUN PERSPECTIVE */}
-      <section className="relative z-16 w-full px-1 md:px-2 pt-12 pb-8 mx-auto overflow-hidden flex flex-col items-center justify-center">
+      {/* 2 — THE ARTISUN PERSPECTIVE */}
+      <section className="relative z-16 w-full px-6 md:px-16 lg:px-24 pt-12 pb-8 mx-auto overflow-hidden flex flex-col items-center justify-center">
         <h2 className="font-editorial text-[clamp(2.5rem,6.8vw,8rem)] leading-[1.18] tracking-[-0.03em] text-[var(--brand-cream)] uppercase text-justify [text-align-last:justify] w-full">
           <span className="block w-full mb-1">FOR THE INDIAN SKIN, FOR</span>
           <span className="block w-full mb-1">THE INDIAN CLIMATES AND</span>
@@ -139,6 +139,18 @@ export default function AboutPage() {
         images={['/about-media/aura-1.jpg', '/about-media/aura-2.jpg', '/about-media/aura-3.jpg']}
         flip
       />
+
+
+      {/* ── Breaker Heading Section (Clean 3-Line Balanced Grid) ── */}
+      {/* ── Breaker Heading Section (Clean 3-Line Balanced Grid) ── */}
+      <section className="relative z-16 w-full px-6 md:px-16 lg:px-24 pt-20 pb-20 mx-auto overflow-hidden flex flex-col items-center justify-center">
+        <h2 className="font-editorial text-[clamp(2rem,4.8vw,5.5rem)] leading-[1.18] tracking-[-0.03em] text-[var(--brand-cream)] uppercase text-justify [text-align-last:justify] w-full">
+          <span className="block w-full mb-2">ARTISUN BRINGS TO YOU SUN</span>
+          <span className="block w-full mb-2">CARE, MADE THE WAY IT</span>
+          <span className="block w-full">SHOULD ALWAYS HAVE BEEN MADE.</span>
+        </h2>
+      </section>
+
 
       {/* 3 — IN YEARS TO COME */}
       <FutureShowcase />

@@ -112,7 +112,7 @@ export default function AboutHero() {
 
       {/* Intro paragraph — bottom-left, editorial, matching the site aesthetic */}
       <div className="absolute left-6 bottom-14 md:left-12 md:bottom-16 z-[5] max-w-[92vw] md:max-w-[420px]">
-        <p className="font-editorial text-[var(--brand-cream)]/85 text-[15px] md:text-[18px] leading-[1.6]">
+        <p className="font-suisse text-[var(--brand-cream)]/85 text-[15px] md:text-[18px] leading-[1.6]">
           {HERO_SUB}
         </p>
       </div>

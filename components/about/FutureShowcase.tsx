@@ -54,7 +54,7 @@ export default function FutureShowcase() {
             In years to come..
           </motion.h2>
 
-         <motion.div {...rise(0.16, reduce)} className="mt-8 space-y-5 font-editorial text-[var(--brand-cream)]/80 text-[17px] md:text-[19px] leading-[1.55]">
+         <motion.div {...rise(0.16, reduce)} className="mt-8 space-y-5 font-suisse text-[var(--brand-cream)]/80 text-[17px] md:text-[19px] leading-[1.55]">
             <p>
               Artisun is just getting started. What you see today is the beginning of a longer
               collection — one focused on suncare and designed as skinwear.

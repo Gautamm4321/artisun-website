@@ -14,6 +14,7 @@ function ImageSlot({
   paragraph,
   active,
   setRef,
+  flip,
 }: {
   src: string;
   i: number;
@@ -21,6 +22,7 @@ function ImageSlot({
   paragraph?: StoryParagraph;
   active: boolean;
   setRef: (el: HTMLDivElement | null) => void;
+  flip?: boolean;
 }) {
   const containerRef = useRef<HTMLDivElement | null>(null);
 
@@ -40,7 +42,7 @@ function ImageSlot({
       }}
     >
 
-<div className="min-h-[100svh] flex flex-col items-center px-6 md:px-8 pt-20 pb-15">
+      <div className={`min-h-[100svh] flex flex-col pt-20 pb-15 ${flip ? 'items-start' : 'items-end'}`}>
         {/* Image */}
         <motion.div
           style={{ scale }}
@@ -56,18 +58,18 @@ function ImageSlot({
         </motion.div>
 
         {/* Text below image */}
-        <div className="mt-20 w-full max-w-[350px]">
+        <div className="mt-20 w-full max-w-[440px]">
           <div
             className="transition-all duration-700 ease-out"
             style={{ opacity: active ? 1 : 0.35 }}
           >
-            <p className="font-editorial text-[var(--brand-cream)] text-[18px] md:text-[21px] lg:text-[24px] leading-[1.35] text-justify [text-align-last:center]">
+            <p className="font-suisse text-[var(--brand-cream)] text-[18px] md:text-[21px] lg:text-[24px] leading-[1.35] text-justify [text-align-last:left]">
               {paragraph?.text}
             </p>
 
 
             {paragraph?.em && (
-              <p className="font-editorial text-[var(--brand-cream)] text-[18px] md:text-[21px] lg:text-[24px] leading-[1.35] mt-2 text-center">
+              <p className="font-suisse text-[var(--brand-cream)] text-[18px] md:text-[21px] lg:text-[24px] leading-[1.35] mt-2 text-center">
                 {paragraph.em}
               </p>
             )}
@@ -115,15 +117,18 @@ export default function ProductScrollStory({
   }, []);
 
   return (
-    <section className="relative w-full">
+    <section className="relative w-full px-6 md:px-16 lg:px-24">
       <div className="md:grid md:grid-cols-2">
 
         {/* ── Editorial title side ── */}
+
         <div
-          className={`hidden md:flex items-center justify-center sticky top-0 h-screen ${flip ? 'md:order-2' : ''
+          className={`hidden md:flex items-center sticky top-0 h-screen ${flip ? 'md:order-2 justify-end' : 'justify-start'
             }`}
         >
-          <h2 className="font-editorial text-[clamp(4rem,7vw,8rem)] leading-[0.99] tracking-[-0.04em] text-[var(--brand-cream)] text-center">
+          <h2 className={`font-editorial text-[clamp(4rem,7vw,8rem)] leading-[0.99] tracking-[-0.04em] text-[var(--brand-cream)] ${flip ? 'text-right' : 'text-left'
+            }`}>
+
             The Artisun
             <br />
             Perspective
@@ -140,6 +145,7 @@ export default function ProductScrollStory({
               productLabel={productLabel}
               paragraph={paragraphs[i]}
               active={active === i}
+              flip={flip}
               setRef={(el) => {
                 slotRefs.current[i] = el;
               }}
