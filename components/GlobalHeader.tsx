@@ -14,7 +14,7 @@ export default function GlobalHeader({ startHidden = false }: { startHidden?: bo
       <Link href="/" className="w-8 h-8 md:w-10 md:h-10 flex items-center justify-center pointer-events-auto hover:opacity-80 transition-opacity">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img 
-          src={asset('/icon-artisun.png')} 
+          src={asset('/logo-artisun.svg')} 
           alt="Artisun Icon" 
           className="w-full h-full object-contain"
         />

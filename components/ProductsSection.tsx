@@ -173,7 +173,7 @@ function Scene({ scrollProgress, activeIndex }: { scrollProgress: React.MutableR
 
       {/* Centered Bottles */}
       <Bottle modelPath={asset('/1.glb')} scrollProgress={scrollProgress} isActive={activeIndex === 0} scale={0.35} />
-      <Bottle modelPath={asset('/2.glb')} scrollProgress={scrollProgress} isActive={activeIndex === 1} scale={0.42} />
+      <Bottle modelPath={asset('/1.glb')} scrollProgress={scrollProgress} isActive={activeIndex === 1} scale={0.42} />
     </>
   );
 }
@@ -443,4 +443,3 @@ export default function ProductsSection() {
 }
 
 useGLTF.preload(asset('/1.glb'));
-useGLTF.preload(asset('/2.glb'));

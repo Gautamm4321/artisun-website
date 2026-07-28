@@ -20,7 +20,7 @@ const VIDEOS = [
 
 const MODELS: string[] = [];
 
-const FETCH_ASSETS = [asset('/1.glb'), asset('/2.glb')];
+const FETCH_ASSETS = [asset('/1.glb')];
 
 export const preloadedAssets: {
   images: Record<string, HTMLImageElement>;
