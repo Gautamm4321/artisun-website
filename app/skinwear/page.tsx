@@ -3,9 +3,13 @@
 import { useEffect, useRef } from 'react';
 import GlobalHeader from '../../components/GlobalHeader';
 import Footer from '../../components/Footer';
-import SkinwhereImageReveal from '../../components/skinwear/SkinwearImageReveal';
 import CustomCursor from '../../components/CustomCursor';
-export default function SkinwherePage() {
+import SkinwearImageReveal from '../../components/skinwear/SkinwearImageReveal';
+import SkinwearForgettable from '../../components/skinwear/SkinwearForgettable';
+import SkinwearWorn from '../../components/skinwear/SkinwearWorn';
+import SkinwearDailyLife from '../../components/skinwear/SkinwearDailyLife';
+
+export default function SkinwearPage() {
   const mouseProxy = useRef({ x: 0, y: 0, px: 0, py: 0 });
 
   useEffect(() => {
@@ -21,10 +25,25 @@ export default function SkinwherePage() {
   }, []);
 
   return (
-    <main className="min-h-screen bg-[#080307] text-white">
+    <main className="relative w-full min-h-[100svh] overflow-clip">
+      {/* Molten Core — the same brand gradient surface as the home hero */}
+      <div id="global-bg" className="theme-molten-core" />
+
       <CustomCursor mouseProxy={mouseProxy} />
       <GlobalHeader />
-      <SkinwhereImageReveal />
+
+      {/* 1 — opening reveal: portrait rises under the stuck question */}
+      <SkinwearImageReveal />
+
+      {/* 2 — why does something we use every day feel so forgettable */}
+      <SkinwearForgettable />
+
+      {/* 3 — tolerated vs worn */}
+      <SkinwearWorn />
+
+      {/* 4 — clothing for your skin, built for daily life */}
+      <SkinwearDailyLife />
+
       <Footer />
     </main>
   );
