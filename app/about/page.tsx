@@ -18,29 +18,54 @@ import FutureShowcase from '../../components/about/FutureShowcase';
 const ORIGIN_PARAS: StoryParagraph[] = [
   {
     text:
-      'Artisun was born out of refusal. After years of experiencing disconnect with every sunscreen it tried, it refused. ',
+      'The sunscreen you bought because you were told to. White, heavy, faintly medical.',
   },
   {
     text:
-      'It refused to let sun care sit as an afterthought in a long lineup of beauty products. It refused to treat sunscreen as an occasional use when it should have been the foundation of every morning.It refused formulas built around skin type alone, with no consideration for the climate the skin lives in.',
+      'You wore it twice, hated how it felt, and slid it to the back of a drawer. We had that bottle too. ',
 
   },
   {
     text:
-      'So Artisun came forward. Not to add another sunscreen to a crowded shelf,But to do something the category had never quite done, take Indian sun protection seriously.',
+      'And we started wondering why the one thing we’re told to wear every day was the one thing nobody had made worth wearing.',
   },
 ];
 
 const AURA_PARAS: StoryParagraph[] = [
   {
     text:
-      'To formulate for the humidity of Mumbai’s monsoon. To stand up to the heat of  Chennai’s afternoon. To hold its ground through the pollution of Delhi’s evening.',
+      'Sunscreens were sorted by skin type,as if your skin were a fixed thing. But your skin changes with the day.',
+  },
+  {
+    text: 'Tight in a dry winter, greasy by ahumid afternoon, dull in the smog. The sun doesn’t check your skin type.',
   },
   {
     text:
-      'Because the Indian sun is anything but forgiving. What pays the price is skin left unprotected — pigmentation that darkens slowly, fine lines that arrive earlier than they should, skin tone that loses its evenness across the year, damage that doesn’t show today but compounds over time.',
+      'It just shows up, different in every city and season. Almost nothing was built for that.',
   },
+];
 
+/* 3rd block — placeholder text, replace with real content later */
+const ORIGIN_PARAS_2: StoryParagraph[] = [
+  {
+    text: 'We dress for the weather every day. Considered, chosen, because what we wear is seen'
+  },
+  { text: 'But the skin doing the real work of facing that weather got a chemist’s shelf and a note to reapply.' },
+  { text: 'We thought it most certainly deserved more thought than that.' },
+];
+
+/* 4th block — placeholder text, replace with real content later */
+const AURA_PARAS_2: StoryParagraph[] = [
+  { text: 'Light enough to forget you have it on. Good enough to leave out instead of hidden away.' },
+  { text: 'Built for your weather, not a lab’s idea of it.' },
+  { text: 'Not a step to get through but something you reach for, everyday.' },
+];
+
+/* 5th block — placeholder text, replace with real content later */
+const ORIGIN_PARAS_3: StoryParagraph[] = [
+  { text: 'Protection you wear, the way you’d wear anything else that’s yours.' },
+  { text: 'Made here, in India, for the sun we know.' },
+  { text: 'Because something you put on everyday should earn its place.' },
 ];
 
 export default function AboutPage() {
@@ -69,8 +94,6 @@ export default function AboutPage() {
     gsap.ticker.add(raf);
     gsap.ticker.lagSmoothing(0);
 
-    // Same molten background as the home page — bright through the whole page,
-    // darkening only as the footer arrives.
     gsap.set(document.documentElement, {
       '--mc-center': '100%',
       '--mc-pos-1': '20%',
@@ -109,55 +132,86 @@ export default function AboutPage() {
     <main className="relative w-full min-h-[100svh] overflow-clip">
       <ScrollProgressBar />
 
-      {/* Molten Core — the brand gradient surface (same as home) */}
       <div id="global-bg" className="theme-molten-core" />
 
       <CustomCursor mouseProxy={mouseProxy} />
       <GlobalHeader />
 
-      {/* 1 — HERO: revolving Origin bottle over the ARTISUN wordmark */}
+      {/* 1 — HERO */}
       <AboutHero />
 
-      {/* 2 — THE ARTISUN PERSPECTIVE */}
-      {/* 2 — THE ARTISUN PERSPECTIVE */}
-      <section className="relative z-16 w-full px-6 md:px-16 lg:px-24 pt-12 pb-8 mx-auto overflow-hidden flex flex-col items-center justify-center">
-        <div className="w-full mb-10 md:mb-20">
-          <p className="font-suisse text-[var(--brand-cream)]/80 text-[20px] md:text-[26px] lg:text-[30px] leading-[1.4] text-justify [text-align-last:center] w-full">
-            Artisun is an Indian sun-care house, built around the sun and the way we live with it. We make Skinwear — wearable layers that protect, hydrate, and move with the day.
+      <section className="relative z-16 w-full max-w-380 px-6 md:px-16 lg:px-8 pt-12 pb-8">
+        <div className="w-full max-w-380 space-y-2">
+          <p className="font-suisse text-[var(--brand-cream)]/80 text-[20px] sm:text-[26px] md:text-[32px] lg:text-[34px] leading-[1.3] text-center">
+            Artisun is an Indian sun-care house, built around the sun and the way we live with it.
+          </p>
+
+          <p className="font-suisse text-[var(--brand-cream)]/80 text-[20px] sm:text-[26px] md:text-[32px] lg:text-[34px] leading-[1.3] text-center">
+            We make Skinwear&trade; — wearable layers that protect, hydrate, and move with the day.
+          </p>
+
+          <p className="font-suisse text-[var(--brand-cream)]/80 text-[20px] sm:text-[26px] md:text-[32px] lg:text-[34px] leading-[1.3] text-center">
+            For the Indian skin, for the Indian climate and for the real Indian days.
           </p>
         </div>
-        <h2 className="font-editorial text-[clamp(2.5rem,6.8vw,8rem)] leading-[1.18] tracking-[-0.03em] text-[var(--brand-cream)] uppercase text-justify [text-align-last:justify] w-full">
-          <span className="block w-full mb-1">FOR THE INDIAN SKIN, FOR</span>
-          <span className="block w-full mb-1">THE INDIAN CLIMATES AND</span>
-          <span className="block w-full">FOR THE REAL INDIAN DAYS.</span>
-        </h2>
       </section>
 
+      {/* 1st — RIGHT */}
       <ProductScrollStory
         productLabel="Origin"
         productSub=""
         paragraphs={ORIGIN_PARAS}
         images={['/about-media/origin-1.jpg', '/about-media/origin-2.jpg', '/about-media/origin-3.jpg']}
+        eyebrow="The Beginning"
+        heading={['It started with a', 'bottle in a drawer']}
       />
+
+      {/* 2nd — LEFT */}
       <ProductScrollStory
         productLabel="Aura"
         productSub="Pearl Skinwear"
         paragraphs={AURA_PARAS}
         images={['/about-media/aura-1.jpg', '/about-media/aura-2.jpg', '/about-media/aura-3.jpg']}
         flip
+        eyebrow="The Problem"
+        heading={['It was made for a lab.', "You don't live in one."]}
       />
 
+      {/* 3rd — RIGHT */}
+      <ProductScrollStory
+        productLabel="Origin"
+        productSub=""
+        paragraphs={ORIGIN_PARAS_2}
+        images={['/about-media/origin-1.jpg', '/about-media/origin-2.jpg', '/about-media/origin-3.jpg']}
+        eyebrow="The Feeling"
+        heading={['Fashion gets the world.',  'Skin gets a shelf.']}
+      />
 
-      {/* ── Breaker Heading Section (Clean 3-Line Balanced Grid) ── */}
-      {/* ── Breaker Heading Section (Clean 3-Line Balanced Grid) ── */}
-      <section className="relative z-16 w-full px-6 md:px-16 lg:px-24 pt-20 pb-20 mx-auto overflow-hidden flex flex-col items-center justify-center">
-        <h2 className="font-editorial text-[clamp(2rem,4.8vw,5.5rem)] leading-[1.18] tracking-[-0.03em] text-[var(--brand-cream)] uppercase text-justify [text-align-last:justify] w-full">
-          <span className="block w-full mb-2">ARTISUN BRINGS TO YOU SUN</span>
-          <span className="block w-full mb-2">CARE, MADE THE WAY IT</span>
-          <span className="block w-full">SHOULD ALWAYS HAVE BEEN MADE.</span>
-        </h2>
+      {/* 4th — LEFT */}
+      <ProductScrollStory
+        productLabel="Aura"
+        productSub="Pearl Skinwear"
+        paragraphs={AURA_PARAS_2}
+        images={['/about-media/aura-1.jpg', '/about-media/aura-2.jpg', '/about-media/aura-3.jpg']}
+        flip
+        eyebrow="What We Made"
+        heading={['Sun care you', 'will want to wear.']}
+      />
 
-        <div className="relative w-full h-[220px] md:h-[320px] lg:h-[440px] mt-10 md:mt-24 rounded-[10px] overflow-hidden">
+      {/* 5th — RIGHT */}
+      <ProductScrollStory
+        productLabel="Origin"
+        productSub=""
+        paragraphs={ORIGIN_PARAS_3}
+        images={['/about-media/origin-1.jpg', '/about-media/origin-2.jpg', '/about-media/origin-3.jpg']}
+        eyebrow="What We Call It"
+        heading={['Artisun Skinwear™']}
+      />
+
+      {/* ── Breaker Heading Section ── */}
+      {/* ── Breaker Image Section ── */}
+      <section className="relative z-16 w-full px-6 md:px-16 lg:px-24 pt-20 pb-6 mx-auto overflow-hidden flex flex-col items-center justify-center">
+        <div className="relative w-full h-[220px] md:h-[320px] lg:h-[440px] rounded-[10px] overflow-hidden">
           <Image
             src={asset('/ARTISUN IMAGE.png')}
             alt="Artisun sun care"
@@ -167,7 +221,6 @@ export default function AboutPage() {
           />
         </div>
       </section>
-
 
       {/* 3 — IN YEARS TO COME */}
       <FutureShowcase />
