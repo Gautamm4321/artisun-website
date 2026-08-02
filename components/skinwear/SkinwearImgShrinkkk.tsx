@@ -13,21 +13,44 @@ export default function SkinwearImgShrink2() {
     });
 
     // Width Transform: Full width se ~38% (left side box) tak shrink hoga
-    const imageWidth = useTransform(scrollYProgress, [0.2, 0.6], ['100%', '38%']);
+    const imageWidth = useTransform(
+        scrollYProgress,
+        [0.2, 0.6],
+        ['100%', '38%']
+    );
 
-    // Content Fade-in: Jab image shrink hona start ho, tab right content smoothly aayega
-    const textOpacity = useTransform(scrollYProgress, [0.3, 0.6], [0, 1]);
-    const textX = useTransform(scrollYProgress, [0.3, 0.6], [30, 0]);
+    // Text appears once and stays visible
+    const textOpacity = useTransform(
+        scrollYProgress,
+        [0.3, 0.6, 1],
+        [0, 1, 1]
+    );
+
+    const textX = useTransform(
+        scrollYProgress,
+        [0.3, 0.6, 1],
+        [30, 0, 0]
+    );
+
+    // Blur only during entry
+    const textBlur = useTransform(
+        scrollYProgress,
+        [0.3, 0.6, 1],
+        ['10px', '0px', '0px']
+    );
 
     return (
-        <section ref={containerRef} className="relative w-full h-[220vh] z-[16]">
+        <section
+            ref={containerRef}
+            className="relative w-full h-[220vh] z-[16]"
+        >
             {/* Sticky Viewport Area with exact side paddings */}
             <div className="sticky top-0 h-[100vh] w-full flex items-center justify-center px-8 md:px-16 lg:px-24">
 
                 {/* Fixed Height Layout Frame */}
                 <div className="w-full max-w-[1300px] h-[75vh] relative">
 
-                    {/* IMAGE — absolute, left-anchored: full width in Phase 1, shrinks to left box in Phase 2 */}
+                    {/* IMAGE — absolute, left-anchored */}
                     <motion.div
                         style={{ width: imageWidth }}
                         className="absolute left-0 top-0 h-full overflow-hidden z-20 rounded-[10px]"
@@ -41,9 +64,13 @@ export default function SkinwearImgShrink2() {
                         />
                     </motion.div>
 
-                    {/* RIGHT CONTENT — absolute, right-anchored, fades in during phase 2 */}
+                    {/* RIGHT CONTENT */}
                     <motion.div
-                        style={{ opacity: textOpacity, x: textX }}
+                        style={{
+                            opacity: textOpacity,
+                            x: textX,
+                            filter: textBlur,
+                        }}
                         className="absolute right-0 top-0 h-full w-full md:w-[62%] flex flex-col justify-center space-y-6 md:space-y-8 text-right z-10"
                     >
                         {/* Main Editorial Heading */}
@@ -53,7 +80,7 @@ export default function SkinwearImgShrink2() {
                             has a wardrobe
                         </h2>
 
-                        {/* Paragraph Text with Exact Line Breaks */}
+                        {/* Paragraph Text */}
                         <p className="font-suisse text-[var(--brand-cream)]/90 text-[16px] md:text-[19px] lg:text-[21px] leading-[1.5] max-w-[680px] ml-auto">
                             This is the start of sun care, made the way
                             <br />

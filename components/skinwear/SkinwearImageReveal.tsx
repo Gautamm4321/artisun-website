@@ -6,10 +6,8 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import { asset } from '@/lib/asset';
 
 /*
- * FRAME 1 — molten-core opening (same surface as the home hero), then on
- * scroll a 3:4 model portrait rises from the bottom of the viewport with a
- * smaller product frame trailing it, while the opening line stays stuck in
- * the centre of the screen.
+ * FRAME 1 — molten-core opening section.
+ * On scroll, a 3:4 model portrait rises with text overlay styled directly inside the image frame (Image 2 style).
  */
 export default function SkinwearImageReveal() {
   const sectionRef = useRef<HTMLDivElement | null>(null);
@@ -19,94 +17,81 @@ export default function SkinwearImageReveal() {
     offset: ['start start', 'end end'],
   });
 
-  // Big model frame — starts fully below the viewport, settles centred.
+  // 1st Background image — stays 100% opaque fixed background (no red bleed effect).
+  const bgOpacity = useTransform(scrollYProgress, [0, 0.9], [1, 1]);
+  const bgScale = useTransform(scrollYProgress, [0, 0.7], [1, 1.04]);
+
+  // 2nd Image Card — Phase 1: rises and settles into place FIRST (0 to 0.5)
   const imageY = useTransform(
     scrollYProgress,
-    [0, 0.15, 0.4, 0.62, 0.8],
-    ['105vh', '85vh', '45vh', '12vh', '0vh']
+    [0, 0.15, 0.3, 0.45, 0.5],
+    ['105vh', '85vh', '40vh', '10vh', '0vh']
   );
-  const imageScale = useTransform(scrollYProgress, [0, 0.5, 0.8], [0.94, 0.97, 1]);
+  const imageScale = useTransform(scrollYProgress, [0, 0.3, 0.5], [0.92, 0.96, 1]);
 
-  // Small product frame — nested in the big frame, trails it by a beat.
-  const productLag = useTransform(
-    scrollYProgress,
-    [0, 0.3, 0.65, 0.9],
-    ['55vh', '38vh', '10vh', '0vh']
-  );
-
-  // Opening line — present from the start, sitting over the rising image.
-  const textOpacity = useTransform(scrollYProgress, [0, 0.08, 0.9, 1], [0.9, 1, 1, 1]);
+  // Text — Phase 2: fades in only AFTER image has fully settled (0.55 to 0.85)
+  const textOpacity = useTransform(scrollYProgress, [0.55, 0.85], [0, 1]);
+  const textY = useTransform(scrollYProgress, [0.55, 0.85], [20, 0]);
 
   return (
-    <section ref={sectionRef} className="relative z-[15] w-full h-[300vh]">
-      <div className="sticky top-0 h-[100svh] w-full overflow-hidden">
-        {/* Rising frames — centred by the flex wrapper so the motion `y`
-            transform doesn't fight the centering translate */}
-        <div className="absolute inset-0 flex items-center justify-center">
-          <motion.div
-            style={{ y: imageY, scale: imageScale }}
-            className="
-              relative
-              w-[clamp(240px,60vw,340px)] md:w-[clamp(300px,33vw,460px)]
-              aspect-[3/4]
-              max-h-[74svh]
-              will-change-transform
-            "
-          >
-            {/* Big model frame — 3:4, roughly a third of the screen */}
-            <div className="absolute inset-0 overflow-hidden shadow-[0_60px_120px_-40px_rgba(0,0,0,0.6)]">
-              <Image
-                src={asset('/skinwear-media/model-portrait.jpg')}
-                alt="Skinwear"
-                fill
-                sizes="(max-width: 768px) 60vw, 33vw"
-                className="object-cover"
-              />
-            </div>
+    <section ref={sectionRef} className="relative z-[15] w-full h-[250vh]">
+      <div className="sticky top-0 h-[100svh] w-full overflow-hidden flex items-center justify-center">
 
-            {/* Trailing product frame — smaller, hanging off the lower right */}
-            <motion.div
-              style={{ y: productLag }}
-              className="
-                absolute
-                -right-[16%] md:-right-[22%]
-                bottom-[-6%]
-                w-[34%]
-                aspect-[3/4]
-                overflow-hidden
-                shadow-[0_40px_80px_-30px_rgba(0,0,0,0.55)]
-                will-change-transform
-              "
-            >
-              <Image
-                src={asset('/about-media/origin-1.jpg')}
-                alt="Artisun Origin Skinwear"
-                fill
-                sizes="(max-width: 768px) 22vw, 12vw"
-                className="object-cover"
-              />
-            </motion.div>
-          </motion.div>
-        </div>
-
-        {/* Stuck centre line */}
+        {/* 1st Image (Fixed Background Image - stays full page until 2nd image scrolls up over it) */}
         <motion.div
-          style={{ opacity: textOpacity }}
-          className="absolute inset-0 z-10 flex items-center justify-center px-6 pointer-events-none"
+          style={{ opacity: bgOpacity, scale: bgScale }}
+          className="absolute inset-0 w-full h-full pointer-events-none z-[1]"
         >
-          <p
-            className="
-              font-editorial
-              text-[var(--brand-cream)]
-              text-[clamp(1.5rem,3.6vw,2.6rem)]
-              leading-[1.25]
-              text-center
-              max-w-[780px]
-              drop-shadow-[0_2px_24px_rgba(0,0,0,0.45)]
-            "
+          <div className="relative w-full h-full overflow-hidden">
+            <Image
+              src={asset('/bg1.png')}
+              alt="Artisun Skinwear Hero"
+              fill
+              sizes="100vw"
+              className="object-cover object-center"
+              priority
+            />
+            {/* Subtle dark overlay for UI readability without changing background tone */}
+            <div className="absolute inset-0 bg-black/20 pointer-events-none" />
+          </div>
+        </motion.div>
+
+        {/* 2nd Image Card — rises directly OVER the background image on scroll */}
+        <motion.div
+          style={{ y: imageY, scale: imageScale }}
+          className="
+            relative z-[10]
+            w-[clamp(270px,68vw,380px)] md:w-[clamp(340px,38vw,500px)]
+            aspect-[3/4]
+            max-h-[80svh]
+            will-change-transform
+            flex items-center justify-center
+          "
+        >
+          {/* Big model frame — 3:4 portrait (clean without any text inside) */}
+          <div className="relative w-full h-full overflow-hidden rounded-xl shadow-[0_50px_120px_rgba(0,0,0,0.9)] group backdrop-blur-sm">
+            <Image
+              src={asset('/skinwear-media/model-portrait.jpg')}
+              alt="Skinwear"
+              fill
+              sizes="(max-width: 768px) 68vw, 38vw"
+              className="object-cover"
+              priority
+            />
+
+            {/* Dark vignette gradient overlay for contrast */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-black/40 pointer-events-none" />
+          </div>
+
+          {/* Overlapping Center Text — fades in only after the image has settled */}
+          <motion.div
+            style={{ opacity: textOpacity, y: textY }}
+            className="absolute inset-0 z-20 pointer-events-none flex items-center justify-center px-4"
           >
-            It started with a small, frustrating question.
-          </p>
+            <h2 className="font-editorial whitespace-nowrap text-[clamp(1.2rem,3.4vw,2.3rem)] text-[var(--brand-cream)] leading-none tracking-[-0.01em] drop-shadow-[0_4px_35px_rgba(0,0,0,0.95)] text-center">
+              Our word for a thing that didn’t have one
+            </h2>
+          </motion.div>
         </motion.div>
       </div>
     </section>
