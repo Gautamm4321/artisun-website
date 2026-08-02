@@ -6,7 +6,8 @@ import Footer from '../../components/Footer';
 import CustomCursor from '../../components/CustomCursor';
 import SkinwearImageReveal from '../../components/skinwear/SkinwearImageReveal';
 import SkinwearForgettable from '../../components/skinwear/SkinwearForgettable';
-import SkinwearWorn from '../../components/skinwear/SkinwearWorn';
+import SkinwearImgShrink from '../../components/skinwear/SkinwearImgShrink';
+import SkinwearImgShrinkkk from '../../components/skinwear/SkinwearImgShrinkkk';
 import SkinwearDailyLife from '../../components/skinwear/SkinwearDailyLife';
 
 export default function SkinwearPage() {
@@ -38,8 +39,11 @@ export default function SkinwearPage() {
       {/* 2 — why does something we use every day feel so forgettable */}
       <SkinwearForgettable />
 
-      {/* 3 — tolerated vs worn */}
-      <SkinwearWorn />
+      {/* 2.5 — dress your body vs dress your skin scroll section */}
+      <SkinwearImgShrink />
+
+      {/* 3.5 — dress your body vs dress your skin scroll section */}
+      <SkinwearImgShrinkkk />
 
       {/* 4 — clothing for your skin, built for daily life */}
       <SkinwearDailyLife />
