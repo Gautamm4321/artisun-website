@@ -34,42 +34,42 @@ const BAND_CONFIGS: Record<WeatherBand, BandDetails> = {
   HUMID_HEAT: {
     readLine: 'Sticky and hot out. You want light, not layers, today.',
     originPumps: '2 pumps',
-    auraPearls: '2 pearls - "light and fresh, melts right in"',
+    auraPearls: '2 pearls - light and fresh, melts right in',
     reapplyLine: 'Top up every 2 hours - the sweat eats it faster today.',
     leadProduct: 'Aura',
   },
   DRY_HEAT: {
     readLine: 'Dry heat and strong sun. Your skin will drink this up.',
-    originPumps: '2-3 pumps - "go for 3 if your skin feels tight"',
-    auraPearls: '2 pearls - "and Origin underneath if you want the extra moisture"',
+    originPumps: '2-3 pumps - go for 3 if your skin feels tight',
+    auraPearls: '2 pearls - and Origin underneath if you want the extra moisture',
     reapplyLine: 'Reapply every 2 hours - high sun, low mercy.',
     leadProduct: 'Origin',
   },
   HIGH_SUN: {
     readLine: "Bright out. The UV is doing the most today, even if it doesn't feel like it.",
     originPumps: '2 pumps',
-    auraPearls: '2 pearls - "even, light coverage"',
+    auraPearls: '2 pearls - even, light coverage',
     reapplyLine: "This is a reapply day — every 2 hours if you're out.",
     leadProduct: 'Aura',
   },
   COLD: {
     readLine: 'Cold and dry. Your skin wants a little more today.',
-    originPumps: '3 pumps - "a touch more to keep skin from going tight"',
-    auraPearls: '3 pearls - "more nourishment for the dry cold"',
+    originPumps: '3 pumps - a touch more to keep skin from going tight',
+    auraPearls: '3 pearls - more nourishment for the dry cold',
     reapplyLine: "Every 3 hours is fine - the sun's gentler now.",
     leadProduct: 'Origin',
   },
   WET: {
     readLine: 'Damp and humid. A little goes a long way right now.',
     originPumps: '2 pumps',
-    auraPearls: '1-2 pearls - "light, and it holds through the damp"',
+    auraPearls: '1-2 pearls - light, and it holds through the damp',
     reapplyLine: 'After you get caught in the rain, or every 2-3 hours out.',
     leadProduct: 'Aura',
   },
   MILD: {
     readLine: "Easy weather today but the sun's still on. Don't skip it.",
     originPumps: '2 pumps',
-    auraPearls: '2 pearls - "your everyday amount"',
+    auraPearls: '2 pearls - your everyday amount',
     reapplyLine: "Every 2-3 hours if you're out for long.",
     leadProduct: 'Aura',
   },
@@ -78,11 +78,11 @@ const BAND_CONFIGS: Record<WeatherBand, BandDetails> = {
 // ── Step 5: Visual state per band ──
 const BAND_VISUALS: Record<WeatherBand, BandVisual> = {
   HUMID_HEAT: { sunx: '78%', suny: '14%', skyWash: 'rgba(255,175,90,.5)' },
-  DRY_HEAT:   { sunx: '60%', suny: '8%',  skyWash: 'rgba(255,150,70,.6)' },
-  HIGH_SUN:   { sunx: '68%', suny: '10%', skyWash: 'rgba(255,190,120,.5)' },
-  COLD:       { sunx: '30%', suny: '22%', skyWash: 'rgba(150,180,200,.4)' },
-  WET:        { sunx: '70%', suny: '26%', skyWash: 'rgba(150,160,165,.45)' },
-  MILD:       { sunx: '72%', suny: '16%', skyWash: 'rgba(230,200,150,.4)' },
+  DRY_HEAT: { sunx: '60%', suny: '8%', skyWash: 'rgba(255,150,70,.6)' },
+  HIGH_SUN: { sunx: '68%', suny: '10%', skyWash: 'rgba(255,190,120,.5)' },
+  COLD: { sunx: '30%', suny: '22%', skyWash: 'rgba(150,180,200,.4)' },
+  WET: { sunx: '70%', suny: '26%', skyWash: 'rgba(150,160,165,.45)' },
+  MILD: { sunx: '72%', suny: '16%', skyWash: 'rgba(230,200,150,.4)' },
 };
 
 // Default fallback values used when geo fails entirely (spec fallback table)
@@ -296,7 +296,7 @@ export default function ClimateHero() {
         className="text-center max-w-[720px] mb-6 px-4 font-sans leading-relaxed tracking-wide space-y-1"
       >
         <p className="text-lg md:text-xl font-normal opacity-95 italic">
-          &quot;{activeConfig.readLine}&quot;
+          {activeConfig.readLine}
         </p>
         <p className="text-sm md:text-base opacity-80 font-light">
           Here&rsquo;s what your skin can wear today:
@@ -312,11 +312,7 @@ export default function ClimateHero() {
       >
         {/* CARD 1: Aura */}
         <div className="bg-black/25 backdrop-blur-md rounded-none border border-white/10 overflow-hidden flex flex-col justify-between h-full group hover:border-white/20 transition-all relative">
-          {activeConfig.leadProduct === 'Aura' && (
-            <span className="absolute top-2 right-2 bg-[#EAE3D2] text-[#6B241A] text-[10px] uppercase font-bold px-2 py-0.5 z-20">
-              Today&apos;s Pick
-            </span>
-          )}
+
           <div className="p-5 flex items-start gap-4">
             <div className="relative w-24 h-24 md:w-28 md:h-28 bg-[#8B3A32] flex-shrink-0 overflow-hidden rounded-none">
               <Image
@@ -340,11 +336,7 @@ export default function ClimateHero() {
 
         {/* CARD 2: Origin */}
         <div className="bg-black/25 backdrop-blur-md rounded-none border border-white/10 overflow-hidden flex flex-col justify-between h-full group hover:border-white/20 transition-all relative">
-          {activeConfig.leadProduct === 'Origin' && (
-            <span className="absolute top-2 right-2 bg-[#EAE3D2] text-[#6B241A] text-[10px] uppercase font-bold px-2 py-0.5 z-20">
-              Today&apos;s Pick
-            </span>
-          )}
+
           <div className="p-5 flex items-start gap-4">
             <div className="relative w-24 h-24 md:w-28 md:h-28 bg-[#8B3A32] flex-shrink-0 overflow-hidden rounded-none">
               <Image
