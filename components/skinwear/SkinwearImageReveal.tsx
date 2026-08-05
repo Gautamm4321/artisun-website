@@ -29,9 +29,9 @@ export default function SkinwearImageReveal() {
   );
   const imageScale = useTransform(scrollYProgress, [0, 0.3, 0.5], [0.92, 0.96, 1]);
 
-  // Text — Phase 2: fades in only AFTER image has fully settled (0.55 to 0.85)
-  const textOpacity = useTransform(scrollYProgress, [0.55, 0.85], [0, 1]);
-  const textY = useTransform(scrollYProgress, [0.55, 0.85], [20, 0]);
+  // Text — Phase 2: fades in & stays 100% visible on further scroll (no fade-out)
+  const textOpacity = useTransform(scrollYProgress, [0.55, 0.85, 1], [0, 1, 1]);
+  const textY = useTransform(scrollYProgress, [0.55, 0.85, 1], [20, 0, 0]);
 
   return (
     <section ref={sectionRef} className="relative z-[15] w-full h-[250vh]">

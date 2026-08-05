@@ -9,7 +9,6 @@ import ScrollProgressBar from '../../components/ScrollProgressBar';
 // 1. ClimateHero Component Import
 import ClimateHero from '../../components/climate/ClimateHero';
 import ClimateBuildForWeather from '../../components/climate/ClimateBuildForWeather';
-import ClimateSkinVsWeather from '../../components/climate/ClimateSkinVsWeather';
 import ClimatePartOfSkincare from '../../components/climate/ClimatePartOfSkincare';
 import ClimateStats from '../../components/climate/ClimateStats';
 import ClimateRoutineGallery from '../../components/climate/ClimateRoutineGallery';
@@ -47,9 +46,6 @@ export default function ClimatePage() {
 
             {/* SECTION 2 */}
             <ClimateBuildForWeather />
-
-            {/* SECTION 3 */}
-            <ClimateSkinVsWeather />
 
             {/* SECTION 4 */}
             <ClimatePartOfSkincare />

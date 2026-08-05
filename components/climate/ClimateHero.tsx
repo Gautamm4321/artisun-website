@@ -247,7 +247,7 @@ export default function ClimateHero() {
           className="w-full max-w-[620px] bg-black/25 backdrop-blur-md rounded-lg pt-4 pb-5 px-6 md:px-8 border border-white/10 text-center shadow-2xl mb-4"
         >
           <p className="text-base md:text-lg font-editorial tracking-wide opacity-90 mb-3">
-            {weather?.city ? `Right now in [${weather.city}]` : 'Sun care for your weather'}
+            {weather?.city ? `Right now in ${weather.city}` : 'Sun care for your weather'}
           </p>
 
           {weatherError ? (
@@ -277,7 +277,6 @@ export default function ClimateHero() {
               <div className="flex flex-col items-center">
                 <span
                   className="font-editorial text-[clamp(2.5rem,5.5vw,4.2rem)] leading-none transition-colors duration-500"
-                  style={{ color: loading ? undefined : uvColor(weather?.uvIndex ?? 6) }}
                 >
                   {loading ? '--' : (weather?.uvIndex ?? 6)}
                 </span>

@@ -41,7 +41,10 @@ function ImageSlot({
       }}
     >
 
-      <div className={`min-h-[100svh] flex flex-col pt-20 pb-15 ${flip ? 'items-start' : 'items-end'}`}>
+      <div
+        className={`min-h-[100svh] flex flex-col pb-15 ${i === 0 ? 'pt-[35vh] md:pt-[45vh]' : 'pt-20'
+          } ${flip ? 'items-start' : 'items-end'}`}
+      >
         <motion.div
           style={{ scale }}
           className="relative w-full max-w-[440px] h-[65vh] rounded-[24px] overflow-hidden shadow-[0_40px_90px_-30px_rgba(0,0,0,0.7)] ring-1 ring-white/5"

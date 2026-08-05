@@ -2,45 +2,79 @@
 
 import { motion } from 'framer-motion';
 
-export default function ClimateBuildForWeather() {
+export default function ClimateSkinVsWeather() {
   return (
-    <section className="relative z-10 w-full min-h-[50vh] md:min-h-[85vh] flex flex-col items-center justify-center px-4 py-12 md:py-20 text-[var(--brand-cream)] text-center overflow-hidden">
+    <section 
+      className="relative z-10 w-full flex flex-col items-center justify-center px-6 py-16 md:py-24 overflow-hidden"
+      style={{
+        background: 'radial-gradient(circle at 50% -20%, #d84315 0%, #a62111 35%, #6a0404 100%)'
+      }}
+    >
       
-      {/* Main Editorial Heading — 1 Line on Laptop & Tablet, Wrapped on Mobile */}
-      <motion.h2
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: '-50px' }}
-        transition={{ duration: 0.8 }}
-        className="font-editorial text-[clamp(1.6rem,3.8vw,4.8rem)] font-medium mb-8 md:mb-14 md:whitespace-nowrap tracking-tight leading-tight px-2 max-w-[1400px]"
-      >
-        Why we build for weather, not just skin type
-      </motion.h2>
+      {/* Content wrapper */}
+      <div className="w-full max-w-[1300px] mx-auto text-center space-y-10 md:space-y-14 text-[#fff8f0]">
 
-      {/* Paragraph Block — Adaptive Fluid Flow for Mobile */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: '-50px' }}
-        transition={{ duration: 0.8, delay: 0.2 }}
-        className="max-w-[700px] mx-auto space-y-6 md:space-y-10 text-lg sm:text-2xl md:text-3xl font-sans font-normal opacity-95 leading-relaxed text-center px-2"
-      >
-        <p>
-          Every sunscreen asks the<br className="hidden sm:inline" />
-          {' '}same question: <strong className="font-bold opacity-100">oily or dry?</strong><br className="hidden sm:inline" />
-          {' '}But your skin isn’t oily or dry<br className="hidden sm:inline" />
-          {' '}in a fixed way.
-        </p>
+        {/* --- BLOCK 1 --- */}
+        {/* Gap kam karne ke liye space-y-2 md:space-y-3 use kiya hai */}
+        <div className="space-y-2 md:space-y-3">
+          {/* H1: Heading size ko clamp scale reduce karke chota kiya hai */}
+          <motion.h1
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-100px' }}
+            transition={{ duration: 0.9, ease: [0.215, 0.610, 0.355, 1.000] }}
+            className="font-editorial text-[clamp(2rem,4.5vw,4.2rem)] leading-[1.08] tracking-tight"
+          >
+            Why we build for weather,<br />
+            not just skin type
+          </motion.h1>
 
-        <p>
-          It changes the second the<br className="hidden sm:inline" />
-          {' '}<strong className="font-bold opacity-100">weather does</strong> — tight in a<br className="hidden sm:inline" />
-          {' '}Delhi December, greasy in a<br className="hidden sm:inline" />
-          {' '}Bombay July, dull in the<br className="hidden sm:inline" />
-          {' '}September smog.
-        </p>
-      </motion.div>
+          {/* P1 */}
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-100px' }}
+            transition={{ duration: 0.9, delay: 0.2, ease: [0.215, 0.610, 0.355, 1.000] }}
+            className="font-sans text-[clamp(1rem,1.8vw,1.4rem)] leading-relaxed max-w-[1000px] mx-auto opacity-90"
+          >
+            Every sunscreen asks the same question: oily or dry? But your skin isn’t oily 
+            <br className="hidden sm:inline" />
+            or dry in a fixed way. It changes the second the weather does — tight in a 
+            <br className="hidden sm:inline" />
+            Delhi December, greasy in a Bombay July, dull in the September smog.
+          </motion.p>
+        </div>
 
+        {/* --- BLOCK 2 --- */}
+        {/* Gap kam karne ke liye space-y-2 md:space-y-3 use kiya hai */}
+        <div className="space-y-2 md:space-y-3">
+          {/* H2: Heading size reduced */}
+          <motion.h2
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-100px' }}
+            transition={{ duration: 0.9, ease: [0.215, 0.610, 0.355, 1.000] }}
+            className="font-editorial text-[clamp(2rem,4.5vw,4.2rem)] leading-[1.08] tracking-tight"
+          >
+            Skin type tells you a little,<br />
+            the weather tells you everything
+          </motion.h2>
+
+          {/* P2 */}
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-100px' }}
+            transition={{ duration: 0.9, delay: 0.2, ease: [0.215, 0.610, 0.355, 1.000] }}
+            className="font-sans text-[clamp(1rem,1.8vw,1.4rem)] leading-relaxed max-w-[950px] mx-auto opacity-90"
+          >
+            So we stopped sorting sunscreen by skin, and started building it around
+            <br className="hidden sm:inline" />
+            climate. That’s climate-smart — the same idea, in two products.
+          </motion.p>
+        </div>
+
+      </div>
     </section>
   );
 }
