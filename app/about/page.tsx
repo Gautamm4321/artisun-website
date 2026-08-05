@@ -182,7 +182,7 @@ export default function AboutPage() {
         productLabel="Origin"
         productSub=""
         paragraphs={ORIGIN_PARAS_2}
-        images={['/about-media/origin-1.jpg', '/about-media/origin-2.jpg', '/about-media/origin-3.jpg']}
+        images={['/about-media/aura-1.jpg', '/about-media/aura-2.jpg', '/about-media/aura-3.jpg']}
         eyebrow="The Feeling"
         heading={['Fashion gets the world.',  'Skin gets a shelf.']}
       />

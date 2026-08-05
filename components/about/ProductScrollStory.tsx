@@ -40,14 +40,14 @@ function ImageSlot({
         setRef(el);
       }}
     >
-
       <div
-        className={`min-h-[100svh] flex flex-col pb-15 ${i === 0 ? 'pt-[35vh] md:pt-[45vh]' : 'pt-20'
-          } ${flip ? 'items-start' : 'items-end'}`}
+        className={`min-h-0 md:min-h-[100svh] flex flex-col pb-8 md:pb-15 ${
+          i === 0 ? 'pt-6 md:pt-[35vh] lg:pt-[45vh]' : 'pt-6 md:pt-20'
+        } items-center ${flip ? 'md:items-start' : 'md:items-end'}`}
       >
         <motion.div
           style={{ scale }}
-          className="relative w-full max-w-[440px] h-[65vh] rounded-[24px] overflow-hidden shadow-[0_40px_90px_-30px_rgba(0,0,0,0.7)] ring-1 ring-white/5"
+          className="relative w-full max-w-[440px] h-[45vh] md:h-[65vh] rounded-[24px] overflow-hidden shadow-[0_40px_90px_-30px_rgba(0,0,0,0.7)] ring-1 ring-white/5"
         >
           <Image
             src={asset(src)}
@@ -58,23 +58,26 @@ function ImageSlot({
           />
         </motion.div>
 
-        <div className="mt-20 w-full max-w-[440px]">
+        <div className="mt-6 md:mt-20 w-full max-w-[440px]">
           <div
             className="transition-all duration-700 ease-out"
             style={{ opacity: active ? 1 : 0.35 }}
           >
-            <p className={`font-suisse text-[var(--brand-cream)] text-[18px] md:text-[21px] lg:text-[24px] leading-[1.35] ${flip ? 'text-left' : 'text-right'}`}>
+            <p
+              className={`font-suisse text-[var(--brand-cream)] text-[16px] md:text-[21px] lg:text-[24px] leading-[1.35] text-center ${
+                flip ? 'md:text-left' : 'md:text-right'
+              }`}
+            >
               {paragraph?.text}
             </p>
 
             {paragraph?.em && (
-              <p className="font-suisse text-[var(--brand-cream)] text-[18px] md:text-[21px] lg:text-[24px] leading-[1.35] mt-2 text-center">
+              <p className="font-suisse text-[var(--brand-cream)] text-[16px] md:text-[21px] lg:text-[24px] leading-[1.35] mt-2 text-center">
                 {paragraph.em}
               </p>
             )}
           </div>
         </div>
-
       </div>
     </div>
   );
@@ -122,12 +125,28 @@ export default function ProductScrollStory({
 
   return (
     <section className="relative w-full px-6 md:px-16 lg:px-24">
-      <div className="md:grid md:grid-cols-2">
+      {/* ── Mobile-only centered heading ── */}
+      <div className="md:hidden text-center py-6 px-2">
+        {eyebrow && (
+          <p className="font-suisse uppercase tracking-[0.12em] text-[14px] text-[var(--brand-cream)]/70 mb-2">
+            {eyebrow}
+          </p>
+        )}
+        <h2 className="font-editorial text-[clamp(1.75rem,7vw,2.5rem)] leading-[1.15] tracking-[-0.03em] text-[var(--brand-cream)]">
+          {headingLines.map((line, idx) => (
+            <span key={idx} className="block">
+              {line}
+            </span>
+          ))}
+        </h2>
+      </div>
 
-        {/* ── Editorial title side ── */}
+      <div className="md:grid md:grid-cols-2">
+        {/* ── Editorial title side (desktop only) ── */}
         <div
-          className={`hidden md:flex items-center sticky top-0 h-screen ${flip ? 'md:order-2 justify-end' : 'justify-start'
-            }`}
+          className={`hidden md:flex items-center sticky top-0 h-screen ${
+            flip ? 'md:order-2 justify-end' : 'justify-start'
+          }`}
         >
           <div className={flip ? 'text-right' : 'text-left'}>
             {eyebrow && (
@@ -162,7 +181,6 @@ export default function ProductScrollStory({
             />
           ))}
         </div>
-
       </div>
     </section>
   );

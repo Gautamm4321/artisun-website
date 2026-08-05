@@ -11,7 +11,9 @@ interface WeatherData {
   city: string;
   temp: number;
   humidity: number;
-  uvIndex: number;
+  currentUV: number;   // live UV right now (daytime display)
+  peakUV: number;       // today's daily max UV (night display + classification)
+  isDay: boolean;       // Open-Meteo current.is_day flag
   precip: boolean;
   band: WeatherBand;
 }
@@ -94,15 +96,6 @@ const GEO_FAIL_DEFAULTS = {
   leadProduct: 'Aura' as const,
 };
 
-// UV color coding: 0-2 low (green) → 8-10 very high (red) → 11+ extreme
-function uvColor(uv: number): string {
-  if (uv <= 2) return '#8FBF6B';       // low - green
-  if (uv <= 5) return '#F2C94C';       // moderate - yellow
-  if (uv <= 7) return '#F2994A';       // high - orange
-  if (uv <= 10) return '#EB5757';      // very high - red
-  return '#C0392B';                    // extreme - deep red
-}
-
 // Count-up hook for the temperature number
 function useCountUp(target: number | null, duration = 1) {
   const [display, setDisplay] = useState(0);
@@ -152,10 +145,10 @@ export default function ClimateHero() {
         return; // Nothing more we can do — full fallback state
       }
 
-      // 2. Open-Meteo Current Weather + Daily Peak UV
+      // 2. Open-Meteo Current Weather + Current UV + Daily Peak UV + is_day
       try {
         const weatherRes = await fetch(
-          `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,relative_humidity_2m,precipitation&daily=uv_index_max&timezone=auto`
+          `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,relative_humidity_2m,precipitation,uv_index,is_day&daily=uv_index_max&timezone=auto`
         );
         if (!weatherRes.ok) throw new Error('Weather API failed');
         const weatherData = await weatherRes.json();
@@ -163,9 +156,13 @@ export default function ClimateHero() {
         const temp = Math.round(weatherData.current.temperature_2m);
         const humidity = Math.round(weatherData.current.relative_humidity_2m);
         const precip = weatherData.current.precipitation > 0;
-        const uvIndex = Math.round(weatherData.daily.uv_index_max[0] ?? 5);
+        const isDay = weatherData.current.is_day === 1;
+        const currentUV = Math.round(weatherData.current.uv_index ?? 0);
+        const peakUV = Math.round(weatherData.daily.uv_index_max[0] ?? 5);
 
-        // Step 1 — Classify (temp <= 15, per spec)
+        // Step 1 — Classify. Classification always uses today's PEAK UV
+        // (per spec: "shows peak, not 0 at night" — the band logic shouldn't
+        // flip to a lower band just because it's dark out).
         let band: WeatherBand = 'MILD';
         if (precip || humidity >= 80) {
           band = 'WET';
@@ -175,16 +172,25 @@ export default function ClimateHero() {
           band = 'DRY_HEAT';
         } else if (temp >= 30 && humidity >= 55) {
           band = 'HUMID_HEAT';
-        } else if (uvIndex >= 8 && humidity < 55) {
+        } else if (peakUV >= 8 && humidity < 55) {
           band = 'HIGH_SUN';
         }
 
-        setWeather({ city: city as string, temp, humidity, uvIndex, precip, band });
+        setWeather({ city: city as string, temp, humidity, currentUV, peakUV, isDay, precip, band });
         setWeatherError(false);
       } catch (err) {
         console.error('Weather fetch error:', err);
         // City known, weather failed — keep city, hide numbers
-        setWeather({ city: city as string, temp: 0, humidity: 0, uvIndex: 0, precip: false, band: 'MILD' });
+        setWeather({
+          city: city as string,
+          temp: 0,
+          humidity: 0,
+          currentUV: 0,
+          peakUV: 0,
+          isDay: true,
+          precip: false,
+          band: 'MILD',
+        });
         setWeatherError(true);
       } finally {
         setLoading(false);
@@ -199,6 +205,14 @@ export default function ClimateHero() {
   const bandVisual = geoError ? BAND_VISUALS.MILD : BAND_VISUALS[currentBand];
 
   const animatedTemp = useCountUp(!loading && !geoError && !weatherError ? weather?.temp ?? null : null, 1.2);
+
+  // ── Day/Night UV display logic ──
+  // Daytime  → show current UV, label "UV Index"
+  // Night    → show today's peak UV, label "Today's Peak UV"
+  const isDay = weather?.isDay ?? true;
+  const uvDisplayValue = isDay ? weather?.currentUV : weather?.peakUV;
+  const uvLabel = isDay ? "UV Index" : "Today's Peak UV";
+  const animatedUV = useCountUp(!loading && !geoError && !weatherError ? uvDisplayValue ?? null : null, 1);
 
   // ── Heading logic per fallback spec ──
   let heading = 'Your weather, right now';
@@ -273,14 +287,12 @@ export default function ClimateHero() {
                 <span className="text-xs md:text-sm opacity-80 mt-1 font-sans">Humidity</span>
               </div>
 
-              {/* UV Index — colour-coded per spec */}
+              {/* UV — current during day, today's peak at night */}
               <div className="flex flex-col items-center">
-                <span
-                  className="font-editorial text-[clamp(2.5rem,5.5vw,4.2rem)] leading-none transition-colors duration-500"
-                >
-                  {loading ? '--' : (weather?.uvIndex ?? 6)}
+                <span className="font-editorial text-[clamp(2.5rem,5.5vw,4.2rem)] leading-none">
+                  {loading ? '--' : animatedUV}
                 </span>
-                <span className="text-xs md:text-sm opacity-80 mt-1 font-sans">UV (Today&apos;s Peak)</span>
+                <span className="text-xs md:text-sm opacity-80 mt-1 font-sans">{uvLabel}</span>
               </div>
             </div>
           )}

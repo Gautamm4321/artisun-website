@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useRef, useEffect, Suspense } from 'react';
+import React, { useRef, useEffect, useState, Suspense } from 'react';
 import Image from 'next/image';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { useGLTF, Center } from '@react-three/drei';
@@ -11,7 +11,13 @@ const HERO_SUB =
   'Artisun is an Indian sun-care house, built around the sun and the way we live with it. We make Skinwear — wearable layers that protect, hydrate, and move with the day.';
 
 /* ── The revolving Origin bottle (same model as the home page) ── */
-function OriginBottle({ scrollRef }: { scrollRef: React.MutableRefObject<number> }) {
+function OriginBottle({
+  scrollRef,
+  scale,
+}: {
+  scrollRef: React.MutableRefObject<number>;
+  scale: number;
+}) {
   const groupRef = useRef<THREE.Group>(null!);
   const { scene } = useGLTF(asset('/1.glb'));
   const cloned = React.useMemo(() => scene.clone(true), [scene]);
@@ -27,7 +33,7 @@ function OriginBottle({ scrollRef }: { scrollRef: React.MutableRefObject<number>
   });
 
   return (
-    <group ref={groupRef} scale={0.5}>
+    <group ref={groupRef} scale={scale}>
       <Center>
         <primitive object={cloned} />
       </Center>
@@ -35,7 +41,13 @@ function OriginBottle({ scrollRef }: { scrollRef: React.MutableRefObject<number>
   );
 }
 
-function HeroScene({ scrollRef }: { scrollRef: React.MutableRefObject<number> }) {
+function HeroScene({
+  scrollRef,
+  scale,
+}: {
+  scrollRef: React.MutableRefObject<number>;
+  scale: number;
+}) {
   return (
     <>
       <ambientLight intensity={0.4} />
@@ -45,7 +57,7 @@ function HeroScene({ scrollRef }: { scrollRef: React.MutableRefObject<number> })
       <spotLight position={[0, 10, 4]} angle={0.34} penumbra={1} intensity={2.4} />
       <pointLight position={[3, -1, 3]} intensity={1.2} color="#ff8a4d" distance={12} decay={2} />
       <Suspense fallback={null}>
-        <OriginBottle scrollRef={scrollRef} />
+        <OriginBottle scrollRef={scrollRef} scale={scale} />
       </Suspense>
     </>
   );
@@ -53,6 +65,7 @@ function HeroScene({ scrollRef }: { scrollRef: React.MutableRefObject<number> })
 
 export default function AboutHero() {
   const scrollRef = useRef(0);
+  const [scale, setScale] = useState(0.5);
 
   useEffect(() => {
     const onScroll = () => {
@@ -63,8 +76,26 @@ export default function AboutHero() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
+  useEffect(() => {
+    const updateScale = () => {
+      const w = window.innerWidth;
+      if (w < 480) {
+        setScale(0.24); // small phones
+      } else if (w < 768) {
+        setScale(0.3); // larger phones / phablets
+      } else if (w < 1024) {
+        setScale(0.4); // tablets
+      } else {
+        setScale(0.5); // desktop — original size, unchanged
+      }
+    };
+    updateScale();
+    window.addEventListener('resize', updateScale);
+    return () => window.removeEventListener('resize', updateScale);
+  }, []);
+
   return (
-    <section className="relative w-full h-[100svh] overflow-hidden flex items-center justify-center">
+   <section className="relative w-full h-[78svh] md:h-[100svh] overflow-hidden flex items-center justify-center">
       {/* Soft dark stage glow so the wordmark + bottle read against the molten bg */}
       <div
         className="pointer-events-none absolute inset-0 z-[1]"
@@ -82,7 +113,7 @@ export default function AboutHero() {
           width={2000}
           height={445}
           priority
-          className="w-[96vw] max-w-[1500px] object-contain select-none"
+          className="w-[88vw] sm:w-[90vw] md:w-[94vw] lg:w-[96vw] max-w-[1500px] object-contain select-none"
           style={{
             filter: 'brightness(0) invert(1)',
             opacity: 0.9,
@@ -98,7 +129,7 @@ export default function AboutHero() {
           camera={{ position: [0, 0.25, 5], fov: 40 }}
           gl={{ antialias: true, toneMapping: THREE.ACESFilmicToneMapping, toneMappingExposure: 1.02, alpha: true }}
         >
-          <HeroScene scrollRef={scrollRef} />
+          <HeroScene scrollRef={scrollRef} scale={scale} />
         </Canvas>
       </div>
 

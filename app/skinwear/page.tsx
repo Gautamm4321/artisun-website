@@ -1,5 +1,4 @@
 'use client';
-
 import { useEffect, useRef } from 'react';
 import GlobalHeader from '../../components/GlobalHeader';
 import Footer from '../../components/Footer';
@@ -20,32 +19,33 @@ export default function SkinwearPage() {
       mouseProxy.current.x = (e.clientX / window.innerWidth) * 2 - 1;
       mouseProxy.current.y = -(e.clientY / window.innerHeight) * 2 + 1;
     };
-
     window.addEventListener('mousemove', handleMouseMove, { passive: true });
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
 
   return (
     <main className="relative w-full min-h-[100svh] overflow-clip">
-      {/* Molten Core — the same brand gradient surface as the home hero */}
+      {/* Brand gradient background */}
       <div id="global-bg" className="theme-molten-core" />
 
+      {/* CustomCursor is pointer-device only; touch devices never trigger mousemove */}
       <CustomCursor mouseProxy={mouseProxy} />
+
       <GlobalHeader />
 
-      {/* 1 — opening reveal: portrait rises under the stuck question */}
+      {/* 1 — Opening reveal: portrait rises from below */}
       <SkinwearImageReveal />
 
-      {/* 2 — why does something we use every day feel so forgettable */}
+      {/* 2 — Why suncare felt forgettable */}
       <SkinwearForgettable />
 
-      {/* 2.5 — dress your body vs dress your skin scroll section */}
+      {/* 3 — Dress your body vs dress your skin (image shrinks right) */}
       <SkinwearImgShrink />
 
-      {/* 3.5 — dress your body vs dress your skin scroll section */}
+      {/* 4 — Your skin now has a wardrobe (image shrinks left) */}
       <SkinwearImgShrinkkk />
 
-      {/* 4 — clothing for your skin, built for daily life */}
+      {/* 5 — What's your skin wearing today CTA */}
       <SkinwearDailyLife />
 
       <Footer />
