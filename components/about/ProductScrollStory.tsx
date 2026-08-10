@@ -7,7 +7,8 @@ import { asset } from '@/lib/asset';
 
 export type StoryParagraph = { text: string; em?: string };
 
-function ImageSlot({
+/* ── Desktop Image Slot Component ── */
+function DesktopImageSlot({
   src,
   i,
   productLabel,
@@ -41,8 +42,8 @@ function ImageSlot({
       }}
     >
       <div
-        className={`min-h-0 md:min-h-[100svh] flex flex-col pb-8 md:pb-15 ${
-          i === 0 ? 'pt-6 md:pt-[35vh] lg:pt-[45vh]' : 'pt-6 md:pt-20'
+        className={`min-h-0 md:min-h-auto lg:min-h-[85vh] flex flex-col pb-6 md:pb-10 ${
+          i === 0 ? 'pt-4 md:pt-16 lg:pt-20' : 'pt-4 md:pt-8'
         } items-center ${flip ? 'md:items-start' : 'md:items-end'}`}
       >
         <motion.div
@@ -58,7 +59,7 @@ function ImageSlot({
           />
         </motion.div>
 
-        <div className="mt-6 md:mt-20 w-full max-w-[440px]">
+        <div className="mt-4 md:mt-8 w-full max-w-[440px]">
           <div
             className="transition-all duration-700 ease-out"
             style={{ opacity: active ? 1 : 0.35 }}
@@ -85,7 +86,6 @@ function ImageSlot({
 
 export default function ProductScrollStory({
   productLabel,
-  productSub,
   paragraphs,
   images,
   flip = false,
@@ -101,6 +101,7 @@ export default function ProductScrollStory({
   heading?: string[];
 }) {
   const [active, setActive] = useState(0);
+  const [mobileIndex, setMobileIndex] = useState(0);
   const slotRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   useEffect(() => {
@@ -124,27 +125,72 @@ export default function ProductScrollStory({
   const headingLines = heading ?? ['The Artisun', 'Perspective'];
 
   return (
-    <section className="relative w-full px-6 md:px-16 lg:px-24">
-      {/* ── Mobile-only centered heading ── */}
-      <div className="md:hidden text-center py-6 px-2">
+    <section className="relative w-full px-4 md:px-16 lg:px-24">
+
+      {/* ── 1. MOBILE & SMALL TABLET CAROUSEL VIEW (< 768px) ── */}
+      <div className="block md:hidden py-8 px-2 text-center w-full max-w-[480px] mx-auto">
+        {/* Eyebrow */}
         {eyebrow && (
-          <p className="font-suisse uppercase tracking-[0.12em] text-[14px] text-[var(--brand-cream)]/70 mb-2">
+          <p className="font-suisse uppercase tracking-[0.14em] text-[12px] text-[var(--brand-cream)]/75 mb-2">
             {eyebrow}
           </p>
         )}
-        <h2 className="font-editorial text-[clamp(1.75rem,7vw,2.5rem)] leading-[1.15] tracking-[-0.03em] text-[var(--brand-cream)]">
+
+        {/* Heading */}
+        <h2 className="font-editorial text-[clamp(1.75rem,6.8vw,2.4rem)] leading-[1.15] tracking-[-0.03em] text-[var(--brand-cream)] mb-6">
           {headingLines.map((line, idx) => (
             <span key={idx} className="block">
               {line}
             </span>
           ))}
         </h2>
+
+        {/* Image Card */}
+        <div className="relative w-full h-[280px] sm:h-[340px] rounded-[18px] overflow-hidden shadow-2xl mb-5 border border-white/10 bg-[#8B3A32]">
+          <Image
+            src={asset(images[mobileIndex])}
+            alt={`${productLabel} ${mobileIndex + 1}`}
+            fill
+            sizes="90vw"
+            className="object-cover transition-opacity duration-500"
+          />
+        </div>
+
+        {/* Dynamic Paragraph Text */}
+        <div className="min-h-[75px] max-w-[420px] mx-auto flex flex-col justify-center mb-5">
+          <p className="font-suisse text-[var(--brand-cream)] text-[15px] sm:text-[17px] leading-[1.4] opacity-95">
+            {paragraphs[mobileIndex]?.text}
+          </p>
+          {paragraphs[mobileIndex]?.em && (
+            <p className="font-suisse text-[var(--brand-cream)] text-[15px] sm:text-[17px] leading-[1.4] mt-1.5 opacity-95">
+              {paragraphs[mobileIndex].em}
+            </p>
+          )}
+        </div>
+
+        {/* 3 Pagination Dots */}
+        <div className="flex items-center justify-center gap-2.5">
+          {images.map((_, idx) => (
+            <button
+              key={idx}
+              type="button"
+              onClick={() => setMobileIndex(idx)}
+              aria-label={`Slide ${idx + 1}`}
+              className={`h-2.5 rounded-full transition-all duration-300 ${
+                mobileIndex === idx
+                  ? 'w-6 bg-white opacity-100'
+                  : 'w-2.5 bg-white/40 hover:bg-white/70'
+              }`}
+            />
+          ))}
+        </div>
       </div>
 
-      <div className="md:grid md:grid-cols-2">
-        {/* ── Editorial title side (desktop only) ── */}
+      {/* ── 2. DESKTOP STICKY SCROLL VIEW (>= 768px) ── */}
+      <div className="hidden md:grid md:grid-cols-2">
+        {/* Editorial title side (desktop sticky) */}
         <div
-          className={`hidden md:flex items-center sticky top-0 h-screen ${
+          className={`flex items-center sticky top-0 h-screen ${
             flip ? 'md:order-2 justify-end' : 'justify-start'
           }`}
         >
@@ -164,10 +210,10 @@ export default function ProductScrollStory({
           </div>
         </div>
 
-        {/* ── Scrolling product shots ── */}
+        {/* Scrolling product shots */}
         <div className={flip ? 'md:order-1' : ''}>
           {images.map((src, i) => (
-            <ImageSlot
+            <DesktopImageSlot
               key={src}
               src={src}
               i={i}
@@ -182,6 +228,7 @@ export default function ProductScrollStory({
           ))}
         </div>
       </div>
+
     </section>
   );
 }

@@ -140,7 +140,7 @@ export default function AboutPage() {
       {/* 1 — HERO */}
       <AboutHero />
 
-      <section className="relative z-16 w-full max-w-380 px-6 md:px-16 lg:px-8 pt-12 pb-8">
+      <section className="relative z-16 w-full max-w-380 px-6 md:px-16 lg:px-8 py-6 sm:py-8 md:py-10">
         <div className="w-full max-w-380 space-y-2">
           <p className="font-suisse text-[var(--brand-cream)]/80 text-[20px] sm:text-[26px] md:text-[32px] lg:text-[34px] leading-[1.3] text-center">
             Artisun is an Indian sun-care house, built around the sun and the way we live with it.
@@ -184,7 +184,7 @@ export default function AboutPage() {
         paragraphs={ORIGIN_PARAS_2}
         images={['/about-media/aura-1.jpg', '/about-media/aura-2.jpg', '/about-media/aura-3.jpg']}
         eyebrow="The Feeling"
-        heading={['Fashion gets the world.',  'Skin gets a shelf.']}
+        heading={['Fashion gets the world.', 'Skin gets a shelf.']}
       />
 
       {/* 4th — LEFT */}
@@ -208,9 +208,8 @@ export default function AboutPage() {
         heading={['Artisun Skinwear™']}
       />
 
-      {/* ── Breaker Heading Section ── */}
-      {/* ── Breaker Image Section ── */}
-      <section className="relative z-16 w-full px-6 md:px-16 lg:px-24 pt-20 pb-6 mx-auto overflow-hidden flex flex-col items-center justify-center">
+     {/* ── Breaker Image Section ── */}
+      <section className="relative z-16 w-full px-6 md:px-16 lg:px-24 py-8 md:py-12 mx-auto overflow-hidden flex flex-col items-center justify-center">
         <div className="relative w-full h-[220px] md:h-[320px] lg:h-[440px] rounded-[10px] overflow-hidden">
           <Image
             src={asset('/ARTISUN IMAGE.png')}

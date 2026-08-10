@@ -80,13 +80,15 @@ export default function AboutHero() {
     const updateScale = () => {
       const w = window.innerWidth;
       if (w < 480) {
-        setScale(0.24); // small phones
+        setScale(0.22); // small phones
       } else if (w < 768) {
-        setScale(0.3); // larger phones / phablets
+        setScale(0.28); // phablets / small tabs
       } else if (w < 1024) {
-        setScale(0.4); // tablets
+        setScale(0.32); // 800px - 1000px screens (perfect "I" fit)
+      } else if (w < 1280) {
+        setScale(0.38); // 1000px - 1200px laptops
       } else {
-        setScale(0.5); // desktop — original size, unchanged
+        setScale(0.45); // large desktops
       }
     };
     updateScale();
@@ -95,7 +97,7 @@ export default function AboutHero() {
   }, []);
 
   return (
-   <section className="relative w-full h-[78svh] md:h-[100svh] overflow-hidden flex items-center justify-center">
+    <section className="relative w-full h-[65svh] sm:h-[75svh] md:h-screen lg:h-screen overflow-hidden flex items-center justify-center">
       {/* Soft dark stage glow so the wordmark + bottle read against the molten bg */}
       <div
         className="pointer-events-none absolute inset-0 z-[1]"
@@ -113,7 +115,7 @@ export default function AboutHero() {
           width={2000}
           height={445}
           priority
-          className="w-[88vw] sm:w-[90vw] md:w-[94vw] lg:w-[96vw] max-w-[1500px] object-contain select-none"
+          className="w-[90vw] max-w-[1500px] object-contain select-none"
           style={{
             filter: 'brightness(0) invert(1)',
             opacity: 0.9,
@@ -137,7 +139,7 @@ export default function AboutHero() {
       <div className="absolute left-6 top-28 md:left-12 md:top-32 z-[5] pointer-events-none">
         <p className="font-suisse uppercase tracking-[0.32em] text-[10px] md:text-[12px] text-[var(--brand-cream)]/70 leading-[1.9]">
           <br />
-          
+
         </p>
       </div>
 
@@ -148,7 +150,7 @@ export default function AboutHero() {
         <p className="font-suisse uppercase tracking-[0.28em] text-[10px] md:text-[11px] text-[var(--brand-cream)]/55">
 
           <br />
-  
+
         </p>
       </div>
     </section>
