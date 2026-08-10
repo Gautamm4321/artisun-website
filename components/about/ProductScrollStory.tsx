@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion, useScroll, useTransform, PanInfo } from 'framer-motion';
 import { asset } from '@/lib/asset';
 
 export type StoryParagraph = { text: string; em?: string };
@@ -124,11 +124,21 @@ export default function ProductScrollStory({
 
   const headingLines = heading ?? ['The Artisun', 'Perspective'];
 
+  /* ── Touch / Finger Swipe Logic for Mobile ── */
+  const handleDragEnd = (_: any, info: PanInfo) => {
+    const swipeThreshold = 50; // minimum drag pixels to trigger slide
+    if (info.offset.x < -swipeThreshold && mobileIndex < images.length - 1) {
+      setMobileIndex((prev) => prev + 1); // Swipe Left -> Next Image
+    } else if (info.offset.x > swipeThreshold && mobileIndex > 0) {
+      setMobileIndex((prev) => prev - 1); // Swipe Right -> Previous Image
+    }
+  };
+
   return (
     <section className="relative w-full px-4 md:px-16 lg:px-24">
 
-      {/* ── 1. MOBILE & SMALL TABLET CAROUSEL VIEW (< 768px) ── */}
-      <div className="block md:hidden py-8 px-2 text-center w-full max-w-[480px] mx-auto">
+      {/* ── 1. MOBILE & SMALL TABLET CAROUSEL VIEW WITH TOUCH SWIPE (< 768px) ── */}
+      <div className="block md:hidden py-8 px-2 text-center w-full max-w-[480px] mx-auto overflow-hidden">
         {/* Eyebrow */}
         {eyebrow && (
           <p className="font-suisse uppercase tracking-[0.14em] text-[12px] text-[var(--brand-cream)]/75 mb-2">
@@ -145,16 +155,22 @@ export default function ProductScrollStory({
           ))}
         </h2>
 
-        {/* Image Card */}
-        <div className="relative w-full h-[280px] sm:h-[340px] rounded-[18px] overflow-hidden shadow-2xl mb-5 border border-white/10 bg-[#8B3A32]">
+        {/* Draggable/Swipable Image Container */}
+        <motion.div
+          drag="x"
+          dragConstraints={{ left: 0, right: 0 }}
+          dragElastic={0.2}
+          onDragEnd={handleDragEnd}
+          className="relative w-full h-[280px] sm:h-[340px] rounded-[18px] overflow-hidden shadow-2xl mb-5 border border-white/10 bg-[#8B3A32] cursor-grab active:cursor-grabbing touch-pan-y"
+        >
           <Image
             src={asset(images[mobileIndex])}
             alt={`${productLabel} ${mobileIndex + 1}`}
             fill
             sizes="90vw"
-            className="object-cover transition-opacity duration-500"
+            className="object-cover transition-opacity duration-300 pointer-events-none"
           />
-        </div>
+        </motion.div>
 
         {/* Dynamic Paragraph Text */}
         <div className="min-h-[75px] max-w-[420px] mx-auto flex flex-col justify-center mb-5">
