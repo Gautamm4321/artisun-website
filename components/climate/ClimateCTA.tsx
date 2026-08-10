@@ -4,10 +4,10 @@ import { motion } from 'framer-motion';
 
 export default function ClimateCTA() {
   return (
-    <section className="relative z-10 w-full min-h-[50vh] md:min-h-[65vh] flex flex-col items-center justify-center px-4 py-12 md:py-20 text-[var(--brand-cream)] overflow-hidden">
 
+    <section className="relative z-10 w-full min-h-auto flex flex-col items-center justify-center px-4 py-12 sm:py-16 md:py-20 text-[var(--brand-cream)] overflow-hidden">
       {/* Container to sync Heading & Paragraph Width */}
-      <div className="flex flex-col items-center w-full max-w-[800px] text-center px-2">
+      <div className="flex flex-col items-center w-full max-w-[800px] text-center px-2 my-0">
 
         {/* 1. Uppercase Serif Heading (Responsive clamp, wrap-safe) */}
         <motion.h2
@@ -15,14 +15,14 @@ export default function ClimateCTA() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-50px' }}
           transition={{ duration: 0.8 }}
-          className="font-editorial text-[clamp(1.8rem,5vw,3.6rem)] tracking-tight font-normal uppercase mb-1 md:mb-2 leading-tight"
+          className="font-editorial text-[clamp(1.8rem,5vw,3.6rem)] tracking-tight font-normal uppercase mb-2 sm:mb-3 leading-tight"
         >
           Designed for exposure
         </motion.h2>
 
         {/* 2. Subtitle / Paragraph Text */}
         <motion.div
-          initial={{ opacity: 0, y: 15 }} 
+          initial={{ opacity: 0, y: 15 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-50px' }}
           transition={{ duration: 0.8, delay: 0.2 }}

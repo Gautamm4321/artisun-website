@@ -247,7 +247,7 @@ export default function ClimateHero() {
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
-        className="font-editorial text-[clamp(2.5rem,5.5vw,4.5rem)] text-center mb-3 font-normal tracking-wide"
+        className="font-editorial whitespace-nowrap text-[clamp(1.15rem,6.2vw,4.5rem)] text-center mb-3 font-normal tracking-wide"
       >
         {heading}
       </motion.h1>
@@ -319,13 +319,13 @@ export default function ClimateHero() {
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.6 }}
-        className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-[760px]"
+        className="grid grid-cols-2 gap-2 sm:gap-6 w-full max-w-[760px]"
       >
         {/* CARD 1: Aura */}
         <div className="bg-black/25 backdrop-blur-md rounded-none border border-white/10 overflow-hidden flex flex-col justify-between h-full group hover:border-white/20 transition-all relative">
 
-          <div className="p-5 flex items-start gap-4">
-            <div className="relative w-24 h-24 md:w-28 md:h-28 bg-[#8B3A32] flex-shrink-0 overflow-hidden rounded-none">
+          <div className="p-2.5 sm:p-5 flex items-start gap-2 sm:gap-4">
+            <div className="relative w-14 h-14 min-[400px]:w-16 min-[400px]:h-16 sm:w-24 sm:h-24 md:w-28 md:h-28 bg-[#8B3A32] flex-shrink-0 overflow-hidden rounded-none">
               <Image
                 src={asset('/skinwear-media/daily-product.jpg')}
                 alt="Aura"
@@ -333,14 +333,14 @@ export default function ClimateHero() {
                 className="object-cover opacity-90 group-hover:scale-105 transition-transform duration-500"
               />
             </div>
-            <div className="flex flex-col justify-center pt-1">
-              <h3 className="font-editorial text-3xl md:text-4xl mb-1 leading-none">Aura</h3>
-              <p className="text-sm md:text-base opacity-90 leading-tight font-sans mt-1">
+            <div className="flex flex-col justify-center pt-0.5">
+              <h3 className="font-editorial text-xl min-[400px]:text-2xl sm:text-3xl md:text-4xl mb-0.5 sm:mb-1 leading-none">Aura</h3>
+              <p className="text-[11px] min-[400px]:text-xs sm:text-sm md:text-base opacity-90 leading-tight sm:leading-normal font-sans mt-0.5">
                 {activeConfig.auraPearls}
               </p>
             </div>
           </div>
-          <button type="button" className="w-full bg-[#EAE3D2] text-[#6B241A] py-3 text-sm md:text-base font-medium hover:bg-white transition-colors">
+          <button type="button" className="w-full bg-[#EAE3D2] text-[#6B241A] py-2 sm:py-3 text-xs sm:text-sm md:text-base font-medium hover:bg-white transition-colors">
             Add to bag
           </button>
         </div>
@@ -348,8 +348,8 @@ export default function ClimateHero() {
         {/* CARD 2: Origin */}
         <div className="bg-black/25 backdrop-blur-md rounded-none border border-white/10 overflow-hidden flex flex-col justify-between h-full group hover:border-white/20 transition-all relative">
 
-          <div className="p-5 flex items-start gap-4">
-            <div className="relative w-24 h-24 md:w-28 md:h-28 bg-[#8B3A32] flex-shrink-0 overflow-hidden rounded-none">
+          <div className="p-2.5 sm:p-5 flex items-start gap-2 sm:gap-4">
+            <div className="relative w-14 h-14 min-[400px]:w-16 min-[400px]:h-16 sm:w-24 sm:h-24 md:w-28 md:h-28 bg-[#8B3A32] flex-shrink-0 overflow-hidden rounded-none">
               <Image
                 src={asset('/about-media/origin-1.jpg')}
                 alt="Origin"
@@ -357,14 +357,14 @@ export default function ClimateHero() {
                 className="object-cover opacity-90 group-hover:scale-105 transition-transform duration-500"
               />
             </div>
-            <div className="flex flex-col justify-center pt-1">
-              <h3 className="font-editorial text-3xl md:text-4xl mb-1 leading-none">Origin</h3>
-              <p className="text-sm md:text-base opacity-90 leading-tight font-sans mt-1">
+            <div className="flex flex-col justify-center pt-0.5">
+              <h3 className="font-editorial text-xl min-[400px]:text-2xl sm:text-3xl md:text-4xl mb-0.5 sm:mb-1 leading-none">Origin</h3>
+              <p className="text-[11px] min-[400px]:text-xs sm:text-sm md:text-base opacity-90 leading-tight sm:leading-normal font-sans mt-0.5">
                 {activeConfig.originPumps}
               </p>
             </div>
           </div>
-          <button type="button" className="w-full bg-[#EAE3D2] text-[#6B241A] py-3 text-sm md:text-base font-medium hover:bg-white transition-colors">
+          <button type="button" className="w-full bg-[#EAE3D2] text-[#6B241A] py-2 sm:py-3 text-xs sm:text-sm md:text-base font-medium hover:bg-white transition-colors">
             Add to bag
           </button>
         </div>

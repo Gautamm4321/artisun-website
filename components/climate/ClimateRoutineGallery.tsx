@@ -63,15 +63,15 @@ export default function ClimateRoutineGallery() {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   return (
-    <section className="relative z-10 w-full min-h-[85vh] flex flex-col items-center justify-center py-16 text-[var(--brand-cream)] overflow-hidden">
 
+    <section className="relative z-10 w-full min-h-auto lg:min-h-[85vh] flex flex-col items-center justify-center py-8 sm:py-12 md:py-16 text-[var(--brand-cream)] overflow-hidden">
       {/* Heading */}
       <motion.h2
         initial={{ opacity: 0, y: -20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: '-100px' }}
         transition={{ duration: 0.8 }}
-        className="text-center font-sans text-xl md:text-2xl font-normal opacity-95 max-w-[1250px] mb-8 leading-relaxed px-4"
+        className="text-center font-sans text-xl md:text-2xl font-normal opacity-95 max-w-[1250px] mb-4 sm:mb-6 md:mb-8 leading-relaxed px-4"
       >
         Made to hold through early mornings, back-to-back meetings, the afternoon sun,
         <br className="hidden md:block" />
@@ -113,8 +113,8 @@ export default function ClimateRoutineGallery() {
                 {/* Content */}
                 <div
                   className={`absolute inset-0 z-20 flex flex-col items-center justify-center text-center px-6 transition-opacity duration-300 ${isHovered
-                      ? 'opacity-100'
-                      : 'opacity-0 pointer-events-none'
+                    ? 'opacity-100'
+                    : 'opacity-0 pointer-events-none'
                     }`}
                 >
                   <h3 className="font-editorial text-2xl sm:text-3xl md:text-4xl font-normal mb-4 tracking-wide text-[var(--brand-cream)]">
