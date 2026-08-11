@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
-import { motion, useScroll, useTransform, PanInfo } from 'framer-motion';
+import { motion, useScroll, useTransform, PanInfo, AnimatePresence } from 'framer-motion';
 import { asset } from '@/lib/asset';
 
 export type StoryParagraph = { text: string; em?: string };
@@ -42,9 +42,8 @@ function DesktopImageSlot({
       }}
     >
       <div
-        className={`min-h-0 md:min-h-auto lg:min-h-[85vh] flex flex-col pb-6 md:pb-10 ${
-          i === 0 ? 'pt-4 md:pt-16 lg:pt-20' : 'pt-4 md:pt-8'
-        } items-center ${flip ? 'md:items-start' : 'md:items-end'}`}
+        className={`min-h-0 md:min-h-auto lg:min-h-[85vh] flex flex-col pb-6 md:pb-10 ${i === 0 ? 'pt-4 md:pt-16 lg:pt-20' : 'pt-4 md:pt-8'
+          } items-center ${flip ? 'md:items-start' : 'md:items-end'}`}
       >
         <motion.div
           style={{ scale }}
@@ -65,9 +64,8 @@ function DesktopImageSlot({
             style={{ opacity: active ? 1 : 0.35 }}
           >
             <p
-              className={`font-suisse text-[var(--brand-cream)] text-[16px] md:text-[21px] lg:text-[24px] leading-[1.35] text-center ${
-                flip ? 'md:text-left' : 'md:text-right'
-              }`}
+              className={`font-suisse text-[var(--brand-cream)] text-[16px] md:text-[21px] lg:text-[24px] leading-[1.35] text-center ${flip ? 'md:text-left' : 'md:text-right'
+                }`}
             >
               {paragraph?.text}
             </p>
@@ -155,7 +153,7 @@ export default function ProductScrollStory({
           ))}
         </h2>
 
-        {/* Draggable/Swipable Image Container */}
+        {/* Draggable/Swipable Image Container with Smooth Slide */}
         <motion.div
           drag="x"
           dragConstraints={{ left: 0, right: 0 }}
@@ -163,25 +161,46 @@ export default function ProductScrollStory({
           onDragEnd={handleDragEnd}
           className="relative w-full h-[280px] sm:h-[340px] rounded-[18px] overflow-hidden shadow-2xl mb-5 border border-white/10 bg-[#8B3A32] cursor-grab active:cursor-grabbing touch-pan-y"
         >
-          <Image
-            src={asset(images[mobileIndex])}
-            alt={`${productLabel} ${mobileIndex + 1}`}
-            fill
-            sizes="90vw"
-            className="object-cover transition-opacity duration-300 pointer-events-none"
-          />
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={mobileIndex}
+              initial={{ opacity: 0, x: 40, scale: 0.98 }}
+              animate={{ opacity: 1, x: 0, scale: 1 }}
+              exit={{ opacity: 0, x: -40, scale: 0.98 }}
+              transition={{ duration: 0.35, ease: [0.25, 1, 0.5, 1] }}
+              className="absolute inset-0 w-full h-full"
+            >
+              <Image
+                src={asset(images[mobileIndex])}
+                alt={`${productLabel} ${mobileIndex + 1}`}
+                fill
+                sizes="90vw"
+                className="object-cover pointer-events-none"
+              />
+            </motion.div>
+          </AnimatePresence>
         </motion.div>
 
-        {/* Dynamic Paragraph Text */}
-        <div className="min-h-[75px] max-w-[420px] mx-auto flex flex-col justify-center mb-5">
-          <p className="font-suisse text-[var(--brand-cream)] text-[15px] sm:text-[17px] leading-[1.4] opacity-95">
-            {paragraphs[mobileIndex]?.text}
-          </p>
-          {paragraphs[mobileIndex]?.em && (
-            <p className="font-suisse text-[var(--brand-cream)] text-[15px] sm:text-[17px] leading-[1.4] mt-1.5 opacity-95">
-              {paragraphs[mobileIndex].em}
-            </p>
-          )}
+        {/* Dynamic Paragraph Text with Fade & Rise Animation */}
+        <div className="min-h-[75px] max-w-[420px] mx-auto flex flex-col justify-center mb-5 overflow-hidden">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={mobileIndex}
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -12 }}
+              transition={{ duration: 0.3, ease: 'easeOut' }}
+            >
+              <p className="font-suisse text-[var(--brand-cream)] text-[15px] sm:text-[17px] leading-[1.4] opacity-95">
+                {paragraphs[mobileIndex]?.text}
+              </p>
+              {paragraphs[mobileIndex]?.em && (
+                <p className="font-suisse text-[var(--brand-cream)] text-[15px] sm:text-[17px] leading-[1.4] mt-1.5 opacity-95">
+                  {paragraphs[mobileIndex].em}
+                </p>
+              )}
+            </motion.div>
+          </AnimatePresence>
         </div>
 
         {/* 3 Pagination Dots */}
@@ -192,11 +211,10 @@ export default function ProductScrollStory({
               type="button"
               onClick={() => setMobileIndex(idx)}
               aria-label={`Slide ${idx + 1}`}
-              className={`h-2.5 rounded-full transition-all duration-300 ${
-                mobileIndex === idx
-                  ? 'w-6 bg-white opacity-100'
-                  : 'w-2.5 bg-white/40 hover:bg-white/70'
-              }`}
+              className={`h-2.5 rounded-full transition-all duration-300 ${mobileIndex === idx
+                ? 'w-6 bg-white opacity-100'
+                : 'w-2.5 bg-white/40 hover:bg-white/70'
+                }`}
             />
           ))}
         </div>
@@ -206,9 +224,8 @@ export default function ProductScrollStory({
       <div className="hidden md:grid md:grid-cols-2">
         {/* Editorial title side (desktop sticky) */}
         <div
-          className={`flex items-center sticky top-0 h-screen ${
-            flip ? 'md:order-2 justify-end' : 'justify-start'
-          }`}
+          className={`flex items-center sticky top-0 h-screen ${flip ? 'md:order-2 justify-end' : 'justify-start'
+            }`}
         >
           <div className={flip ? 'text-right' : 'text-left'}>
             {eyebrow && (

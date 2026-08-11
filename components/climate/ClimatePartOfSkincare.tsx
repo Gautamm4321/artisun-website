@@ -40,7 +40,7 @@ const MOBILE_POINTS = [
 
 export default function ClimatePartOfSkincare() {
   return (
-    <section className="relative w-full min-h-auto lg:min-h-[85vh] flex flex-col items-center justify-center px-3 sm:px-6 md:px-10 lg:px-16 py-8 sm:py-12 md:py-16">
+    <section className="relative z-10 w-full min-h-auto lg:min-h-[85vh] flex flex-col items-center justify-center px-3 sm:px-6 md:px-10 lg:px-16 py-8 sm:py-12 md:py-16">
 
       {/* 1. Top Serif Heading */}
       <motion.h2

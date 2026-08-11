@@ -6,9 +6,6 @@ export default function ClimateSkinVsWeather() {
   return (
     <section 
       className="relative z-10 w-full flex flex-col items-center justify-center px-6 py-16 md:py-24 overflow-hidden"
-      style={{
-        background: 'radial-gradient(circle at 50% -20%, #d84315 0%, #a62111 35%, #6a0404 100%)'
-      }}
     >
       
       {/* Content wrapper */}

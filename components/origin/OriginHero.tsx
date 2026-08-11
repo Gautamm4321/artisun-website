@@ -46,10 +46,10 @@ export default function OriginHero({ onNavigate }: { onNavigate: (panelIndex: nu
   return (
     <div className="origin-panel relative w-full lg:w-screen shrink-0 min-h-[100svh] lg:h-screen flex items-start lg:pt-[104px] lg:pb-8">
       <div className="w-full max-w-[1500px] mx-auto px-5 sm:px-8 lg:px-14 pt-24 pb-12 lg:py-0 grid grid-cols-1 lg:grid-cols-[1.05fr_0.95fr] gap-7 lg:gap-14 items-start">
-        {/* ── LEFT: gallery ── */}
-        <div className="order-1 flex flex-col gap-3">
-          {/* Big image — full width of the column, tall */}
-          <div className="relative w-full h-[40vh] sm:h-[48vh] lg:h-[calc(100svh-220px)] rounded-[14px] overflow-hidden bg-white/[0.03] border border-[var(--brand-cream)]/10">
+
+        {/* ── LEFT: Clean Floating Thumbnails ── */}
+        <div className="order-1 flex flex-col">
+          <div className="relative w-full h-[45vh] sm:h-[55vh] lg:h-[calc(100svh-220px)] rounded-[16px] overflow-hidden bg-white/[0.03] border border-[var(--brand-cream)]/10 shadow-2xl">
             <Image
               key={activeImg}
               src={asset(activeImg)}
@@ -60,42 +60,43 @@ export default function OriginHero({ onNavigate }: { onNavigate: (panelIndex: nu
               className="object-cover animate-[originHeroFade_0.45s_ease]"
             />
 
-            {/* Prev / next arrows */}
+            {/* Floating Thumbnails without background box */}
+            <div className="absolute top-4 left-4 z-10 flex gap-2.5">
+              {GALLERY.map((src, i) => {
+                const active = i === index;
+                return (
+                  <button
+                    key={src}
+                    onClick={() => setIndex(i)}
+                    aria-label={`View image ${i + 1}`}
+                    className={`pointer-events-auto relative h-12 w-12 sm:h-14 sm:w-14 rounded-[8px] overflow-hidden border transition-all duration-300 ${active
+                        ? 'border-white/90 ring-1 ring-white/50 opacity-100'
+                        : 'border-white/20 opacity-50 hover:opacity-80'
+                      }`}
+                  >
+                    <Image src={asset(src)} alt="" fill sizes="60px" className="object-cover" />
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* Left Prev Arrow */}
             <button
               onClick={prev}
               aria-label="Previous image"
-              className="pointer-events-auto absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full grid place-items-center bg-black/35 backdrop-blur-md border border-[var(--brand-cream)]/20 text-[var(--brand-cream)] hover:bg-black/60 transition-colors"
+              className="pointer-events-auto absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full grid place-items-center bg-black/30 backdrop-blur-sm border border-white/20 text-white hover:bg-black/60 transition-all duration-300"
             >
               <Chevron dir="left" />
             </button>
+
+            {/* Right Next Arrow */}
             <button
               onClick={next}
               aria-label="Next image"
-              className="pointer-events-auto absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full grid place-items-center bg-black/35 backdrop-blur-md border border-[var(--brand-cream)]/20 text-[var(--brand-cream)] hover:bg-black/60 transition-colors"
+              className="pointer-events-auto absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full grid place-items-center bg-black/30 backdrop-blur-sm border border-white/20 text-white hover:bg-black/60 transition-all duration-300"
             >
               <Chevron dir="right" />
             </button>
-          </div>
-
-          {/* Thumbnails — horizontal inline row */}
-          <div className="flex gap-2.5">
-            {GALLERY.map((src, i) => {
-              const active = i === index;
-              return (
-                <button
-                  key={src}
-                  onClick={() => setIndex(i)}
-                  aria-label={`View image ${i + 1}`}
-                  className={`pointer-events-auto relative h-16 w-20 sm:h-[72px] sm:w-24 rounded-[10px] overflow-hidden border transition-all duration-300 ${
-                    active
-                      ? 'border-[var(--brand-cream)] opacity-100'
-                      : 'border-[var(--brand-cream)]/20 opacity-55 hover:opacity-90'
-                  }`}
-                >
-                  <Image src={asset(src)} alt="" fill sizes="96px" className="object-cover" />
-                </button>
-              );
-            })}
           </div>
         </div>
 
@@ -120,7 +121,7 @@ export default function OriginHero({ onNavigate }: { onNavigate: (panelIndex: nu
 
           {/* Description */}
           <p className="font-suisse text-[var(--brand-cream)]/75 text-[15px] sm:text-[16px] leading-[1.55] mt-3.5 max-w-[46ch]">
-            <span className="text-[var(--brand-cream)] font-medium">Four steps, done in one. </span>
+            <span className="text-[var(--brand-cream)] font-medium">Four steps, done in one. <br /> </span>
             Origin is a milk-light layer sunscreen that does four jobs at once — serum,
             moisturiser, sunscreen and primer. It goes on weightless, absorbs in seconds,
             and sits invisibly under everything else.
@@ -150,7 +151,7 @@ export default function OriginHero({ onNavigate }: { onNavigate: (panelIndex: nu
                       aria-expanded={ingredientsOpen}
                       className="pointer-events-auto w-full flex items-center gap-4 py-3 text-left group"
                     >
-                      <span className="font-suisse text-xs text-[var(--brand-cream)]/40 tabular-nums">{item.n}</span>
+                      {/* Number removed */}
                       <span className="font-suisse text-[15px] sm:text-base text-[var(--brand-cream)]/90 group-hover:text-[var(--brand-cream)] transition-colors">
                         {item.label}
                       </span>
@@ -172,14 +173,19 @@ export default function OriginHero({ onNavigate }: { onNavigate: (panelIndex: nu
                     onClick={() => item.target !== null && onNavigate(item.target)}
                     className={`pointer-events-auto w-full flex items-center gap-4 py-3 text-left group ${soon ? 'cursor-default' : ''}`}
                   >
-                    <span className="font-suisse text-xs text-[var(--brand-cream)]/40 tabular-nums">{item.n}</span>
+                    {/* Number removed */}
                     <span className={`font-suisse text-[15px] sm:text-base transition-colors ${soon ? 'text-[var(--brand-cream)]/35' : 'text-[var(--brand-cream)]/90 group-hover:text-[var(--brand-cream)]'}`}>
                       {item.label}
                     </span>
                     {soon ? (
                       <span className="ml-auto font-suisse text-[10px] uppercase tracking-wider text-[var(--brand-cream)]/30 border border-[var(--brand-cream)]/15 rounded-full px-2 py-0.5">Soon</span>
                     ) : (
-                      <span className="ml-auto text-[var(--brand-cream)]/40 group-hover:text-[var(--brand-cream)] group-hover:translate-x-1 transition-all duration-300">→</span>
+                      <span className="ml-auto text-white group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300 flex items-center justify-center">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                          <line x1="7" y1="17" x2="17" y2="7" />
+                          <polyline points="7 7 17 7 17 17" />
+                        </svg>
+                      </span>
                     )}
                   </button>
                 </li>
