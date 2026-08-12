@@ -150,7 +150,8 @@ export default function AboutPage() {
             We make Skinwear&trade; — wearable layers that protect, hydrate, and move with the day.
           </p>
 
-          <p className="font-suisse text-[var(--brand-cream)]/80 text-[20px] sm:text-[26px] md:text-[32px] lg:text-[34px] leading-[1.3] text-center">
+          {/* 3rd Line: Hidden on small/mobile screens, visible on medium+ screens */}
+          <p className="font-suisse text-[var(--brand-cream)]/80 text-[20px] sm:text-[26px] md:text-[32px] lg:text-[34px] leading-[1.3] text-center hidden md:block">
             For the Indian skin, for the Indian climate and for the real Indian days.
           </p>
         </div>
@@ -228,3 +229,8 @@ export default function AboutPage() {
     </main>
   );
 }
+
+
+
+
+

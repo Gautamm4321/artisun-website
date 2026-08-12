@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 export default function ClimateStats() {
   return (
     <section className="relative w-full flex flex-col items-center justify-center px-4 py-12 md:py-16 text-[var(--brand-cream)]">
-      
+
       {/* 1. Top Sub-heading / Statement */}
       <motion.div
         initial={{ opacity: 0, y: -20 }}
@@ -22,63 +22,64 @@ export default function ClimateStats() {
         </p>
       </motion.div>
 
-      {/* 2. Three Compact Glassmorphism Cards Grid */}
+      {/* 2. Responsive Cards Grid: Square in 1-line layout (sm:grid-cols-3), Rectangle stacked on small screens */}
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: '-50px' }}
         transition={{ duration: 0.8, delay: 0.2 }}
-        className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-[880px] justify-items-center"
+        className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 w-full max-w-[1000px] justify-items-center"
       >
 
         {/* CARD 1 */}
-        <div className="w-full max-w-[320px] md:max-w-none min-h-[310px] bg-black/25 backdrop-blur-md border border-white/10 rounded-none p-6 flex flex-col justify-between shadow-2xl hover:border-white/20 transition-all">
+        <div className="w-full min-h-0 sm:min-h-[310px] bg-black/25 backdrop-blur-md border border-white/10 rounded-none p-5 sm:p-6 flex flex-col justify-between shadow-2xl hover:border-white/20 transition-all">
           <div>
-            <h3 className="font-editorial text-5xl md:text-6xl font-normal mb-3 tracking-tight leading-none">
+            <h3 className="font-editorial text-4xl sm:text-5xl md:text-6xl font-normal mb-2 sm:mb-3 tracking-tight leading-none">
               10%
             </h3>
-            <p className="text-base md:text-lg font-sans font-normal opacity-95 leading-snug">
+            <p className="text-sm sm:text-base md:text-lg font-sans font-normal opacity-95 leading-snug">
               more sebum production takes place for every 1°C rise in the skin temperature.
             </p>
           </div>
-          <p className="text-xs md:text-sm font-sans text-white/90 text-right mt-6 font-normal">
+          <p className="text-[11px] sm:text-xs md:text-sm font-sans text-white/90 text-right mt-4 sm:mt-6 font-normal">
             British Journal of Dermatology, 1970
           </p>
         </div>
 
         {/* CARD 2 */}
-        <div className="w-full max-w-[320px] md:max-w-none min-h-[310px] bg-black/25 backdrop-blur-md border border-white/10 rounded-none p-6 flex flex-col justify-between shadow-2xl hover:border-white/20 transition-all">
+        <div className="w-full min-h-0 sm:min-h-[310px] bg-black/25 backdrop-blur-md border border-white/10 rounded-none p-5 sm:p-6 flex flex-col justify-between shadow-2xl hover:border-white/20 transition-all">
           <div>
-            <h3 className="font-editorial text-5xl md:text-6xl font-normal mb-3 tracking-tight leading-none">
+            <h3 className="font-editorial text-4xl sm:text-5xl md:text-6xl font-normal mb-2 sm:mb-3 tracking-tight leading-none">
               2 hrs
             </h3>
-            <p className="text-base md:text-lg font-sans font-normal opacity-95 leading-snug">
+            <p className="text-sm sm:text-base md:text-lg font-sans font-normal opacity-95 leading-snug">
               at 32°C is enough to measurably raise both sebum and inflammation markers in the skin.
             </p>
           </div>
-          <p className="text-xs md:text-sm font-sans text-white/90 text-right mt-6 font-normal">
+          <p className="text-[11px] sm:text-xs md:text-sm font-sans text-white/90 text-right mt-4 sm:mt-6 font-normal">
             Fudan University, Shanghai<br />
             Environmental Research, 2025
           </p>
         </div>
 
         {/* CARD 3 */}
-        <div className="w-full max-w-[320px] md:max-w-none min-h-[310px] bg-black/25 backdrop-blur-md border border-white/10 rounded-none p-6 flex flex-col justify-between shadow-2xl hover:border-white/20 transition-all">
+        <div className="w-full min-h-0 sm:min-h-[310px] bg-black/25 backdrop-blur-md border border-white/10 rounded-none p-5 sm:p-6 flex flex-col justify-between shadow-2xl hover:border-white/20 transition-all">
           <div>
-            <h3 className="font-editorial text-5xl md:text-6xl font-normal mb-3 tracking-tight leading-none">
+            <h3 className="font-editorial text-4xl sm:text-5xl md:text-6xl font-normal mb-2 sm:mb-3 tracking-tight leading-none">
               20%
             </h3>
-            <p className="text-base md:text-lg font-sans font-normal opacity-95 leading-snug">
+            <p className="text-sm sm:text-base md:text-lg font-sans font-normal opacity-95 leading-snug">
               more pigment spots on the forehead and cheeks, in skin exposed to more traffic particles.
             </p>
           </div>
-          <p className="text-xs md:text-sm font-sans text-white/90 text-right mt-6 font-normal">
+          <p className="text-[11px] sm:text-xs md:text-sm font-sans text-white/90 text-right mt-4 sm:mt-6 font-normal">
             Journal of Investigative<br />
             Dermatology, 2010
           </p>
         </div>
 
       </motion.div>
+
     </section>
   );
 }

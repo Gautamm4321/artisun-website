@@ -76,7 +76,7 @@ export default function AboutHero() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  useEffect(() => {
+ useEffect(() => {
     const updateScale = () => {
       const w = window.innerWidth;
       if (w < 480) {
@@ -107,15 +107,15 @@ export default function AboutHero() {
         }}
       />
 
-      {/* Giant ARTISUN wordmark — the typographic backdrop (GAZU-style) */}
-      <div className="pointer-events-none absolute inset-0 z-[2] flex items-center justify-center px-2">
+      {/* Giant ARTISUN wordmark — Proper breathing margin on all screens */}
+      <div className="pointer-events-none absolute inset-0 z-[2] flex items-center justify-center px-6 sm:px-10 md:px-14">
         <Image
           src={asset('/logo.png')}
           alt="ARTISUN"
           width={2000}
           height={445}
           priority
-          className="w-[90vw] max-w-[1500px] object-contain select-none"
+          className="w-[85vw] sm:w-[88vw] max-w-[1350px] object-contain select-none"
           style={{
             filter: 'brightness(0) invert(1)',
             opacity: 0.9,

@@ -135,8 +135,14 @@ export default function ProductScrollStory({
   return (
     <section className="relative w-full px-4 md:px-16 lg:px-24">
 
-      {/* ── 1. MOBILE & SMALL TABLET CAROUSEL VIEW WITH TOUCH SWIPE (< 768px) ── */}
-      <div className="block md:hidden py-8 px-2 text-center w-full max-w-[480px] mx-auto overflow-hidden">
+      {/* ── 1. MOBILE & SMALL TABLET CAROUSEL VIEW WITH TOUCH SWIPE & SCROLL REVEAL (< 768px) ── */}
+      <motion.div
+        initial={{ opacity: 0, y: 45 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: '-60px' }}
+        transition={{ duration: 0.75, ease: [0.25, 1, 0.5, 1] }}
+        className="block md:hidden py-11 sm:py-14 px-2 text-center w-full max-w-[480px] mx-auto overflow-hidden"
+      >
         {/* Eyebrow */}
         {eyebrow && (
           <p className="font-suisse uppercase tracking-[0.14em] text-[12px] text-[var(--brand-cream)]/75 mb-2">
@@ -181,15 +187,19 @@ export default function ProductScrollStory({
           </AnimatePresence>
         </motion.div>
 
-        {/* Dynamic Paragraph Text with Fade & Rise Animation */}
-        <div className="min-h-[75px] max-w-[420px] mx-auto flex flex-col justify-center mb-5 overflow-hidden">
+        {/* Dynamic Paragraph Text with Swipable Slide Effect */}
+        <div className="min-h-[75px] max-w-[420px] mx-auto flex flex-col justify-center mb-5 overflow-hidden cursor-grab active:cursor-grabbing touch-pan-y">
           <AnimatePresence mode="wait">
             <motion.div
               key={mobileIndex}
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -12 }}
-              transition={{ duration: 0.3, ease: 'easeOut' }}
+              drag="x"
+              dragConstraints={{ left: 0, right: 0 }}
+              dragElastic={0.2}
+              onDragEnd={handleDragEnd}
+              initial={{ opacity: 0, x: 40 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -40 }}
+              transition={{ duration: 0.35, ease: [0.25, 1, 0.5, 1] }}
             >
               <p className="font-suisse text-[var(--brand-cream)] text-[15px] sm:text-[17px] leading-[1.4] opacity-95">
                 {paragraphs[mobileIndex]?.text}
@@ -218,9 +228,10 @@ export default function ProductScrollStory({
             />
           ))}
         </div>
-      </div>
+      </motion.div>
 
       {/* ── 2. DESKTOP STICKY SCROLL VIEW (>= 768px) ── */}
+
       <div className="hidden md:grid md:grid-cols-2">
         {/* Editorial title side (desktop sticky) */}
         <div
@@ -262,6 +273,6 @@ export default function ProductScrollStory({
         </div>
       </div>
 
-    </section>
+    </section >
   );
 }

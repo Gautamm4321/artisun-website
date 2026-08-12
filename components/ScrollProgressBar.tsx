@@ -1,9 +1,10 @@
 'use client';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 export default function ScrollProgressBar({ marker }: { marker?: string }) {
   const barRef = useRef<HTMLDivElement>(null);
   const markerRef = useRef<HTMLImageElement>(null);
+  const [hideAtFooter, setHideAtFooter] = useState(false);
 
   useEffect(() => {
     const update = () => {
@@ -19,12 +20,32 @@ export default function ScrollProgressBar({ marker }: { marker?: string }) {
     return () => window.removeEventListener('scroll', update);
   }, []);
 
+  /* ── Footer Observer: Hide line & marker when footer comes into view ── */
+  useEffect(() => {
+    const footer = document.querySelector('footer');
+    if (!footer) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setHideAtFooter(entry.isIntersecting);
+      },
+      { threshold: 0.05 }
+    );
+
+    observer.observe(footer);
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <>
-      {/* Bottom progress line — sits above the mobile sticky bar, small gap on desktop */}
+    <div
+      className={`transition-opacity duration-300 ${
+        hideAtFooter ? 'opacity-0 pointer-events-none' : 'opacity-100'
+      }`}
+    >
+      {/* Bottom progress line — Always fixed at the very bottom edge (bottom-0) */}
       <div
         ref={barRef}
-        className="fixed left-0 w-full h-[3px] origin-left pointer-events-none bottom-[80px] lg:bottom-6"
+        className="fixed left-0 bottom-0 w-full h-[2px] md:h-[3px] origin-left pointer-events-none"
         style={{
           zIndex: 9999,
           background: 'linear-gradient(90deg, #FF8C22, #C93B1A, #E8DCC8)',
@@ -39,18 +60,18 @@ export default function ScrollProgressBar({ marker }: { marker?: string }) {
           src={marker}
           alt=""
           aria-hidden="true"
-          className="fixed pointer-events-none select-none bottom-[83px] lg:bottom-[27px]"
+          className="fixed pointer-events-none select-none bottom-0"
           style={{
             zIndex: 10000,
             left: '0%',
             transform: 'translateX(-50%)',
-            height: '24px',
+            height: '20px',
             width: 'auto',
             willChange: 'left',
             filter: 'drop-shadow(0 1px 3px rgba(0,0,0,0.4))',
           }}
         />
       )}
-    </>
+    </div>
   );
 }

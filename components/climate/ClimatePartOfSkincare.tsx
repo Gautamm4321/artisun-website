@@ -164,8 +164,8 @@ export default function ClimatePartOfSkincare() {
             />
           </motion.div>
 
-          {/* Right: Stacked 4 Text Pointers with Arrows */}
-          <div className="flex flex-col justify-between h-[210px] min-[400px]:h-[235px] flex-1 py-1">
+          {/* Right: Stacked 4 Text Pointers with Arrows extended into the Left Image */}
+          <div className="flex flex-col justify-between h-[210px] min-[400px]:h-[235px] flex-1 py-1 z-20">
             {MOBILE_POINTS.map((text, idx) => (
               <motion.div
                 key={idx}
@@ -173,10 +173,10 @@ export default function ClimatePartOfSkincare() {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.35, delay: 0.1 * idx }}
-                className="flex items-center gap-1.5 -ml-2"
+                className="flex items-center gap-1 -ml-6 min-[400px]:-ml-7 relative z-20"
               >
-                {/* Pointer Line pointing towards Image on Left */}
-                <span className="w-3 min-[400px]:w-4 h-[1px] bg-white/90 flex-shrink-0" />
+                {/* Pointer Line extending slightly inside the Image on Left */}
+                <span className="w-6 min-[400px]:w-8 h-[1px] bg-white/90 flex-shrink-0 relative z-30 shadow-md" />
                 <p className="text-[11px] min-[400px]:text-[12px] font-sans font-normal leading-tight opacity-95 text-left">
                   {text}
                 </p>
