@@ -22,8 +22,8 @@ type NavItem = { n: string; label: string; target: number | null; kind: 'link' |
 const NAV_ITEMS: NavItem[] = [
   { n: '01', label: 'Why Origin', target: 1, kind: 'link' },
   { n: '02', label: 'Where it works', target: 2, kind: 'link' },
-  { n: '03', label: "What's in it", target: null, kind: 'link' },
-  { n: '04', label: 'Some questions', target: null, kind: 'link' },
+  { n: '03', label: "What's in it", target: 4, kind: 'link' },
+  { n: '04', label: 'Some questions', target: 5, kind: 'link' },
   { n: '05', label: 'Full ingredient list', target: null, kind: 'accordion' },
 ];
 

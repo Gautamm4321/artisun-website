@@ -20,27 +20,23 @@ export default function GlobalHeader({ startHidden = false }: { startHidden?: bo
         />
       </Link>
 
-      {/* Middle: Text + Bottles + Text */}
-      <div className="flex items-center gap-4 md:gap-8 pointer-events-auto">
-        <span className="font-editorial text-[var(--brand-cream)] text-base md:text-[19px]">Climate-smart</span>
-        
-        <div className="flex items-end gap-[6px] md:gap-2">
+      {/* Middle: Nav links + product icons */}
+      <nav className="flex items-center gap-3 sm:gap-4 md:gap-8 pointer-events-auto">
+        <Link href="/climate" className="font-editorial text-[var(--brand-cream)] text-sm md:text-[19px] hover:opacity-70 transition-opacity whitespace-nowrap">Climate-smart</Link>
+
+        <div className="hidden sm:flex items-end gap-[6px] md:gap-2">
+          <Link href="/origin" aria-label="Origin" className="hover:scale-110 transition-transform">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={asset('/b2.png')} alt="Origin bottle" className="h-6 md:h-8 w-auto object-contain" />
+          </Link>
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img 
-            src={asset('/b2.png')} 
-            alt="Artisun Bottle" 
-            className="h-6 md:h-8 w-auto object-contain"
-          />
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img 
-            src={asset('/b1.png')} 
-            alt="Artisun Jar" 
-            className="h-4 md:h-[22px] w-auto object-contain mb-[2px]"
-          />
+          <img src={asset('/b1.png')} alt="Artisun jar" className="h-4 md:h-[22px] w-auto object-contain mb-[2px]" />
         </div>
-        
-        <span className="font-editorial text-[var(--brand-cream)] text-base md:text-[19px]">Skinwear™</span>
-      </div>
+
+        <Link href="/skinwear" className="font-editorial text-[var(--brand-cream)] text-sm md:text-[19px] hover:opacity-70 transition-opacity whitespace-nowrap">Skinwear™</Link>
+
+        <Link href="/about" className="font-editorial text-[var(--brand-cream)] text-sm md:text-[19px] hover:opacity-70 transition-opacity whitespace-nowrap">About</Link>
+      </nav>
 
       {/* Right: Cart Icon */}
       <div className="w-8 h-8 md:w-10 md:h-10 flex items-center justify-center cursor-pointer hover:scale-110 transition-transform pointer-events-auto">

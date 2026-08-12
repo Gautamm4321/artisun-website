@@ -10,8 +10,13 @@ import GlobalHeader from '@/components/GlobalHeader';
 import OriginHero from '@/components/origin/OriginHero';
 import OriginWhy from '@/components/origin/OriginWhy';
 import OriginWhere from '@/components/origin/OriginWhere';
+import OriginProduct from '@/components/origin/OriginProduct';
+import OriginWhatsIn, { FRAME_COUNT, type WhatsInController } from '@/components/origin/OriginWhatsIn';
+import OriginQuestions from '@/components/origin/OriginQuestions';
+import StickyCartBar from '@/components/origin/StickyCartBar';
+import { asset } from '@/lib/asset';
 
-const PANELS = 3;
+const PANELS = 6;
 
 export default function OriginPage() {
   const mouseProxy = useRef({ x: 0, y: 0, px: 0, py: 0 });
@@ -19,6 +24,7 @@ export default function OriginPage() {
   const trackRef = useRef<HTMLDivElement>(null);
   const lenisRef = useRef<Lenis | null>(null);
   const stRef = useRef<ScrollTrigger | null>(null);
+  const whatsInRef = useRef<WhatsInController | null>(null);
 
   // cursor proxy
   useEffect(() => {
@@ -95,9 +101,46 @@ export default function OriginPage() {
       });
       stRef.current = st;
 
+      // Bottle frame-scrub: cap opens as the What's-in-it panel slides to centre.
+      const whatsIn = document.querySelector('#origin-whatsin');
+      if (whatsIn) {
+        ScrollTrigger.create({
+          trigger: whatsIn,
+          containerAnimation: tween,
+          start: 'left right',
+          end: 'center center',
+          scrub: true,
+          onUpdate: (self) => {
+            const ctrl = whatsInRef.current;
+            if (!ctrl) return;
+            ctrl.draw(self.progress * (FRAME_COUNT - 1));
+            ctrl.setReveal(self.progress);
+          },
+        });
+      }
+
       return () => {
         stRef.current = null;
       };
+    });
+
+    // Mobile / tablet — vertical frame-scrub (no horizontal container).
+    mm.add('(max-width: 1023px)', () => {
+      const whatsIn = document.querySelector('#origin-whatsin');
+      if (!whatsIn) return;
+      const stFrames = ScrollTrigger.create({
+        trigger: whatsIn,
+        start: 'top bottom',
+        end: 'center center',
+        scrub: true,
+        onUpdate: (self) => {
+          const ctrl = whatsInRef.current;
+          if (!ctrl) return;
+          ctrl.draw(self.progress * (FRAME_COUNT - 1));
+          ctrl.setReveal(self.progress);
+        },
+      });
+      return () => stFrames.kill();
     });
 
     // Recalculate once webfonts settle (they reflow the panels).
@@ -123,14 +166,21 @@ export default function OriginPage() {
       const target = st.start + (i / (PANELS - 1)) * (st.end - st.start);
       lenis.scrollTo(target, { duration: 1.3 });
     } else {
-      const selector = i === 1 ? '#origin-why' : i === 2 ? '#origin-where' : 0;
-      lenis.scrollTo(selector as number | string, { duration: 1.1, offset: -56 });
+      const map: Record<number, number | string> = {
+        0: 0,
+        1: '#origin-why',
+        2: '#origin-where',
+        3: '#origin-product',
+        4: '#origin-whatsin',
+        5: '#origin-questions',
+      };
+      lenis.scrollTo(map[i] ?? 0, { duration: 1.1, offset: -56 });
     }
   };
 
   return (
     <main className="relative w-full min-h-[100svh] overflow-clip">
-      <ScrollProgressBar />
+      <ScrollProgressBar marker={asset('/b2.png')} />
       <div id="global-bg" className="theme-molten-core" />
 
       <CustomCursor mouseProxy={mouseProxy} />
@@ -161,8 +211,13 @@ export default function OriginPage() {
           <OriginHero onNavigate={goToPanel} />
           <OriginWhy />
           <OriginWhere />
+          <OriginProduct />
+          <OriginWhatsIn ref={whatsInRef} />
+          <OriginQuestions />
         </div>
       </div>
+
+      <StickyCartBar />
     </main>
   );
 }
