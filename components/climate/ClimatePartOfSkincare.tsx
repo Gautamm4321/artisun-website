@@ -187,6 +187,20 @@ export default function ClimatePartOfSkincare() {
         </div>
 
       </div>
+
+      {/* 3. Bottom Subline under Image */}
+      <motion.p
+        initial={{ opacity: 0, y: 15 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.5, delay: 0.2 }}
+        className="font-suisse text-center text-[15px] min-[400px]:text-[16px] sm:text-[20px] md:text-[24px] lg:text-[28px] text-[var(--brand-cream)] mt-8 sm:mt-10 md:mt-12 px-4 max-w-[95vw] lg:max-w-[1250px] font-normal leading-[1.3] tracking-tight whitespace-normal sm:whitespace-nowrap"
+      >
+        Even the same routine can perform differently depending on where you are.
+      </motion.p>
+
+      <div className="absolute bottom-0 left-0 w-full h-[1px] bg-white/20" />
+
     </section>
   );
 }

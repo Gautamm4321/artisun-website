@@ -14,9 +14,7 @@ export default function ClimateStats() {
         transition={{ duration: 0.8 }}
         className="text-center max-w-[1100px] mb-8 md:mb-12 space-y-3 font-sans px-2"
       >
-        <p className="text-lg sm:text-2xl md:text-3xl font-normal opacity-95 leading-relaxed">
-          Even the same routine can perform differently depending on where you are.
-        </p>
+        
         <p className="text-lg sm:text-2xl md:text-3xl font-normal opacity-95 underline underline-offset-4 leading-relaxed decoration-white/80">
           Understanding the skin means understanding the conditions it lives in.
         </p>
@@ -79,6 +77,9 @@ export default function ClimateStats() {
         </div>
 
       </motion.div>
+
+      <div className="absolute bottom-0 left-0 w-full h-[1px] bg-white/20" />
+
 
     </section>
   );

@@ -79,7 +79,8 @@ export default function ClimateRoutineGallery() {
       </motion.h2>
 
       {/* Marquee */}
-      <div className="w-full relative overflow-hidden py-4 group">
+      {/* Marquee Container with Horizontal Touch Scroll */}
+      <div className="w-full relative overflow-x-auto lg:overflow-hidden py-4 group no-scrollbar scroll-smooth">
         <div className="marquee-track flex gap-4 md:gap-6 w-max">
           {marqueeList.map((item, index) => {
             const isHovered = hoveredIndex === index;
@@ -96,27 +97,24 @@ export default function ClimateRoutineGallery() {
                   src={asset(item.src)}
                   alt={item.name}
                   fill
-                  className={`object-cover transition-all duration-700 ease-out ${isHovered
-                    ? 'blur-md scale-110 brightness-[0.4]'
-                    : 'blur-0 scale-100 brightness-100'
-                    }`}
+                  className={`object-cover transition-all duration-700 ease-out 
+                    blur-md scale-110 brightness-[0.4] 
+                    lg:blur-0 lg:scale-100 lg:brightness-100 
+                    ${isHovered ? 'lg:blur-md lg:scale-110 lg:brightness-[0.4]' : ''}`}
                 />
 
                 {/* Overlay */}
                 <div
-                  className={`absolute inset-0 transition-all duration-500 ${isHovered
-                    ? 'opacity-100 bg-black/30'
-                    : 'opacity-0'
+                  className={`absolute inset-0 transition-all duration-500 bg-black/30 opacity-100 lg:opacity-0 ${isHovered ? 'lg:opacity-100' : ''
                     }`}
                 />
 
                 {/* Content */}
                 <div
-                  className={`absolute inset-0 z-20 flex flex-col items-center justify-center text-center px-6 transition-opacity duration-300 ${isHovered
-                    ? 'opacity-100'
-                    : 'opacity-0 pointer-events-none'
+                  className={`absolute inset-0 z-20 flex flex-col items-center justify-center text-center px-6 transition-opacity duration-300 opacity-100 lg:opacity-0 lg:pointer-events-none ${isHovered ? 'lg:opacity-100' : ''
                     }`}
                 >
+
                   <h3 className="font-editorial text-2xl sm:text-3xl md:text-4xl font-normal mb-4 tracking-wide text-[var(--brand-cream)]">
                     {item.name}
                   </h3>
@@ -132,24 +130,37 @@ export default function ClimateRoutineGallery() {
       </div>
 
       <style jsx>{`
-  .marquee-track {
-    animation: marquee-scroll 60s linear infinite;
-  }
+        .marquee-track {
+          animation: marquee-scroll 60s linear infinite;
+        }
 
-  .marquee-track:hover {
-    animation-play-state: paused;
-  }
+        /* Pause animation only on Laptop/Desktop hover */
+        @media (min-width: 1024px) {
+          .marquee-track:hover {
+            animation-play-state: paused;
+          }
+        }
 
-  @keyframes marquee-scroll {
-    from {
-      transform: translateX(0);
-    }
+        /* Hide Scrollbar for touch dragging */
+        .no-scrollbar::-webkit-scrollbar {
+          display: none;
+        }
+        .no-scrollbar {
+          -ms-overflow-style: none;
+          scrollbar-width: none;
+        }
 
-    to {
-      transform: translateX(-50%);
-    }
-  }
-`}</style>
+        @keyframes marquee-scroll {
+          from {
+            transform: translateX(0);
+          }
+          to {
+            transform: translateX(-50%);
+          }
+        }
+      `}</style>
+
+      <div className="absolute bottom-0 left-0 w-full h-[1px] bg-white/20" />
 
     </section>
   );

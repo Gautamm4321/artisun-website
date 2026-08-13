@@ -128,8 +128,8 @@ export default function AboutPage() {
     };
   }, []);
 
-  return (
-    <main className="relative w-full min-h-[100svh] overflow-clip">
+    return (
+  <main className="relative w-full min-h-[100svh] overflow-clip snap-y snap-proximity">
       <ScrollProgressBar />
 
       <div id="global-bg" className="theme-molten-core" />

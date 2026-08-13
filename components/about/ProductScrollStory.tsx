@@ -42,8 +42,7 @@ function DesktopImageSlot({
       }}
     >
       <div
-        className={`min-h-0 md:min-h-auto lg:min-h-[85vh] flex flex-col pb-6 md:pb-10 ${i === 0 ? 'pt-4 md:pt-16 lg:pt-20' : 'pt-4 md:pt-8'
-          } items-center ${flip ? 'md:items-start' : 'md:items-end'}`}
+        className={`min-h-0 ${i === 0 ? 'md:min-h-[100vh] snap-start pt-4 md:pt-20' : 'md:min-h-[85vh] pt-4 md:pt-8'} flex flex-col pb-6 md:pb-10 items-center ${flip ? 'md:items-start' : 'md:items-end'}`}
       >
         <motion.div
           style={{ scale }}
@@ -133,7 +132,7 @@ export default function ProductScrollStory({
   };
 
   return (
-    <section className="relative w-full px-4 md:px-16 lg:px-24">
+    <section className="relative w-full px-4 md:px-16 lg:px-24 snap-start">
 
       {/* ── 1. MOBILE & SMALL TABLET CAROUSEL VIEW WITH TOUCH SWIPE & SCROLL REVEAL (< 768px) ── */}
       <motion.div

@@ -71,6 +71,9 @@ export default function ClimateSkinVsWeather() {
         </div>
 
       </div>
+
+      <div className="absolute bottom-0 left-0 w-full h-[1px] bg-white/20" />
+
     </section>
   );
 }

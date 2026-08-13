@@ -4,7 +4,7 @@ import Image from 'next/image';
 
 export default function SkinwearDailyLife() {
   return (
-    <section className="relative w-full py-12 sm:py-16 md:py-24 px-5 sm:px-8 md:px-12 lg:px-20 z-[16]">
+    <section className="relative w-full py-8 sm:py-12 md:py-16 px-5 sm:px-8 md:px-12 lg:px-20 z-[16]">
       <div className="w-full max-w-[1300px] mx-auto flex flex-col items-center text-center">
 
         {/* 1. TOP LANDSCAPE IMAGE */}
