@@ -4,27 +4,27 @@ import { useState } from 'react';
 import Image from 'next/image';
 import { asset } from '@/lib/asset';
 
-const BADGES = ['SPF 50+', 'PA++++', 'Broad spectrum', '50ml'];
+const BADGES = ['SPF 40', 'PA++++', 'Broad spectrum', '50ml'];
 
 const GALLERY = [
-  '/about-media/origin-hero.jpg',
-  '/about-media/origin-1.jpg',
-  '/about-media/origin-3.jpg',
+  '/about-media/aura-1.jpg',
+  '/about-media/aura-2.jpg',
+  '/about-media/aura-3.jpg',
 ];
 
 const FULL_INGREDIENTS =
-  'Aqua, Homosalate, Ethylhexyl Salicylate, Butyl Methoxydibenzoylmethane, ' +
-  'Octocrylene, Glycerin, Beta-Glucan, Niacinamide, Dimethicone, ' +
-  'Cetearyl Alcohol, Tocopherol, Sodium Hyaluronate, Panthenol, ' +
-  'Allantoin, Xanthan Gum, Phenoxyethanol, Fragrance.';
+  'Aqua, Ectoin, Bisabolol, Sodium Hyaluronate, Ethylhexyl Salicylate, ' +
+  'Butyl Methoxydibenzoylmethane, Octocrylene, Glycerin, Niacinamide, ' +
+  'Dimethicone, Cetearyl Alcohol, Tocopherol, Allantoin, Xanthan Gum, Phenoxyethanol.';
 
 type NavItem = { n: string; label: string; target: number | null; kind: 'link' | 'accordion' };
 const NAV_ITEMS: NavItem[] = [
-  { n: '01', label: 'Why Origin', target: 1, kind: 'link' },
+  { n: '01', label: 'The specifics', target: 1, kind: 'link' },
   { n: '02', label: 'Where it works', target: 2, kind: 'link' },
-  { n: '03', label: "What's in it", target: 4, kind: 'link' },
-  { n: '04', label: 'Some questions', target: 5, kind: 'link' },
-  { n: '05', label: 'Full ingredient list', target: null, kind: 'accordion' },
+  { n: '03', label: 'Dosage Guide', target: 3, kind: 'link' },
+  { n: '04', label: 'How it feels', target: 4, kind: 'link' },
+  { n: '05', label: "What's in it", target: 5, kind: 'link' },
+  { n: '06', label: 'Full ingredient list', target: null, kind: 'accordion' },
 ];
 
 function Chevron({ dir }: { dir: 'left' | 'right' }) {
@@ -35,7 +35,7 @@ function Chevron({ dir }: { dir: 'left' | 'right' }) {
   );
 }
 
-export default function OriginHero({ onNavigate }: { onNavigate: (panelIndex: number) => void }) {
+export default function AuraHero({ onNavigate }: { onNavigate: (panelIndex: number) => void }) {
   const [index, setIndex] = useState(0);
   const [ingredientsOpen, setIngredientsOpen] = useState(false);
 
@@ -44,20 +44,20 @@ export default function OriginHero({ onNavigate }: { onNavigate: (panelIndex: nu
   const next = () => setIndex((p) => (p + 1) % GALLERY.length);
 
   return (
-    <div className="origin-panel relative w-full lg:w-screen shrink-0 min-h-[100svh] lg:h-screen flex items-center justify-center pt-20 pb-8 lg:py-0">
+    <div className="aura-panel relative w-full lg:w-screen shrink-0 min-h-[100svh] lg:h-screen flex items-center justify-center pt-20 pb-8 lg:py-0">
       <div className="w-full max-w-[1500px] mx-auto px-5 sm:px-8 lg:px-14 grid grid-cols-1 lg:grid-cols-[1fr_1fr] gap-6 lg:gap-12 items-stretch my-auto">
 
-        {/* ── LEFT: Matches Right Content Height Pixel to Pixel ── */}
+        {/* ── LEFT: Matches Right Content Height ── */}
         <div className="order-1 flex flex-col h-full min-h-[380px] sm:min-h-[460px] lg:min-h-0">
           <div className="relative w-full h-full min-h-full rounded-[16px] overflow-hidden bg-white/[0.03] border border-[var(--brand-cream)]/10 shadow-2xl">
             <Image
               key={activeImg}
               src={asset(activeImg)}
-              alt="Origin 4-in-1 Milk Emulsion"
+              alt="Aura Pearl Skinwear"
               fill
               sizes="(max-width: 1024px) 100vw, 50vw"
               priority
-              className="object-cover animate-[originHeroFade_0.45s_ease]"
+              className="object-cover animate-[auraHeroFade_0.45s_ease]"
             />
 
             {/* Thumbnails */}
@@ -116,20 +116,22 @@ export default function OriginHero({ onNavigate }: { onNavigate: (panelIndex: nu
 
           {/* Title */}
           <h1 className="font-editorial text-[var(--brand-cream)] text-[24px] sm:text-[30px] lg:text-[36px] leading-[1.1] tracking-tight">
-            ORIGIN&nbsp;·&nbsp;4-in-1 Milk Emulsion SPF&nbsp;50+
+            AURA&nbsp;·&nbsp;Pearl Skinwear
           </h1>
 
           {/* Description */}
           <p className="font-suisse text-[var(--brand-cream)]/80 text-[13px] sm:text-[14px] leading-[1.45] mt-2 max-w-[48ch]">
-            <span className="text-[var(--brand-cream)] font-medium">Four steps, done in one. <br /></span>
-            Origin is a milk-light layer sunscreen that does four jobs at once — serum,
-            moisturiser, sunscreen and primer. It goes on weightless, absorbs in seconds,
-            and sits invisibly under everything else.
+            <span className="text-[var(--brand-cream)] font-medium">Pearls that melt into sun protection. <br /></span>
+            Beads that break on your skin and sink in — protection you actually feel go on, and never feel after.
+          </p>
+
+          <p className="font-suisse text-[var(--brand-cream)]/65 text-[12px] sm:text-[13px] leading-[1.4] mt-1.5 max-w-[48ch]">
+            No white cast. A soft, dewy finish. Every skin tone, every Indian weather. Easiest Absorption ever.
           </p>
 
           {/* Price + Buy */}
           <div className="flex items-center gap-4 mt-3 mb-3">
-            <span className="font-editorial text-[var(--brand-cream)] text-[22px] sm:text-[26px]">₹599</span>
+            <span className="font-editorial text-[var(--brand-cream)] text-[22px] sm:text-[26px]">₹1,799</span>
             <button className="pointer-events-auto font-suisse text-xs sm:text-sm tracking-wide uppercase px-6 py-2.5 rounded-full bg-[var(--brand-cream)] text-[var(--brand-dark)] hover:bg-white transition-colors font-medium">
               Add to bag
             </button>
@@ -140,8 +142,6 @@ export default function OriginHero({ onNavigate }: { onNavigate: (panelIndex: nu
           {/* Sidebar Navigation */}
           <ul className="flex flex-col">
             {NAV_ITEMS.map((item) => {
-              const soon = item.kind === 'link' && item.target === null;
-
               if (item.kind === 'accordion') {
                 return (
                   <li key={item.n} className="border-b border-[var(--brand-cream)]/10">
@@ -167,23 +167,18 @@ export default function OriginHero({ onNavigate }: { onNavigate: (panelIndex: nu
               return (
                 <li key={item.n} className="border-b border-[var(--brand-cream)]/10">
                   <button
-                    disabled={soon}
                     onClick={() => item.target !== null && onNavigate(item.target)}
-                    className={`pointer-events-auto w-full flex items-center gap-3 py-2 text-left group ${soon ? 'cursor-default' : ''}`}
+                    className="pointer-events-auto w-full flex items-center gap-3 py-2 text-left group"
                   >
-                    <span className={`font-suisse text-[13px] sm:text-[14px] transition-colors ${soon ? 'text-[var(--brand-cream)]/35' : 'text-[var(--brand-cream)]/90 group-hover:text-[var(--brand-cream)]'}`}>
+                    <span className="font-suisse text-[13px] sm:text-[14px] text-[var(--brand-cream)]/90 group-hover:text-[var(--brand-cream)] transition-colors">
                       {item.label}
                     </span>
-                    {soon ? (
-                      <span className="ml-auto font-suisse text-[10px] uppercase tracking-wider text-[var(--brand-cream)]/30 border border-[var(--brand-cream)]/15 rounded-full px-2 py-0.5">Soon</span>
-                    ) : (
-                      <span className="ml-auto text-white group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300 flex items-center justify-center">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                          <line x1="7" y1="17" x2="17" y2="7" />
-                          <polyline points="7 7 17 7 17 17" />
-                        </svg>
-                      </span>
-                    )}
+                    <span className="ml-auto text-white group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300 flex items-center justify-center">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                        <line x1="7" y1="17" x2="17" y2="7" />
+                        <polyline points="7 7 17 7 17 17" />
+                      </svg>
+                    </span>
                   </button>
                 </li>
               );
@@ -193,7 +188,7 @@ export default function OriginHero({ onNavigate }: { onNavigate: (panelIndex: nu
       </div>
 
       <style jsx global>{`
-        @keyframes originHeroFade {
+        @keyframes auraHeroFade {
           from { opacity: 0; }
           to { opacity: 1; }
         }
