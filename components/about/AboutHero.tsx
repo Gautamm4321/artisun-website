@@ -76,19 +76,27 @@ export default function AboutHero() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
- useEffect(() => {
+  useEffect(() => {
     const updateScale = () => {
       const w = window.innerWidth;
+      const h = window.innerHeight;
+      const isPortrait = h > w;
+
       if (w < 480) {
-        setScale(0.22); // small phones
-      } else if (w < 768) {
-        setScale(0.28); // phablets / small tabs
-      } else if (w < 1024) {
-        setScale(0.32); // 800px - 1000px screens (perfect "I" fit)
-      } else if (w < 1280) {
-        setScale(0.38); // 1000px - 1200px laptops
+        // Mobile screens
+        setScale(0.18);
+      } else if (w < 820) {
+        // Tablets like iPad Mini / iPad portrait
+        setScale(isPortrait ? 0.21 : 0.26);
+      } else if (w <= 1024) {
+        // iPad Pro / small laptops
+        setScale(isPortrait ? 0.24 : 0.32);
+      } else if (w < 1440) {
+        // Standard laptops & desktops
+        setScale(0.36);
       } else {
-        setScale(0.45); // large desktops
+        // Ultra-wide screens
+        setScale(0.42);
       }
     };
     updateScale();
@@ -98,57 +106,32 @@ export default function AboutHero() {
 
   return (
     <section className="relative w-full h-[65svh] sm:h-[75svh] md:h-screen lg:h-screen overflow-hidden flex items-center justify-center">
-      
-      {/* ── Exact About Page Molten Core Ambient Setup ── */}
-      {/* Layer 1: Molten Core Gradient (Deep Crimson Red to Glowing Ember Base) */}
-      <div
-        className="fixed inset-0 pointer-events-none z-0"
-        style={{
-          background:
-            'radial-gradient(130% 95% at 50% 75%, #D4481E 0%, #B0281F 30%, #7A1416 65%, #420608 100%)',
-        }}
-      />
+      {/* Soft dark stage glow so the wordmark + bottle read against the molten bg */}
 
-      {/* Layer 2: Top Ambient Vignette (Matches AboutHero Stage Glow) */}
-      <div
-        className="fixed inset-0 pointer-events-none z-0"
-        style={{
-          background:
-            'radial-gradient(ellipse 70% 60% at 50% 30%, rgba(245, 130, 45, 0.28) 0%, rgba(20, 3, 2, 0.45) 70%, rgba(20, 3, 2, 0.75) 100%)',
-          mixBlendMode: 'multiply',
-        }}
-      />
-
-      {/* Layer 3: Film Grain Overlay for Luxury Velvet Feel */}
-      <div
-        className="fixed inset-0 pointer-events-none z-0 opacity-25 mix-blend-overlay"
-        style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E")`,
-        }}
-      />
-
-      {/* Giant ARTISUN wordmark — Proper breathing margin on all screens */}
-      <div className="pointer-events-none absolute inset-0 z-[2] flex items-center justify-center px-6 sm:px-10 md:px-14">
-        <Image
-          src={asset('/logo.png')}
-          alt="ARTISUN"
-          width={2000}
-          height={445}
-          priority
-          className="w-[85vw] sm:w-[88vw] max-w-[1350px] object-contain select-none"
-          style={{
-            filter: 'brightness(0) invert(1)',
-            opacity: 0.9,
-            mixBlendMode: 'soft-light',
-          }}
-        />
+      {/* Giant ARTISUN wordmark — Force wide stretch across all screens */}
+      <div className="pointer-events-none absolute inset-x-0 top-1/2 -translate-y-1/2 z-[2] flex items-center justify-center px-3 sm:px-6 md:px-8 w-full">
+        <div className="relative w-full max-w-[96vw] lg:max-w-[1650px] flex items-center justify-center">
+          <Image
+            src={asset('/logo.png')}
+            alt="ARTISUN"
+            width={2000}
+            height={445}
+            priority
+            className="w-full h-auto object-contain select-none scale-105 sm:scale-100"
+            style={{
+              filter: 'brightness(0) invert(1)',
+              opacity: 0.9,
+              mixBlendMode: 'soft-light',
+            }}
+          />
+        </div>
       </div>
 
-      {/* Revolving 3D product — sits in front of the wordmark, like the figure over GAZU */}
+      {/* Revolving 3D product */}
       <div className="absolute inset-0 z-[3] pointer-events-none">
         <Canvas
           dpr={[1, 2]}
-          camera={{ position: [0, 0.25, 5], fov: 40 }}
+          camera={{ position: [0, 0, 5], fov: 36}}
           gl={{ antialias: true, toneMapping: THREE.ACESFilmicToneMapping, toneMappingExposure: 1.02, alpha: true }}
         >
           <HeroScene scrollRef={scrollRef} scale={scale} />
