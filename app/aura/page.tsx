@@ -8,11 +8,11 @@ import ScrollProgressBar from '@/components/ScrollProgressBar';
 import CustomCursor from '@/components/CustomCursor';
 import GlobalHeader from '@/components/GlobalHeader';
 import AuraHero from '@/components/aura/AuraHero';
-import AuraStats from '@/components/aura/AuraStats';
-import AuraWhere from '@/components/aura/AuraWhere';
 import AuraDosage from '@/components/aura/AuraDosage';
 import AuraTexture from '@/components/aura/AuraTexture';
+import AuraWhere from '@/components/aura/AuraWhere';
 import AuraWhatsIn from '@/components/aura/AuraWhatsIn';
+import AuraStats from '@/components/aura/AuraStats';
 import { asset } from '@/lib/asset';
 
 const PANELS = 6;
@@ -111,11 +111,11 @@ export default function AuraPage() {
     } else {
       const map: Record<number, number | string> = {
         0: 0,
-        1: '#aura-stats',
-        2: '#aura-where',
-        3: '#aura-dosage',
-        4: '#aura-texture',
-        5: '#aura-whatsin',
+        1: '#aura-dosage',
+        2: '#aura-texture',
+        3: '#aura-where',
+        4: '#aura-whatsin',
+        5: '#aura-stats',
       };
       lenis.scrollTo(map[i] ?? 0, { duration: 1.1, offset: -56 });
     }
@@ -145,12 +145,13 @@ export default function AuraPage() {
           ref={trackRef}
           className="flex flex-col lg:flex-row lg:flex-nowrap lg:h-screen will-change-transform"
         >
+          {/* Exact New Sequence: 1. Dosage -> 2. How it feels -> 3. Where it works -> 4. What's in it -> 5. The specifics */}
           <AuraHero onNavigate={goToPanel} />
-          <AuraStats />
-          <AuraWhere />
           <AuraDosage />
           <AuraTexture />
+          <AuraWhere />
           <AuraWhatsIn />
+          <AuraStats />
         </div>
       </div>
     </main>

@@ -98,12 +98,32 @@ export default function AboutHero() {
 
   return (
     <section className="relative w-full h-[65svh] sm:h-[75svh] md:h-screen lg:h-screen overflow-hidden flex items-center justify-center">
-      {/* Soft dark stage glow so the wordmark + bottle read against the molten bg */}
+      
+      {/* ── Exact About Page Molten Core Ambient Setup ── */}
+      {/* Layer 1: Molten Core Gradient (Deep Crimson Red to Glowing Ember Base) */}
       <div
-        className="pointer-events-none absolute inset-0 z-[1]"
+        className="fixed inset-0 pointer-events-none z-0"
         style={{
           background:
-            'radial-gradient(ellipse 60% 55% at 50% 52%, rgba(20,3,2,0.55), rgba(20,3,2,0.18) 45%, transparent 72%)',
+            'radial-gradient(130% 95% at 50% 75%, #D4481E 0%, #B0281F 30%, #7A1416 65%, #420608 100%)',
+        }}
+      />
+
+      {/* Layer 2: Top Ambient Vignette (Matches AboutHero Stage Glow) */}
+      <div
+        className="fixed inset-0 pointer-events-none z-0"
+        style={{
+          background:
+            'radial-gradient(ellipse 70% 60% at 50% 30%, rgba(245, 130, 45, 0.28) 0%, rgba(20, 3, 2, 0.45) 70%, rgba(20, 3, 2, 0.75) 100%)',
+          mixBlendMode: 'multiply',
+        }}
+      />
+
+      {/* Layer 3: Film Grain Overlay for Luxury Velvet Feel */}
+      <div
+        className="fixed inset-0 pointer-events-none z-0 opacity-25 mix-blend-overlay"
+        style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E")`,
         }}
       />
 

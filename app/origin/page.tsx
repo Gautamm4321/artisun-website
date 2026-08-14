@@ -50,9 +50,11 @@ export default function OriginPage() {
     });
     lenisRef.current = lenis;
     lenis.on('scroll', ScrollTrigger.update);
+
     const raf = (time: number) => lenis.raf(time * 1000);
     gsap.ticker.add(raf);
     gsap.ticker.lagSmoothing(0);
+
 
     // Open in the warm, bright molten state (matches the About page).
     gsap.set(document.documentElement, {
@@ -191,6 +193,7 @@ export default function OriginPage() {
         frame when you're already close, so normal scrolling stays free. Desktop snap
         is handled by GSAP above.
       */}
+
       <style jsx global>{`
         @media (max-width: 1023px) {
           html {
@@ -199,6 +202,10 @@ export default function OriginPage() {
           .origin-panel {
             scroll-snap-align: start;
           }
+        }
+        #origin-questions {
+          touch-action: pan-y !important;
+          overscroll-behavior: contain;
         }
       `}</style>
 

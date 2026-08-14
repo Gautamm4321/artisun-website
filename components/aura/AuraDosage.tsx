@@ -59,6 +59,8 @@ export default function AuraDosage() {
         </p>
       </div>
 
+
+
       {/* Center Interactive Visual Display */}
       <div className="relative z-10 max-w-[1500px] w-full mx-auto my-auto grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-12 items-center pt-2">
         
@@ -85,13 +87,16 @@ export default function AuraDosage() {
           </div>
         </div>
 
-        {/* Right: Pearl Selectors */}
-        <div className="flex flex-col justify-center space-y-4">
+
+{/* Right: Vertical Stack (Select Dose -> 1 Pearl -> 2 Pearls -> 3 Pearls -> Bottom Lines) */}
+        <div className="flex flex-col justify-center space-y-3.5 w-full max-w-[480px]">
+          {/* 1. Top Header */}
           <p className="font-suisse text-xs uppercase tracking-[0.16em] opacity-75">
             Select Dose Amount:
           </p>
 
-          <div className="flex gap-3 sm:gap-4">
+          {/* 2. Vertically Stacked Boxes (Ek ke neeche ek) */}
+          <div className="flex flex-col gap-2.5 w-full">
             {PEARL_TABS.map((tab, idx) => {
               const isActive = activeTab === idx;
               return (
@@ -99,24 +104,25 @@ export default function AuraDosage() {
                   key={tab.label}
                   type="button"
                   onClick={() => setActiveTab(idx)}
-                  className={`flex-1 py-3.5 px-3 rounded-xl border text-center transition-all duration-300 ${
+                  className={`w-full py-3 px-5 rounded-xl border flex items-center justify-between transition-all duration-300 ${
                     isActive
-                      ? 'bg-white text-black border-white shadow-lg scale-[1.02]'
+                      ? 'bg-white text-black border-white shadow-lg scale-[1.01]'
                       : 'bg-black/20 text-[var(--brand-cream)]/80 border-white/15 hover:border-white/40 hover:bg-black/30'
                   }`}
                 >
-                  <span className="font-editorial text-2xl sm:text-3xl block leading-none mb-1">
-                    {tab.pearls}
-                  </span>
-                  <span className="font-suisse text-[10px] sm:text-[11px] uppercase tracking-wider block font-medium">
+                  <span className="font-suisse text-xs sm:text-sm uppercase tracking-wider font-semibold">
                     {tab.label}
+                  </span>
+                  <span className="font-editorial text-2xl sm:text-3xl leading-none">
+                    {tab.pearls}
                   </span>
                 </button>
               );
             })}
           </div>
 
-          <div className="pt-3 border-t border-white/15 space-y-1.5">
+          {/* 3. Remaining Bottom Lines */}
+          <div className="pt-3 border-t border-white/15 space-y-1">
             <p className="font-editorial text-base sm:text-lg italic text-[var(--brand-cream)]/90">
               One sunscreen. Every season. Never the wrong amount.
             </p>
@@ -125,6 +131,7 @@ export default function AuraDosage() {
             </p>
           </div>
         </div>
+
 
       </div>
     </div>

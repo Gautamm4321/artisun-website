@@ -159,22 +159,13 @@ export default function Footer() {
           <div className="flex flex-col items-start md:items-end gap-4 md:gap-5 md:max-w-sm lg:max-w-md footer-reveal">
             <div className="flex gap-3">
               <a
-                href="https://instagram.com"
+                href="https://instagram.com/artisunskinwear"
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label="Instagram"
+                aria-label="Instagram" 
                 className="shrink-0 w-8 h-8 md:w-9 md:h-9 text-[var(--brand-cream)] hover:text-white transition-colors duration-300"
               >
                 <InstagramIcon />
-              </a>
-              <a
-                href="https://linkedin.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="LinkedIn"
-                className="shrink-0 w-8 h-8 md:w-9 md:h-9 text-[var(--brand-cream)] hover:text-white transition-colors duration-300"
-              >
-                <LinkedInIcon />
               </a>
             </div>
 

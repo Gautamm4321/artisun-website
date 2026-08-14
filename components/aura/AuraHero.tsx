@@ -18,12 +18,13 @@ const FULL_INGREDIENTS =
   'Dimethicone, Cetearyl Alcohol, Tocopherol, Allantoin, Xanthan Gum, Phenoxyethanol.';
 
 type NavItem = { n: string; label: string; target: number | null; kind: 'link' | 'accordion' };
+
 const NAV_ITEMS: NavItem[] = [
-  { n: '01', label: 'The specifics', target: 1, kind: 'link' },
-  { n: '02', label: 'Where it works', target: 2, kind: 'link' },
-  { n: '03', label: 'Dosage Guide', target: 3, kind: 'link' },
-  { n: '04', label: 'How it feels', target: 4, kind: 'link' },
-  { n: '05', label: "What's in it", target: 5, kind: 'link' },
+  { n: '01', label: 'Dosage Guide', target: 1, kind: 'link' },
+  { n: '02', label: 'How it feels', target: 2, kind: 'link' },
+  { n: '03', label: 'Where it works', target: 3, kind: 'link' },
+  { n: '04', label: "What's in it", target: 4, kind: 'link' },
+  { n: '05', label: 'The specifics', target: 5, kind: 'link' },
   { n: '06', label: 'Full ingredient list', target: null, kind: 'accordion' },
 ];
 
@@ -49,7 +50,7 @@ export default function AuraHero({ onNavigate }: { onNavigate: (panelIndex: numb
 
         {/* ── LEFT: Matches Right Content Height ── */}
         <div className="order-1 flex flex-col h-full min-h-[380px] sm:min-h-[460px] lg:min-h-0">
-          <div className="relative w-full h-full min-h-full rounded-[16px] overflow-hidden bg-white/[0.03] border border-[var(--brand-cream)]/10 shadow-2xl">
+          <div className="relative w-full h-full min-h-full overflow-hidden bg-white/[0.03] shadow-2xl">
             <Image
               key={activeImg}
               src={asset(activeImg)}
@@ -69,10 +70,10 @@ export default function AuraHero({ onNavigate }: { onNavigate: (panelIndex: numb
                     key={src}
                     onClick={() => setIndex(i)}
                     aria-label={`View image ${i + 1}`}
-                    className={`pointer-events-auto relative h-10 w-10 sm:h-12 sm:w-12 rounded-[6px] overflow-hidden border transition-all duration-300 ${
+                    className={`pointer-events-auto relative h-10 w-10 sm:h-12 sm:w-12 overflow-hidden transition-all duration-300 ${
                       active
-                        ? 'border-white/90 ring-1 ring-white/50 opacity-100'
-                        : 'border-white/20 opacity-50 hover:opacity-80'
+                        ? 'opacity-100'
+                        : 'opacity-50 hover:opacity-80'
                     }`}
                   >
                     <Image src={asset(src)} alt="" fill sizes="48px" className="object-cover" />
@@ -132,7 +133,7 @@ export default function AuraHero({ onNavigate }: { onNavigate: (panelIndex: numb
           {/* Price + Buy */}
           <div className="flex items-center gap-4 mt-3 mb-3">
             <span className="font-editorial text-[var(--brand-cream)] text-[22px] sm:text-[26px]">₹1,799</span>
-            <button className="pointer-events-auto font-suisse text-xs sm:text-sm tracking-wide uppercase px-6 py-2.5 rounded-full bg-[var(--brand-cream)] text-[var(--brand-dark)] hover:bg-white transition-colors font-medium">
+            <button className="pointer-events-auto font-suisse text-xs sm:text-sm tracking-wide uppercase px-6 py-2.5 bg-[var(--brand-cream)] text-[var(--brand-dark)] hover:bg-white transition-colors font-medium">
               Add to bag
             </button>
           </div>

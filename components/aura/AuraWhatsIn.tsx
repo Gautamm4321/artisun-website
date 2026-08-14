@@ -33,7 +33,7 @@ const INGREDIENTS: Ingredient[] = [
 ];
 
 export default function AuraWhatsIn() {
-  const [open, setOpen] = useState<number | null>(0);
+  const [open, setOpen] = useState<number | null>(null);
 
   return (
     <div
