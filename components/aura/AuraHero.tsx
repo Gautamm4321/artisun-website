@@ -25,7 +25,9 @@ const NAV_ITEMS: NavItem[] = [
   { n: '03', label: 'Where it works', target: 3, kind: 'link' },
   { n: '04', label: "What's in it", target: 4, kind: 'link' },
   { n: '05', label: 'The specifics', target: 5, kind: 'link' },
-  { n: '06', label: 'Full ingredient list', target: null, kind: 'accordion' },
+  { n: '06', label: 'Aura Product', target: 6, kind: 'link' },
+    { n: '07', label: 'Some Questions', target: 7, kind: 'link' },
+  { n: '08', label: 'Full ingredient list', target: null, kind: 'accordion' },
 ];
 
 function Chevron({ dir }: { dir: 'left' | 'right' }) {

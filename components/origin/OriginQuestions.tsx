@@ -257,7 +257,7 @@ function renderAnswerContent(answer: string) {
 
 export default function OriginQuestions() {
   const [tab, setTab] = useState(0);
-  const [openIndex, setOpenIndex] = useState<number | null>(0);
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
   const [search, setSearch] = useState('');
   const [showAll, setShowAll] = useState<Record<number, boolean>>({});
 
@@ -349,7 +349,7 @@ export default function OriginQuestions() {
                     key={c.cat}
                     onClick={() => {
                       setTab(i);
-                      setOpenIndex(0);
+                      setOpenIndex(null);
                     }}
                     className={`shrink-0 flex items-center gap-2 font-suisse text-[11px] sm:text-[12.5px] tracking-[0.1em] uppercase transition-all font-semibold ${active
                       ? 'text-[var(--brand-red)]'
@@ -406,7 +406,7 @@ export default function OriginQuestions() {
           )}
         </div>
 
-       {/* View All Button */}
+        {/* View All Button */}
         {!searchResults && !showAll[tab] && currentCategory.items.length > VISIBLE_COUNT && (
           <button
             onClick={() => setShowAll((prev) => ({ ...prev, [tab]: true }))}

@@ -22,9 +22,10 @@ type NavItem = { n: string; label: string; target: number | null; kind: 'link' |
 const NAV_ITEMS: NavItem[] = [
   { n: '01', label: 'Why Origin', target: 1, kind: 'link' },
   { n: '02', label: 'Where it works', target: 2, kind: 'link' },
-  { n: '03', label: "What's in it", target: 4, kind: 'link' },
-  { n: '04', label: 'Some questions', target: 5, kind: 'link' },
-  { n: '05', label: 'Full ingredient list', target: null, kind: 'accordion' },
+  { n: '03', label: "What's in it", target: 3, kind: 'link' },
+  { n: '04', label: 'Origin Product', target: 4, kind: 'link' },
+  { n: '05', label: 'Questions', target: 5, kind: 'link' },
+  { n: '06', label: 'Full ingredient list', target: null, kind: 'accordion' },
 ];
 
 function Chevron({ dir }: { dir: 'left' | 'right' }) {
@@ -49,7 +50,7 @@ export default function OriginHero({ onNavigate }: { onNavigate: (panelIndex: nu
 
         {/* ── LEFT: Matches Right Content Height Pixel to Pixel ── */}
         <div className="order-1 flex flex-col h-full min-h-[380px] sm:min-h-[460px] lg:min-h-0">
-          <div className="relative w-full h-full min-h-full rounded-[16px] overflow-hidden bg-white/[0.03] border border-[var(--brand-cream)]/10 shadow-2xl">
+          <div className="relative w-full h-full min-h-full overflow-hidden bg-white/[0.03] shadow-2xl">
             <Image
               key={activeImg}
               src={asset(activeImg)}
@@ -69,11 +70,10 @@ export default function OriginHero({ onNavigate }: { onNavigate: (panelIndex: nu
                     key={src}
                     onClick={() => setIndex(i)}
                     aria-label={`View image ${i + 1}`}
-                    className={`pointer-events-auto relative h-10 w-10 sm:h-12 sm:w-12 rounded-[6px] overflow-hidden border transition-all duration-300 ${
-                      active
-                        ? 'border-white/90 ring-1 ring-white/50 opacity-100'
-                        : 'border-white/20 opacity-50 hover:opacity-80'
-                    }`}
+                    className={`pointer-events-auto relative h-10 w-10 sm:h-12 sm:w-12 overflow-hidden transition-all duration-300 ${active
+                      ? 'opacity-100'
+                      : 'opacity-50 hover:opacity-80'
+                      }`}
                   >
                     <Image src={asset(src)} alt="" fill sizes="48px" className="object-cover" />
                   </button>
@@ -130,7 +130,7 @@ export default function OriginHero({ onNavigate }: { onNavigate: (panelIndex: nu
           {/* Price + Buy */}
           <div className="flex items-center gap-4 mt-3 mb-3">
             <span className="font-editorial text-[var(--brand-cream)] text-[22px] sm:text-[26px]">₹599</span>
-            <button className="pointer-events-auto font-suisse text-xs sm:text-sm tracking-wide uppercase px-6 py-2.5 rounded-full bg-[var(--brand-cream)] text-[var(--brand-dark)] hover:bg-white transition-colors font-medium">
+            <button className="pointer-events-auto font-suisse text-xs sm:text-sm tracking-wide uppercase px-6 py-2.5 bg-[var(--brand-cream)] text-[var(--brand-dark)] hover:bg-white transition-colors font-medium">
               Add to bag
             </button>
           </div>

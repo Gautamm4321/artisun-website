@@ -10,8 +10,8 @@ import GlobalHeader from '@/components/GlobalHeader';
 import OriginHero from '@/components/origin/OriginHero';
 import OriginWhy from '@/components/origin/OriginWhy';
 import OriginWhere from '@/components/origin/OriginWhere';
-import OriginProduct from '@/components/origin/OriginProduct';
 import OriginWhatsIn, { FRAME_COUNT, type WhatsInController } from '@/components/origin/OriginWhatsIn';
+import OriginProduct from '@/components/origin/OriginProduct';
 import OriginQuestions from '@/components/origin/OriginQuestions';
 import StickyCartBar from '@/components/origin/StickyCartBar';
 import { asset } from '@/lib/asset';
@@ -42,7 +42,6 @@ export default function OriginPage() {
     gsap.registerPlugin(ScrollTrigger);
     ScrollTrigger.config({ ignoreMobileResize: true });
 
-    // ── Smooth scroll (Lenis) on GSAP's ticker — same setup as home/about ──
     const lenis = new Lenis({
       duration: 1.15,
       easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -55,8 +54,6 @@ export default function OriginPage() {
     gsap.ticker.add(raf);
     gsap.ticker.lagSmoothing(0);
 
-
-    // Open in the warm, bright molten state (matches the About page).
     gsap.set(document.documentElement, {
       '--mc-center': '100%',
       '--mc-pos-1': '20%',
@@ -67,10 +64,6 @@ export default function OriginPage() {
       '--mc-pos-6': '300%',
     });
 
-    // ── Horizontal scroll — desktop / large tablet only ──
-    // Below lg the panels stack and the page scrolls vertically (with Panel 3's
-    // weather cards becoming a horizontal swipe strip), so we only pin + translate
-    // on wide screens.
     const mm = gsap.matchMedia();
     mm.add('(min-width: 1024px)', () => {
       const track = trackRef.current;
@@ -93,7 +86,6 @@ export default function OriginPage() {
         animation: tween,
         anticipatePin: 1,
         invalidateOnRefresh: true,
-        // Auto-fit: when scrolling settles near a panel, ease it into perfect frame.
         snap: {
           snapTo: 1 / (PANELS - 1),
           duration: { min: 0.2, max: 0.55 },
@@ -103,7 +95,7 @@ export default function OriginPage() {
       });
       stRef.current = st;
 
-      // Bottle frame-scrub: cap opens as the What's-in-it panel slides to centre.
+      // Bottle frame-scrub: synchronized perfectly for Panel 4 (OriginWhatsIn)
       const whatsIn = document.querySelector('#origin-whatsin');
       if (whatsIn) {
         ScrollTrigger.create({
@@ -126,7 +118,7 @@ export default function OriginPage() {
       };
     });
 
-    // Mobile / tablet — vertical frame-scrub (no horizontal container).
+    // Mobile / tablet
     mm.add('(max-width: 1023px)', () => {
       const whatsIn = document.querySelector('#origin-whatsin');
       if (!whatsIn) return;
@@ -145,7 +137,6 @@ export default function OriginPage() {
       return () => stFrames.kill();
     });
 
-    // Recalculate once webfonts settle (they reflow the panels).
     document.fonts.ready.then(() => ScrollTrigger.refresh());
 
     return () => {
@@ -157,7 +148,7 @@ export default function OriginPage() {
     };
   }, []);
 
-  /** Jump to a panel from the hero's sidebar list. */
+  /** Jump to a panel from the hero's sidebar list */
   const goToPanel = (i: number) => {
     const lenis = lenisRef.current;
     const st = stRef.current;
@@ -172,8 +163,8 @@ export default function OriginPage() {
         0: 0,
         1: '#origin-why',
         2: '#origin-where',
-        3: '#origin-product',
-        4: '#origin-whatsin',
+        3: '#origin-whatsin',
+        4: '#origin-product',
         5: '#origin-questions',
       };
       lenis.scrollTo(map[i] ?? 0, { duration: 1.1, offset: -56 });
@@ -187,12 +178,6 @@ export default function OriginPage() {
 
       <CustomCursor mouseProxy={mouseProxy} />
       <GlobalHeader />
-
-      {/*
-        Gentle vertical snap on mobile/tablet — 'proximity' only nudges panels into
-        frame when you're already close, so normal scrolling stays free. Desktop snap
-        is handled by GSAP above.
-      */}
 
       <style jsx global>{`
         @media (max-width: 1023px) {
@@ -209,17 +194,28 @@ export default function OriginPage() {
         }
       `}</style>
 
-      {/* Pinned viewport (desktop) / natural column (mobile) */}
+      {/* ── 6 EXACT ORDERED PANELS ── */}
       <div ref={wrapperRef} className="relative w-full lg:h-screen lg:overflow-hidden">
         <div
           ref={trackRef}
           className="flex flex-col lg:flex-row lg:flex-nowrap lg:h-screen will-change-transform"
         >
+          {/* 1. Home Section */}
           <OriginHero onNavigate={goToPanel} />
+
+          {/* 2. The most boring step in your morning */}
           <OriginWhy />
+
+          {/* 3. One sunscreen. Every Indian weather. */}
           <OriginWhere />
-          <OriginProduct />
+
+          {/* 4. The good version of everything. */}
           <OriginWhatsIn ref={whatsInRef} />
+
+          {/* 5. ORIGIN 4-in-1 Milk Emulsion SPF 50+ */}
+          <OriginProduct />
+
+          {/* 6. Origin questions everything answered */}
           <OriginQuestions />
         </div>
       </div>

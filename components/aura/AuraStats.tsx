@@ -25,60 +25,65 @@ export default function AuraStats() {
   return (
     <div
       id="aura-stats"
-      className="aura-panel relative w-full lg:w-screen shrink-0 min-h-[100svh] lg:h-screen overflow-hidden text-[var(--brand-cream)]"
+      className="aura-panel relative w-full lg:w-screen shrink-0 min-h-[100svh] lg:h-screen overflow-hidden text-[var(--brand-cream)] flex items-center"
     >
       {/* Full-bleed background */}
       <Image src={asset(BG_IMAGE)} alt="" fill sizes="100vw" className="object-cover object-center" />
       <div className="absolute inset-0 bg-black/60" />
-      <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/20 to-black/80" />
+      <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-black/80" />
 
-      {/* Content */}
-      <div className="relative z-10 h-full w-full max-w-[1500px] mx-auto px-5 sm:px-8 lg:px-14 pt-24 pb-12 lg:pt-[116px] lg:pb-12 flex flex-col justify-between gap-10">
+      {/* Main Layout Container */}
+      <div className="relative z-10 w-full max-w-[1550px] mx-auto px-6 sm:px-10 lg:px-16 py-24 lg:py-0 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-12 lg:gap-16">
         
-        {/* Top Header */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 lg:gap-16 items-start">
+        {/* LEFT COLUMN: The Specifics + Heading + 3 Badges */}
+        <div className="w-full lg:max-w-[480px] flex flex-col space-y-6">
           <div>
-            <span className="font-suisse text-[11px] tracking-[0.14em] uppercase text-[var(--brand-cream)]/70">
+            <span className="font-suisse text-[11px] tracking-[0.18em] uppercase text-[var(--brand-cream)]/70">
               The Specifics
             </span>
-            <h2 className="font-editorial text-[30px] sm:text-[44px] lg:text-[54px] leading-[1.05] tracking-tight mt-2 max-w-[15ch]">
+            <h2 className="font-editorial text-[32px] sm:text-[44px] lg:text-[54px] leading-[1.08] tracking-tight mt-2 text-white">
               Backed by real numbers. Designed for real skin.
             </h2>
           </div>
 
-          {/* Footer Badges from Miro */}
-          <div className="flex flex-wrap gap-2.5 lg:pt-4 lg:justify-end">
-            <span className="font-suisse text-xs uppercase tracking-wider px-4 py-2 rounded-full border border-white/20 bg-black/30 backdrop-blur-sm">
+          {/* 3 Badges set directly under the heading */}
+          <div className="flex flex-wrap gap-2.5 pt-2">
+            <span className="font-suisse text-[11px] sm:text-xs uppercase tracking-wider px-4 py-2 rounded-full border border-white/20 bg-black/40 backdrop-blur-md">
               Broad spectrum
             </span>
-            <span className="font-suisse text-xs uppercase tracking-wider px-4 py-2 rounded-full border border-white/20 bg-black/30 backdrop-blur-sm">
+            <span className="font-suisse text-[11px] sm:text-xs uppercase tracking-wider px-4 py-2 rounded-full border border-white/20 bg-black/40 backdrop-blur-md">
               All skin types
             </span>
-            <span className="font-suisse text-xs uppercase tracking-wider px-4 py-2 rounded-full border border-white/20 bg-black/30 backdrop-blur-sm">
+            <span className="font-suisse text-[11px] sm:text-xs uppercase tracking-wider px-4 py-2 rounded-full border border-white/20 bg-black/40 backdrop-blur-md">
               Made in India
             </span>
           </div>
         </div>
 
-        {/* Bottom Stats Grid */}
+        {/* RIGHT COLUMN: Vertically Stacked Digits & Information */}
         <div
           ref={statsRef}
-          className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-y-8 gap-x-6 lg:gap-x-0"
+          className="w-full lg:max-w-[560px] flex flex-col divide-y divide-white/15"
         >
           {STATS.map((s) => (
             <div
               key={s.index}
-              className="flex flex-col lg:px-7 lg:border-l lg:border-[var(--brand-cream)]/18 lg:first:border-l-0 lg:first:pl-0"
+              className="py-4 lg:py-5 first:pt-0 last:pb-0 flex items-center justify-between gap-6"
             >
-              <div className="font-suisse text-[11px] tracking-[0.14em] uppercase text-[var(--brand-cream)]/55">
-                {s.index} · {s.label}
+              {/* Left Info */}
+              <div className="flex-1 pr-2">
+                <div className="font-suisse text-[11px] tracking-[0.16em] uppercase text-[var(--brand-cream)]/60 mb-1">
+                  {s.index} · {s.label}
+                </div>
+                <p className="font-suisse text-xs sm:text-[13px] leading-relaxed text-[var(--brand-cream)]/75">
+                  {s.copy}
+                </p>
               </div>
-              <div className="font-editorial text-[var(--brand-cream)] text-[42px] sm:text-[54px] lg:text-[60px] leading-none mt-2 tabular-nums">
+
+              {/* Animated Digit */}
+              <div className="font-editorial text-[var(--brand-cream)] text-[34px] sm:text-[44px] lg:text-[48px] leading-none tabular-nums shrink-0 text-right min-w-[110px]">
                 <CountUp end={s.value} suffix={s.suffix} play={inView} duration={2} />
               </div>
-              <p className="font-suisse text-[13px] sm:text-sm leading-[1.5] text-[var(--brand-cream)]/70 mt-3">
-                {s.copy}
-              </p>
             </div>
           ))}
         </div>

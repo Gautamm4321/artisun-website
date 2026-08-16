@@ -20,13 +20,14 @@ import ClothingSection from '../components/ClothingSection';
 import SkinProtectionSection from '../components/SkinProtectionSection';
 import KeyholeSection from '../components/KeyholeSection';
 import CTASection from '../components/CTASection';
+import FashionSkinSection from '@/components/FashionSkinSection';
 import Footer from '../components/Footer';
 
 export default function Home() {
   const [loadingComplete, setLoadingComplete] = useState(false);
   const [mediaProgress, setMediaProgress] = useState(0);
   const mainRef = useRef<HTMLElement>(null);
-  
+
   // Mouse Proxy for performance (no react state re-renders on mousemove)
   const mouseProxy = useRef({ x: 0, y: 0, px: 0, py: 0 });
 
@@ -37,7 +38,7 @@ export default function Home() {
       mouseProxy.current.x = (e.clientX / window.innerWidth) * 2 - 1;
       mouseProxy.current.y = -(e.clientY / window.innerHeight) * 2 + 1;
     };
-    
+
     window.addEventListener('mousemove', handleMouseMove, { passive: true });
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
@@ -99,13 +100,13 @@ export default function Home() {
       });
 
       const tl = gsap.timeline();
-      
+
       // Hero Logo fade in / slight scale
-      tl.fromTo('.hero-title', 
+      tl.fromTo('.hero-title',
         { opacity: 0, scale: 0.96, y: 10 },
         { opacity: 1, scale: 1, y: 0, duration: 1.2, ease: 'power3.out' }
       );
-      
+
       // Hero Subtitle — word by word entrance (Effect 9 adapted, half-intensity)
       // Each word materialises from a slight atmospheric haze — 6 words, 0.09s apart.
       // Calmer and more effortless than the section word reveals.
@@ -183,8 +184,8 @@ export default function Home() {
         start: "top top",
         end: "+=150", // fades out completely after scrolling 150px
         scrub: true,
-        animation: gsap.fromTo('.scroll-indicator', 
-          { opacity: 1 }, 
+        animation: gsap.fromTo('.scroll-indicator',
+          { opacity: 1 },
           { opacity: 0, ease: 'none' }
         )
       });
@@ -215,12 +216,12 @@ export default function Home() {
       {!loadingComplete && (
         <LoadingScreen progress={mediaProgress} onComplete={() => setLoadingComplete(true)} />
       )}
-      
+
       <CustomCursor mouseProxy={mouseProxy} />
-      
+
       <GlobalHeader startHidden />
       <HeroSection mouseProxy={mouseProxy} />
-      
+
       <TextRevealSection />
 
       <ClimateVideoSection />
@@ -232,6 +233,7 @@ export default function Home() {
       <KeyholeSection />
       <ProductsSection />
       <CTASection />
+      <FashionSkinSection />
       <Footer />
     </main>
   );
