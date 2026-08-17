@@ -241,7 +241,7 @@ export default function OriginQuestions() {
   return (
     <div
       id="origin-questions"
-      className="origin-panel relative w-full lg:w-screen shrink-0 min-h-[100svh] lg:h-screen flex items-start overflow-y-auto"
+      className="origin-panel relative w-full lg:w-screen shrink-0 min-h-[100svh] lg:h-screen flex flex-col justify-start overflow-hidden pointer-events-auto"
     >
       {/* Container with clean top spacing clear of global header */}
       <div className="w-full max-w-[920px] mx-auto px-4 sm:px-8 lg:px-12 pt-28 sm:pt-32 lg:pt-36 pb-24 flex flex-col">
@@ -297,8 +297,11 @@ export default function OriginQuestions() {
           </div>
         )}
 
-        {/* Accordion Questions List */}
-        <div className="mt-2 divide-y divide-[var(--brand-cream)]/12">
+        {/* Accordion Questions List with smooth vertical scroll isolation */}
+        <div 
+          data-lenis-prevent="true"
+          className="mt-2 divide-y divide-[var(--brand-cream)]/12 max-h-[50vh] sm:max-h-[55vh] overflow-y-auto overscroll-contain pr-2 [scrollbar-width:thin] [scrollbar-color:rgba(255,255,255,0.2)_transparent]"
+        >
           {/* Active Category Items View */}
           {!isSearching &&
             visibleItems.map((item, i) => {
