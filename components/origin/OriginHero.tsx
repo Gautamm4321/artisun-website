@@ -4,7 +4,7 @@ import { useState } from 'react';
 import Image from 'next/image';
 import { asset } from '@/lib/asset';
 
-const BADGES = ['SPF 50+', 'PA++++', 'Broad spectrum', '50ml'];
+const BADGES = ['SPF 50+', 'PA++++', 'All Weathers', '50ml'];
 
 const GALLERY = [
   '/about-media/origin-hero.jpg',
@@ -13,10 +13,12 @@ const GALLERY = [
 ];
 
 const FULL_INGREDIENTS =
-  'Aqua, Homosalate, Ethylhexyl Salicylate, Butyl Methoxydibenzoylmethane, ' +
-  'Octocrylene, Glycerin, Beta-Glucan, Niacinamide, Dimethicone, ' +
-  'Cetearyl Alcohol, Tocopherol, Sodium Hyaluronate, Panthenol, ' +
-  'Allantoin, Xanthan Gum, Phenoxyethanol, Fragrance.';
+  'Water, Ethylhexyl Methoxycinnamate, Propylene Glycol, Ethylhexyl Salicylate, ' +
+  'Glycerin, C13-15 Alkane, Betaine, Camellia Sinensis Leaf Extract, Beta-Glucan, ' +
+  'Bisabolol, Diethylamino Hydroxybenzoyl Hexyl Benzoate, Cetearyl Alcohol, ' +
+  'Ceteareth-25, Lauric/Myristic/Palmitic/Stearic Glycerides, C14-22 Alcohols, ' +
+  'Magnesium Aluminometasilicate, Palmitic Acid, Glyceryl Stearate, Stearic Acid, ' +
+  'C12-20 Alkyl Glucoside, Xanthan Gum, Fragrance, Caprylhydroxamic Acid, Glyceryl Caprylate.';
 
 type NavItem = { n: string; label: string; target: number | null; kind: 'link' | 'accordion' };
 const NAV_ITEMS: NavItem[] = [
@@ -102,12 +104,12 @@ export default function OriginHero({ onNavigate }: { onNavigate: (panelIndex: nu
 
         {/* ── RIGHT: Info & Compact Navigation Copy ── */}
         <div className="order-2 flex flex-col justify-between h-full py-1">
-          {/* Badges */}
-          <div className="flex flex-wrap gap-1.5 mb-2">
+          {/* Liquid Glass Badges */}
+          <div className="flex flex-wrap gap-2 mb-2.5">
             {BADGES.map((b) => (
               <span
                 key={b}
-                className="font-suisse text-[10px] sm:text-[11px] tracking-wide uppercase px-2.5 py-1 rounded-full border border-[var(--brand-cream)]/25 text-[var(--brand-cream)]/85"
+                className="font-suisse text-[10px] sm:text-[11px] font-medium tracking-wider uppercase px-3.5 py-1 rounded-full text-white/95 backdrop-blur-md bg-white/[0.08] border border-white/30 shadow-[inset_0_1px_1px_rgba(255,255,255,0.4),inset_0_-1px_1px_rgba(0,0,0,0.25),0_2px_6px_rgba(0,0,0,0.25)] transition-all"
               >
                 {b}
               </span>
@@ -120,12 +122,14 @@ export default function OriginHero({ onNavigate }: { onNavigate: (panelIndex: nu
           </h1>
 
           {/* Description */}
-          <p className="font-suisse text-[var(--brand-cream)]/80 text-[13px] sm:text-[14px] leading-[1.45] mt-2 max-w-[48ch]">
-            <span className="text-[var(--brand-cream)] font-medium">Four steps, done in one. <br /></span>
-            Origin is a milk-light layer sunscreen that does four jobs at once — serum,
-            moisturiser, sunscreen and primer. It goes on weightless, absorbs in seconds,
-            and sits invisibly under everything else.
-          </p>
+          <div className="w-full font-suisse text-[var(--brand-cream)]/80 text-[13px] sm:text-[14px] leading-[1.6] mt-2 space-y-1">
+            <p className="text-[var(--brand-cream)] font-medium">
+              Four steps, done in one.
+            </p>
+            <p className="w-full text-justify [text-justify:inter-word] sm:text-left">
+              Origin is a milk-light layer sunscreen that does four jobs at once — serum, moisturiser, <br/> sunscreen and primer. It goes on weightless, absorbs in seconds, and sits invisibly <br/> under everything else.
+            </p>
+          </div>
 
           {/* Price + Buy */}
           <div className="flex items-center gap-4 mt-3 mb-3">

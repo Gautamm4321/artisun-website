@@ -130,6 +130,16 @@ export default function AuraPage() {
     gsap.ticker.add(raf);
     gsap.ticker.lagSmoothing(0);
 
+    gsap.set(document.documentElement, {
+      '--mc-center': '100%',
+      '--mc-pos-1': '20%',
+      '--mc-pos-2': '50%',
+      '--mc-pos-3': '110%',
+      '--mc-pos-4': '200%',
+      '--mc-pos-5': '250%',
+      '--mc-pos-6': '300%',
+    });
+
     const mm = gsap.matchMedia();
     mm.add('(min-width: 1024px)', () => {
       const track = trackRef.current;

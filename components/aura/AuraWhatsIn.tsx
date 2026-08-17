@@ -15,20 +15,26 @@ const INGREDIENTS: Ingredient[] = [
   {
     name: 'Ectoin',
     source: 'Germany',
-    hook: '20x Deeper hydration than hyaluronic acid.',
-    long: 'A powerful hydrating active from Germany. It locks moisture into the skin and keeps it there through heat, pollution and long days — so skin stays soft and comfortable all day.',
-  },
-  {
-    name: 'Bisabolol',
-    source: 'Chamomile',
-    hook: 'Calms and soothes sensitive skin.',
-    long: 'The calming part of chamomile. Soothes redness and keeps sensitive skin settled and even.',
+    hook: 'Deeply hydrates and shields from pollution.',
+    long: 'A powerful active from Germany that locks moisture into the skin and protects against heat, pollution, and daily UV stress.',
   },
   {
     name: 'Sodium Hyaluronate',
     source: 'Refined HA',
-    hook: 'Plumps the skin and gives it a healthy glow.',
-    long: 'A refined form of hyaluronic acid that holds water in the skin — giving it a fresh, plumped, healthy-looking glow.',
+    hook: 'Plumps the skin for a soft, dewy glow.',
+    long: 'Refined hyaluronic acid that draws moisture into the skin, giving it a hydrated, lit-from-within finish without any shimmer.',
+  },
+  {
+    name: 'Bisabolol',
+    source: 'Chamomile',
+    hook: 'Calms redness and soothes sensitive skin.',
+    long: 'Extracted from chamomile to soothe irritation, reduce redness, and keep the skin barrier calm and even.',
+  },
+  {
+    name: 'Uvinul A Plus',
+    source: 'Germany',
+    hook: 'Advanced UVA filter, photostable for 8 hours.',
+    long: 'One of the world’s most advanced UVA filters that stays completely stable under direct sunlight throughout the day.',
   },
 ];
 
@@ -60,28 +66,32 @@ export default function AuraWhatsIn() {
           </h2>
         </div>
 
-        {/* Center Grid: Left Product Image + Right Interactive Ingredient Cards */}
-        <div className="my-auto pt-6 lg:pt-0 grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+        {/* Center Grid: items-stretch matches Left Image height directly to Right list */}
+        <div className="my-auto pt-6 lg:pt-0 grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-stretch">
           
-          {/* Left Visual Image */}
-          <div className="relative w-full h-[280px] sm:h-[360px] lg:h-[420px] rounded-[24px] overflow-hidden border border-white/10 shadow-2xl bg-white/5">
+          {/* Left Visual Image — automatically syncs with right container's height */}
+          <div className="relative w-full h-full min-h-[300px] sm:min-h-[380px] lg:min-h-0 rounded-[20px] overflow-hidden border border-white/10 shadow-2xl bg-white/5 transition-all duration-500 ease-out">
             <Image
               src={asset('/about-media/aura-1.jpg')}
               alt="Aura Ingredients"
               fill
               sizes="(max-width: 1024px) 100vw, 45vw"
-              className="object-cover"
+              className="object-cover transition-transform duration-700 ease-out"
             />
           </div>
 
           {/* Right Ingredient Accordion List */}
-          <div className="flex flex-col space-y-3">
+          <div className="flex flex-col space-y-2.5 sm:space-y-3 justify-center">
             {INGREDIENTS.map((ing, i) => {
               const isOpen = open === i;
               return (
                 <div
                   key={ing.name}
-                  className="border border-white/10 rounded-2xl p-5 bg-white/[0.03] backdrop-blur-sm transition-all duration-300"
+                  className={`border rounded-2xl p-4 sm:p-5 backdrop-blur-sm transition-all duration-300 ${
+                    isOpen 
+                      ? 'border-white/25 bg-white/[0.07] shadow-lg' 
+                      : 'border-white/10 bg-white/[0.03] hover:bg-white/[0.05]'
+                  }`}
                 >
                   <button
                     type="button"
@@ -89,14 +99,14 @@ export default function AuraWhatsIn() {
                     className="w-full text-left flex items-start justify-between gap-4 group"
                   >
                     <div>
-                      <div className="font-suisse text-base sm:text-lg font-medium text-[var(--brand-cream)]">
-                        {ing.name} <span className="text-[var(--brand-cream)]/50 text-sm font-normal">· {ing.source}</span>
+                      <div className="font-suisse text-[15px] sm:text-lg font-medium text-[var(--brand-cream)]">
+                        {ing.name} <span className="text-[var(--brand-cream)]/50 text-xs sm:text-sm font-normal">· {ing.source}</span>
                       </div>
-                      <div className="font-suisse text-xs sm:text-sm text-[var(--brand-cream)]/75 mt-1">
+                      <div className="font-suisse text-xs sm:text-[13px] text-[var(--brand-cream)]/75 mt-1">
                         {ing.hook}
                       </div>
                     </div>
-                    <span className="text-xl text-[var(--brand-cream)]/50 transition-transform duration-300">
+                    <span className="text-xl leading-none text-[var(--brand-cream)]/60 transition-transform duration-300 shrink-0">
                       {isOpen ? '−' : '+'}
                     </span>
                   </button>
@@ -107,7 +117,7 @@ export default function AuraWhatsIn() {
                     }`}
                   >
                     <div className="overflow-hidden">
-                      <p className="font-suisse text-xs sm:text-sm leading-[1.6] text-[var(--brand-cream)]/65 pt-3 border-t border-white/10 mt-3">
+                      <p className="font-suisse text-xs sm:text-[13.5px] leading-[1.6] text-[var(--brand-cream)]/75 pt-3 border-t border-white/10 mt-3">
                         {ing.long}
                       </p>
                     </div>
@@ -119,7 +129,7 @@ export default function AuraWhatsIn() {
 
         </div>
 
-        {/* Subline - Line removed as requested */}
+        {/* Subline */}
         <div className="mt-auto pt-4">
           <p className="font-suisse text-xs text-[var(--brand-cream)]/60">
             Fuller version available on click.

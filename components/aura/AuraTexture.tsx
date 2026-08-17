@@ -7,61 +7,64 @@ export default function AuraTexture() {
   return (
     <div
       id="aura-texture"
-      className="aura-panel relative w-full lg:w-screen shrink-0 min-h-[100svh] lg:h-screen overflow-hidden flex flex-col justify-between py-12 lg:py-16 px-5 sm:px-8 lg:px-14 bg-[var(--brand-red,#8B0000)] text-[var(--brand-cream)]"
+      className="aura-panel relative w-full lg:w-screen shrink-0 h-[100svh] lg:h-screen overflow-hidden text-[var(--brand-cream)]"
     >
-      {/* Background Subtle Radial Glow */}
+      {/* ── Left Half: Product Image ── */}
+      <div className="absolute inset-y-0 left-0 w-1/2 overflow-hidden bg-[#120302]">
+        <Image
+          src={asset('/about-media/aura-1.jpg')}
+          alt="Aura Product"
+          fill
+          sizes="50vw"
+          className="object-cover object-center"
+          priority
+        />
+        {/* Soft darken overlay for text contrast */}
+        <div className="absolute inset-0 bg-black/25 pointer-events-none" />
+      </div>
+
+      {/* ── Right Half: Red-Orange-Black Texture ── */}
       <div
-        className="absolute inset-0 pointer-events-none"
+        className="absolute inset-y-0 right-0 w-1/2 overflow-hidden"
         style={{
           background:
-            'radial-gradient(50% 50% at 75% 50%, rgba(255,255,255,0.08), transparent 70%)',
+            'radial-gradient(ellipse at 70% 40%, #c43a1d 0%, #70160b 45%, #180302 85%, #050001 100%)',
         }}
-      />
+      >
+        {/* Subtle noise/texture overlay effect */}
+        <div className="absolute inset-0 bg-[radial-gradient(#ffffff0a_1px,transparent_1px)] [background-size:16px_16px] opacity-40 mix-blend-overlay" />
+      </div>
 
-      {/* Main Grid Layout Container */}
-      <div className="relative z-10 my-auto w-full max-w-[1500px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+      {/* ── Center Divider Line ── */}
+      <div className="absolute inset-y-0 left-1/2 w-px -translate-x-1/2 bg-white/20 z-20 pointer-events-none" />
+
+      {/* ── Top Left Label: HOW IT FEELS (Offset slightly down from header) ── */}
+      <div className="absolute top-20 sm:top-24 lg:top-28 left-6 sm:left-10 lg:left-16 z-30 pointer-events-none">
+        <span className="font-suisse text-[11px] sm:text-xs tracking-[0.24em] uppercase text-[var(--brand-cream)]/75 font-medium">
+          HOW IT FEELS
+        </span>
+      </div>
+
+      {/* ── Center Container: Exact Heading & Description (Untouched) ── */}
+      <div className="relative z-30 h-full w-full flex flex-col items-center justify-center pointer-events-none px-6 sm:px-12">
         
-        {/* Left Side: Text Content */}
-        <div className="lg:col-span-7 flex flex-col justify-between space-y-6 sm:space-y-8">
-          {/* Top Header */}
-          <div>
-            <span className="font-suisse text-[11px] sm:text-xs tracking-[0.22em] uppercase text-[var(--brand-cream)]/70">
-              How it feels
-            </span>
-            <h2 className="font-editorial text-[28px] sm:text-[42px] lg:text-[52px] leading-[1.08] tracking-tight mt-2 max-w-[20ch]">
-              Pillows of gel that vanish the second they touch skin.
-            </h2>
-          </div>
+        {/* Exact Center Heading */}
+        <h2 className="font-editorial text-[30px] sm:text-[44px] lg:text-[56px] leading-[1.08] text-white tracking-tight text-center drop-shadow-[0_4px_16px_rgba(0,0,0,0.85)] max-w-[900px]">
+          Pillows of gel that vanish<br />
+          the second they touch skin.
+        </h2>
 
-          {/* Middle Body Copy */}
-          <div className="space-y-3 sm:space-y-4 max-w-[48ch]">
-            <p className="font-suisse text-[14px] sm:text-[16px] text-[var(--brand-cream)]/80 leading-[1.6]">
-              Bead creams are usually heavy — they sit, they grease up, they take forever to sink in.
+        {/* Subtext Grid: Right-side offset below heading */}
+        <div className="w-full max-w-[900px] grid grid-cols-2 mt-5 sm:mt-6">
+          <div /> {/* Left empty cell */}
+          
+          {/* Right cell: small fonts & exact line sequence */}
+          <div className="pl-6 sm:pl-10 text-left">
+            <p className="font-suisse text-[11px] sm:text-[12px] leading-[1.5] text-white/90 drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]">
+              Our texture shifts from fluid to plush as you<br />
+              smooth it on, then disappears into skin. No<br />
+              heaviness. No grease. No film sitting on top.
             </p>
-            <p className="font-suisse text-[14px] sm:text-[16px] text-[var(--brand-cream)]/95 font-medium leading-[1.6]">
-              Our texture shifts from fluid to plush as you smooth it on, then disappears into skin.
-            </p>
-          </div>
-
-          {/* Bottom Highlight Statement */}
-          <div className="pt-5 border-t border-white/15 max-w-[52ch]">
-            <p className="font-editorial text-[18px] sm:text-[24px] lg:text-[28px] leading-[1.25] text-[var(--brand-cream)]/95">
-              No heaviness. No grease. No film sitting on top. Just an even, soft, dewy finish that looks like good skin — not like product.
-            </p>
-          </div>
-        </div>
-
-        {/* Right Side: Properly Bounded Product Card */}
-        <div className="lg:col-span-5 flex items-center justify-center">
-          <div className="relative w-full h-[320px] sm:h-[420px] lg:h-[480px] rounded-[24px] overflow-hidden border border-white/15 shadow-2xl bg-black/20">
-            <Image
-              src={asset('/about-media/aura-3.jpg')}
-              alt="Aura Texture Feel"
-              fill
-              sizes="(max-width: 1024px) 100vw, 40vw"
-              className="object-cover object-center transition-transform duration-700 hover:scale-105"
-              priority
-            />
           </div>
         </div>
 

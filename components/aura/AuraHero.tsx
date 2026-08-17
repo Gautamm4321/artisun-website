@@ -4,7 +4,7 @@ import { useState } from 'react';
 import Image from 'next/image';
 import { asset } from '@/lib/asset';
 
-const BADGES = ['SPF 40', 'PA++++', 'Broad spectrum', '50ml'];
+const BADGES = ['SPF 40', 'PA++++', 'All weathers', '50g'];
 
 const GALLERY = [
   '/about-media/aura-1.jpg',
@@ -13,14 +13,17 @@ const GALLERY = [
 ];
 
 const FULL_INGREDIENTS =
-  'Aqua, Ectoin, Bisabolol, Sodium Hyaluronate, Ethylhexyl Salicylate, ' +
-  'Butyl Methoxydibenzoylmethane, Octocrylene, Glycerin, Niacinamide, ' +
-  'Dimethicone, Cetearyl Alcohol, Tocopherol, Allantoin, Xanthan Gum, Phenoxyethanol.';
+  'Water, Ethylhexyl Methoxycinnamate, Propylene Glycol, Ethylhexyl Salicylate, ' +
+  'Glycerin, C13-15 Alkane, Betaine, Camellia Sinensis Leaf Extract, Beta-Glucan, ' +
+  'Bisabolol, Diethylamino Hydroxybenzoyl Hexyl Benzoate, Cetearyl Alcohol, ' +
+  'Ceteareth-25, Lauric/Myristic/Palmitic/Stearic Glycerides, C14-22 Alcohols, ' +
+  'Magnesium Aluminometasilicate, Palmitic Acid, Glyceryl Stearate, Stearic Acid, ' +
+  'C12-20 Alkyl Glucoside, Xanthan Gum, Fragrance, Caprylhydroxamic Acid, Glyceryl Caprylate.';
 
 type NavItem = { n: string; label: string; target: number | null; kind: 'link' | 'accordion' };
 
 const NAV_ITEMS: NavItem[] = [
-  { n: '01', label: 'Dosage Guide', target: 1, kind: 'link' },
+  { n: '01', label: 'How To Wear', target: 1, kind: 'link' },
   { n: '02', label: 'How it feels', target: 2, kind: 'link' },
   { n: '03', label: 'Where it works', target: 3, kind: 'link' },
   { n: '04', label: "What's in it", target: 4, kind: 'link' },
@@ -105,12 +108,12 @@ export default function AuraHero({ onNavigate }: { onNavigate: (panelIndex: numb
 
         {/* ── RIGHT: Info & Compact Navigation Copy ── */}
         <div className="order-2 flex flex-col justify-between h-full py-1">
-          {/* Badges */}
-          <div className="flex flex-wrap gap-1.5 mb-2">
+        {/* Liquid Glass Badges */}
+          <div className="flex flex-wrap gap-2 mb-2.5">
             {BADGES.map((b) => (
               <span
                 key={b}
-                className="font-suisse text-[10px] sm:text-[11px] tracking-wide uppercase px-2.5 py-1 rounded-full border border-[var(--brand-cream)]/25 text-[var(--brand-cream)]/85"
+                className="font-suisse text-[10px] sm:text-[11px] font-medium tracking-wider uppercase px-3.5 py-1 rounded-full text-white/95 backdrop-blur-md bg-white/[0.08] border border-white/30 shadow-[inset_0_1px_1px_rgba(255,255,255,0.4),inset_0_-1px_1px_rgba(0,0,0,0.25),0_2px_6px_rgba(0,0,0,0.25)] transition-all"
               >
                 {b}
               </span>
@@ -119,18 +122,19 @@ export default function AuraHero({ onNavigate }: { onNavigate: (panelIndex: numb
 
           {/* Title */}
           <h1 className="font-editorial text-[var(--brand-cream)] text-[24px] sm:text-[30px] lg:text-[36px] leading-[1.1] tracking-tight">
-            AURA&nbsp;·&nbsp;Pearl Skinwear
+            AURA&nbsp;·&nbsp;Pearl Skinwear SPF40
           </h1>
 
+          
           {/* Description */}
-          <p className="font-suisse text-[var(--brand-cream)]/80 text-[13px] sm:text-[14px] leading-[1.45] mt-2 max-w-[48ch]">
-            <span className="text-[var(--brand-cream)] font-medium">Pearls that melt into sun protection. <br /></span>
-            Beads that break on your skin and sink in — protection you actually feel go on, and never feel after.
-          </p>
-
-          <p className="font-suisse text-[var(--brand-cream)]/65 text-[12px] sm:text-[13px] leading-[1.4] mt-1.5 max-w-[48ch]">
-            No white cast. A soft, dewy finish. Every skin tone, every Indian weather. Easiest Absorption ever.
-          </p>
+          <div className="font-suisse text-[var(--brand-cream)]/80 text-[13px] sm:text-[14px] leading-[1.6] mt-3 space-y-1 w-full max-w-[500px]">
+            <p className="text-[var(--brand-cream)] font-medium">
+              Pearls that melt into sun protection.
+            </p>
+            <p>
+              Beads that break on your skin and sink in. No white cast. A soft, dewy <br/> finish. Every skin tone, every Indian weather. Easiest Absorption ever.
+            </p>
+          </div>
 
           {/* Price + Buy */}
           <div className="flex items-center gap-4 mt-3 mb-3">
