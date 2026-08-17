@@ -37,8 +37,8 @@ export default function AuraWhere() {
         <span className="font-suisse text-[11px] sm:text-xs tracking-[0.22em] uppercase text-[var(--brand-cream)]/70">
           Where it works
         </span>
-        <h2 className="font-editorial text-[30px] sm:text-[46px] lg:text-[58px] leading-[1.03] tracking-tight mt-2">
-          Works in every Indian weather. <em className="italic">Actually.</em>
+        <h2 className="font-editorial text-[30px] sm:text-[46px] lg:text-[58px] leading-[1.03] tracking-tight mt-2 not-italic">
+          Works in every Indian weather. Actually.
         </h2>
       </div>
 

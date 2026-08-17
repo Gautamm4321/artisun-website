@@ -38,16 +38,14 @@ export default function AuraTexture() {
       {/* ── Center Divider Line ── */}
       <div className="absolute inset-y-0 left-1/2 w-px -translate-x-1/2 bg-white/20 z-20 pointer-events-none" />
 
-      {/* ── Top Left Label: HOW IT FEELS (Offset slightly down from header) ── */}
-      <div className="absolute top-20 sm:top-24 lg:top-28 left-6 sm:left-10 lg:left-16 z-30 pointer-events-none">
-        <span className="font-suisse text-[11px] sm:text-xs tracking-[0.24em] uppercase text-[var(--brand-cream)]/75 font-medium">
-          HOW IT FEELS
-        </span>
-      </div>
-
-      {/* ── Center Container: Exact Heading & Description (Untouched) ── */}
+      {/* ── Center Container: Exact Heading & Description ── */}
       <div className="relative z-30 h-full w-full flex flex-col items-center justify-center pointer-events-none px-6 sm:px-12">
         
+        {/* Centered Eyebrow Label directly above heading */}
+        <span className="font-suisse text-[11px] sm:text-xs tracking-[0.24em] uppercase text-[var(--brand-cream)]/75 font-medium mb-3 sm:mb-4 text-center drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]">
+          HOW IT FEELS
+        </span>
+
         {/* Exact Center Heading */}
         <h2 className="font-editorial text-[30px] sm:text-[44px] lg:text-[56px] leading-[1.08] text-white tracking-tight text-center drop-shadow-[0_4px_16px_rgba(0,0,0,0.85)] max-w-[900px]">
           Pillows of gel that vanish<br />

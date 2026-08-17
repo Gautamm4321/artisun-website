@@ -173,7 +173,7 @@ export default function OriginPage() {
 
   return (
     <main className="relative w-full min-h-[100svh] overflow-clip">
-      <ScrollProgressBar marker={asset('/b2.png')} />
+      <ScrollProgressBar marker={asset('/b2.png')} markerHeight={20} />
       <div id="global-bg" className="theme-molten-core" />
 
       <CustomCursor mouseProxy={mouseProxy} />

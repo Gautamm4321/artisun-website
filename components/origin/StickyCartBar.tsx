@@ -23,9 +23,10 @@ export default function StickyCartBar() {
         </div>
 
         {/* Right: Sleek Price + Clean Minimal Button */}
+        {/* Right: Sleek Price + Clean Minimal Button */}
         <div className="flex items-center gap-3 sm:gap-5">
           <span className="font-editorial text-[var(--brand-cream)] text-sm sm:text-base">
-            ₹599
+            ₹1,499
           </span>
           <button className="font-suisse text-[10px] sm:text-[11px] uppercase tracking-[0.14em] px-4 sm:px-5 py-1.5 bg-[var(--brand-cream)] text-[var(--brand-dark,#1a1a1a)] font-medium hover:bg-white transition-colors">
             Add to bag

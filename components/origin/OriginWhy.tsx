@@ -34,7 +34,7 @@ export default function OriginWhy() {
       <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/20 to-black/80" />
 
       {/* Content */}
-      <div className="relative z-10 h-full w-full max-w-[1500px] mx-auto px-5 sm:px-8 lg:px-14 pt-24 pb-12 lg:pt-[116px] lg:pb-12 flex flex-col justify-between gap-10">
+      <div className="relative z-10 h-full w-full max-w-[1500px] mx-auto px-5 sm:px-8 lg:px-14 pt-20 sm:pt-24 lg:pt-[104px] pb-16 sm:pb-20 lg:pb-16 flex flex-col justify-between gap-6 lg:gap-8">
         {/* Top: hook (left) + subline (right) */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 lg:gap-16 items-start">
           <h2 className="font-editorial text-[var(--brand-cream)] text-[30px] sm:text-[44px] lg:text-[54px] leading-[1.05] tracking-tight max-w-[15ch]">

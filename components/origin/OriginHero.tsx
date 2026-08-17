@@ -25,9 +25,8 @@ const NAV_ITEMS: NavItem[] = [
   { n: '01', label: 'Why Origin', target: 1, kind: 'link' },
   { n: '02', label: 'Where it works', target: 2, kind: 'link' },
   { n: '03', label: "What's in it", target: 3, kind: 'link' },
-  { n: '04', label: 'Origin Product', target: 4, kind: 'link' },
-  { n: '05', label: 'Questions', target: 5, kind: 'link' },
-  { n: '06', label: 'Full ingredient list', target: null, kind: 'accordion' },
+  { n: '04', label: 'Questions', target: 5, kind: 'link' },
+  { n: '05', label: 'Full ingredient list', target: null, kind: 'accordion' },
 ];
 
 function Chevron({ dir }: { dir: 'left' | 'right' }) {

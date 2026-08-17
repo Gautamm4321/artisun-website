@@ -1,7 +1,13 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
 
-export default function ScrollProgressBar({ marker }: { marker?: string }) {
+export default function ScrollProgressBar({ 
+  marker, 
+  markerHeight = 18 
+}: { 
+  marker?: string; 
+  markerHeight?: number; 
+}) {
   const barRef = useRef<HTMLDivElement>(null);
   const markerRef = useRef<HTMLImageElement>(null);
   const [hideAtFooter, setHideAtFooter] = useState(false);
@@ -20,7 +26,7 @@ export default function ScrollProgressBar({ marker }: { marker?: string }) {
     return () => window.removeEventListener('scroll', update);
   }, []);
 
-  /* ── Footer Observer: Hide line & marker when footer comes into view ── */
+  /* ── Footer Observer ── */
   useEffect(() => {
     const footer = document.querySelector('footer');
     if (!footer) return;
@@ -42,10 +48,10 @@ export default function ScrollProgressBar({ marker }: { marker?: string }) {
         hideAtFooter ? 'opacity-0 pointer-events-none' : 'opacity-100'
       }`}
     >
-      {/* Bottom progress line — Always fixed at the very bottom edge (bottom-0) */}
+      {/* Bottom progress line — Directly above Sticky Bar */}
       <div
         ref={barRef}
-        className="fixed left-0 bottom-0 w-full h-[2px] md:h-[3px] origin-left pointer-events-none"
+        className="fixed left-0 bottom-11 sm:bottom-12 w-full h-[2px] md:h-[3px] origin-left pointer-events-none"
         style={{
           zIndex: 9999,
           background: 'linear-gradient(90deg, #FF8C22, #C93B1A, #E8DCC8)',
@@ -60,15 +66,15 @@ export default function ScrollProgressBar({ marker }: { marker?: string }) {
           src={marker}
           alt=""
           aria-hidden="true"
-          className="fixed pointer-events-none select-none bottom-0"
+          className="fixed pointer-events-none select-none bottom-11 sm:bottom-12"
           style={{
             zIndex: 10000,
             left: '0%',
             transform: 'translateX(-50%)',
-            height: '20px',
+            height: `${markerHeight}px`,
             width: 'auto',
             willChange: 'left',
-            filter: 'drop-shadow(0 1px 3px rgba(0,0,0,0.4))',
+            filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.5))',
           }}
         />
       )}

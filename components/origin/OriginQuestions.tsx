@@ -247,15 +247,12 @@ export default function OriginQuestions() {
       <div className="w-full max-w-[920px] mx-auto px-4 sm:px-8 lg:px-12 pt-28 sm:pt-32 lg:pt-36 pb-24 flex flex-col">
         
         {/* Eyebrow + Heading */}
-        <span className="self-center font-suisse text-[11px] tracking-[0.24em] uppercase text-[var(--brand-red)] font-medium">
-          ORIGIN · QUESTIONS
+        <span className="self-center font-suisse text-[11px] tracking-[0.24em] uppercase text-white/70 font-medium">
+          FAQS
         </span>
         
-        <h2 className="self-center font-editorial text-[var(--brand-cream)] text-[32px] sm:text-[42px] lg:text-[48px] leading-tight mt-2 text-center">
-          Everything,{' '}
-          <em className="italic bg-gradient-to-r from-[var(--brand-cream)] to-[var(--brand-cream)]/35 bg-clip-text text-transparent">
-            answered.
-          </em>
+        <h2 className="self-center font-editorial text-white text-[32px] sm:text-[42px] lg:text-[48px] leading-tight mt-2 text-center not-italic">
+          Everything, answered.
         </h2>
 
         {/* Search Bar */}
@@ -324,7 +321,7 @@ export default function OriginQuestions() {
                     }`}
                   >
                     <div className="overflow-hidden">
-                      <div className="font-suisse text-[13px] sm:text-[14px] leading-[1.65] text-[var(--brand-cream)]/75 pb-4 pr-4 sm:pr-8 whitespace-pre-line max-w-[70ch]">
+                      <div className="font-suisse text-[13px] sm:text-[14px] leading-[1.65] text-white/80 pb-4 pr-2 whitespace-pre-line w-full">
                         {item.a}
                       </div>
                     </div>
