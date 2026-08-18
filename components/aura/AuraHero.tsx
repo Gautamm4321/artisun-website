@@ -23,7 +23,7 @@ const FULL_INGREDIENTS =
 type NavItem = { n: string; label: string; target: number | null; kind: 'link' | 'accordion' };
 
 const NAV_ITEMS: NavItem[] = [
-  { n: '01', label: 'How To wear', target: 1, kind: 'link' },
+  { n: '01', label: 'How to wear', target: 1, kind: 'link' },
   { n: '02', label: 'How it feels', target: 2, kind: 'link' },
   { n: '03', label: 'Where it works', target: 3, kind: 'link' },
   { n: '04', label: "What's in it", target: 4, kind: 'link' },
