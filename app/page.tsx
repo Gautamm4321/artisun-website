@@ -12,6 +12,7 @@ import CustomCursor from '../components/CustomCursor';
 import TextRevealSection from '../components/TextRevealSection';
 import GlobalHeader from '../components/GlobalHeader';
 import ClimateVideoSection from '../components/climate/ClimateVideoSection';
+import ClimateModelSection from '../components/ClimateModelSection';
 import EarthSection from '../components/EarthSection';
 import ProductsSection from '../components/ProductsSection';
 import EvolutionSection from '../components/EvolutionSection';
@@ -221,11 +222,10 @@ export default function Home() {
 
       <GlobalHeader startHidden />
       <HeroSection mouseProxy={mouseProxy} />
-
       <TextRevealSection />
-
       <ClimateVideoSection />
       <EvolutionSection />
+      <ClimateModelSection />
       <EarthSection />
       <SuncareShiftSection />
       <ClothingSection />

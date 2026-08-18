@@ -8,6 +8,7 @@ import SkinwearForgettable from '../../components/skinwear/SkinwearForgettable';
 import SkinwearImgShrink from '../../components/skinwear/SkinwearImgShrink';
 import SkinwearImgShrinkkk from '../../components/skinwear/SkinwearImgShrinkkk';
 import SkinwearDailyLife from '../../components/skinwear/SkinwearDailyLife';
+import ScrollProgressBar from '../../components/ScrollProgressBar';
 
 export default function SkinwearPage() {
   const mouseProxy = useRef({ x: 0, y: 0, px: 0, py: 0 });
@@ -25,6 +26,9 @@ export default function SkinwearPage() {
 
   return (
     <main className="relative w-full min-h-[100svh] overflow-clip">
+      {/* 👈 YEH PROGRESS BAR ADD KARO */}
+      <ScrollProgressBar />
+
       {/* Brand gradient background */}
       <div id="global-bg" className="theme-molten-core" />
 

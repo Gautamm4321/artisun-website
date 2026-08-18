@@ -1,5 +1,6 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
+import { usePathname } from 'next/navigation';
 
 export default function ScrollProgressBar({ 
   marker, 
@@ -8,9 +9,14 @@ export default function ScrollProgressBar({
   marker?: string; 
   markerHeight?: number; 
 }) {
+  const pathname = usePathname();
   const barRef = useRef<HTMLDivElement>(null);
   const markerRef = useRef<HTMLImageElement>(null);
   const [hideAtFooter, setHideAtFooter] = useState(false);
+
+  // Check if current page has sticky cart bar (Origin or Aura)
+  const isProductPage = pathname?.includes('/origin') || pathname?.includes('/aura');
+  const bottomPositionClass = isProductPage ? 'bottom-11 sm:bottom-12' : 'bottom-0';
 
   useEffect(() => {
     const update = () => {
@@ -48,10 +54,10 @@ export default function ScrollProgressBar({
         hideAtFooter ? 'opacity-0 pointer-events-none' : 'opacity-100'
       }`}
     >
-      {/* Bottom progress line — Directly above Sticky Bar */}
+      {/* Dynamic Bottom Progress Line */}
       <div
         ref={barRef}
-        className="fixed left-0 bottom-11 sm:bottom-12 w-full h-[2px] md:h-[3px] origin-left pointer-events-none"
+        className={`fixed left-0 ${bottomPositionClass} w-full h-[2px] md:h-[3px] origin-left pointer-events-none`}
         style={{
           zIndex: 9999,
           background: 'linear-gradient(90deg, #FF8C22, #C93B1A, #E8DCC8)',
@@ -66,11 +72,11 @@ export default function ScrollProgressBar({
           src={marker}
           alt=""
           aria-hidden="true"
-          className="fixed pointer-events-none select-none bottom-11 sm:bottom-12"
+          className={`fixed pointer-events-none select-none ${bottomPositionClass}`}
           style={{
             zIndex: 10000,
             left: '0%',
-            transform: 'translateX(-50%)',
+            transform: isProductPage ? 'translateX(-50%)' : 'translateX(-50%) translateY(30%)',
             height: `${markerHeight}px`,
             width: 'auto',
             willChange: 'left',

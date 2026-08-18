@@ -127,7 +127,7 @@ export default function AuraDosage() {
 
           {/* Bottom Lines */}
           <div className="pt-3 border-t border-white/15 space-y-1">
-            <p className="font-editorial text-base sm:text-lg italic text-[var(--brand-cream)]/90">
+            <p className="font-editorial text-base sm:text-lg non-italic text-[var(--brand-cream)]/90">
               One sunscreen. Every season. Never the wrong amount.
             </p>
             <p className="font-suisse text-[11px] sm:text-xs text-[var(--brand-cream)]/60">

@@ -30,7 +30,7 @@ export default function AuraProduct() {
               AURA
             </h2>
             <p className="font-suisse text-[var(--brand-cream)]/65 text-[14px] sm:text-[16px] lg:text-[17px] mt-2">
-              Aura · Pearl Skinwear SPF 40 · PA+++ · Broad spectrum · 50g
+              Pearl Skinwear SPF 40 · PA+++ · All weathers · 50g
             </p>
           </div>
 
@@ -51,9 +51,9 @@ export default function AuraProduct() {
 
           {/* Statements */}
           <div className="pt-2 sm:pt-3 w-full max-w-[540px]">
-            <h3 className="font-editorial text-[var(--brand-cream)] text-[clamp(26px,3.8vw,42px)] leading-[1.15] tracking-tight">
+            <h3 className="font-editorial text-[var(--brand-cream)] text-[clamp(26px,3.8vw,42px)] leading-[1.15] tracking-tight max-w-[18ch]">
               Some sunscreen you use.<br />
-              This one you’ll <br /> reach for.
+              This one you’ll reach for.
             </h3>
             <p className="font-editorial not-italic text-[var(--brand-cream)]/70 text-[17px] sm:text-[20px] mt-2.5 whitespace-nowrap">
               What&apos;s your skin wearing today?

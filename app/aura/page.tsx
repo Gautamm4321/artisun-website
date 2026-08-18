@@ -139,7 +139,7 @@ export default function AuraPage() {
 
   return (
     <main className="relative w-full min-h-[100svh] overflow-clip">
-      <ScrollProgressBar marker={asset('/b1.png')} />
+      <ScrollProgressBar marker={asset('/b1.png')} markerHeight={13} />
       <div id="global-bg" className="theme-molten-core" />
 
       <CustomCursor mouseProxy={mouseProxy} />

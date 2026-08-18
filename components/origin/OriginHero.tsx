@@ -132,7 +132,7 @@ export default function OriginHero({ onNavigate }: { onNavigate: (panelIndex: nu
 
           {/* Price + Buy */}
           <div className="flex items-center gap-4 mt-3 mb-3">
-            <span className="font-editorial text-[var(--brand-cream)] text-[22px] sm:text-[26px]">₹599</span>
+            <span className="font-editorial text-[var(--brand-cream)] text-[22px] sm:text-[26px]">₹1499</span>
             <button className="pointer-events-auto font-suisse text-xs sm:text-sm tracking-wide uppercase px-6 py-2.5 bg-[var(--brand-cream)] text-[var(--brand-dark)] hover:bg-white transition-colors font-medium">
               Add to bag
             </button>

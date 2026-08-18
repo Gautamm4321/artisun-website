@@ -246,8 +246,7 @@ export default function AuraQuestions() {
       id="aura-questions"
       className="aura-panel relative w-full lg:w-screen shrink-0 min-h-[100svh] lg:h-screen flex flex-col justify-start overflow-hidden pointer-events-auto"
     >
-      <div className="w-full max-w-[920px] mx-auto px-4 sm:px-8 lg:px-12 pt-28 sm:pt-32 lg:pt-36 pb-24 flex flex-col">
-        
+<div className="w-full max-w-[920px] mx-auto px-4 sm:px-8 lg:px-12 pt-20 sm:pt-24 lg:pt-28 pb-16 flex flex-col">        
         {/* Eyebrow + Heading */}
         <span className="self-center font-suisse text-[11px] tracking-[0.24em] uppercase text-white/70 font-medium">
           FAQS
@@ -299,94 +298,96 @@ export default function AuraQuestions() {
           </div>
         )}
 
-        {/* Accordion Questions List with smooth vertical scroll isolation */}
+       {/* Accordion Questions List with internal View All Button & Safe Bottom Clearance */}
         <div 
           data-lenis-prevent="true"
-          className="mt-2 divide-y divide-[var(--brand-cream)]/12 max-h-[50vh] sm:max-h-[55vh] overflow-y-auto overscroll-contain pr-2 [scrollbar-width:thin] [scrollbar-color:rgba(255,255,255,0.2)_transparent]"
+          className="mt-2 flex flex-col max-h-[46vh] sm:max-h-[50vh] overflow-y-auto overscroll-contain pr-2 pb-24 [scrollbar-width:thin] [scrollbar-color:rgba(255,255,255,0.2)_transparent]"
         >
-          {!isSearching &&
-            visibleItems.map((item, i) => {
-              const isOpen = open === i;
-              return (
-                <div key={item.q} className="transition-colors">
-                  <button
-                    onClick={() => setOpen(isOpen ? null : i)}
-                    aria-expanded={isOpen}
-                    className="pointer-events-auto w-full flex items-center justify-between gap-4 py-3.5 sm:py-4 text-left text-[var(--brand-cream)] group"
-                  >
-                    <span className="font-editorial text-[15px] sm:text-[17px] lg:text-[19px] tracking-tight group-hover:text-white transition-colors flex-1">
-                      {item.q}
-                    </span>
-                    <Chevron open={isOpen} />
-                  </button>
-                  <div
-                    className={`grid transition-[grid-template-rows] duration-[350ms] ease-out ${
-                      isOpen ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'
-                    }`}
-                  >
-                    <div className="overflow-hidden">
-                      <div className="font-suisse text-[13px] sm:text-[14px] leading-[1.65] text-white/80 pb-4 pr-2 whitespace-pre-line w-full">
-                        {item.a}
+          <div className="divide-y divide-[var(--brand-cream)]/12">
+            {!isSearching &&
+              visibleItems.map((item, i) => {
+                const isOpen = open === i;
+                return (
+                  <div key={item.q} className="transition-colors">
+                    <button
+                      onClick={() => setOpen(isOpen ? null : i)}
+                      aria-expanded={isOpen}
+                      className="pointer-events-auto w-full flex items-center justify-between gap-4 py-3.5 sm:py-4 text-left text-[var(--brand-cream)] group"
+                    >
+                      <span className="font-editorial text-[15px] sm:text-[17px] lg:text-[19px] tracking-tight group-hover:text-white transition-colors flex-1">
+                        {item.q}
+                      </span>
+                      <Chevron open={isOpen} />
+                    </button>
+                    <div
+                      className={`grid transition-[grid-template-rows] duration-[350ms] ease-out ${
+                        isOpen ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'
+                      }`}
+                    >
+                      <div className="overflow-hidden">
+                        <div className="font-suisse text-[13px] sm:text-[14px] leading-[1.65] text-white/80 pb-4 pr-2 whitespace-pre-line w-full">
+                          {item.a}
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              );
-            })}
+                );
+              })}
 
-          {isSearching &&
-            searchResults.map((res, i) => {
-              const isOpen = open === i;
-              return (
-                <div key={res.item.q} className="transition-colors">
-                  <button
-                    onClick={() => setOpen(isOpen ? null : i)}
-                    aria-expanded={isOpen}
-                    className="pointer-events-auto w-full flex items-center justify-between gap-4 py-3.5 sm:py-4 text-left text-[var(--brand-cream)] group"
-                  >
-                    <div>
-                      <span className="block font-suisse text-[9.5px] uppercase tracking-widest text-[var(--brand-red)] mb-0.5">
-                        {res.category}
-                      </span>
-                      <span className="font-editorial text-[15px] sm:text-[17px] lg:text-[19px] tracking-tight group-hover:text-white transition-colors">
-                        {res.item.q}
-                      </span>
-                    </div>
-                    <Chevron open={isOpen} />
-                  </button>
-                  <div
-                    className={`grid transition-[grid-template-rows] duration-[350ms] ease-out ${
-                      isOpen ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'
-                    }`}
-                  >
-                    <div className="overflow-hidden">
-                      <div className="font-suisse text-[13px] sm:text-[14px] leading-[1.65] text-[var(--brand-cream)]/75 pb-4 pr-4 sm:pr-8 whitespace-pre-line max-w-[70ch]">
-                        {res.item.a}
+            {isSearching &&
+              searchResults.map((res, i) => {
+                const isOpen = open === i;
+                return (
+                  <div key={res.item.q} className="transition-colors">
+                    <button
+                      onClick={() => setOpen(isOpen ? null : i)}
+                      aria-expanded={isOpen}
+                      className="pointer-events-auto w-full flex items-center justify-between gap-4 py-3.5 sm:py-4 text-left text-[var(--brand-cream)] group"
+                    >
+                      <div>
+                        <span className="block font-suisse text-[9.5px] uppercase tracking-widest text-[var(--brand-cream)]/60 mb-0.5">
+                          {res.category}
+                        </span>
+                        <span className="font-editorial text-[15px] sm:text-[17px] lg:text-[19px] tracking-tight group-hover:text-white transition-colors">
+                          {res.item.q}
+                        </span>
+                      </div>
+                      <Chevron open={isOpen} />
+                    </button>
+                    <div
+                      className={`grid transition-[grid-template-rows] duration-[350ms] ease-out ${
+                        isOpen ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'
+                      }`}
+                    >
+                      <div className="overflow-hidden">
+                        <div className="font-suisse text-[13px] sm:text-[14px] leading-[1.65] text-[var(--brand-cream)]/75 pb-4 pr-4 sm:pr-8 whitespace-pre-line max-w-[70ch]">
+                          {res.item.a}
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              );
-            })}
+                );
+              })}
 
-          {isSearching && searchResults.length === 0 && (
-            <div className="text-center py-10">
-              <p className="font-suisse text-xs sm:text-sm text-[var(--brand-cream)]/50">
-                No questions match &ldquo;{search}&rdquo;. Try another keyword.
-              </p>
-            </div>
+            {isSearching && searchResults.length === 0 && (
+              <div className="text-center py-10">
+                <p className="font-suisse text-xs sm:text-sm text-[var(--brand-cream)]/50">
+                  No questions match &ldquo;{search}&rdquo;. Try another keyword.
+                </p>
+              </div>
+            )}
+          </div>
+
+          {/* View All Button — safely inside scrollable container */}
+          {!isSearching && !isExpanded && activeCategory.items.length > VISIBLE_COUNT && (
+            <button
+              onClick={() => setExpandedTabs((prev) => ({ ...prev, [tab]: true }))}
+              className="pointer-events-auto self-center mt-5 mb-4 shrink-0 font-suisse text-[11px] sm:text-[12px] tracking-[0.14em] uppercase px-6 sm:px-7 py-2 sm:py-2.5 rounded-full border border-[var(--brand-cream)]/30 text-[var(--brand-cream)]/90 hover:bg-[var(--brand-cream)] hover:text-[var(--brand-dark)] transition-all"
+            >
+              View all {activeCategory.items.length} questions
+            </button>
           )}
         </div>
-
-        {/* View All Button */}
-        {!isSearching && !isExpanded && activeCategory.items.length > VISIBLE_COUNT && (
-          <button
-            onClick={() => setExpandedTabs((prev) => ({ ...prev, [tab]: true }))}
-            className="pointer-events-auto self-center mt-6 font-suisse text-[11px] sm:text-[12px] tracking-[0.14em] uppercase px-6 sm:px-7 py-2 sm:py-2.5 rounded-full border border-[var(--brand-cream)]/30 text-[var(--brand-cream)]/90 hover:bg-[var(--brand-cream)] hover:text-[var(--brand-dark)] transition-all"
-          >
-            View all {activeCategory.items.length} questions
-          </button>
-        )}
 
       </div>
     </div>

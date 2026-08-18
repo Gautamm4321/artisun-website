@@ -66,7 +66,7 @@ export default function AuraWhere() {
             </span>
 
             {/* Bottom-anchored text */}
-            <div className="absolute left-6 right-6 bottom-6">
+            <div className="absolute left-6 right-6 bottom-16 sm:bottom-16 lg:bottom-16">
               <h3 className="font-editorial text-[var(--brand-cream)] text-[26px] sm:text-[30px] lg:text-[34px] leading-tight">
                 {w.title}
               </h3>
