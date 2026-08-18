@@ -30,7 +30,7 @@ export default function AuraProduct() {
               AURA
             </h2>
             <p className="font-suisse text-[var(--brand-cream)]/65 text-[14px] sm:text-[16px] lg:text-[17px] mt-2">
-              Pearl Skinwear SPF 40 · PA+++ · All weathers · 50g
+              Pearl Skinwear SPF 40 · PA++++ · All weathers · 50g
             </p>
           </div>
 

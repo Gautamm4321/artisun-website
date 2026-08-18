@@ -7,9 +7,9 @@ import { asset } from '@/lib/asset';
 const BADGES = ['SPF 40', 'PA++++', 'All weathers', '50g'];
 
 const GALLERY = [
-  '/about-media/aura-1.jpg',
-  '/about-media/aura-2.jpg',
-  '/about-media/aura-3.jpg',
+  '/artisun1_page-0001.jpg',
+  '/artisun1_page-0001.jpg',
+  '/artisun1_page-0001.jpg',
 ];
 
 const FULL_INGREDIENTS =

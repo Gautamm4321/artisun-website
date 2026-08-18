@@ -92,7 +92,7 @@ export default function AuraDosage() {
         {/* Right: Vertical Stacked Tabs */}
         <div className="flex flex-col justify-center space-y-4 w-full max-w-[520px]">
           <p className="font-suisse text-xs uppercase tracking-[0.18em] opacity-75">
-            Select Dose Amount:
+            Select Amount:
           </p>
 
           <div className="flex flex-col gap-3 w-full">

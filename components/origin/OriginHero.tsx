@@ -7,9 +7,9 @@ import { asset } from '@/lib/asset';
 const BADGES = ['SPF 50+', 'PA++++', 'All Weathers', '50ml'];
 
 const GALLERY = [
-  '/about-media/origin-hero.jpg',
-  '/about-media/origin-1.jpg',
-  '/about-media/origin-3.jpg',
+  '/Origin, PDP_.jpg',
+  '/Origin, PDP_.jpg',
+  '/Origin, PDP_.jpg',
 ];
 
 const FULL_INGREDIENTS =

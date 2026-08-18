@@ -42,19 +42,19 @@ const CATEGORIES: Category[] = [
     items: [
       {
         q: 'How much sun protection does Aura give?',
-        a: 'Aura is SPF 40 and PA+++. The SPF 40 blocks up to 97% of UVB — the rays that burn and darken skin — and PA+++ covers UVA, the rays behind ageing and pigmentation. So it protects against both.',
+        a: 'Aura is SPF 40 and PA++++. The SPF 40 blocks up to 97% of UVB — the rays that burn and darken skin — and PA+++ covers UVA, the rays behind ageing and pigmentation. So it protects against both.',
       },
       {
         q: 'Is SPF 40 enough for everyday protection?',
-        a: "Yes. SPF 40 blocks around 97% of UVB rays — plenty for daily life, commuting, and time indoors. If you'll be out in strong sun for hours, Origin's SPF 50+ gives a little more headroom, but for most days SPF 40 with PA+++ is solid — and its UVA filter stays stable for up to 8 hours.",
+        a: "Yes. SPF 40 blocks around 97% of UVB rays — plenty for daily life, commuting, and time indoors. If you'll be out in strong sun for hours, Origin's SPF 50+ gives a little more headroom, but for most days SPF 40 with PA++++ is solid — and its UVA filter stays stable for up to 8 hours.",
       },
       {
         q: 'What does PA+++ mean?',
-        a: 'PA is the rating for UVA protection — the rays behind ageing, dark spots, and long-term damage. It runs from PA+ to PA++++. Aura is PA+++, strong UVA protection, built with Uvinul A Plus, one of the most advanced UVA filters in the world.',
+        a: 'PA is the rating for UVA protection — the rays behind ageing, dark spots, and long-term damage. It runs from PA+ to PA++++. Aura is PA++++, strong UVA protection, built with Uvinul A Plus, one of the most advanced UVA filters in the world.',
       },
       {
         q: 'Is the SPF real and independently tested?',
-        a: "Yes. Aura's SPF 40 and PA+++ are measured in an accredited lab, not estimated. The numbers on the jar are the tested numbers.",
+        a: "Yes. Aura's SPF 40 and PA++++ are measured in an accredited lab, not estimated. The numbers on the jar are the tested numbers.",
       },
       {
         q: 'Does Aura help with tanning and pigmentation?',
