@@ -64,7 +64,7 @@ export default function OriginWhatsIn() {
         {/* ── Heading ── */}
         <div className="mb-2 sm:mb-4 lg:mb-10 shrink-0">
           <h2 className="font-editorial text-[var(--brand-cream)] text-[20px] sm:text-[30px] lg:text-[50px] leading-[1.08] tracking-tight">
-            The good vision of everything.
+            The good version of everything.
           </h2>
         </div>
 

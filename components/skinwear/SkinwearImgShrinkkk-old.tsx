@@ -48,17 +48,17 @@ export default function SkinwearImgShrink2() {
   return (
     <section
       ref={containerRef}
-      className="relative w-full h-[150vh] sm:h-[160vh] md:h-[180vh] z-[16]"
+      className="relative w-full h-[150vh] sm:h-[160vh] md:h-[180vh]z-[16]"
     >
       <div className="sticky top-0 h-[100svh] w-full flex items-center justify-center px-5 sm:px-8 md:px-16 lg:px-24">
 
         {/* ── MOBILE LAYOUT (< md) ── */}
-        <div className="md:hidden w-full h-[100svh] flex flex-col items-center justify-center overflow-hidden">
+        <div className="md:hidden w-full h-full flex flex-col relative">
 
-          {/* Image — shrinks from full height to a smaller centered block */}
+          {/* Image — shrinks from full height to upper portion */}
           <motion.div
             style={{ height: imageHeight }}
-            className="relative w-full shrink-0 overflow-hidden rounded-[12px] z-20"
+            className="absolute top-0 left-0 w-full overflow-hidden rounded-b-[12px] z-20"
           >
             <Image
               src="/skinwear.shrink.img.jpeg"
@@ -70,10 +70,10 @@ export default function SkinwearImgShrink2() {
             />
           </motion.div>
 
-          {/* Text — sits directly beneath the image */}
+          {/* Text — fades in below image */}
           <motion.div
             style={{ opacity: textOpacity, y: textY, filter: textBlur }}
-            className="w-full px-5 pt-4 flex flex-col items-end space-y-3 z-10 text-right"
+            className="absolute bottom-0 right-0 w-full px-5 pb-6 pt-4 flex flex-col justify-end items-end space-y-3 z-10 text-right"
           >
             <h2 className="font-editorial text-[var(--brand-cream)] text-[clamp(1.9rem,9vw,3rem)] leading-[1.08] tracking-[-0.02em]">
               Your skin now has<br />a wardrobe of its own.

@@ -22,9 +22,13 @@ export default function SkinwearImgShrink() {
   // ── DESKTOP: width shrink, image anchored right ──
   const imageWidth = useTransform(scrollYProgress, [0.2, 0.62], ['100%', '40%']);
 
-  // ── MOBILE: height shrink; image + text centered as one group ──
+  // ── MOBILE: height shrink, image anchored top ──
   // Shrinks to 48% of 100svh
   const imageHeight = useTransform(scrollYProgress, [0.1, 0.55], ['100%', '48%']);
+
+  // Text top = exactly where image bottom lands (same progress curve as imageHeight)
+  // imageHeight goes 100% → 48%, so textTop mirrors: 100% → 48%
+  const textTop = useTransform(scrollYProgress, [0.1, 0.55], ['100%', '48%']);
 
   // Text reveal
   const textOpacity = useTransform(scrollYProgress, [0.25, 0.58, 1], [0, 1, 1]);
@@ -43,12 +47,12 @@ export default function SkinwearImgShrink() {
       <div className="sticky top-0 h-[100svh] w-full flex items-center justify-center px-5 sm:px-8 md:px-16 lg:px-24">
 
         {/* ── MOBILE LAYOUT (< md) ── */}
-        <div className="md:hidden w-full h-[100svh] flex flex-col items-center justify-center overflow-hidden">
+        <div className="md:hidden w-full h-[100svh] relative overflow-hidden">
 
-          {/* Image — shrinks from full-screen to a smaller centered block */}
+          {/* Image — shrinks from full-screen to top 48% */}
           <motion.div
             style={{ height: imageHeight }}
-            className="relative w-full shrink-0 overflow-hidden rounded-[14px] z-20"
+            className="absolute top-0 left-0 w-full overflow-hidden rounded-b-[14px] z-20"
           >
             <Image
               src="/skinwear.shrink.img.jpeg"
@@ -60,10 +64,10 @@ export default function SkinwearImgShrink() {
             />
           </motion.div>
 
-          {/* Text — sits directly beneath the image */}
+          {/* Text — top is pinned to exactly where image bottom is */}
           <motion.div
-            style={{ opacity: textOpacity, y: textY, filter: textBlur }}
-            className="w-full px-5 pt-5 flex flex-col space-y-2.5 z-10"
+            style={{ top: textTop, opacity: textOpacity, y: textY, filter: textBlur }}
+            className="absolute left-0 w-full px-5 pt-5 pb-6 flex flex-col space-y-2.5 z-10"
           >
             <p className="font-suisse text-[var(--brand-cream)]/70 text-[11px] tracking-widest uppercase font-normal">
               Fashion is how you dress your body

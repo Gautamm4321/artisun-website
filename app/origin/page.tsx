@@ -152,7 +152,7 @@ export default function OriginPage() {
           {/* 3. One sunscreen. Every Indian weather. */}
           <OriginWhere />
 
-          {/* 4. The good vision of everything. */}
+          {/* 4. The good version of everything. */}
           <OriginWhatsIn />
 
           {/* 5. ORIGIN 4-in-1 Milk Emulsion SPF 50+ */}
