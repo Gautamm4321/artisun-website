@@ -41,10 +41,15 @@ export default function OriginPage() {
     gsap.registerPlugin(ScrollTrigger);
     ScrollTrigger.config({ ignoreMobileResize: true });
 
+    const isMobile = window.innerWidth < 1024;
+
     const lenis = new Lenis({
-      duration: 1.15,
+      duration: isMobile ? 0.8 : 1.1,
       easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       smoothWheel: true,
+      syncTouch: true,
+      syncTouchLerp: 0.08,
+      touchMultiplier: 1.6, // Mobile touch ko light aur responsive banane ke liye
     });
     lenisRef.current = lenis;
     lenis.on('scroll', ScrollTrigger.update);
@@ -63,7 +68,7 @@ export default function OriginPage() {
       '--mc-pos-6': '300%',
     });
 
-const track = trackRef.current;
+    const track = trackRef.current;
     const wrapper = wrapperRef.current;
     if (track && wrapper) {
       const getScrollAmount = () => track.scrollWidth - window.innerWidth;
@@ -76,17 +81,17 @@ const track = trackRef.current;
       const st = ScrollTrigger.create({
         trigger: wrapper,
         start: 'top top',
-        end: () => '+=' + (getScrollAmount() * 1.4),
+        end: () => '+=' + (getScrollAmount() * (isMobile ? 0.95 : 1.1)), // Mobile par heavy drag bilkul khatam
         pin: true,
-        scrub: 1,
+        scrub: isMobile ? 0.25 : 0.7, // Instant responsive touch
         animation: tween,
         anticipatePin: 1,
         invalidateOnRefresh: true,
         snap: {
           snapTo: 1 / (PANELS - 1),
-          duration: { min: 0.3, max: 0.7 },
-          ease: 'power1.out',
-          delay: 0.06,
+          duration: { min: 0.2, max: 0.45 }, // User rukte hi section turant frame par snap ho jayega
+          ease: 'power2.out',
+          delay: 0.02,
         },
       });
       stRef.current = st;
@@ -118,9 +123,16 @@ const track = trackRef.current;
       <CustomCursor mouseProxy={mouseProxy} />
       <GlobalHeader />
 
-     <style jsx global>{`
-        body, html {
+      <style jsx global>{`
+        html, body {
           overflow-x: hidden;
+          overscroll-behavior-y: none;
+          overscroll-behavior-x: none;
+          -webkit-overflow-scrolling: touch;
+        }
+        main {
+          overscroll-behavior: none;
+          touch-action: pan-y;
         }
       `}</style>
 
