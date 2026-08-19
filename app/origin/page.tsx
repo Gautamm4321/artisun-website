@@ -63,12 +63,9 @@ export default function OriginPage() {
       '--mc-pos-6': '300%',
     });
 
-    const mm = gsap.matchMedia();
-    mm.add('(min-width: 1024px)', () => {
-      const track = trackRef.current;
-      const wrapper = wrapperRef.current;
-      if (!track || !wrapper) return;
-
+const track = trackRef.current;
+    const wrapper = wrapperRef.current;
+    if (track && wrapper) {
       const getScrollAmount = () => track.scrollWidth - window.innerWidth;
 
       const tween = gsap.to(track, {
@@ -79,7 +76,7 @@ export default function OriginPage() {
       const st = ScrollTrigger.create({
         trigger: wrapper,
         start: 'top top',
-        end: () => '+=' + getScrollAmount(),
+        end: () => '+=' + (getScrollAmount() * 1.4),
         pin: true,
         scrub: 1,
         animation: tween,
@@ -87,17 +84,13 @@ export default function OriginPage() {
         invalidateOnRefresh: true,
         snap: {
           snapTo: 1 / (PANELS - 1),
-          duration: { min: 0.2, max: 0.55 },
-          ease: 'power2.inOut',
+          duration: { min: 0.3, max: 0.7 },
+          ease: 'power1.out',
           delay: 0.06,
         },
       });
       stRef.current = st;
-
-      return () => {
-        stRef.current = null;
-      };
-    });
+    }
 
     document.fonts.ready.then(() => ScrollTrigger.refresh());
 
@@ -105,32 +98,16 @@ export default function OriginPage() {
       gsap.ticker.remove(raf);
       lenis.destroy();
       lenisRef.current = null;
-      mm.revert();
       ScrollTrigger.getAll().forEach((st) => st.kill());
     };
   }, []);
 
-  /** Jump to a panel from the hero's sidebar list */
   const goToPanel = (i: number) => {
     const lenis = lenisRef.current;
     const st = stRef.current;
-    if (!lenis) return;
-
-    const isDesktop = window.matchMedia('(min-width: 1024px)').matches;
-    if (isDesktop && st) {
-      const target = st.start + (i / (PANELS - 1)) * (st.end - st.start);
-      lenis.scrollTo(target, { duration: 1.3 });
-    } else {
-      const map: Record<number, number | string> = {
-        0: 0,
-        1: '#origin-why',
-        2: '#origin-where',
-        3: '#origin-whatsin',
-        4: '#origin-product',
-        5: '#origin-questions',
-      };
-      lenis.scrollTo(map[i] ?? 0, { duration: 1.1, offset: -56 });
-    }
+    if (!lenis || !st) return;
+    const target = st.start + (i / (PANELS - 1)) * (st.end - st.start);
+    lenis.scrollTo(target, { duration: 1.2 });
   };
 
   return (
@@ -141,27 +118,19 @@ export default function OriginPage() {
       <CustomCursor mouseProxy={mouseProxy} />
       <GlobalHeader />
 
-      <style jsx global>{`
-        @media (max-width: 1023px) {
-          html {
-            scroll-snap-type: y proximity;
-          }
-          .origin-panel {
-            scroll-snap-align: start;
-          }
-        }
-        #origin-questions {
-          touch-action: pan-y !important;
-          overscroll-behavior: contain;
+     <style jsx global>{`
+        body, html {
+          overflow-x: hidden;
         }
       `}</style>
 
       {/* ── 6 EXACT ORDERED PANELS ── */}
-      <div ref={wrapperRef} className="relative w-full lg:h-screen lg:overflow-hidden">
+      <div ref={wrapperRef} className="relative w-full h-[100svh] overflow-hidden">
         <div
           ref={trackRef}
-          className="flex flex-col lg:flex-row lg:flex-nowrap lg:h-screen will-change-transform"
+          className="flex flex-row flex-nowrap h-[100svh] w-max will-change-transform"
         >
+
           {/* 1. Home Section */}
           <OriginHero onNavigate={goToPanel} />
 

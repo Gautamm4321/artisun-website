@@ -241,11 +241,9 @@ export default function OriginQuestions() {
   return (
     <div
       id="origin-questions"
-      className="origin-panel relative w-full lg:w-screen shrink-0 min-h-[100svh] lg:h-screen flex flex-col justify-start overflow-hidden pointer-events-auto"
+      className="origin-panel relative w-screen shrink-0 h-[100svh] flex flex-col items-center justify-center pt-16 pb-14 sm:pt-20 sm:pb-16 lg:py-0 overflow-hidden pointer-events-auto"
     >
-      {/* Container with clean top spacing clear of global header */}
-      {/* Container with optimized vertical balance */}
-      <div className="w-full max-w-[920px] mx-auto px-4 sm:px-8 lg:px-12 pt-20 sm:pt-24 lg:pt-28 pb-16 flex flex-col">
+      <div className="w-full max-w-[920px] mx-auto px-4 sm:px-8 lg:px-12 my-auto flex flex-col justify-center max-h-[calc(100svh-120px)] lg:max-h-[86vh]">
         {/* Eyebrow + Heading */}
         <span className="self-center font-suisse text-[11px] tracking-[0.24em] uppercase text-white/70 font-medium">
           FAQS
@@ -269,10 +267,10 @@ export default function OriginQuestions() {
           />
         </div>
 
-        {/* Category Tabs: Strictly 1 Single Horizontal Line */}
+        {/* Category Tabs: Centered and smooth scrolling */}
         {!isSearching && (
-          <div className="mt-7 sm:mt-8 border-t border-b border-[var(--brand-cream)]/15">
-            <div className="flex items-center justify-between sm:justify-center gap-x-3 sm:gap-x-6 lg:gap-x-7 py-3 overflow-x-auto no-scrollbar flex-nowrap">
+          <div className="mt-4 sm:mt-6 lg:mt-7 border-t border-b border-[var(--brand-cream)]/15 shrink-0">
+            <div className="flex items-center justify-start sm:justify-center gap-x-3.5 sm:gap-x-6 lg:gap-x-7 py-2.5 sm:py-3 overflow-x-auto [scrollbar-width:none] flex-nowrap">
               {CATEGORIES.map((c, i) => {
                 const active = i === tab;
                 return (
@@ -283,8 +281,8 @@ export default function OriginQuestions() {
                       setOpen(null); // ✅ Tab switch par bhi default closed rahega
                     }}
                     className={`pointer-events-auto shrink-0 flex items-center gap-1.5 font-suisse text-[10.5px] sm:text-[12px] tracking-[0.1em] sm:tracking-[0.14em] uppercase transition-colors whitespace-nowrap ${active
-                        ? 'text-[var(--brand-cream)] font-medium'
-                        : 'text-[var(--brand-cream)]/45 hover:text-[var(--brand-cream)]/80'
+                      ? 'text-[var(--brand-cream)] font-medium'
+                      : 'text-[var(--brand-cream)]/45 hover:text-[var(--brand-cream)]/80'
                       }`}
                   >
                     {active && <span className="w-1.5 h-1.5 rounded-full bg-[var(--brand-red)] shadow-[0_0_6px_var(--brand-red)] shrink-0" />}
@@ -296,10 +294,10 @@ export default function OriginQuestions() {
           </div>
         )}
 
-       {/* Accordion Questions List with internal View All Button & Safe Bottom Clearance */}
-        <div 
+        {/* Accordion Questions List with smooth isolated scroll */}
+        <div
           data-lenis-prevent="true"
-          className="mt-2 flex flex-col max-h-[46vh] sm:max-h-[50vh] overflow-y-auto overscroll-contain pr-2 pb-24 [scrollbar-width:thin] [scrollbar-color:rgba(255,255,255,0.2)_transparent]"
+          className="mt-2 flex-1 flex flex-col min-h-0 overflow-y-auto overscroll-contain pr-1.5 sm:pr-2 pb-4 [scrollbar-width:thin] [scrollbar-color:rgba(255,255,255,0.2)_transparent]"
         >
           <div className="divide-y divide-[var(--brand-cream)]/12">
             {/* Active Category Items View */}
@@ -319,9 +317,8 @@ export default function OriginQuestions() {
                       <Chevron open={isOpen} />
                     </button>
                     <div
-                      className={`grid transition-[grid-template-rows] duration-[350ms] ease-out ${
-                        isOpen ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'
-                      }`}
+                      className={`grid transition-[grid-template-rows] duration-[350ms] ease-out ${isOpen ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'
+                        }`}
                     >
                       <div className="overflow-hidden">
                         <div className="font-suisse text-[13px] sm:text-[14px] leading-[1.65] text-white/80 pb-4 pr-2 whitespace-pre-line w-full">
@@ -355,9 +352,8 @@ export default function OriginQuestions() {
                       <Chevron open={isOpen} />
                     </button>
                     <div
-                      className={`grid transition-[grid-template-rows] duration-[350ms] ease-out ${
-                        isOpen ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'
-                      }`}
+                      className={`grid transition-[grid-template-rows] duration-[350ms] ease-out ${isOpen ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'
+                        }`}
                     >
                       <div className="overflow-hidden">
                         <div className="font-suisse text-[13px] sm:text-[14px] leading-[1.65] text-[var(--brand-cream)]/75 pb-4 pr-4 sm:pr-8 whitespace-pre-line max-w-[70ch]">

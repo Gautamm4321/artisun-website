@@ -46,7 +46,7 @@ export default function OriginHero({ onNavigate }: { onNavigate: (panelIndex: nu
   const next = () => setIndex((p) => (p + 1) % GALLERY.length);
 
   return (
-    <div className="origin-panel relative w-full lg:w-screen shrink-0 min-h-[100svh] lg:h-screen flex items-center justify-center pt-20 pb-8 lg:py-0">
+    <div className="origin-panel relative w-screen shrink-0 h-[100svh] flex items-center justify-center pt-20 pb-8 lg:py-0">
       <div className="w-full max-w-[1500px] mx-auto px-5 sm:px-8 lg:px-14 grid grid-cols-1 lg:grid-cols-[1fr_1fr] gap-6 lg:gap-12 items-stretch my-auto">
 
         {/* ── LEFT: Matches Right Content Height Pixel to Pixel ── */}
