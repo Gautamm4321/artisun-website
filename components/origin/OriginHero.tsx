@@ -46,12 +46,12 @@ export default function OriginHero({ onNavigate }: { onNavigate: (panelIndex: nu
   const next = () => setIndex((p) => (p + 1) % GALLERY.length);
 
   return (
-    <div className="origin-panel relative w-screen shrink-0 h-screen flex items-center justify-center pt-20 pb-8 lg:py-0">
-      <div className="w-full max-w-[1500px] mx-auto px-5 sm:px-8 lg:px-14 grid grid-cols-1 lg:grid-cols-[1fr_1fr] gap-6 lg:gap-12 items-stretch my-auto">
+    <div className="origin-panel relative w-screen shrink-0 h-screen flex flex-col justify-center pt-16 pb-12 sm:pt-20 sm:pb-14 lg:py-0 overflow-hidden">
+      <div className="w-full max-w-[1500px] mx-auto px-4 sm:px-8 lg:px-14 flex flex-col lg:grid lg:grid-cols-[1fr_1fr] gap-2.5 sm:gap-4 lg:gap-12 items-center lg:items-stretch my-auto">
 
-        {/* ── LEFT: Matches Right Content Height Pixel to Pixel ── */}
-        <div className="order-1 flex flex-col h-full min-h-[380px] sm:min-h-[460px] lg:min-h-0">
-          <div className="relative w-full h-full min-h-full overflow-hidden bg-white/[0.03] shadow-2xl">
+        {/* ── TOP ON MOBILE / LEFT ON DESKTOP: Product Visual ── */}
+        <div className="order-1 flex flex-col h-[28vh] sm:h-[34vh] lg:h-full w-full max-w-[400px] lg:max-w-none shrink-0 min-h-0">
+          <div className="relative w-full h-full rounded-xl lg:rounded-none overflow-hidden bg-white/[0.03] shadow-2xl">
             <Image
               key={activeImg}
               src={asset(activeImg)}
@@ -101,14 +101,15 @@ export default function OriginHero({ onNavigate }: { onNavigate: (panelIndex: nu
           </div>
         </div>
 
-        {/* ── RIGHT: Info & Compact Navigation Copy ── */}
-        <div className="order-2 flex flex-col justify-between h-full py-1">
+
+        {/* ── BOTTOM ON MOBILE / RIGHT ON DESKTOP: Info & Compact Navigation Copy ── */}
+        <div className="order-2 flex flex-col justify-start lg:justify-between w-full max-w-[420px] lg:max-w-none lg:h-full gap-1.5 sm:gap-2 lg:gap-0 py-0.5 lg:py-1">
           {/* Liquid Glass Badges */}
-          <div className="flex flex-wrap gap-2 mb-2.5">
+          <div className="flex flex-wrap gap-1.5 sm:gap-2 mb-0.5 sm:mb-1 lg:mb-2">
             {BADGES.map((b) => (
               <span
                 key={b}
-                className="font-suisse text-[10px] sm:text-[11px] font-medium tracking-wider uppercase px-3.5 py-1 rounded-full text-white/95 backdrop-blur-md bg-white/[0.08] border border-white/30 shadow-[inset_0_1px_1px_rgba(255,255,255,0.4),inset_0_-1px_1px_rgba(0,0,0,0.25),0_2px_6px_rgba(0,0,0,0.25)] transition-all"
+                className="font-suisse text-[9px] sm:text-[10.5px] font-medium tracking-wider uppercase px-2.5 sm:px-3.5 py-0.5 sm:py-1 rounded-full text-white/95 backdrop-blur-md bg-white/[0.08] border border-white/30 shadow-sm transition-all"
               >
                 {b}
               </span>
@@ -116,29 +117,29 @@ export default function OriginHero({ onNavigate }: { onNavigate: (panelIndex: nu
           </div>
 
           {/* Title */}
-          <h1 className="font-editorial text-[var(--brand-cream)] text-[24px] sm:text-[30px] lg:text-[36px] leading-[1.1] tracking-tight">
+          <h1 className="font-editorial text-[var(--brand-cream)] text-[19px] sm:text-[26px] lg:text-[36px] leading-[1.1] tracking-tight">
             ORIGIN&nbsp;·&nbsp;4-in-1 Milk Emulsion SPF&nbsp;50+
           </h1>
 
-          {/* Description */}
-          <div className="w-full font-suisse text-[var(--brand-cream)]/80 text-[13px] sm:text-[14px] leading-[1.6] mt-2 space-y-1">
-            <p className="text-[var(--brand-cream)] font-medium">
+          {/* Description — Tightened gaps & removed forced line-breaks for mobile */}
+          <div className="w-full font-suisse text-[var(--brand-cream)]/80 text-[11px] sm:text-[13px] lg:text-[14px] leading-[1.38] sm:leading-[1.5] mt-1 sm:mt-2 space-y-0.5">
+            <p className="text-[var(--brand-cream)] font-medium text-[11.5px] sm:text-[13.5px]">
               Four steps, done in one.
             </p>
-            <p className="w-full text-justify [text-justify:inter-word] sm:text-left">
-              Origin is a milk-light layer sunscreen that does four jobs at once — serum, moisturiser, <br/> sunscreen and primer. It goes on weightless, absorbs in seconds, and sits invisibly <br/> under everything else.
+            <p className="w-full text-left">
+              Origin is a milk-light layer sunscreen that does four jobs at once — serum, moisturiser, sunscreen and primer. It goes on weightless, absorbs in seconds, and sits invisibly under everything else.
             </p>
           </div>
 
           {/* Price + Buy */}
-          <div className="flex items-center gap-4 mt-3 mb-3">
-            <span className="font-editorial text-[var(--brand-cream)] text-[22px] sm:text-[26px]">₹1499</span>
-            <button className="pointer-events-auto font-suisse text-xs sm:text-sm tracking-wide uppercase px-6 py-2.5 bg-[var(--brand-cream)] text-[var(--brand-dark)] hover:bg-white transition-colors font-medium">
+          <div className="flex items-center gap-3 sm:gap-4 my-1.5 sm:my-3">
+            <span className="font-editorial text-[var(--brand-cream)] text-[18px] sm:text-[22px] lg:text-[26px]">₹1499</span>
+            <button className="pointer-events-auto font-suisse text-[10px] sm:text-xs uppercase tracking-wide px-4 sm:px-6 py-1.5 sm:py-2.5 bg-[var(--brand-cream)] text-[var(--brand-dark)] hover:bg-white transition-colors font-medium">
               Add to bag
             </button>
           </div>
 
-          <div className="h-px w-full bg-[var(--brand-cream)]/12 mb-1" />
+          <div className="h-px w-full bg-[var(--brand-cream)]/12 mb-0.5 sm:mb-1" />
 
           {/* Sidebar Navigation */}
           <ul className="flex flex-col">
@@ -151,9 +152,9 @@ export default function OriginHero({ onNavigate }: { onNavigate: (panelIndex: nu
                     <button
                       onClick={() => setIngredientsOpen((v) => !v)}
                       aria-expanded={ingredientsOpen}
-                      className="pointer-events-auto w-full flex items-center gap-3 py-2 text-left group"
+                      className="pointer-events-auto w-full flex items-center gap-2 sm:gap-3 py-1 sm:py-2 text-left group"
                     >
-                      <span className="font-suisse text-[13px] sm:text-[14px] text-[var(--brand-cream)]/90 group-hover:text-[var(--brand-cream)] transition-colors">
+                      <span className="font-suisse text-[11.5px] sm:text-[13px] lg:text-[14px] text-[var(--brand-cream)]/90 group-hover:text-[var(--brand-cream)] transition-colors">
                         {item.label}
                       </span>
                       <span className={`ml-auto text-xs text-[var(--brand-cream)]/50 transition-transform duration-300 ${ingredientsOpen ? 'rotate-45' : ''}`}>+</span>
@@ -172,11 +173,12 @@ export default function OriginHero({ onNavigate }: { onNavigate: (panelIndex: nu
                   <button
                     disabled={soon}
                     onClick={() => item.target !== null && onNavigate(item.target)}
-                    className={`pointer-events-auto w-full flex items-center gap-3 py-2 text-left group ${soon ? 'cursor-default' : ''}`}
+                    className={`pointer-events-auto w-full flex items-center gap-2 sm:gap-3 py-1 sm:py-2 text-left group ${soon ? 'cursor-default' : ''}`}
                   >
-                    <span className={`font-suisse text-[13px] sm:text-[14px] transition-colors ${soon ? 'text-[var(--brand-cream)]/35' : 'text-[var(--brand-cream)]/90 group-hover:text-[var(--brand-cream)]'}`}>
+                    <span className={`font-suisse text-[11.5px] sm:text-[13px] lg:text-[14px] transition-colors ${soon ? 'text-[var(--brand-cream)]/35' : 'text-[var(--brand-cream)]/90 group-hover:text-[var(--brand-cream)]'}`}>
                       {item.label}
                     </span>
+
                     {soon ? (
                       <span className="ml-auto font-suisse text-[10px] uppercase tracking-wider text-[var(--brand-cream)]/30 border border-[var(--brand-cream)]/15 rounded-full px-2 py-0.5">Soon</span>
                     ) : (
