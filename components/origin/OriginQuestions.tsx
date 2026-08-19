@@ -239,10 +239,10 @@ export default function OriginQuestions() {
     : activeCategory.items.slice(0, VISIBLE_COUNT);
 
   return (
-    <div
-      id="origin-questions"
-      className="origin-panel relative w-screen shrink-0 h-[100svh] flex flex-col items-center justify-center pt-16 pb-14 sm:pt-20 sm:pb-16 lg:py-0 overflow-hidden pointer-events-auto"
-    >
+   <div
+  id="origin-questions"
+  className="origin-panel relative w-screen shrink-0 h-screen flex flex-col items-center justify-center pt-16 pb-14 sm:pt-20 sm:pb-16 lg:py-0 overflow-hidden pointer-events-auto"
+>
       <div className="w-full max-w-[920px] mx-auto px-4 sm:px-8 lg:px-12 my-auto flex flex-col justify-center max-h-[calc(100svh-120px)] lg:max-h-[86vh]">
         {/* Eyebrow + Heading */}
         <span className="self-center font-suisse text-[11px] tracking-[0.24em] uppercase text-white/70 font-medium">

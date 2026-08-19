@@ -41,15 +41,12 @@ export default function OriginPage() {
     gsap.registerPlugin(ScrollTrigger);
     ScrollTrigger.config({ ignoreMobileResize: true });
 
-    const isMobile = window.innerWidth < 1024;
-
+    // A) Lenis setup with syncTouch: false
     const lenis = new Lenis({
-      duration: isMobile ? 0.8 : 1.1,
+      duration: 1.1,
       easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       smoothWheel: true,
-      syncTouch: true,
-      syncTouchLerp: 0.08,
-      touchMultiplier: 1.6, // Mobile touch ko light aur responsive banane ke liye
+      syncTouch: false,
     });
     lenisRef.current = lenis;
     lenis.on('scroll', ScrollTrigger.update);
@@ -71,27 +68,29 @@ export default function OriginPage() {
     const track = trackRef.current;
     const wrapper = wrapperRef.current;
     if (track && wrapper) {
-      const getScrollAmount = () => track.scrollWidth - window.innerWidth;
+      // B) Fixed scroll amount math using window.innerWidth & exact panel count
+      const getScrollAmount = () => (PANELS - 1) * window.innerWidth;
 
       const tween = gsap.to(track, {
         x: () => -getScrollAmount(),
         ease: 'none',
       });
 
+      // D) Exact end matching the scroll amount
       const st = ScrollTrigger.create({
         trigger: wrapper,
         start: 'top top',
-        end: () => '+=' + (getScrollAmount() * (isMobile ? 0.95 : 1.1)), // Mobile par heavy drag bilkul khatam
+        end: () => '+=' + getScrollAmount(),
         pin: true,
-        scrub: isMobile ? 0.25 : 0.7, // Instant responsive touch
+        scrub: 0.6,
         animation: tween,
         anticipatePin: 1,
         invalidateOnRefresh: true,
         snap: {
           snapTo: 1 / (PANELS - 1),
-          duration: { min: 0.2, max: 0.45 }, // User rukte hi section turant frame par snap ho jayega
-          ease: 'power2.out',
-          delay: 0.02,
+          duration: { min: 0.2, max: 0.5 },
+          ease: 'power1.out',
+          delay: 0.05,
         },
       });
       stRef.current = st;
@@ -116,7 +115,7 @@ export default function OriginPage() {
   };
 
   return (
-    <main className="relative w-full min-h-[100svh] overflow-clip">
+    <main className="relative w-full min-h-screen overflow-clip">
       <ScrollProgressBar marker={asset('/b2.png')} markerHeight={20} />
       <div id="global-bg" className="theme-molten-core" />
 
@@ -126,23 +125,16 @@ export default function OriginPage() {
       <style jsx global>{`
         html, body {
           overflow-x: hidden;
-          overscroll-behavior-y: none;
-          overscroll-behavior-x: none;
-          -webkit-overflow-scrolling: touch;
-        }
-        main {
-          overscroll-behavior: none;
-          touch-action: pan-y;
         }
       `}</style>
 
       {/* ── 6 EXACT ORDERED PANELS ── */}
-      <div ref={wrapperRef} className="relative w-full h-[100svh] overflow-hidden">
+      <div ref={wrapperRef} className="relative w-full h-screen overflow-hidden">
+        {/* C) Fixed 600vw width on track */}
         <div
           ref={trackRef}
-          className="flex flex-row flex-nowrap h-[100svh] w-max will-change-transform"
+          className="flex flex-row flex-nowrap h-screen w-[600vw] will-change-transform"
         >
-
           {/* 1. Home Section */}
           <OriginHero onNavigate={goToPanel} />
 
@@ -152,7 +144,7 @@ export default function OriginPage() {
           {/* 3. One sunscreen. Every Indian weather. */}
           <OriginWhere />
 
-          {/* 4. The good version of everything. */}
+          {/* 4. The good vision of everything. */}
           <OriginWhatsIn />
 
           {/* 5. ORIGIN 4-in-1 Milk Emulsion SPF 50+ */}

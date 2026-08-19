@@ -24,7 +24,7 @@ export default function OriginProduct() {
   return (
     <div
       id="origin-product"
-      className="origin-panel relative w-screen shrink-0 h-[100svh] overflow-hidden"
+      className="origin-panel relative w-screen shrink-0 h-screen overflow-hidden"
     >
       {/* Product cutout: Bottom center on Mobile | Tilted Right on Desktop */}
       <div className="pointer-events-none absolute right-0 lg:right-[-6%] left-0 lg:left-auto bottom-0 lg:top-[12%] h-[32vh] sm:h-[38vh] lg:h-auto w-full lg:w-[40%] z-0 flex justify-center lg:block opacity-65 lg:opacity-100">
@@ -38,9 +38,9 @@ export default function OriginProduct() {
       </div>
 
       {/* Content */}
-      <div className="relative z-10 h-full w-full max-w-[1500px] mx-auto px-4 sm:px-8 lg:px-14 pt-16 sm:pt-20 lg:pt-[100px] pb-14 sm:pb-16 lg:pb-16 flex flex-col justify-start lg:justify-between gap-3 sm:gap-4 lg:gap-0 overflow-y-auto lg:overflow-hidden [scrollbar-width:none]">
-       
-{/* Top Section: Wordmark + Badges + Glass Box */}
+      <div data-lenis-prevent="true" className="relative z-10 h-full w-full max-w-[1500px] mx-auto px-4 sm:px-8 lg:px-14 pt-16 sm:pt-20 lg:pt-[100px] pb-14 sm:pb-16 lg:pb-16 flex flex-col justify-start lg:justify-between gap-3 sm:gap-4 lg:gap-0 overflow-y-auto lg:overflow-hidden [scrollbar-width:none]">
+
+        {/* Top Section: Wordmark + Badges + Glass Box */}
         <div className="space-y-2.5 sm:space-y-4 lg:space-y-5 shrink-0">
           {/* Wordmark + Badges */}
           <div>

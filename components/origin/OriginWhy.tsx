@@ -23,7 +23,7 @@ export default function OriginWhy() {
   const inView = useInView(statsRef, { once: true, margin: '-15%' });
 
   return (
-    <div id="origin-why" className="origin-panel relative w-screen shrink-0 h-[100svh] overflow-hidden">
+    <div id="origin-why" className="origin-panel relative w-screen shrink-0 h-screen overflow-hidden">
       {/* Full-bleed background */}
       <Image src={asset(BG_IMAGE)} alt="" fill sizes="100vw" className="object-cover object-center" />
       {/* Scrims for legibility: overall darken + stronger top & bottom */}

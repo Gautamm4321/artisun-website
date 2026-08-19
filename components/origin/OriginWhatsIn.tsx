@@ -58,7 +58,7 @@ export default function OriginWhatsIn() {
 
     <div
       id="origin-whatsin"
-      className="origin-panel relative w-screen shrink-0 h-[100svh] overflow-hidden flex flex-col justify-start lg:justify-center pt-16 pb-14 sm:pt-20 sm:pb-16 lg:py-0"
+      className="origin-panel relative w-screen shrink-0 h-screen overflow-hidden flex flex-col justify-start lg:justify-center pt-16 pb-14 sm:pt-20 sm:pb-16 lg:py-0"
     >
       <div className="relative z-10 w-full max-w-[1500px] mx-auto px-4 sm:px-8 lg:px-14 flex flex-col justify-between lg:justify-start h-full max-h-[calc(100svh-115px)] lg:max-h-none lg:h-auto overflow-hidden">
         {/* ── Heading ── */}

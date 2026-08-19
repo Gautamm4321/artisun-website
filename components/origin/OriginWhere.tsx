@@ -37,7 +37,7 @@ export default function OriginWhere() {
   return (
     <div
       id="origin-where"
-      className="origin-panel relative w-screen shrink-0 h-[100svh] flex flex-col"
+      className="origin-panel relative w-screen shrink-0 h-screen flex flex-col"
     >
       {/* Heading block */}
       <div className="px-4 sm:px-8 lg:px-14 pt-16 pb-2.5 sm:pt-20 sm:pb-4 lg:pt-[112px] lg:pb-8 max-w-[1500px] w-full mx-auto shrink-0">
