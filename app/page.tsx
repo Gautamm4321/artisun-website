@@ -10,11 +10,12 @@ import LoadingScreen from '../components/LoadingScreen';
 import HeroSection from '../components/HeroSection';
 import CustomCursor from '../components/CustomCursor';
 import TextRevealSection from '../components/TextRevealSection';
-import GlobalHeader from '../components/GlobalHeader';
+import WornSection from '../components/WornSection';
+import HomeHeader from '../components/HomeHeader';
 import ClimateVideoSection from '../components/climate/ClimateVideoSection';
 import ClimateModelSection from '../components/ClimateModelSection';
 import EarthSection from '../components/EarthSection';
-import ProductsSection from '../components/ProductsSection';
+import ProductShowcaseSection from '../components/ProductShowcaseSection';
 import EvolutionSection from '../components/EvolutionSection';
 import SuncareShiftSection from '../components/SuncareShiftSection';
 import ClothingSection from '../components/ClothingSection';
@@ -100,45 +101,9 @@ export default function Home() {
         ScrollTrigger.getAll().forEach(st => st.refresh());
       });
 
-      const tl = gsap.timeline();
-
-      // Hero Logo fade in / slight scale
-      tl.fromTo('.hero-title',
-        { opacity: 0, scale: 0.96, y: 10 },
-        { opacity: 1, scale: 1, y: 0, duration: 1.2, ease: 'power3.out' }
-      );
-
-      // Hero Subtitle — word by word entrance (Effect 9 adapted, half-intensity)
-      // Each word materialises from a slight atmospheric haze — 6 words, 0.09s apart.
-      // Calmer and more effortless than the section word reveals.
-      // The blur is 3px (not 12px) — a whisper of haze, not a dramatic reveal.
-      tl.fromTo('.hero-subtitle-word',
-        { opacity: 0, y: 20, filter: 'blur(3px)' },
-        {
-          opacity: 1,
-          y: 0,
-          filter: 'blur(0px)',
-          stagger: 0.09,
-          duration: 1.0,
-          ease: 'power4.out',
-        },
-        '-=0.6'   // keeps the same overlap with the logo animation as before
-      );
-
-      // Top Header (Logo, Bottles, Cart) fade in
-      tl.to('.hero-header', {
-        opacity: 1,
-        y: 0,
-        duration: 1.0,
-        ease: 'power2.out'
-      }, '-=0.8');
-
-      // Scroll indicator fade in
-      tl.to('.scroll-indicator', {
-        opacity: 1,
-        duration: 1.2,
-        ease: 'power2.out'
-      }, '-=0.4');
+      // Hero entrance + the wordmark→header morph are handled inside HeroSection
+      // and HomeHeader (gated on the `ready` flag). Here we only drive the global
+      // molten background and refresh triggers once the loading screen lifts.
 
       // Global Molten Core Gradient Ecosystem Transition
       // 1. Erupt: Immediately push darkness away when scrolling down from the Hero
@@ -179,31 +144,6 @@ export default function Home() {
         })
       });
 
-      // Scroll indicator fades out immediately upon scrolling down
-      ScrollTrigger.create({
-        trigger: mainRef.current,
-        start: "top top",
-        end: "+=150", // fades out completely after scrolling 150px
-        scrub: true,
-        animation: gsap.fromTo('.scroll-indicator',
-          { opacity: 1 },
-          { opacity: 0, ease: 'none' }
-        )
-      });
-      // ── Hero EXIT: Gravity Pull ──
-      // As user scrolls past the hero, content drifts up and fades.
-      // The logo and subtitle float away — camera falls into the story.
-      ScrollTrigger.create({
-        trigger: '.hero-content-inner',
-        start: 'top top',
-        end: '+=220',
-        scrub: 1.5,
-        animation: gsap.to('.hero-content-inner', {
-          y: -50,
-          opacity: 0,
-          ease: 'none',
-        }),
-      });
     }
   }, [loadingComplete]);
 
@@ -220,8 +160,9 @@ export default function Home() {
 
       <CustomCursor mouseProxy={mouseProxy} />
 
-      <GlobalHeader startHidden />
-      <HeroSection mouseProxy={mouseProxy} />
+      <HomeHeader ready={loadingComplete} />
+      <HeroSection ready={loadingComplete} />
+      <WornSection />
       <TextRevealSection />
       <ClimateVideoSection />
       <EvolutionSection />
@@ -231,7 +172,7 @@ export default function Home() {
       <ClothingSection />
       <SkinProtectionSection />
       <KeyholeSection />
-      <ProductsSection />
+      <ProductShowcaseSection />
       <CTASection />
       <FashionSkinSection />
       <Footer />

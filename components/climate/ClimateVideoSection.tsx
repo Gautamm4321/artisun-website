@@ -3,244 +3,183 @@
 import { useEffect, useRef } from 'react';
 import Image from 'next/image';
 import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { asset } from '@/lib/asset';
 
-// ── 4 Images for 4 Cities ──
-const CLIMATE_SLIDES = [
+if (typeof window !== 'undefined') {
+  gsap.registerPlugin(ScrollTrigger);
+}
+
+// Four Indian cities, each with the weather that quietly undoes skin.
+const CARDS = [
   {
-    image: asset('/skinwear.shrink.img.jpeg'),
-    text: "A Shimla winter pulls all the moisture out, and by afternoon your skin’s tight and flaking.",
+    city: 'Shimla',
+    condition: 'Dry cold',
+    image: asset('/climate-cards/face.jpg'),
+    text: 'A Shimla winter pulls all the moisture out, and by afternoon your skin’s tight and flaking.',
   },
   {
-    image: asset('/skinwear.shrink.img.jpeg'),
-    text: "In the Jaipur heat, whatever you put on is gone before noon.",
+    city: 'Jaipur',
+    condition: 'Dry heat',
+    image: asset('/climate-cards/sun.jpg'),
+    text: 'In the Jaipur heat, whatever you put on is gone before noon.',
   },
   {
-    image: asset('/skinwear.shrink.img.jpeg'),
-    text: "Bangalore’s humidity leaves everything sitting greasy, pilling the moment you touch makeup.",
+    city: 'Bangalore',
+    condition: 'Humid',
+    image: asset('/climate-cards/hand.jpg'),
+    text: 'Bangalore’s humidity leaves everything sitting greasy, pilling the moment you touch makeup.',
   },
   {
-    image: asset('/skinwear.shrink.img.jpeg'),
-    text: "And in Bombay, all it takes is one downpour, and your face is an oily mess.",
+    city: 'Bombay',
+    condition: 'Monsoon',
+    image: asset('/climate-cards/fabric.jpg'),
+    text: 'And in Bombay, all it takes is one downpour, and your face is an oily mess.',
   },
 ];
 
-const clamp01 = (v: number) => Math.min(Math.max(v, 0), 1);
-
-function makeCubicBezier(p1x: number, p1y: number, p2x: number, p2y: number) {
-  const A = (a1: number, a2: number) => 1.0 - 3.0 * a2 + 3.0 * a1;
-  const B = (a1: number, a2: number) => 3.0 * a2 - 6.0 * a1;
-  const C = (a1: number) => 3.0 * a1;
-  const calc = (t: number, a1: number, a2: number) => ((A(a1, a2) * t + B(a1, a2)) * t + C(a1)) * t;
-  const slope = (t: number, a1: number, a2: number) => 3.0 * A(a1, a2) * t * t + 2.0 * B(a1, a2) * t + C(a1);
-  const getTForX = (x: number) => {
-    let t = x;
-    for (let i = 0; i < 6; i++) {
-      const xEst = calc(t, p1x, p2x) - x;
-      if (Math.abs(xEst) < 1e-6) return t;
-      const d = slope(t, p1x, p2x);
-      if (Math.abs(d) < 1e-4) break;
-      t -= xEst / d;
-    }
-    let lo = 0, hi = 1;
-    t = x;
-    for (let i = 0; i < 12; i++) {
-      const xEst = calc(t, p1x, p2x);
-      if (Math.abs(xEst - x) < 1e-6) return t;
-      if (x > xEst) lo = t; else hi = t;
-      t = (lo + hi) / 2;
-    }
-    return t;
-  };
-  return (x: number) => calc(getTForX(clamp01(x)), p1y, p2y);
-}
-
-const cinematicEase = makeCubicBezier(0.22, 1, 0.36, 1);
-
 export default function ClimateVideoSection() {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const slideRefs = useRef<(HTMLDivElement | null)[]>([]);
-  const imgWrapRefs = useRef<(HTMLDivElement | null)[]>([]);
-  const textRefs = useRef<(HTMLParagraphElement | null)[]>([]);
-  const dotsRef = useRef<(HTMLDivElement | null)[]>([]);
+  const sectionRef = useRef<HTMLElement>(null);
+  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const introRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
+    const ctx = gsap.context(() => {
+      if (introRef.current) {
+        gsap.fromTo(
+          introRef.current.children,
+          { opacity: 0, y: 30 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 1,
+            stagger: 0.12,
+            ease: 'power3.out',
+            scrollTrigger: { trigger: introRef.current, start: 'top 82%' },
+          }
+        );
+      }
 
-    const N = CLIMATE_SLIDES.length;
-    if (!containerRef.current) return;
+      cardRefs.current.forEach((card) => {
+        if (!card) return;
+        const media = card.querySelector('.cc-media') as HTMLElement | null;
+        const words = Array.from(card.querySelectorAll('.cc-word')) as HTMLElement[];
+        const meta = Array.from(card.querySelectorAll('.cc-meta')) as HTMLElement[];
 
-    const HOLD_LEN = 1.2;
-    const TRANS_LEN = 0.7;
-    type Segment = { type: 'hold' | 'trans'; index: number; len: number; start: number };
-    const segments: Segment[] = [];
-    {
-      let acc = 0;
-      for (let i = 0; i < N; i++) {
-        segments.push({ type: 'hold', index: i, len: HOLD_LEN, start: acc });
-        acc += HOLD_LEN;
-        if (i < N - 1) {
-          segments.push({ type: 'trans', index: i, len: TRANS_LEN, start: acc });
-          acc += TRANS_LEN;
+        gsap.fromTo(
+          card,
+          { opacity: 0, y: 60 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 1.1,
+            ease: 'power3.out',
+            scrollTrigger: { trigger: card, start: 'top 88%' },
+          }
+        );
+
+        // Calm parallax settle on the image, tied to scroll.
+        if (media) {
+          gsap.fromTo(
+            media,
+            { scale: 1.16, yPercent: -4 },
+            {
+              scale: 1,
+              yPercent: 4,
+              ease: 'none',
+              scrollTrigger: { trigger: card, start: 'top bottom', end: 'bottom top', scrub: 1 },
+            }
+          );
         }
-      }
-    }
-    const totalLen = segments.reduce((s, seg) => s + seg.len, 0);
 
-    const locate = (rawUnits: number) => {
-      const u = Math.min(Math.max(rawUnits, 0), totalLen - 1e-6);
-      let seg = segments[segments.length - 1];
-      for (let i = 0; i < segments.length; i++) {
-        const next = segments[i + 1];
-        if (!next || u < next.start) { seg = segments[i]; break; }
-      }
-      const local = clamp01((u - seg.start) / seg.len);
-      if (seg.type === 'hold') {
-        return { fromIdx: seg.index, toIdx: seg.index, e: 0, isHold: true };
-      }
-      return { fromIdx: seg.index, toIdx: seg.index + 1, e: cinematicEase(local), isHold: false };
-    };
-
-    const setRest = (i: number, active: boolean) => {
-      gsap.set(slideRefs.current[i], {
-        autoAlpha: active ? 1 : 0,
-        zIndex: active ? 2 : 0,
-      });
-      gsap.set(imgWrapRefs.current[i], { scale: 1, autoAlpha: active ? 1 : 0 });
-      gsap.set(textRefs.current[i], { autoAlpha: active ? 1 : 0, y: 0 });
-    };
-
-    const applyOut = (i: number, e: number) => {
-      gsap.set(slideRefs.current[i], {
-        autoAlpha: 1 - e,
-        zIndex: 1,
-      });
-      gsap.set(imgWrapRefs.current[i], {
-        scale: 1 - 0.04 * e,
-        autoAlpha: 1 - e,
-      });
-      gsap.set(textRefs.current[i], {
-        y: -30 * e,
-        autoAlpha: 1 - e,
-      });
-    };
-
-    const applyIn = (i: number, e: number) => {
-      const inv = 1 - e;
-      gsap.set(slideRefs.current[i], {
-        autoAlpha: e,
-        zIndex: 2,
-      });
-      gsap.set(imgWrapRefs.current[i], {
-        scale: 1.04 - 0.04 * e,
-        autoAlpha: e,
-      });
-      gsap.set(textRefs.current[i], {
-        y: 40 * inv,
-        autoAlpha: e,
-      });
-    };
-
-    const update = (progress: number) => {
-      const { fromIdx, toIdx, e, isHold } = locate(progress * totalLen);
-
-      for (let i = 0; i < N; i++) {
-        if (isHold) {
-          setRest(i, i === fromIdx);
-        } else if (i === fromIdx) {
-          applyOut(i, e);
-        } else if (i === toIdx) {
-          applyIn(i, e);
-        } else {
-          setRest(i, false);
+        if (words.length) {
+          gsap.fromTo(
+            words,
+            { opacity: 0.16 },
+            {
+              opacity: 1,
+              stagger: 0.5,
+              ease: 'none',
+              scrollTrigger: { trigger: card, start: 'top 78%', end: 'top 42%', scrub: 1 },
+            }
+          );
         }
-      }
-
-      const dominant = isHold ? fromIdx : e < 0.5 ? fromIdx : toIdx;
-      dotsRef.current.forEach((dot, i) => {
-        if (!dot) return;
-        const active = i === dominant;
-        gsap.set(dot, {
-          opacity: active ? 1 : 0.25,
-          scale: active ? 1.4 : 1,
-          backgroundColor: active ? '#ffffff' : '#888888',
-        });
+        if (meta.length) {
+          gsap.fromTo(
+            meta,
+            { opacity: 0, y: 16 },
+            {
+              opacity: 1,
+              y: 0,
+              duration: 0.8,
+              stagger: 0.1,
+              ease: 'power2.out',
+              scrollTrigger: { trigger: card, start: 'top 80%' },
+            }
+          );
+        }
       });
-    };
+    }, sectionRef);
 
-    const st = ScrollTrigger.create({
-      trigger: containerRef.current,
-      pin: true,
-      anticipatePin: 1,
-      start: 'top top',
-      end: `+=${totalLen * 100}%`,
-      scrub: 0.6,
-      onUpdate: (self) => update(self.progress),
-    });
-
-    update(st.progress);
-
-    return () => {
-      st.kill();
-    };
+    return () => ctx.revert();
   }, []);
 
   return (
-    <section ref={containerRef} className="relative w-full h-[100svh] bg-[#0d0908] overflow-hidden z-20">
-      <div className="relative w-full h-full">
-        
-        {CLIMATE_SLIDES.map((slide, i) => (
+    <section
+      ref={sectionRef}
+      className="relative w-full bg-[#0b0605] z-20 py-24 md:py-32 px-4 sm:px-6 md:px-10 lg:px-16"
+    >
+      <div ref={introRef} className="max-w-[1200px] mx-auto mb-14 md:mb-20">
+        <span className="cc-eyebrow block font-suisse text-[11px] md:text-[12px] tracking-[0.34em] uppercase text-[var(--brand-cream)]/55">
+          Climate-smart™ · Built for India
+        </span>
+        <h2 className="mt-4 font-editorial text-[var(--brand-cream)] text-[30px] sm:text-[40px] lg:text-[54px] leading-[1.1] max-w-[16ch]">
+          Every city has its own way of undoing your skin.
+        </h2>
+      </div>
+
+      <div className="max-w-[1200px] mx-auto flex flex-col gap-5 md:gap-7">
+        {CARDS.map((card, i) => (
           <div
-            key={i}
-            ref={(el) => { slideRefs.current[i] = el; }}
-            className="absolute inset-0 w-full h-full flex flex-col lg:flex-row items-center justify-between pointer-events-none"
-            style={{ opacity: i === 0 ? 1 : 0 }}
+            key={card.city}
+            ref={(el) => { cardRefs.current[i] = el; }}
+            className="cc-card group relative overflow-hidden rounded-[20px] md:rounded-[26px] border border-white/10 bg-white/[0.02] flex flex-col md:flex-row"
           >
-            {/* ── LEFT: 65% Full-Height & Frame-Covering Image ── */}
-            <div className="w-full lg:w-[65%] h-[55vh] lg:h-full relative overflow-hidden">
-              <div
-                ref={(el) => { imgWrapRefs.current[i] = el; }}
-                className="relative w-full h-full overflow-hidden"
-              >
+            {/* LEFT — moody city image */}
+            <div className="relative w-full md:w-[62%] aspect-[16/10] md:aspect-auto md:min-h-[300px] lg:min-h-[360px] overflow-hidden">
+              <div className="cc-media absolute inset-0 will-change-transform">
                 <Image
-                  src={slide.image}
-                  alt={`Climate Slide ${i + 1}`}
+                  src={card.image}
+                  alt={`${card.city} — ${card.condition}`}
                   fill
-                  priority={i === 0}
-                  className="object-cover object-center"
-                  sizes="(max-width: 1024px) 100vw, 65vw"
+                  sizes="(max-width: 768px) 100vw, 62vw"
+                  className="object-cover"
+                  loading="eager"
                 />
               </div>
+              {/* edge + bottom scrim for warmth and pill legibility */}
+              <div className="absolute inset-0 pointer-events-none" style={{ background: 'linear-gradient(90deg, rgba(8,4,3,0.30) 0%, transparent 26%, transparent 72%, rgba(8,4,3,0.5) 100%)' }} />
+              <div className="absolute inset-x-0 bottom-0 h-1/3 pointer-events-none" style={{ background: 'linear-gradient(to top, rgba(8,4,3,0.7) 0%, transparent 100%)' }} />
+              <span className="cc-meta absolute bottom-4 left-4 md:bottom-5 md:left-5 inline-flex items-center gap-2 rounded-full bg-black/45 backdrop-blur-md border border-white/15 px-3.5 py-1.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#F2812E]" />
+                <span className="font-suisse text-[11px] md:text-[12px] tracking-[0.14em] uppercase text-white/90">{card.condition}</span>
+              </span>
             </div>
 
-            {/* ── RIGHT: Text Area with Left Alignment ── */}
-            <div className="w-full lg:w-[35%] h-[45vh] lg:h-full flex flex-col justify-center items-start px-6 sm:px-12 lg:px-16 text-left">
-              <p
-                ref={(el) => { textRefs.current[i] = el; }}
-                className="font-editorial text-[24px] sm:text-[30px] lg:text-[36px] xl:text-[40px] leading-[1.25] text-[var(--brand-cream,#f5f0eb)] tracking-tight text-left"
-              >
-                {slide.text}
+            {/* RIGHT — text panel */}
+            <div className="w-full md:w-[38%] p-6 sm:p-8 md:p-9 lg:p-11 flex flex-col justify-center bg-gradient-to-b from-white/[0.04] to-transparent">
+              <span className="cc-meta font-suisse text-[11px] md:text-[12px] tracking-[0.26em] uppercase text-[var(--brand-cream)]/50">
+                {String(i + 1).padStart(2, '0')} — {card.city}
+              </span>
+              <p className="mt-3 md:mt-4 font-editorial text-[var(--brand-cream)] text-[21px] sm:text-[26px] lg:text-[30px] leading-[1.28]">
+                {card.text.split(' ').map((w, wi) => (
+                  <span key={wi} className="cc-word inline-block">{w}&nbsp;</span>
+                ))}
               </p>
             </div>
           </div>
         ))}
-
-        {/* ── Progress Navigation Dots ── */}
-        <div className="absolute right-4 sm:right-6 top-1/2 -translate-y-1/2 flex flex-col items-center gap-3 z-30 pointer-events-none">
-          {CLIMATE_SLIDES.map((_, i) => (
-            <div
-              key={i}
-              ref={(el) => { dotsRef.current[i] = el; }}
-              className="w-2.5 h-2.5 rounded-full transition-all duration-300"
-              style={{
-                opacity: i === 0 ? 1 : 0.25,
-                backgroundColor: i === 0 ? '#ffffff' : '#888888',
-              }}
-            />
-          ))}
-        </div>
-
       </div>
     </section>
   );
