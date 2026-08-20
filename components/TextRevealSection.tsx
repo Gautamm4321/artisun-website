@@ -4,21 +4,14 @@ import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-const line1 = "Why has a category we use every day still not caught up with the way we live?";
-const line2 = "Especially in a country where climate changes everything.";
+const sentence = "And your city decides what kind of day your skin gets.";
 
 export default function TextRevealSection() {
   const containerRef = useRef<HTMLElement>(null);
-  const textRef = useRef<HTMLDivElement>(null);
-  const line2ContainerRef = useRef<HTMLDivElement>(null);
-  
-  // We'll store refs to each word span here
-  const words1Ref = useRef<(HTMLSpanElement | null)[]>([]);
-  const words2Ref = useRef<(HTMLSpanElement | null)[]>([]);
+  const wordsRef = useRef<(HTMLSpanElement | null)[]>([]);
 
-  // Clear refs on every render so they don't accumulate infinitely
-  words1Ref.current = [];
-  words2Ref.current = [];
+  // Clear refs on every render
+  wordsRef.current = [];
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
@@ -26,74 +19,45 @@ export default function TextRevealSection() {
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: containerRef.current,
-        start: "top top", // when the top of the container hits the top of the viewport
-        end: "+=150%",    // pin for 1.5 screen heights
-        pin: true,        // Pin the container so it stays sticky
+        start: 'top top',
+        end: '+=140%',
+        pin: true,
         anticipatePin: 1,
-        scrub: 1.5,       // Buttery smooth scrubbing to prevent slow catch-up stutter
-      }
+        scrub: 1.2,
+      },
     });
 
-    // 1. Line 1 activates word by word
-    tl.to(words1Ref.current, {
+    // Word by word high-impact reveal animation
+    tl.to(wordsRef.current, {
       opacity: 1,
-      stagger: 0.1,
-      ease: "none",
-    });
-
-    // 2. Line 2 container fades in completely
-    tl.to(line2ContainerRef.current, {
-      opacity: 1,
-      duration: 0.5,
-      ease: "power2.inOut",
-    });
-
-    // 3. Line 2 activates word by word
-    tl.to(words2Ref.current, {
-      opacity: 1,
-      stagger: 0.1,
-      ease: "none",
+      stagger: 0.15,
+      ease: 'power1.inOut',
     });
 
     return () => {
-      if (tl.scrollTrigger) {
-        tl.scrollTrigger.kill();
-      }
+      if (tl.scrollTrigger) tl.scrollTrigger.kill();
       tl.kill();
     };
   }, []);
 
   return (
-    <section ref={containerRef} className="text-reveal-trigger relative w-full h-[100svh] bg-transparent z-10 flex flex-col items-center justify-center px-6 md:px-20 lg:px-32">
-      <div ref={textRef} className="w-full max-w-[90vw] md:max-w-[800px] lg:max-w-[1050px] mx-auto text-left font-editorial font-normal text-[26px] md:text-[38px] lg:text-[50px] leading-[1.3] tracking-wide text-[#e8dfc5]">
-        
-        {/* Line 1 Block */}
-        <div className="mb-[0.6em] flex flex-wrap justify-start gap-x-[0.25em] gap-y-[0.15em] w-full">
-          {line1.split(" ").map((word, wordIndex) => (
-            <span 
-              key={`l1-${wordIndex}`} 
-              ref={el => { if (el) words1Ref.current.push(el); }} 
-              className="opacity-15"
-            >
-              {word}
-            </span>
-          ))}
-        </div>
-
-        {/* Line 2 Block */}
-        <div ref={line2ContainerRef} className="flex flex-wrap justify-start gap-x-[0.25em] gap-y-[0.15em] w-full opacity-0">
-          {line2.split(" ").map((word, wordIndex) => (
-            <span 
-              key={`l2-${wordIndex}`} 
-              ref={el => { if (el) words2Ref.current.push(el); }} 
-              className="opacity-15"
-            >
-              {word}
-            </span>
-          ))}
-        </div>
+    <section
+      ref={containerRef}
+      className="text-reveal-trigger relative w-full h-[100svh] bg-transparent z-10 flex items-center justify-center px-6 sm:px-10 md:px-16 lg:px-24 select-none"
+    >
+      <div className="w-full max-w-[1100px] mx-auto text-center flex flex-wrap justify-center items-center gap-x-[0.28em] gap-y-[0.18em] font-editorial font-normal text-[clamp(28px,4.5vw,64px)] leading-[1.18] tracking-tight text-[var(--brand-cream,#f5f0eb)]">
+        {sentence.split(' ').map((word, index) => (
+          <span
+            key={`${word}-${index}`}
+            ref={(el) => {
+              if (el) wordsRef.current.push(el);
+            }}
+            className="opacity-20 transition-opacity duration-200 inline-block"
+          >
+            {word}
+          </span>
+        ))}
       </div>
-
     </section>
   );
 }

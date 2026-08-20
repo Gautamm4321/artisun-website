@@ -98,44 +98,7 @@ export default function Home() {
       // and HomeHeader (gated on the `ready` flag). Here we only drive the global
       // molten background and refresh triggers once the loading screen lifts.
 
-      // Global Molten Core Gradient Ecosystem Transition
-      // 1. Erupt: Immediately push darkness away when scrolling down from the Hero
-      // Within the first 800px of scroll, the bright colors expand massively, pushing
-      // the dark top gradient completely off-screen, as requested by the user.
-      ScrollTrigger.create({
-        trigger: document.body,
-        start: "top top",
-        end: "+=800",
-        scrub: 1.5,
-        animation: gsap.to(document.documentElement, {
-          '--mc-center': '100%',
-          '--mc-pos-1': '20%',    // Bright orange core at the bottom
-          '--mc-pos-2': '50%',    // Vibrant red in the middle
-          '--mc-pos-3': '110%',   // Dark red extends fully past the top
-          '--mc-pos-4': '200%',   // Blackish colors completely pushed away
-          '--mc-pos-5': '250%',
-          '--mc-pos-6': '300%',
-          ease: 'power2.out'
-        })
-      });
-
-      // 2. Subside: Bring the darkness back only for the Footer
-      ScrollTrigger.create({
-        trigger: document.body,
-        start: "bottom bottom-=800",
-        end: "bottom bottom",
-        scrub: 1.5,
-        animation: gsap.to(document.documentElement, {
-          '--mc-center': '-10%',
-          '--mc-pos-1': '0%',
-          '--mc-pos-2': '20%',
-          '--mc-pos-3': '40%',
-          '--mc-pos-4': '60%',
-          '--mc-pos-5': '80%',
-          '--mc-pos-6': '100%',
-          ease: 'power2.inOut',
-        })
-      });
+      // Origin gradient applied globally without scroll distortion
 
     }
   }, [loadingComplete]);
@@ -144,8 +107,15 @@ export default function Home() {
     <main ref={mainRef} className="relative w-full min-h-[100svh] overflow-clip">
       <ScrollProgressBar />
 
-      {/* Global Molten Core Background */}
-      <div id="global-bg" className="theme-molten-core" />
+      {/* Global Origin Red-Orange Background */}
+      <div
+        id="global-bg"
+        className="fixed inset-0 w-full h-full pointer-events-none -z-50"
+        style={{
+          background:
+            'radial-gradient(135% 120% at 50% 20%, #E8551E 0%, #C43612 28%, #8D180C 60%, #460905 100%)',
+        }}
+      />
 
       {!loadingComplete && (
         <LoadingScreen progress={mediaProgress} onComplete={() => setLoadingComplete(true)} />

@@ -109,12 +109,12 @@ export default function WornSection() {
       ref={containerRef}
       className="relative w-full h-[100svh] z-20 flex items-center justify-center overflow-hidden px-4 sm:px-8 md:px-12 lg:px-16"
     >
-      {/* Background Gradient */}
+      {/* Exact Origin Red-Orange Gradient */}
       <div
         className="absolute inset-0 -z-10"
         style={{
           background:
-            'radial-gradient(130% 110% at 50% 35%, #FF7A29 0%, #F05A15 40%, #DE480B 75%, #C93804 100%)',
+            'radial-gradient(135% 120% at 50% 20%, #E8551E 0%, #C43612 28%, #8D180C 60%, #460905 100%)',
         }}
       />
 
@@ -132,22 +132,21 @@ export default function WornSection() {
         </div>
       </div>
 
-      {/* ── 2. CENTER: BALANCED HEADLINE (2 LINES) + DESCRIPTION (3 LINES JUST BELOW) ── */}
+     {/* ── 2. CENTER: HIGH-IMPACT 2-LINE HEADLINE + 3-LINE DESCRIPTION ── */}
       <div
         ref={contentRef}
-        className="relative z-20 w-full max-w-[700px] mx-auto flex flex-col items-center text-center pl-0 md:pl-[140px] lg:pl-[180px]"
+        className="relative z-20 w-full max-w-[990px] mx-auto flex flex-col items-center text-center pl-0 md:pl-[150px] lg:pl-[220px]"
       >
-        {/* Exact Balanced 2-Line Heading */}
-        <h2 className="font-editorial text-white text-[clamp(1.35rem,2.2vw,2.5rem)] leading-[1.2] tracking-[-0.01em]">
+        {/* Stronger, Bolder 2-Line Main Heading */}
+        <h2 className="font-editorial text-[var(--brand-cream,#f5f0eb)] text-[clamp(26px,3.3vw,52px)] leading-[1.12] tracking-[-0.02em] font-normal drop-shadow-md">
           Most sunscreens are made to be<br />
           tolerated. Ours is designed to be worn.
         </h2>
 
-        {/* 3-Line Description Directly Below */}
-        <p className="font-suisse text-white text-[14px] sm:text-[15px] md:text-[16px] leading-[1.5] font-normal mt-4 sm:mt-5 opacity-90 max-w-[420px]">
-          Because you’ll only wear<br />
-          it everyday if it survives<br />
-          every kind of day.
+        {/* Scaled-up 2-Line Description */}
+        <p className="font-suisse text-[var(--brand-cream,#f5f0eb)]/90 text-[clamp(18px,1.2vw,30px)] leading-[1.45] font-normal mt-5 sm:mt-6 max-w-[460px] drop-shadow-sm">
+          Because you’ll only wear it everyday<br />
+          it everyday if it survives every kind of day<br />
         </p>
       </div>
 
