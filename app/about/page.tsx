@@ -128,8 +128,8 @@ export default function AboutPage() {
     };
   }, []);
 
-    return (
-  <main className="relative w-full min-h-[100svh] overflow-clip snap-y snap-proximity">
+  return (
+    <main className="relative w-full min-h-[100svh] overflow-clip snap-y snap-proximity">
       <ScrollProgressBar />
 
       <div id="global-bg" className="theme-molten-core" />
@@ -140,18 +140,18 @@ export default function AboutPage() {
       {/* 1 — HERO */}
       <AboutHero />
 
-      <section className="relative z-16 w-full max-w-380 px-6 md:px-16 lg:px-8 py-6 sm:py-8 md:py-10">
-        <div className="w-full max-w-380 space-y-2">
-          <p className="font-suisse text-[var(--brand-cream)]/80 text-[20px] sm:text-[26px] md:text-[32px] lg:text-[34px] leading-[1.3] text-center">
+      <section className="relative z-16 w-full max-w-380 px-4 sm:px-6 md:px-16 lg:px-8 py-4 sm:py-6 md:py-10">
+        <div className="w-full max-w-380 space-y-1.5 sm:space-y-2">
+          <p className="font-suisse text-[var(--brand-cream)]/80 text-[15px] sm:text-[16px] md:text-[32px] lg:text-[34px] leading-[1.45] md:leading-[1.3] text-center">
             Artisun is an Indian sun-care house, built around the sun and the way we live with it.
           </p>
 
-          <p className="font-suisse text-[var(--brand-cream)]/80 text-[20px] sm:text-[26px] md:text-[32px] lg:text-[34px] leading-[1.3] text-center">
+          <p className="font-suisse text-[var(--brand-cream)]/80 text-[15px] sm:text-[16px] md:text-[32px] lg:text-[34px] leading-[1.45] md:leading-[1.3] text-center">
             We make Skinwear&trade; — wearable layers that protect, hydrate, and move with the day.
           </p>
 
           {/* 3rd Line: Hidden on small/mobile screens, visible on medium+ screens */}
-          <p className="font-suisse text-[var(--brand-cream)]/80 text-[20px] sm:text-[26px] md:text-[32px] lg:text-[34px] leading-[1.3] text-center hidden md:block">
+          <p className="font-suisse text-[var(--brand-cream)]/80 text-[15px] sm:text-[16px] md:text-[32px] lg:text-[34px] leading-[1.3] text-center hidden md:block">
             For the Indian skin, for the Indian climate and for the real Indian days.
           </p>
         </div>
@@ -209,7 +209,7 @@ export default function AboutPage() {
         heading={['Artisun Skinwear™']}
       />
 
-     {/* ── Breaker Image Section ── */}
+      {/* ── Breaker Image Section ── */}
       <section className="relative z-16 w-full px-6 md:px-16 lg:px-24 py-8 md:py-12 mx-auto overflow-hidden flex flex-col items-center justify-center">
         <div className="relative w-full h-[220px] md:h-[320px] lg:h-[440px] rounded-[10px] overflow-hidden">
           <Image
@@ -229,8 +229,3 @@ export default function AboutPage() {
     </main>
   );
 }
-
-
-
-
-

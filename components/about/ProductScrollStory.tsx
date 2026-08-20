@@ -200,11 +200,11 @@ export default function ProductScrollStory({
               exit={{ opacity: 0, x: -40 }}
               transition={{ duration: 0.35, ease: [0.25, 1, 0.5, 1] }}
             >
-              <p className="font-suisse text-[var(--brand-cream)] text-[15px] sm:text-[17px] leading-[1.4] opacity-95">
+              <p className="font-suisse text-[var(--brand-cream)] text-[14px] sm:text-[15px] leading-[1.45] opacity-95">
                 {paragraphs[mobileIndex]?.text}
               </p>
               {paragraphs[mobileIndex]?.em && (
-                <p className="font-suisse text-[var(--brand-cream)] text-[15px] sm:text-[17px] leading-[1.4] mt-1.5 opacity-95">
+                <p className="font-suisse text-[var(--brand-cream)] text-[14px] sm:text-[15px] leading-[1.45] mt-1.5 opacity-95">
                   {paragraphs[mobileIndex].em}
                 </p>
               )}

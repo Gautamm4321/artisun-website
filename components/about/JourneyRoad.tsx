@@ -107,7 +107,7 @@ export default function JourneyRoad() {
         <p className="text-[var(--brand-cream)] text-[clamp(1.6rem,3vw,2.4rem)] leading-[1.2]">
           Artisun is just getting started.
         </p>
-        <p className="font-editorial text-[var(--brand-cream)]/70 text-[clamp(1.1rem,1.5vw,1.4rem)]">
+        <p className="font-editorial text-[var(--brand-cream)]/70 text-[14px] sm:text-[15px] md:text-[clamp(1.1rem,1.5vw,1.4rem)]">
           What you see today is the beginning of a longer collection.
         </p>
       </div>
@@ -120,7 +120,7 @@ export default function JourneyRoad() {
         <p className="text-[var(--brand-cream)] text-[clamp(1.6rem,3vw,2.4rem)] leading-[1.2]">
           A collection focused on suncare and designed as skinwear.
         </p>
-        <p className="font-editorial text-[var(--brand-cream)]/70 text-[clamp(1.1rem,1.5vw,1.4rem)]">
+        <p className="font-editorial text-[var(--brand-cream)]/70 text-[14px] sm:text-[15px] md:text-[clamp(1.1rem,1.5vw,1.4rem)]">
           Different layers for different mornings and different climates, each one built to the same standard.
         </p>
       </div>
@@ -133,10 +133,10 @@ export default function JourneyRoad() {
         <p className="font-editorial text-[var(--brand-cream)] text-[clamp(1.8rem,3.5vw,2.8rem)] leading-[1.2]">
           Artisun is bringing to you two layers.
         </p>
-        <p className="font-suisse font-light text-[var(--brand-cream)]/70 text-lg md:text-xl leading-relaxed">
+        <p className="font-suisse font-light text-[var(--brand-cream)]/70 text-[14px] sm:text-[16px] md:text-xl leading-relaxed">
           In years to come, it’ll grow with you, for you.
         </p>
-        <p className="font-editorial italic text-[#F2A65C] text-xl md:text-3xl mt-2">
+        <p className="font-editorial italic text-[#F2A65C] text-[16px] sm:text-[18px] md:text-3xl mt-2">
           For your skin, your needs and your climate.
         </p>
       </div>

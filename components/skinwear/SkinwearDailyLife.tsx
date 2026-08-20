@@ -4,7 +4,7 @@ import Image from 'next/image';
 
 export default function SkinwearDailyLife() {
   return (
-    <section className="relative w-full py-8 sm:py-12 md:py-16 px-5 sm:px-8 md:px-12 lg:px-20 z-[16]">
+    <section className="relative w-full px-4 sm:px-8 md:px-12 lg:px-20 z-[16]">
       <div className="w-full max-w-[1300px] mx-auto flex flex-col items-center text-center">
 
         {/* 1. TOP LANDSCAPE IMAGE */}
@@ -33,8 +33,8 @@ export default function SkinwearDailyLife() {
         {/* 3. SUBTEXT */}
         <p className="
           font-suisse text-[var(--brand-cream)]/90 font-normal leading-[1.5]
-          max-w-[300px] sm:max-w-[540px] md:max-w-[720px]
-          text-[14px] sm:text-[17px] md:text-[20px] lg:text-[22px]
+          max-w-[320px] sm:max-w-[540px] md:max-w-[720px]
+          text-[14px] sm:text-[16px] md:text-[20px] lg:text-[22px]
           mb-4 sm:mb-5 md:mb-6
         ">
           Before every event, everyone asks what you&apos;re wearing.

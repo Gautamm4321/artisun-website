@@ -73,12 +73,12 @@ export default function SkinwearImgShrink2() {
           {/* Text — sits directly beneath the image */}
           <motion.div
             style={{ opacity: textOpacity, y: textY, filter: textBlur }}
-            className="w-full px-5 pt-4 flex flex-col items-end space-y-3 z-10 text-right"
+            className="w-full px-4 sm:px-6 pt-3 sm:pt-4 flex flex-col items-end space-y-1.5 sm:space-y-2.5 z-10 text-right"
           >
             <h2 className="font-editorial text-[var(--brand-cream)] text-[clamp(1.9rem,9vw,3rem)] leading-[1.08] tracking-[-0.02em]">
               Your skin now has<br />a wardrobe of its own.
             </h2>
-            <p className="font-suisse text-[var(--brand-cream)]/85 text-[13px] leading-[1.55] max-w-[320px]">
+            <p className="font-suisse text-[var(--brand-cream)]/85 text-[14.5px] sm:text-[15.5px] leading-[1.5] max-w-[320px]">
               This is the start of sun care, made the way fashion is. Considered, worn with intent and built for the day you&apos;re actually having.
             </p>
           </motion.div>

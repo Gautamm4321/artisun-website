@@ -30,7 +30,7 @@ export default function FutureShowcase() {
             Artisun is just getting started
           </motion.h2>
 
-          <motion.div {...rise(0.16, reduce)} className="mt-8 space-y-6 font-suisse text-[var(--brand-cream)]/80 text-[18px] md:text-[22px] lg:text-[30px] leading-[1.4] w-full">
+          <motion.div {...rise(0.16, reduce)} className="mt-8 space-y-6 font-suisse text-[var(--brand-cream)]/80 text-[15px] sm:text-[16px] md:text-[22px] lg:text-[30px] leading-[1.5] md:leading-[1.4] w-full">
             <p>
               What you see today is the beginning of a longer collection
               <br />

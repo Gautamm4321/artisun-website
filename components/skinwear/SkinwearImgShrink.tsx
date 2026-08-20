@@ -63,7 +63,7 @@ export default function SkinwearImgShrink() {
           {/* Text — sits directly beneath the image */}
           <motion.div
             style={{ opacity: textOpacity, y: textY, filter: textBlur }}
-            className="w-full px-5 pt-5 flex flex-col space-y-2.5 z-10"
+            className="w-full px-4 sm:px-6 pt-3 sm:pt-4 flex flex-col space-y-1.5 sm:space-y-2.5 z-10"
           >
             <p className="font-suisse text-[var(--brand-cream)]/70 text-[11px] tracking-widest uppercase font-normal">
               Fashion is how you dress your body
@@ -71,7 +71,7 @@ export default function SkinwearImgShrink() {
             <h2 className="font-editorial text-[var(--brand-cream)] text-[clamp(1.75rem,8.5vw,2.8rem)] leading-[1.08] tracking-[-0.02em]">
               Skinwear is how<br />you dress your skin
             </h2>
-            <p className="font-suisse text-[var(--brand-cream)]/85 text-[13px] leading-[1.55] max-w-[310px]">
+            <p className="font-suisse text-[var(--brand-cream)]/85 text-[14.5px] sm:text-[15.5px] leading-[1.5] max-w-[320px]">
               So we&apos;re changing where sun care sits. Out of the cabinet, into the conversation. Chosen with intent, worn like you mean it.
             </p>
           </motion.div>
