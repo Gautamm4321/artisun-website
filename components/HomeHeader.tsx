@@ -59,8 +59,13 @@ export default function HomeHeader({ ready = false }: { ready?: boolean }) {
       // Nav + icons drift down a touch while the big wordmark owns the stage,
       // then rise to meet the shrunk logo — a subtle settling, not a big move.
       if (nav) {
-        nav.style.transform = `translateY(${(1 - p) * 10}px)`;
-        nav.style.opacity = String(0.55 + 0.45 * p);
+        // Hero par 0 se 0.75 tak opacity ZERO rahegi
+        // Jab Worn section pura cover karega (0.75 se 1.0), tabhi smooth reveal hoga
+        const navOpacity = p < 0.75 ? 0 : (p - 0.75) / 0.25;
+
+        nav.style.transform = `translateY(${(1 - navOpacity) * 8}px)`;
+        nav.style.opacity = String(navOpacity);
+        nav.style.pointerEvents = navOpacity > 0.5 ? 'auto' : 'none';
       }
     };
 
@@ -121,30 +126,34 @@ export default function HomeHeader({ ready = false }: { ready?: boolean }) {
         {/* spacer holds the left slot the shrunk wordmark flies into */}
         <span aria-hidden className="w-[118px] md:w-[158px] shrink-0" />
 
-        <nav
+        {/* Nav aur Icons dono ko ek common container me wrap kiya hai */}
+        <div
           ref={navRef}
-          className="pointer-events-auto flex items-center gap-4 sm:gap-6 md:gap-9"
+          style={{ opacity: 0 }}
+          className="flex items-center justify-between flex-1 pl-4"
         >
-          <Link href="/origin" className={navLink}>Origin</Link>
-          <Link href="/aura" className={navLink}>Aura</Link>
-          <Link href="/skinwear" className={navLink}>Skinwear™</Link>
-          <Link href="/climate" className={`${navLink} hidden sm:inline`}>Climate&#8209;smart</Link>
-          <Link href="/about" className={`${navLink} hidden sm:inline`}>About</Link>
-        </nav>
+          <nav className="flex items-center gap-4 sm:gap-6 md:gap-9 mx-auto">
+            <Link href="/origin" className={navLink}>Origin</Link>
+            <Link href="/aura" className={navLink}>Aura</Link>
+            <Link href="/skinwear" className={navLink}>Skinwear™</Link>
+            <Link href="/climate" className={`${navLink} hidden sm:inline`}>Climate&#8209;smart</Link>
+            <Link href="/about" className={`${navLink} hidden sm:inline`}>About</Link>
+          </nav>
 
-        <div className="pointer-events-auto flex items-center gap-4 md:gap-5 shrink-0">
-          <button aria-label="Account" className="hover:opacity-70 transition-opacity">
-            <svg className="w-5 h-5 md:w-[22px] md:h-[22px] text-[var(--brand-cream)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round">
-              <circle cx="12" cy="8" r="4" />
-              <path d="M4 21c0-4 4-6 8-6s8 2 8 6" />
-            </svg>
-          </button>
-          <button aria-label="Cart" className="hover:opacity-70 transition-opacity">
-            <svg className="w-5 h-5 md:w-[22px] md:h-[22px] text-[var(--brand-cream)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M6 8h12l-1 12H7L6 8z" />
-              <path d="M9 8a3 3 0 0 1 6 0" />
-            </svg>
-          </button>
+          <div className="flex items-center gap-4 md:gap-5 shrink-0">
+            <button aria-label="Account" className="hover:opacity-70 transition-opacity">
+              <svg className="w-5 h-5 md:w-[22px] md:h-[22px] text-[var(--brand-cream)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="12" cy="8" r="4" />
+                <path d="M4 21c0-4 4-6 8-6s8 2 8 6" />
+              </svg>
+            </button>
+            <button aria-label="Cart" className="hover:opacity-70 transition-opacity">
+              <svg className="w-5 h-5 md:w-[22px] md:h-[22px] text-[var(--brand-cream)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M6 8h12l-1 12H7L6 8z" />
+                <path d="M9 8a3 3 0 0 1 6 0" />
+              </svg>
+            </button>
+          </div>
         </div>
       </div>
 
@@ -160,7 +169,7 @@ export default function HomeHeader({ ready = false }: { ready?: boolean }) {
           ref={wordmarkRef}
           src={asset('/logo-cream.png')}
           alt="ARTISUN"
-          className="w-[min(80vw,1040px)] h-auto select-none drop-shadow-[0_6px_30px_rgba(0,0,0,0.45)]"
+          className="w-[min(90vw,1300px)] h-auto select-none drop-shadow-[0_6px_30px_rgba(0,0,0,0.45)]"
           draggable={false}
         />
       </Link>

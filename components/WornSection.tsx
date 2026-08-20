@@ -1,24 +1,82 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { asset } from '@/lib/asset';
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
 }
 
-// The brand thesis. Line 2 is the turn — it carries the emphasis.
-const LINES = [
-  { text: 'Most sunscreens are made to be tolerated.', emphasis: false },
-  { text: 'Ours is designed to be worn.', emphasis: true },
-  { text: 'Because you’ll only wear it every day if it survives every kind of day.', emphasis: false },
+type ProductCard = {
+  href: string;
+  img: string;
+  name: string;
+  sub: string;
+  spec: string;
+};
+
+const CARDS: ProductCard[] = [
+  {
+    href: '/origin',
+    img: asset('/about-media/origin-hero.jpg'),
+    name: 'Origin',
+    sub: '4-in-1 Milk Emulsion',
+    spec: 'SPF 50+ · PA++++',
+  },
+  {
+    href: '/aura',
+    img: asset('/about-media/aura-1.jpg'),
+    name: 'Aura',
+    sub: 'Pearl Skinwear™',
+    spec: 'SPF 40 · PA+++',
+  },
 ];
+
+function GlassCard({ card }: { card: ProductCard }) {
+  return (
+    <Link
+      href={card.href}
+      aria-label={`${card.name} — ${card.sub}`}
+      className="liquid-glass group flex items-center gap-3 w-full sm:w-[240px] md:w-[260px] p-2.5 md:p-3 rounded-[16px] bg-black/25 backdrop-blur-md border border-white/15 transition-all duration-300 hover:border-white/30 hover:bg-black/35 shadow-lg"
+    >
+      <span className="relative block h-11 w-11 md:h-12 md:w-12 shrink-0 overflow-hidden rounded-[10px] ring-1 ring-white/20">
+        <Image
+          src={card.img}
+          alt={card.name}
+          fill
+          sizes="48px"
+          className="object-cover"
+        />
+      </span>
+
+      <span className="flex-1 min-w-0">
+        <span className="block font-editorial text-white text-[15px] md:text-[17px] leading-none">
+          {card.name}
+        </span>
+        <span className="mt-1 block font-suisse text-[10.5px] md:text-[11px] text-white/75 truncate">
+          {card.sub}
+        </span>
+        <span className="mt-0.5 block font-suisse text-[9px] md:text-[9.5px] tracking-[0.12em] uppercase text-white/55">
+          {card.spec}
+        </span>
+      </span>
+
+      <span className="shrink-0 text-white opacity-70 transition-transform duration-300 group-hover:translate-x-1 group-hover:opacity-100">
+        <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M5 12h14M13 6l6 6-6 6" />
+        </svg>
+      </span>
+    </Link>
+  );
+}
 
 export default function WornSection() {
   const containerRef = useRef<HTMLElement>(null);
-  const wordsRef = useRef<(HTMLSpanElement | null)[]>([]);
-  wordsRef.current = [];
+  const contentRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
@@ -27,18 +85,18 @@ export default function WornSection() {
       scrollTrigger: {
         trigger: containerRef.current,
         start: 'top top',
-        end: '+=170%',
+        end: '+=130%',
         pin: true,
         anticipatePin: 1,
-        scrub: 1.5,
+        scrub: 1,
       },
     });
 
-    tl.to(wordsRef.current, {
-      opacity: 1,
-      stagger: 0.1,
-      ease: 'none',
-    });
+    tl.fromTo(
+      contentRef.current,
+      { opacity: 0.2, y: 30 },
+      { opacity: 1, y: 0, ease: 'power2.out', duration: 1 }
+    );
 
     return () => {
       if (tl.scrollTrigger) tl.scrollTrigger.kill();
@@ -49,43 +107,54 @@ export default function WornSection() {
   return (
     <section
       ref={containerRef}
-      className="relative w-full h-[100svh] z-10 flex items-center justify-center overflow-hidden px-6 md:px-16"
+      className="relative w-full h-[100svh] z-20 flex items-center justify-center overflow-hidden px-4 sm:px-8 md:px-12 lg:px-16"
     >
-      {/* Red field — deep at the top, warming toward the base, matching the brand's molten world */}
+      {/* Background Gradient */}
       <div
         className="absolute inset-0 -z-10"
         style={{
           background:
-            'radial-gradient(130% 120% at 50% -10%, #B52212 0%, #9A1810 34%, #7E0E0B 62%, #5A0806 100%)',
+            'radial-gradient(130% 110% at 50% 35%, #FF7A29 0%, #F05A15 40%, #DE480B 75%, #C93804 100%)',
         }}
       />
-      <div
-        className="absolute inset-0 -z-10 pointer-events-none"
-        style={{ background: 'linear-gradient(to bottom, transparent 55%, rgba(232,96,26,0.16) 100%)' }}
-      />
 
-      <div className="w-full max-w-[92vw] md:max-w-[1000px] mx-auto text-center">
-        {LINES.map((line, li) => (
-          <p
-            key={li}
-            className={
-              line.emphasis
-                ? 'font-editorial text-[var(--brand-cream)] my-[0.35em] text-[30px] md:text-[52px] lg:text-[66px] leading-[1.12]'
-                : 'font-editorial text-[var(--brand-cream)] text-[22px] md:text-[34px] lg:text-[42px] leading-[1.28]'
-            }
-          >
-            <span className="inline-flex flex-wrap justify-center gap-x-[0.26em] gap-y-[0.12em]">
-              {line.text.split(' ').map((word, wi) => (
-                <span
-                  key={`${li}-${wi}`}
-                  ref={(el) => { if (el) wordsRef.current.push(el); }}
-                  className="opacity-15 inline-block"
-                >
-                  {word}
-                </span>
-              ))}
-            </span>
-          </p>
+      {/* ── 1. LEFT SIDE: BIG IMAGE ATTACHED DIRECTLY TO BOTTOM ── */}
+      <div className="absolute left-0 bottom-0 z-10 w-[320px] sm:w-[420px] md:w-[500px] lg:w-[580px] xl:w-[650px] h-[70vh] sm:h-[78vh] md:h-[88vh] pointer-events-none flex items-end">
+        <div className="relative w-full h-full">
+          <Image
+            src={asset('/frame-2.png')}
+            alt="Artisun Model"
+            fill
+            priority
+            sizes="(max-width: 768px) 420px, 650px"
+            className="object-contain object-left-bottom select-none"
+          />
+        </div>
+      </div>
+
+      {/* ── 2. CENTER: BALANCED HEADLINE (2 LINES) + DESCRIPTION (3 LINES JUST BELOW) ── */}
+      <div
+        ref={contentRef}
+        className="relative z-20 w-full max-w-[700px] mx-auto flex flex-col items-center text-center pl-0 md:pl-[140px] lg:pl-[180px]"
+      >
+        {/* Exact Balanced 2-Line Heading */}
+        <h2 className="font-editorial text-white text-[clamp(1.35rem,2.2vw,2.5rem)] leading-[1.2] tracking-[-0.01em]">
+          Most sunscreens are made to be<br />
+          tolerated. Ours is designed to be worn.
+        </h2>
+
+        {/* 3-Line Description Directly Below */}
+        <p className="font-suisse text-white text-[14px] sm:text-[15px] md:text-[16px] leading-[1.5] font-normal mt-4 sm:mt-5 opacity-90 max-w-[420px]">
+          Because you’ll only wear<br />
+          it everyday if it survives<br />
+          every kind of day.
+        </p>
+      </div>
+
+      {/* ── 3. BOTTOM-RIGHT CORNER PRODUCT CARDS ── */}
+      <div className="absolute right-4 sm:right-8 md:right-10 bottom-5 md:bottom-7 z-30 flex flex-col gap-2.5 max-w-[90vw] sm:max-w-none">
+        {CARDS.map((card) => (
+          <GlassCard key={card.href} card={card} />
         ))}
       </div>
     </section>

@@ -2,15 +2,15 @@
 
 export default function FashionSkinSection() {
     return (
-        <section 
+        <section
             className="relative w-full h-[100svh] min-h-[650px] overflow-hidden select-none"
             style={{
                 background: 'radial-gradient(ellipse at 50% 45%, #D44026 0%, #8A2718 50%, #420f08 100%)',
             }}
         >
 
-{/* Ambient Radial Depth Vignette */}
-            <div 
+            {/* Ambient Radial Depth Vignette */}
+            <div
                 className="absolute inset-0 pointer-events-none z-10"
                 style={{
                     background: 'radial-gradient(ellipse at 50% 45%, transparent 45%, rgba(5,2,1,0.45) 100%)',
@@ -39,28 +39,19 @@ export default function FashionSkinSection() {
                 </p>
             </div>
 
-            {/* Background ARTISUN Brand Watermark */}
-            <div
-                aria-hidden="true"
-                className="absolute bottom-[-2vw] left-1/2 -translate-x-1/2 leading-[0.8] z-10"
-            >
-                <h1
-                    className="
-            whitespace-nowrap
-            font-serif
-            text-white/90
-            tracking-[-0.06em]
-            select-none
-          "
-                    style={{
-                        fontSize: 'clamp(180px, 27vw, 650px)',
-                        mixBlendMode: 'soft-light',
-                        filter: 'brightness(0) invert(1)',
-                    }}
-                >
-                    ARTISUN
-                </h1>
-            </div>
+        {/* Background ARTISUN Brand Logo (A & N cut, perfectly below text) */}
+      <div
+        aria-hidden="true"
+        className="absolute bottom-[-4vh] sm:bottom-[-6vh] lg:bottom-[-8vh] left-1/2 -translate-x-1/2 z-10 w-[108vw] max-w-none flex justify-center pointer-events-none select-none"
+      >
+        <img
+          src="/logo-cream.png"
+          alt=""
+          className="w-full h-auto object-contain opacity-95 drop-shadow-[0_10px_35px_rgba(0,0,0,0.3)]"
+          draggable={false}
+        />
+      </div>
+
         </section>
     );
 }

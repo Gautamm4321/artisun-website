@@ -14,14 +14,7 @@ import WornSection from '../components/WornSection';
 import HomeHeader from '../components/HomeHeader';
 import ClimateVideoSection from '../components/climate/ClimateVideoSection';
 import ClimateModelSection from '../components/ClimateModelSection';
-import EarthSection from '../components/EarthSection';
 import ProductShowcaseSection from '../components/ProductShowcaseSection';
-import EvolutionSection from '../components/EvolutionSection';
-import SuncareShiftSection from '../components/SuncareShiftSection';
-import ClothingSection from '../components/ClothingSection';
-import SkinProtectionSection from '../components/SkinProtectionSection';
-import KeyholeSection from '../components/KeyholeSection';
-import CTASection from '../components/CTASection';
 import FashionSkinSection from '@/components/FashionSkinSection';
 import Footer from '../components/Footer';
 
@@ -165,15 +158,8 @@ export default function Home() {
       <WornSection />
       <TextRevealSection />
       <ClimateVideoSection />
-      <EvolutionSection />
       <ClimateModelSection />
-      <EarthSection />
-      <SuncareShiftSection />
-      <ClothingSection />
-      <SkinProtectionSection />
-      <KeyholeSection />
       <ProductShowcaseSection />
-      <CTASection />
       <FashionSkinSection />
       <Footer />
     </main>
