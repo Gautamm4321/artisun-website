@@ -2,7 +2,7 @@
 
 export default function SkinwearForgettable() {
   return (
-    <section className="relative z-[15] w-full flex flex-col items-center px-4 sm:px-8 md:px-12 lg:px-16 text-center">
+    <section className="relative z-[15] w-full flex flex-col items-center px-4 sm:px-8 md:px-12 lg:px-16 py-8 sm:py-12 md:py-16 text-center">
 
       {/* Centered Heading */}
       <h2 className="font-editorial text-[var(--brand-cream)] text-[clamp(2.5rem,6vw,5.8rem)] leading-[1.1] tracking-[-0.02em] max-w-[1000px]">

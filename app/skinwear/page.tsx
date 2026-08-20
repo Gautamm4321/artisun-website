@@ -41,24 +41,16 @@ export default function SkinwearPage() {
       <SkinwearImageReveal />
 
       {/* 2 — Why suncare felt forgettable */}
-      <div style={{ paddingTop: 'clamp(24px, 4vw, 40px)', paddingBottom: 'clamp(24px, 4vw, 40px)' }}>
-        <SkinwearForgettable />
-      </div>
+      <SkinwearForgettable />
 
       {/* 3 — Dress your body vs dress your skin (image shrinks right) */}
-      <div className="py-2 sm:py-3 md:py-4">
-        <SkinwearImgShrink />
-      </div>
+      <SkinwearImgShrink />
 
       {/* 4 — Your skin now has a wardrobe (image shrinks left) */}
-      <div className="py-2 sm:py-3 md:py-4">
-        <SkinwearImgShrinkkk />
-      </div>
+      <SkinwearImgShrinkkk />
 
       {/* 5 — What's your skin wearing today CTA */}
-      <div className="py-2 sm:py-3 md:py-4">
-        <SkinwearDailyLife />
-      </div>
+      <SkinwearDailyLife />
 
       <Footer />
     </main>
