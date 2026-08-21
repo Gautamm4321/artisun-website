@@ -73,34 +73,30 @@ export default function AuraStats() {
           </div>
         </div>
 
-        {/* BOTTOM ON MOBILE (2 Top, 3 Bottom) / RIGHT COLUMN ON DESKTOP */}
+       {/* BOTTOM ON MOBILE (Equal Uniform Cards) / RIGHT COLUMN ON DESKTOP */}
         <div
           ref={statsRef}
-          className="w-full lg:w-auto grid grid-cols-6 lg:flex lg:flex-col gap-2 sm:gap-3 lg:gap-3.5 lg:min-w-[340px] max-w-[420px] shrink-0"
+          className="w-full flex flex-wrap justify-center lg:flex-col gap-2 sm:gap-2.5 lg:gap-3 max-w-[380px] lg:min-w-[320px] shrink-0 mx-auto lg:mx-0"
         >
           {STATS.map((s, idx) => {
-            // First 2 items get col-span-3 (2 equal cards in row 1), next 3 items get col-span-2 (3 equal cards in row 2)
-            const spanClass = idx < 2 ? 'col-span-3' : 'col-span-2';
             return (
               <div
                 key={idx}
-                className={`${spanClass} group flex flex-col lg:flex-row items-center lg:items-center justify-center lg:justify-start text-center lg:text-left gap-1 sm:gap-2 lg:gap-4 p-2.5 sm:p-3.5 lg:px-5 lg:py-3.5 rounded-xl bg-white/[0.08] hover:bg-white/[0.12] border border-white/15 backdrop-blur-lg shadow-[0_4px_20px_rgba(0,0,0,0.35)] transition-all duration-300`}
+                className="group flex flex-col lg:flex-row items-center justify-center lg:justify-start text-center lg:text-left gap-1 sm:gap-1.5 lg:gap-3.5 w-[calc(33.33%-6px)] min-w-[95px] max-w-[115px] h-[78px] sm:h-[84px] lg:w-full lg:max-w-none lg:h-auto p-2 sm:p-2.5 lg:px-4 lg:py-3 rounded-xl bg-white/[0.08] hover:bg-white/[0.12] border border-white/15 backdrop-blur-lg shadow-[0_4px_20px_rgba(0,0,0,0.35)] transition-all duration-300 shrink-0"
               >
                 {/* Stat Value */}
-                <div className="font-editorial text-white text-[18px] sm:text-[22px] lg:text-[26px] leading-none tabular-nums font-medium">
+                <div className="font-editorial text-white text-[16px] sm:text-[18px] lg:text-[24px] leading-none tabular-nums font-medium shrink-0">
                   <CountUp end={s.value} suffix={s.suffix} play={inView} duration={1.8} />
                 </div>
 
                 {/* Stat Copy */}
-                <p className="font-suisse text-[9px] sm:text-[11px] lg:text-[12.5px] leading-tight text-white/85 flex-1 line-clamp-2">
+                <p className="font-suisse text-[8.5px] sm:text-[9.5px] lg:text-[12px] leading-tight text-white/85 flex-1 line-clamp-2">
                   {s.copy}
                 </p>
               </div>
             );
           })}
         </div>
-
-
 
       </div>
     </div>

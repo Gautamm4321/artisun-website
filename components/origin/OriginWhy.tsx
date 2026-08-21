@@ -31,50 +31,47 @@ export default function OriginWhy() {
       <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/20 to-black/80" />
 
       {/* Content */}
-      <div className="relative z-10 h-full w-full max-w-[1500px] mx-auto px-4 sm:px-8 lg:px-14 pt-16 pb-14 sm:pt-20 sm:pb-16 lg:pt-[104px] lg:pb-16 flex flex-col justify-between overflow-hidden">
-        {/* Top: hook + subline stacked right below on mobile */}
-        {/* Top: hook (2 lines) + subline (3 lines) on mobile */}
-        <div className="flex flex-col gap-2 lg:grid lg:grid-cols-2 lg:gap-16 items-start shrink-0">
-          <h2 className="font-editorial text-[var(--brand-cream)] text-[22px] sm:text-[34px] lg:text-[54px] leading-[1.08] tracking-tight max-w-[22ch] lg:max-w-[15ch]">
+      <div className="relative z-10 h-full w-full max-w-[1500px] mx-auto px-4 sm:px-8 lg:px-14 pt-20 pb-16 sm:pt-24 sm:pb-20 lg:pt-[104px] lg:pb-16 flex flex-col justify-between overflow-hidden">
+        {/* Top: Center on mobile, 2-col on desktop */}
+        <div className="flex flex-col items-center lg:items-start text-center lg:text-left gap-2 sm:gap-3 lg:grid lg:grid-cols-2 lg:gap-16 shrink-0 mt-2 sm:mt-4 lg:mt-0">
+          <h2 className="font-editorial text-[var(--brand-cream)] text-[22px] sm:text-[32px] lg:text-[54px] leading-[1.08] tracking-tight max-w-[24ch] lg:max-w-[15ch]">
             The most boring step in your morning, <br className="hidden sm:inline lg:hidden" />finally worth it.
           </h2>
-          <p className="font-suisse text-[var(--brand-cream)]/80 text-[11px] sm:text-[14px] lg:text-[20px] leading-[1.45] lg:leading-[1.5] max-w-[34ch] sm:max-w-[48ch] lg:max-w-[48ch] lg:pt-2 lg:justify-self-end">
-            <span className="lg:hidden">
-              You use four products before you&apos;ve even left the house — serum, moisturiser, sunscreen, primer, one after the other. Origin is all four, in one light layer.
-            </span>
-            <span className="hidden lg:inline">
-              You use four products before you&apos;ve even left the house — serum, moisturiser, sunscreen, primer, one after the other. Origin is all four, in one light layer.
-            </span>
+          <p className="font-suisse text-[var(--brand-cream)]/80 text-[11px] sm:text-[13px] lg:text-[19px] leading-[1.45] lg:leading-[1.5] max-w-[36ch] sm:max-w-[48ch] lg:pt-2 lg:justify-self-end">
+            You use four products before you&apos;ve even left the house — serum, moisturiser, sunscreen, primer, one after the other. Origin is all four, in one light layer.
           </p>
         </div>
 
-       {/* Bottom-aligned stats: Glassy Swipe Boxes on Mobile | Original Full Columns on Desktop */}
+      {/* Bottom-aligned stats: 2 Top / 3 Bottom on Mobile | 5 Columns on Desktop */}
         <div
           ref={statsRef}
-          data-lenis-prevent="true"
-          className="flex lg:grid lg:grid-cols-5 gap-2.5 sm:gap-3 lg:gap-x-0 overflow-x-auto lg:overflow-visible pb-2 lg:pb-0 [scrollbar-width:none] snap-x snap-mandatory shrink-0"
+          className="w-full flex flex-wrap justify-center lg:grid lg:grid-cols-5 gap-2 sm:gap-2.5 lg:gap-x-0 max-w-[390px] lg:max-w-none mx-auto shrink-0 pb-2 sm:pb-3 lg:pb-0"
         >
-          {STATS.map((s) => (
-            <div
-              key={s.index}
-              className="snap-start shrink-0 w-[145px] sm:w-[170px] lg:w-auto p-3 sm:p-3.5 lg:p-0 rounded-xl lg:rounded-none bg-white/[0.08] lg:bg-transparent backdrop-blur-md lg:backdrop-blur-none border border-white/15 lg:border-0 lg:border-l lg:border-[var(--brand-cream)]/18 lg:first:border-l-0 lg:px-7 lg:first:pl-0 flex flex-col justify-between shadow-lg lg:shadow-none"
-            >
-              <div>
-                <div className="font-suisse text-[9px] sm:text-[10px] lg:text-[11px] tracking-[0.14em] uppercase text-[var(--brand-cream)]/60">
-                  {s.index} · {s.label}
+          {STATS.map((s, idx) => {
+            const isRow1 = idx < 2;
+            return (
+              <div
+                key={s.index}
+                className={`${
+                  isRow1 ? 'w-[calc(50%-4px)] max-w-[160px]' : 'w-[calc(33.33%-6px)] max-w-[115px]'
+                } h-[84px] sm:h-[92px] lg:w-auto lg:max-w-none lg:h-auto p-2 sm:p-2.5 lg:p-0 rounded-xl lg:rounded-none bg-white/[0.08] lg:bg-transparent backdrop-blur-md lg:backdrop-blur-none border border-white/15 lg:border-0 lg:border-l lg:border-[var(--brand-cream)]/18 lg:first:border-l-0 lg:px-7 lg:first:pl-0 flex flex-col justify-between shadow-lg lg:shadow-none shrink-0`}
+              >
+                <div>
+                  <div className="font-suisse text-[8.5px] sm:text-[9.5px] lg:text-[11px] tracking-[0.12em] uppercase text-[var(--brand-cream)]/60">
+                    {s.index} · {s.label}
+                  </div>
+                  <div className="font-editorial text-[var(--brand-cream)] text-[18px] sm:text-[22px] lg:text-[60px] leading-none mt-1 lg:mt-2 tabular-nums">
+                    <CountUp end={s.value} suffix={s.suffix} play={inView} duration={2} />
+                  </div>
                 </div>
-                <div className="font-editorial text-[var(--brand-cream)] text-[28px] sm:text-[36px] lg:text-[60px] leading-none mt-1.5 lg:mt-2 tabular-nums">
-                <CountUp end={s.value} suffix={s.suffix} play={inView} duration={2} />
-                </div>
+
+                <p className="font-suisse text-[8px] sm:text-[9.5px] lg:text-[13px] leading-[1.2] lg:leading-[1.5] text-[var(--brand-cream)]/75 mt-1 lg:mt-3 line-clamp-2">
+                  <span className="lg:hidden">{s.mobileCopy}</span>
+                  <span className="hidden lg:inline">{s.copy}</span>
+                </p>
               </div>
-              
-              {/* Short copy on mobile, Full copy on desktop */}
-              <p className="font-suisse text-[10px] sm:text-[11.5px] lg:text-[13px] leading-[1.3] lg:leading-[1.5] text-[var(--brand-cream)]/75 mt-2 lg:mt-3">
-                <span className="lg:hidden">{s.mobileCopy}</span>
-                <span className="hidden lg:inline">{s.copy}</span>
-              </p>
-            </div>
-          ))}
+            );
+          })}
         </div>
         
       </div>
