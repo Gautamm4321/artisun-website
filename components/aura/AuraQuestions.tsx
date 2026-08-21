@@ -244,9 +244,9 @@ export default function AuraQuestions() {
   return (
     <div
       id="aura-questions"
-      className="aura-panel relative w-full lg:w-screen shrink-0 min-h-[100svh] lg:h-screen flex flex-col justify-start overflow-hidden pointer-events-auto"
+      className="aura-panel relative w-screen shrink-0 h-[100svh] flex flex-col items-center justify-center pt-16 pb-14 sm:pt-20 sm:pb-16 lg:py-0 overflow-hidden pointer-events-auto"
     >
-<div className="w-full max-w-[920px] mx-auto px-4 sm:px-8 lg:px-12 pt-20 sm:pt-24 lg:pt-28 pb-16 flex flex-col">        
+      <div className="w-full max-w-[920px] mx-auto px-4 sm:px-8 lg:px-12 my-auto flex flex-col justify-center max-h-[calc(100svh-120px)] lg:max-h-[86vh]">        
         {/* Eyebrow + Heading */}
         <span className="self-center font-suisse text-[11px] tracking-[0.24em] uppercase text-white/70 font-medium">
           FAQS
@@ -270,10 +270,11 @@ export default function AuraQuestions() {
           />
         </div>
 
-        {/* Category Tabs: 1 Single Line */}
+
+{/* Category Tabs: Centered and smooth scrolling */}
         {!isSearching && (
-          <div className="mt-7 sm:mt-8 border-t border-b border-[var(--brand-cream)]/15">
-            <div className="flex items-center justify-between sm:justify-center gap-x-3 sm:gap-x-6 lg:gap-x-7 py-3 overflow-x-auto no-scrollbar flex-nowrap">
+          <div className="mt-4 sm:mt-6 lg:mt-7 border-t border-b border-[var(--brand-cream)]/15 shrink-0">
+            <div className="flex items-center justify-start sm:justify-center gap-x-3.5 sm:gap-x-6 lg:gap-x-7 py-2.5 sm:py-3 overflow-x-auto [scrollbar-width:none] flex-nowrap">
               {CATEGORIES.map((c, i) => {
                 const active = i === tab;
                 return (
@@ -298,11 +299,13 @@ export default function AuraQuestions() {
           </div>
         )}
 
-       {/* Accordion Questions List with internal View All Button & Safe Bottom Clearance */}
+        {/* Accordion Questions List with smooth isolated scroll */}
         <div 
           data-lenis-prevent="true"
-          className="mt-2 flex flex-col max-h-[46vh] sm:max-h-[50vh] overflow-y-auto overscroll-contain pr-2 pb-24 [scrollbar-width:thin] [scrollbar-color:rgba(255,255,255,0.2)_transparent]"
+          className="mt-2 flex-1 flex flex-col min-h-0 overflow-y-auto overscroll-contain pr-1.5 sm:pr-2 pb-4 [scrollbar-width:thin] [scrollbar-color:rgba(255,255,255,0.2)_transparent]"
         >
+
+
           <div className="divide-y divide-[var(--brand-cream)]/12">
             {!isSearching &&
               visibleItems.map((item, i) => {

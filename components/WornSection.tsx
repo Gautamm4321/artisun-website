@@ -41,9 +41,9 @@ function GlassCard({ card }: { card: ProductCard }) {
     <Link
       href={card.href}
       aria-label={`${card.name} — ${card.sub}`}
-      className="liquid-glass group flex items-center gap-3 w-full sm:w-[240px] md:w-[260px] p-2.5 md:p-3 rounded-[16px] bg-black/25 backdrop-blur-md border border-white/15 transition-all duration-300 hover:border-white/30 hover:bg-black/35 shadow-lg"
+      className="liquid-glass group flex items-center gap-3 w-[220px] sm:w-[240px] md:w-[250px] p-2.5 sm:p-3 rounded-[16px] bg-black/40 backdrop-blur-md border border-white/15 transition-all duration-300 hover:border-white/35 hover:bg-black/50 shadow-xl"
     >
-      <span className="relative block h-11 w-11 md:h-12 md:w-12 shrink-0 overflow-hidden rounded-[10px] ring-1 ring-white/20">
+      <span className="relative block h-10 w-10 sm:h-11 sm:w-11 md:h-12 md:w-12 shrink-0 overflow-hidden rounded-[10px] ring-1 ring-white/20 bg-black/20">
         <Image
           src={card.img}
           alt={card.name}
@@ -54,13 +54,13 @@ function GlassCard({ card }: { card: ProductCard }) {
       </span>
 
       <span className="flex-1 min-w-0">
-        <span className="block font-editorial text-white text-[15px] md:text-[17px] leading-none">
+        <span className="block font-editorial text-white text-[15px] md:text-[16px] leading-none">
           {card.name}
         </span>
-        <span className="mt-1 block font-suisse text-[10.5px] md:text-[11px] text-white/75 truncate">
+        <span className="mt-1 block font-suisse text-[10px] md:text-[11px] text-white/75 truncate">
           {card.sub}
         </span>
-        <span className="mt-0.5 block font-suisse text-[9px] md:text-[9.5px] tracking-[0.12em] uppercase text-white/55">
+        <span className="mt-0.5 block font-suisse text-[8.5px] md:text-[9px] tracking-[0.12em] uppercase text-white/50">
           {card.spec}
         </span>
       </span>
@@ -107,9 +107,9 @@ export default function WornSection() {
   return (
     <section
       ref={containerRef}
-      className="relative w-full h-[100svh] z-20 flex items-center justify-center overflow-hidden px-4 sm:px-8 md:px-12 lg:px-16"
+      className="relative w-full h-[100svh] z-20 flex items-center justify-between overflow-hidden px-6 sm:px-10 md:px-14 lg:px-20"
     >
-      {/* Exact Origin Red-Orange Gradient */}
+      {/* Background Gradient */}
       <div
         className="absolute inset-0 -z-10"
         style={{
@@ -118,40 +118,39 @@ export default function WornSection() {
         }}
       />
 
-      {/* ── 1. LEFT SIDE: BIG IMAGE ATTACHED DIRECTLY TO BOTTOM ── */}
-      <div className="absolute left-0 bottom-0 z-10 w-[320px] sm:w-[420px] md:w-[500px] lg:w-[580px] xl:w-[650px] h-[70vh] sm:h-[78vh] md:h-[88vh] pointer-events-none flex items-end">
+      {/* ── 1. LEFT: FULL-HEIGHT BLEED MODEL IMAGE ── */}
+      <div className="absolute -left-[5%] sm:left-0 bottom-0 top-0 z-10 w-[55%] sm:w-[50%] lg:w-[48%] max-w-[700px] h-full pointer-events-none flex items-end">
         <div className="relative w-full h-full">
           <Image
             src={asset('/frame-2.png')}
             alt="Artisun Model"
             fill
             priority
-            sizes="(max-width: 768px) 420px, 650px"
-            className="object-contain object-left-bottom select-none"
+            sizes="(max-width: 1024px) 50vw, 48vw"
+            className="object-cover sm:object-contain object-left-bottom select-none"
           />
         </div>
       </div>
 
-     {/* ── 2. CENTER: HIGH-IMPACT 2-LINE HEADLINE + 3-LINE DESCRIPTION ── */}
+      {/* ── 2. RIGHT-ALIGNED TEXT BLOCK ── */}
       <div
         ref={contentRef}
-        className="relative z-20 w-full max-w-[990px] mx-auto flex flex-col items-center text-center pl-0 md:pl-[150px] lg:pl-[220px]"
+        className="relative z-20 w-full max-w-[760px] ml-auto flex flex-col items-end text-right pt-6 sm:pt-0"
       >
-        {/* Stronger, Bolder 2-Line Main Heading */}
-        <h2 className="font-editorial text-[var(--brand-cream,#f5f0eb)] text-[clamp(26px,3.3vw,52px)] leading-[1.12] tracking-[-0.02em] font-normal drop-shadow-md">
+        {/* Main 2-Line Headline */}
+        <h2 className="font-editorial text-[var(--brand-cream,#f5f0eb)] text-[clamp(28px,3.8vw,62px)] leading-[1.08] tracking-[-0.02em] font-normal drop-shadow-md">
           Most sunscreens are made to be<br />
-          tolerated. Ours is designed to be worn.
+          tolerated, ours is designed to be worn.
         </h2>
 
-        {/* Scaled-up 2-Line Description */}
-        <p className="font-suisse text-[var(--brand-cream,#f5f0eb)]/90 text-[clamp(18px,1.2vw,30px)] leading-[1.45] font-normal mt-5 sm:mt-6 max-w-[460px] drop-shadow-sm">
-          Because you’ll only wear it everyday<br />
-          it everyday if it survives every kind of day<br />
+        {/* 2-Line Sub-Description */}
+        <p className="font-suisse text-[var(--brand-cream,#f5f0eb)]/90 text-[clamp(14px,1.3vw,20px)] leading-[1.4] font-normal mt-8 sm:mt-12 md:mt-16 max-w-[420px] drop-shadow-sm">
+          Because you’ll only wear it every day if it<br className="hidden sm:inline" /> survives every kind of day.
         </p>
       </div>
 
-      {/* ── 3. BOTTOM-RIGHT CORNER PRODUCT CARDS ── */}
-      <div className="absolute right-4 sm:right-8 md:right-10 bottom-5 md:bottom-7 z-30 flex flex-col gap-2.5 max-w-[90vw] sm:max-w-none">
+      {/* ── 3. BOTTOM-RIGHT HORIZONTAL PRODUCT CARDS ── */}
+      <div className="absolute right-6 sm:right-10 md:right-14 lg:right-20 bottom-6 sm:bottom-8 md:bottom-10 z-30 flex flex-row items-center gap-3 sm:gap-4 overflow-x-auto max-w-[calc(100vw-3rem)] sm:max-w-none">
         {CARDS.map((card) => (
           <GlassCard key={card.href} card={card} />
         ))}

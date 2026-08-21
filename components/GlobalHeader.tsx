@@ -29,8 +29,10 @@ export default function GlobalHeader({ startHidden = false }: { startHidden?: bo
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={asset('/b2.png')} alt="Origin bottle" className="h-6 md:h-8 w-auto object-contain" />
           </Link>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={asset('/b1.png')} alt="Artisun jar" className="h-4 md:h-[22px] w-auto object-contain mb-[2px]" />
+          <Link href="/aura" aria-label="Aura" className="hover:scale-110 transition-transform">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={asset('/b1.png')} alt="Aura jar" className="h-4 md:h-[22px] w-auto object-contain mb-[2px]" />
+          </Link>
         </div>
 
         <Link href="/skinwear" className="font-editorial text-[var(--brand-cream)] text-sm md:text-[19px] hover:opacity-70 transition-opacity whitespace-nowrap">Skinwear™</Link>

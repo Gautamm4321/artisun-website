@@ -23,13 +23,14 @@ const FULL_INGREDIENTS =
 type NavItem = { n: string; label: string; target: number | null; kind: 'link' | 'accordion' };
 
 const NAV_ITEMS: NavItem[] = [
-  { n: '01', label: 'How to wear', target: 1, kind: 'link' },
-  { n: '02', label: 'How it feels', target: 2, kind: 'link' },
-  { n: '03', label: 'Where it works', target: 3, kind: 'link' },
-  { n: '04', label: "What's in it", target: 4, kind: 'link' },
-  { n: '05', label: 'The specifics', target: 5, kind: 'link' },
-  { n: '06', label: 'Questions', target: 7, kind: 'link' },
-  { n: '07', label: 'Full ingredient list', target: null, kind: 'accordion' },
+  { n: '01', label: 'How to wear', target: 1, kind: 'link' },       // AuraDosage
+  { n: '02', label: 'How it feels', target: 2, kind: 'link' },      // AuraTexture
+  { n: '03', label: 'Where it works', target: 3, kind: 'link' },    // AuraWhere
+  { n: '04', label: "What's in it", target: 4, kind: 'link' },      // AuraWhatsIn
+  { n: '05', label: 'The specifics', target: 5, kind: 'link' },     // AuraStats
+  { n: '06', label: 'Product buy', target: 6, kind: 'link' },       // AuraProduct
+  { n: '07', label: 'Questions', target: 7, kind: 'link' },         // AuraQuestions
+  { n: '08', label: 'Full ingredient list', target: null, kind: 'accordion' },
 ];
 
 function Chevron({ dir }: { dir: 'left' | 'right' }) {
@@ -49,20 +50,20 @@ export default function AuraHero({ onNavigate }: { onNavigate: (panelIndex: numb
   const next = () => setIndex((p) => (p + 1) % GALLERY.length);
 
   return (
-    <div className="aura-panel relative w-full lg:w-screen shrink-0 min-h-[100svh] lg:h-screen flex items-center justify-center pt-20 pb-8 lg:py-0">
-      <div className="w-full max-w-[1500px] mx-auto px-5 sm:px-8 lg:px-14 grid grid-cols-1 lg:grid-cols-[1fr_1fr] gap-6 lg:gap-12 items-stretch my-auto">
+    <div className="aura-panel relative w-screen shrink-0 h-[100svh] flex flex-col justify-center pt-16 pb-12 sm:pt-20 lg:py-0 overflow-hidden">
+      <div className="w-full max-w-[1360px] mx-auto px-5 sm:px-8 lg:px-14 flex flex-col lg:grid lg:grid-cols-[0.95fr_1.05fr] gap-5 sm:gap-6 lg:gap-12 items-center lg:items-stretch my-auto">
 
-        {/* ── LEFT: Matches Right Content Height ── */}
-        <div className="order-1 flex flex-col h-full min-h-[380px] sm:min-h-[460px] lg:min-h-0">
-          <div className="relative w-full h-full min-h-full overflow-hidden bg-white/[0.03] shadow-2xl">
+        {/* ── IMAGE: LEFT ON DESKTOP / TOP ON MOBILE (SHARP SQUARE) ── */}
+        <div className="order-1 flex flex-col w-full max-w-[340px] sm:max-w-[400px] lg:max-w-[540px] aspect-square shrink-0">
+          <div className="relative w-full h-full rounded-none overflow-hidden bg-white/[0.03] shadow-2xl">
             <Image
               key={activeImg}
               src={asset(activeImg)}
               alt="Aura Pearl Skinwear"
               fill
-              sizes="(max-width: 1024px) 100vw, 50vw"
+              sizes="(max-width: 1024px) 90vw, 540px"
               priority
-              className="object-cover animate-[auraHeroFade_0.45s_ease]"
+              className="object-cover rounded-none animate-[auraHeroFade_0.45s_ease]"
             />
 
             {/* Thumbnails */}
@@ -74,13 +75,12 @@ export default function AuraHero({ onNavigate }: { onNavigate: (panelIndex: numb
                     key={src}
                     onClick={() => setIndex(i)}
                     aria-label={`View image ${i + 1}`}
-                    className={`pointer-events-auto relative h-10 w-10 sm:h-12 sm:w-12 overflow-hidden transition-all duration-300 ${
-                      active
-                        ? 'opacity-100'
-                        : 'opacity-50 hover:opacity-80'
-                    }`}
+                    className={`pointer-events-auto relative h-10 w-10 sm:h-12 sm:w-12 rounded-none overflow-hidden transition-all duration-300 ${active
+                      ? 'opacity-100 ring-1 ring-white/60'
+                      : 'opacity-50 hover:opacity-80'
+                      }`}
                   >
-                    <Image src={asset(src)} alt="" fill sizes="48px" className="object-cover" />
+                    <Image src={asset(src)} alt="" fill sizes="48px" className="object-cover rounded-none" />
                   </button>
                 );
               })}
@@ -90,7 +90,7 @@ export default function AuraHero({ onNavigate }: { onNavigate: (panelIndex: numb
             <button
               onClick={prev}
               aria-label="Previous image"
-              className="pointer-events-auto absolute left-3 top-1/2 -translate-y-1/2 w-8 h-8 sm:w-9 sm:h-9 rounded-full grid place-items-center bg-black/30 backdrop-blur-sm border border-white/20 text-white hover:bg-black/60 transition-all duration-300"
+              className="pointer-events-auto absolute left-3 top-1/2 -translate-y-1/2 w-8 h-8 sm:w-9 sm:h-9 rounded-none grid place-items-center bg-black/40 backdrop-blur-sm border border-white/20 text-white hover:bg-black/70 transition-all duration-300"
             >
               <Chevron dir="left" />
             </button>
@@ -98,16 +98,20 @@ export default function AuraHero({ onNavigate }: { onNavigate: (panelIndex: numb
             <button
               onClick={next}
               aria-label="Next image"
-              className="pointer-events-auto absolute right-3 top-1/2 -translate-y-1/2 w-8 h-8 sm:w-9 sm:h-9 rounded-full grid place-items-center bg-black/30 backdrop-blur-sm border border-white/20 text-white hover:bg-black/60 transition-all duration-300"
+              className="pointer-events-auto absolute right-3 top-1/2 -translate-y-1/2 w-8 h-8 sm:w-9 sm:h-9 rounded-none grid place-items-center bg-black/40 backdrop-blur-sm border border-white/20 text-white hover:bg-black/70 transition-all duration-300"
             >
               <Chevron dir="right" />
             </button>
           </div>
         </div>
 
-        {/* ── RIGHT: Info & Compact Navigation Copy ── */}
-        <div className="order-2 flex flex-col justify-between h-full py-1">
-        {/* Liquid Glass Badges */}
+        {/* ── CONTENT: RIGHT ON DESKTOP / BOTTOM ON MOBILE (ISOLATED SCROLL) ── */}
+        <div
+          data-lenis-prevent="true"
+          className="order-2 flex flex-col justify-start lg:justify-between w-full max-w-[580px] h-[48vh] lg:h-full overflow-y-auto lg:overflow-visible pr-2 gap-2.5 sm:gap-3 lg:gap-0 py-1 [-webkit-overflow-scrolling:touch]"
+        >
+
+          {/* Liquid Glass Badges */}
           <div className="flex flex-wrap gap-2 mb-2.5">
             {BADGES.map((b) => (
               <span
@@ -124,14 +128,14 @@ export default function AuraHero({ onNavigate }: { onNavigate: (panelIndex: numb
             AURA&nbsp;·&nbsp;Pearl Skinwear SPF40
           </h1>
 
-          
+
           {/* Description */}
           <div className="font-suisse text-[var(--brand-cream)]/80 text-[13px] sm:text-[14px] leading-[1.6] mt-3 space-y-1 w-full max-w-[500px]">
             <p className="text-[var(--brand-cream)] font-medium">
               Pearls that melt into sun protection.
             </p>
             <p>
-              Beads that break on your skin and sink in. No white cast. A soft, dewy <br/> finish. Every skin tone, every Indian weather. Easiest Absorption ever.
+              Beads that break on your skin and sink in. No white cast. A soft, dewy <br /> finish. Every skin tone, every Indian weather. Easiest Absorption ever.
             </p>
           </div>
 

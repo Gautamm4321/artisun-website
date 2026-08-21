@@ -47,7 +47,7 @@ export default function OriginHero({ onNavigate }: { onNavigate: (panelIndex: nu
 
   return (
     <div className="origin-panel relative w-screen shrink-0 h-screen flex flex-col justify-center pt-16 pb-12 sm:pt-20 sm:pb-14 lg:py-0 overflow-hidden">
-      <div className="w-full max-w-[1500px] mx-auto px-4 sm:px-8 lg:px-14 flex flex-col lg:grid lg:grid-cols-[1fr_1fr] gap-2.5 sm:gap-4 lg:gap-12 items-center lg:items-stretch my-auto">
+      <div className="w-full max-w-[1500px] mx-auto px-5 sm:px-8 lg:px-14 flex flex-col lg:grid lg:grid-cols-[1.05fr_0.95fr] gap-5 sm:gap-6 lg:gap-14 items-center lg:items-stretch my-auto">
 
         {/* ── TOP ON MOBILE / LEFT ON DESKTOP: Product Visual ── */}
         <div className="order-1 flex flex-col h-[28vh] sm:h-[34vh] lg:h-full w-full max-w-[400px] lg:max-w-none shrink-0 min-h-0">
@@ -104,12 +104,12 @@ export default function OriginHero({ onNavigate }: { onNavigate: (panelIndex: nu
 
         {/* ── BOTTOM ON MOBILE / RIGHT ON DESKTOP: Info & Compact Navigation Copy ── */}
         <div className="order-2 flex flex-col justify-start lg:justify-between w-full max-w-[420px] lg:max-w-none lg:h-full gap-1.5 sm:gap-2 lg:gap-0 py-0.5 lg:py-1">
-          {/* Liquid Glass Badges */}
+          {/* Flat Solid Pill Badges */}
           <div className="flex flex-wrap gap-1.5 sm:gap-2 mb-0.5 sm:mb-1 lg:mb-2">
             {BADGES.map((b) => (
               <span
                 key={b}
-                className="font-suisse text-[9px] sm:text-[10.5px] font-medium tracking-wider uppercase px-2.5 sm:px-3.5 py-0.5 sm:py-1 rounded-full text-white/95 backdrop-blur-md bg-white/[0.08] border border-white/30 shadow-sm transition-all"
+                className="font-suisse text-[9px] sm:text-[10.5px] font-medium tracking-wider uppercase px-2.5 sm:px-3.5 py-0.5 sm:py-1 rounded-full text-white bg-white/10"
               >
                 {b}
               </span>

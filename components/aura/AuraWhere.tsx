@@ -30,7 +30,7 @@ export default function AuraWhere() {
   return (
     <div
       id="aura-where"
-      className="aura-panel relative w-full lg:w-screen shrink-0 min-h-[100svh] lg:h-screen flex flex-col bg-[var(--brand-red,#8B0000)] text-[var(--brand-cream)]"
+      className="aura-panel relative w-screen shrink-0 h-[100svh] flex flex-col overflow-hidden bg-[var(--brand-red,#8B0000)] text-[var(--brand-cream)]"
     >
       {/* Heading block */}
       <div className="px-5 sm:px-8 lg:px-14 pt-24 lg:pt-[112px] pb-6 lg:pb-8 max-w-[1500px] w-full mx-auto">

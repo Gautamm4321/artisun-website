@@ -48,6 +48,7 @@ export default function AuraPage() {
       easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       smoothWheel: true,
     });
+
     lenisRef.current = lenis;
     lenis.on('scroll', ScrollTrigger.update);
     const raf = (time: number) => lenis.raf(time * 1000);
@@ -64,12 +65,9 @@ export default function AuraPage() {
       '--mc-pos-6': '300%',
     });
 
-    const mm = gsap.matchMedia();
-    mm.add('(min-width: 1024px)', () => {
-      const track = trackRef.current;
-      const wrapper = wrapperRef.current;
-      if (!track || !wrapper) return;
-
+    const track = trackRef.current;
+    const wrapper = wrapperRef.current;
+    if (track && wrapper) {
       const getScrollAmount = () => track.scrollWidth - window.innerWidth;
 
       const tween = gsap.to(track, {
@@ -94,11 +92,8 @@ export default function AuraPage() {
         },
       });
       stRef.current = st;
+    }
 
-      return () => {
-        stRef.current = null;
-      };
-    });
 
     setTimeout(() => {
       ScrollTrigger.refresh();
@@ -108,7 +103,6 @@ export default function AuraPage() {
       gsap.ticker.remove(raf);
       lenis.destroy();
       lenisRef.current = null;
-      mm.revert();
       ScrollTrigger.getAll().forEach((st) => st.kill());
     };
   }, []);
@@ -116,25 +110,9 @@ export default function AuraPage() {
   const goToPanel = (i: number) => {
     const lenis = lenisRef.current;
     const st = stRef.current;
-    if (!lenis) return;
-
-    const isDesktop = window.matchMedia('(min-width: 1024px)').matches;
-    if (isDesktop && st) {
-      const target = st.start + (i / (PANELS - 1)) * (st.end - st.start);
-      lenis.scrollTo(target, { duration: 1.3 });
-    } else {
-      const map: Record<number, number | string> = {
-        0: 0,
-        1: '#aura-dosage',
-        2: '#aura-texture',
-        3: '#aura-where',
-        4: '#aura-whatsin',
-        5: '#aura-stats',
-        6: '#aura-product',
-        7: '#aura-questions',
-      };
-      lenis.scrollTo(map[i] ?? 0, { duration: 1.1, offset: -56 });
-    }
+    if (!lenis || !st) return;
+    const target = st.start + (i / (PANELS - 1)) * (st.end - st.start);
+    lenis.scrollTo(target, { duration: 1.3 });
   };
 
   return (
@@ -145,21 +123,10 @@ export default function AuraPage() {
       <CustomCursor mouseProxy={mouseProxy} />
       <GlobalHeader />
 
-      <style jsx global>{`
-        @media (max-width: 1023px) {
-          html {
-            scroll-snap-type: y proximity;
-          }
-          .aura-panel {
-            scroll-snap-align: start;
-          }
-        }
-      `}</style>
-
-      <div ref={wrapperRef} className="relative w-full lg:h-screen lg:overflow-hidden">
+    <div ref={wrapperRef} className="relative w-full h-[100svh] overflow-hidden">
         <div
           ref={trackRef}
-          className="flex flex-col lg:flex-row lg:flex-nowrap lg:h-screen will-change-transform"
+          className="flex flex-row flex-nowrap h-full will-change-transform"
         >
           <AuraHero onNavigate={goToPanel} />
           <AuraDosage />
