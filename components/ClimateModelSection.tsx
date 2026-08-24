@@ -1,23 +1,52 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { asset } from '@/lib/asset';
 
+if (typeof window !== 'undefined') {
+  gsap.registerPlugin(ScrollTrigger);
+}
+
 export default function ClimateModelSection() {
+  const sectionRef = useRef<HTMLElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
-    if (videoRef.current) {
-      videoRef.current.defaultMuted = true;
-      videoRef.current.muted = true;
-      videoRef.current.play().catch(() => {
-        // Autoplay fallback
-      });
-    }
+    const video = videoRef.current;
+    const section = sectionRef.current;
+    if (!video || !section) return;
+
+    video.muted = true;
+    video.pause();
+    video.currentTime = 0;
+
+    const trigger = ScrollTrigger.create({
+      trigger: section,
+      start: 'top top',        // Screen pehle 100% fit hokar set/freeze hogi
+      end: '+=200',            // Sirf 200px ka minimal scroll (heavy freeze nahi rahega)
+      pin: true,               // Screen ko visually settle karega
+      pinSpacing: true,
+      onEnter: () => {
+        video.play().catch(() => {});
+      },
+      onLeaveBack: () => {
+        video.pause();
+        video.currentTime = 0; // Wapas scroll karne par initial freeze frame par aayegi
+      },
+    });
+
+    return () => {
+      trigger.kill();
+    };
   }, []);
 
   return (
-    <section className="relative w-full h-[100svh] min-h-[680px] overflow-hidden select-none bg-[#0a0504]">
+    <section 
+      ref={sectionRef}
+      className="relative w-full h-[100svh] min-h-[680px] overflow-hidden select-none bg-[#0a0504]"
+    >
       
       {/* 1. Background City Video Layer — edge to edge, cover */}
       <div className="absolute inset-0 z-0 overflow-hidden">
@@ -25,7 +54,6 @@ export default function ClimateModelSection() {
           ref={videoRef}
           src={asset('/climate-model-bg.mp4')}
           poster={asset('/climate-model-poster.jpg')}
-          autoPlay
           loop
           muted
           playsInline

@@ -9,33 +9,34 @@ if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
 }
 
-// Four Indian cities. Every image is the SAME product in the SAME spot —
-// only the weather around it changes. Scrolling crossfades one weather into
-// the next, so it reads as a single scene the seasons move through.
 const CARDS = [
   {
     city: 'Shimla',
     condition: 'Dry cold',
     image: asset('/climate-weather/shimla.webp'),
-    text: 'A Shimla winter pulls all the moisture out, and by afternoon your skin’s tight and flaking.',
+    heading: 'A Shimla winter',
+    desc: 'pulls all the moisture out, and by afternoon your skin’s tight and flaking.',
   },
   {
     city: 'Jaipur',
     condition: 'Dry heat',
     image: asset('/climate-weather/jaipur.webp'),
-    text: 'In the Jaipur heat, whatever you put on is gone before noon.',
+    heading: 'In the Jaipur heat,',
+    desc: 'whatever you put on is gone before noon.',
   },
   {
     city: 'Bangalore',
     condition: 'Humid',
     image: asset('/climate-weather/bangalore.webp'),
-    text: 'Bangalore’s humidity leaves everything sitting greasy, pilling the moment you touch makeup.',
+    heading: 'Bangalore’s humidity',
+    desc: 'leaves everything sitting greasy, pilling the moment you touch makeup.',
   },
   {
     city: 'Bombay',
     condition: 'Monsoon',
     image: asset('/climate-weather/bombay.webp'),
-    text: 'And in Bombay, all it takes is one downpour, and your face is an oily mess.',
+    heading: 'And in Bombay,',
+    desc: 'all it takes is one downpour, and your face is an oily mess.',
   },
 ];
 
@@ -192,34 +193,58 @@ export default function ClimateVideoSection() {
         {/* ── RIGHT (33%) — text, vertically centred, left aligned. ── */}
         <div className="relative w-full flex-1 lg:w-1/3 lg:h-full bg-transparent">
 
-          {/* Crossfading lines, all stacked so they swap in place */}
+        {/* Crossfading lines, all stacked so they swap in place */}
           <div className="relative h-full w-full">
-            {CARDS.map((card, i) => (
-              <div
-                key={card.city}
-                ref={(el) => { textRefs.current[i] = el; }}
-                className="absolute inset-0 flex flex-col justify-center px-6 sm:px-10 lg:px-12 xl:px-16 pb-16 lg:pb-20 will-change-[opacity,transform]"
-                style={{ opacity: i === 0 ? 1 : 0 }}
-              >
+            {CARDS.map((card, i) => {
+              const headingWords = card.heading.split(' ');
+              const descWords = card.desc.split(' ');
+              
+              return (
+                <div
+                  key={card.city}
+                  ref={(el) => { textRefs.current[i] = el; }}
+                  className="absolute inset-0 flex flex-col justify-center px-6 sm:px-10 lg:px-12 xl:px-16 pb-16 lg:pb-20 will-change-[opacity,transform]"
+                  style={{ opacity: i === 0 ? 1 : 0 }}
+                >
+                  {/* 1. Main City Heading */}
+                  <h3 className="font-editorial text-[var(--brand-cream)] text-[32px] sm:text-[38px] lg:text-[42px] xl:text-[46px] leading-[1.1] tracking-tight mb-3 sm:mb-4">
+                    {headingWords.map((word, j) => (
+                      <span
+                        key={`h-${j}`}
+                        ref={(el) => {
+                          if (!wordRefs.current[i]) wordRefs.current[i] = [];
+                          wordRefs.current[i][j] = el;
+                        }}
+                        className="inline-block will-change-[opacity]"
+                        style={{ opacity: DIM }}
+                      >
+                        {word}&nbsp;
+                      </span>
+                    ))}
+                  </h3>
 
-                <p className="font-editorial text-[var(--brand-cream)] text-[22px] sm:text-[26px] lg:text-[28px] xl:text-[32px] leading-[1.34] max-w-[24ch]">
-
-                  {card.text.split(' ').map((word, j) => (
-                    <span
-                      key={j}
-                      ref={(el) => {
-                        if (!wordRefs.current[i]) wordRefs.current[i] = [];
-                        wordRefs.current[i][j] = el;
-                      }}
-                      className="inline-block will-change-[opacity]"
-                      style={{ opacity: DIM }}
-                    >
-                      {word}&nbsp;
-                    </span>
-                  ))}
-                </p>
-              </div>
-            ))}
+                  {/* 2. Smaller Description Text */}
+                  <p className="font-suisse text-[var(--brand-cream)]/90 text-[17px] sm:text-[17px] lg:text-[22px] leading-[1.5] max-w-[28ch]">
+                    {descWords.map((word, j) => {
+                      const totalIdx = headingWords.length + j;
+                      return (
+                        <span
+                          key={`d-${j}`}
+                          ref={(el) => {
+                            if (!wordRefs.current[i]) wordRefs.current[i] = [];
+                            wordRefs.current[i][totalIdx] = el;
+                          }}
+                          className="inline-block will-change-[opacity]"
+                          style={{ opacity: DIM }}
+                        >
+                          {word}&nbsp;
+                        </span>
+                      );
+                    })}
+                  </p>
+                </div>
+              );
+            })}
           </div>
 
           {/* Segmented progress — one bar per weather, fills as you scroll through it */}

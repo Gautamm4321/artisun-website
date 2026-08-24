@@ -38,7 +38,7 @@ const PRODUCTS: Product[] = [
     specs: 'SPF 50+ · PA++++',
     ingredients: 'Formulated with Ectoin Bisabolol',
     model: asset('/1.glb'),
-    scale: 0.42,
+    scale: 0.48,
     thumb: asset('/about-media/origin-hero.jpg'),
     href: '/origin',
   },
@@ -54,7 +54,7 @@ const PRODUCTS: Product[] = [
     specs: 'SPF 40 · PA++++',
     ingredients: 'Formulated with Ectoin Bisabolol',
     model: asset('/1.glb'),
-    scale: 0.42,
+    scale: 0.48,
     thumb: asset('/about-media/aura-1.jpg'),
     href: '/aura',
   },
@@ -75,15 +75,14 @@ function ModelItem({
   const { scene } = useGLTF(modelPath);
   const cloned = React.useMemo(() => scene.clone(true), [scene]);
 
-  useFrame(({ clock }) => {
+  useFrame((_, delta) => {
     if (!groupRef.current) return;
     groupRef.current.visible = isActive;
     if (!isActive) return;
 
-    const idleFloat = Math.sin(clock.elapsedTime * 0.7) * 0.04;
-    const idleSpin = clock.elapsedTime * 0.25;
-    groupRef.current.position.set(0, idleFloat, 0);
-    groupRef.current.rotation.set(0, idleSpin, 0);
+    // Smooth continuous 360-degree rotation (frame-rate independent)
+    groupRef.current.rotation.y += delta * 0.75;
+    groupRef.current.position.y = Math.sin(Date.now() * 0.0018) * 0.05;
     groupRef.current.scale.setScalar(scale);
   });
 
@@ -142,7 +141,7 @@ export default function ProductShowcaseSection() {
       </div>
 
       {/* Content Container */}
-      <div className="relative z-20 w-full max-w-[1320px] mx-auto min-h-[82vh] flex flex-col justify-between">
+      <div className="relative z-20 w-full max-w-[1100px] mx-auto min-h-[82vh] flex flex-col justify-between">
 
 
         {/* ── ROW 1: TOP SWITCH CARDS ── */}
