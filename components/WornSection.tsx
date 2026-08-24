@@ -41,7 +41,7 @@ function GlassCard({ card }: { card: ProductCard }) {
     <Link
       href={card.href}
       aria-label={`${card.name} — ${card.sub}`}
-      className="liquid-glass group flex items-center gap-3 w-[220px] sm:w-[240px] md:w-[250px] p-2.5 sm:p-3 rounded-[16px] bg-black/40 backdrop-blur-md border border-white/15 transition-all duration-300 hover:border-white/35 hover:bg-black/50 shadow-xl"
+      className="group flex items-center gap-3 w-[220px] sm:w-[240px] md:w-[255px] p-2.5 sm:p-3 rounded-[18px] bg-black/40 backdrop-blur-md border border-white/20 transition-all duration-300 hover:border-white/40 hover:bg-black/55 shadow-none"
     >
       <span className="relative block h-10 w-10 sm:h-11 sm:w-11 md:h-12 md:w-12 shrink-0 overflow-hidden rounded-[10px] ring-1 ring-white/20 bg-black/20">
         <Image
@@ -75,40 +75,11 @@ function GlassCard({ card }: { card: ProductCard }) {
 }
 
 export default function WornSection() {
-  const containerRef = useRef<HTMLElement>(null);
-  const contentRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    gsap.registerPlugin(ScrollTrigger);
-
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: containerRef.current,
-        start: 'top top',
-        end: '+=130%',
-        pin: true,
-        anticipatePin: 1,
-        scrub: 1,
-      },
-    });
-
-    tl.fromTo(
-      contentRef.current,
-      { opacity: 0.2, y: 30 },
-      { opacity: 1, y: 0, ease: 'power2.out', duration: 1 }
-    );
-
-    return () => {
-      if (tl.scrollTrigger) tl.scrollTrigger.kill();
-      tl.kill();
-    };
-  }, []);
-
   return (
     <section
-      ref={containerRef}
-      className="relative w-full h-[100svh] z-20 flex items-center justify-between overflow-hidden px-6 sm:px-10 md:px-14 lg:px-20"
+      className="relative w-full min-h-[100svh] z-20 flex items-center justify-between overflow-hidden px-6 sm:px-10 md:px-14 lg:px-20"
     >
+
       {/* Background Gradient */}
       <div
         className="absolute inset-0 -z-10"
@@ -122,7 +93,7 @@ export default function WornSection() {
       <div className="absolute -left-[5%] sm:left-0 bottom-0 top-0 z-10 w-[55%] sm:w-[50%] lg:w-[48%] max-w-[700px] h-full pointer-events-none flex items-end">
         <div className="relative w-full h-full">
           <Image
-            src={asset('/frame-2.png')}
+            src={asset('/3.png')}
             alt="Artisun Model"
             fill
             priority
@@ -134,8 +105,7 @@ export default function WornSection() {
 
       {/* ── 2. RIGHT-ALIGNED TEXT BLOCK ── */}
       <div
-        ref={contentRef}
-        className="relative z-20 w-full max-w-[760px] ml-auto flex flex-col items-end text-right pt-6 sm:pt-0"
+        className="relative z-20 w-full max-w-[830px] ml-auto flex flex-col items-end text-right pt-6 sm:pt-0"
       >
         {/* Main 2-Line Headline */}
         <h2 className="font-editorial text-[var(--brand-cream,#f5f0eb)] text-[clamp(28px,3.8vw,62px)] leading-[1.08] tracking-[-0.02em] font-normal drop-shadow-md">

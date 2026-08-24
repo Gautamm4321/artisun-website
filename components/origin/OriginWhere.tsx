@@ -28,6 +28,15 @@ export default function OriginWhere() {
       id="origin-where"
       className="origin-panel relative w-screen shrink-0 h-[100svh] flex flex-col"
     >
+      {/* Background Radial Gradient */}
+      <div
+        className="absolute inset-0 -z-10"
+        style={{
+          background:
+            'radial-gradient(135% 120% at 50% 20%, #E8551E 0%, #C43612 28%, #8D180C 60%, #460905 100%)',
+        }}
+      />
+
       {/* Heading block */}
       <div className="px-5 sm:px-8 lg:px-14 pt-24 lg:pt-[112px] pb-6 lg:pb-8 max-w-[1500px] w-full mx-auto">
         <h2 className="font-editorial text-[var(--brand-cream)] text-[30px] sm:text-[46px] lg:text-[58px] leading-[1.03] tracking-tight not-italic">

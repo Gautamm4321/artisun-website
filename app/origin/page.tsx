@@ -84,23 +84,10 @@ export default function OriginPage() {
         start: 'top top',
         end: () => '+=' + getScrollAmount(),
         pin: true,
-        scrub: 0.6,
+        scrub: 1,
         animation: tween,
         anticipatePin: 1,
         invalidateOnRefresh: true,
-        // Gentler auto-fit: the middle 90% of every panel is free scrolling, and
-        // the track only settles onto a section when you leave off within 5% of
-        // an edge. Feels smooth instead of magnetic.
-        snap: {
-          snapTo: (value: number) => {
-            const step = 1 / (PANELS - 1);
-            const nearest = Math.round(value / step) * step;
-            return Math.abs(value - nearest) <= step * 0.05 ? nearest : value;
-          },
-          duration: { min: 0.25, max: 0.6 },
-          ease: 'power2.out',
-          delay: 0.08,
-        },
       });
       stRef.current = st;
     }

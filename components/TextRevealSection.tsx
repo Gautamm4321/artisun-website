@@ -4,55 +4,65 @@ import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-const sentence = "And your city decides what kind of day your skin gets.";
+const sentence = 'And your city decides what kind of day your skin gets.';
 
 export default function TextRevealSection() {
   const containerRef = useRef<HTMLElement>(null);
-  const wordsRef = useRef<(HTMLSpanElement | null)[]>([]);
-
-  // Clear refs on every render
-  wordsRef.current = [];
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
 
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: containerRef.current,
-        start: 'top top',
-        end: '+=140%',
-        pin: true,
-        anticipatePin: 1,
-        scrub: 1.2,
-      },
-    });
+    const el = containerRef.current;
+    if (!el) return;
 
-    // Word by word high-impact reveal animation
-    tl.to(wordsRef.current, {
-      opacity: 1,
-      stagger: 0.15,
-      ease: 'power1.inOut',
-    });
+    const words = el.querySelectorAll('.reveal-word');
 
-    return () => {
-      if (tl.scrollTrigger) tl.scrollTrigger.kill();
-      tl.kill();
-    };
+    const ctx = gsap.context(() => {
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: el,
+          start: 'top top',
+          end: '+=140%',
+          pin: true,
+          anticipatePin: 1,
+          scrub: 1,
+          invalidateOnRefresh: true,
+        },
+      });
+
+      tl.fromTo(
+        words,
+        { opacity: 0.2 },
+        {
+          opacity: 1,
+          stagger: 0.15,
+          ease: 'none',
+        }
+      );
+    }, containerRef);
+
+    return () => ctx.revert();
   }, []);
 
   return (
     <section
       ref={containerRef}
-      className="text-reveal-trigger relative w-full h-[100svh] bg-transparent z-10 flex items-center justify-center px-6 sm:px-10 md:px-16 lg:px-24 select-none"
+      className="text-reveal-trigger relative w-full h-[100svh] z-10 flex items-center justify-center px-6 sm:px-10 md:px-16 lg:px-24 select-none overflow-hidden"
     >
+      {/* Background Gradient */}
+      <div
+        className="absolute inset-0 -z-10"
+        style={{
+          background:
+            'radial-gradient(135% 120% at 50% 20%, #E8551E 0%, #C43612 28%, #8D180C 60%, #460905 100%)',
+        }}
+      />
+
       <div className="w-full max-w-[1100px] mx-auto text-center flex flex-wrap justify-center items-center gap-x-[0.28em] gap-y-[0.18em] font-editorial font-normal text-[clamp(28px,4.5vw,64px)] leading-[1.18] tracking-tight text-[var(--brand-cream,#f5f0eb)]">
         {sentence.split(' ').map((word, index) => (
           <span
             key={`${word}-${index}`}
-            ref={(el) => {
-              if (el) wordsRef.current.push(el);
-            }}
-            className="opacity-20 transition-opacity duration-200 inline-block"
+            className="reveal-word opacity-20 inline-block will-change-[opacity]"
           >
             {word}
           </span>

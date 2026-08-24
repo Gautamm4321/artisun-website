@@ -58,6 +58,15 @@ export default function AuraHero({ onNavigate }: { onNavigate: (panelIndex: numb
 
   return (
     <div className="aura-panel relative w-screen shrink-0 h-[100svh] overflow-hidden">
+      {/* Background Radial Gradient */}
+      <div
+        className="absolute inset-0 -z-10"
+        style={{
+          background:
+            'radial-gradient(135% 120% at 50% 20%, #E8551E 0%, #C43612 28%, #8D180C 60%, #460905 100%)',
+        }}
+      />
+
       <div
         ref={scrollerRef}
         className="panel-scroll lg:overflow-hidden h-full flex flex-col justify-start lg:justify-center pt-[76px] pb-24 sm:pt-24 sm:pb-24 lg:py-0"

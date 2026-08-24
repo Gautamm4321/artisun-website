@@ -85,18 +85,6 @@ export default function AuraPage() {
         animation: tween,
         anticipatePin: 1,
         invalidateOnRefresh: true,
-        // Same gentle auto-fit as Origin: free through the middle 90%, settling
-        // onto a section only within 5% of an edge.
-        snap: {
-          snapTo: (value: number) => {
-            const step = 1 / (PANELS - 1);
-            const nearest = Math.round(value / step) * step;
-            return Math.abs(value - nearest) <= step * 0.05 ? nearest : value;
-          },
-          duration: { min: 0.25, max: 0.6 },
-          ease: 'power2.out',
-          delay: 0.08,
-        },
       });
       stRef.current = st;
     }

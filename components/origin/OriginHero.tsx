@@ -54,6 +54,15 @@ export default function OriginHero({ onNavigate }: { onNavigate: (panelIndex: nu
 
   return (
     <div className="origin-panel relative w-screen shrink-0 h-[100svh] overflow-hidden">
+      {/* Background Radial Gradient */}
+      <div
+        className="absolute inset-0 -z-10"
+        style={{
+          background:
+            'radial-gradient(135% 120% at 50% 20%, #E8551E 0%, #C43612 28%, #8D180C 60%, #460905 100%)',
+        }}
+      />
+
       {/* Scroller: on mobile the section scrolls vertically (with room to clear
           the sticky bar); on desktop it's a centred, non-scrolling grid. */}
       <div

@@ -132,8 +132,7 @@ export default function ProductScrollStory({
   };
 
   return (
-    <section className="relative w-full px-4 md:px-16 lg:px-24 snap-start">
-
+    <section className="relative w-full px-4 md:px-16 lg:px-24">
       {/* ── 1. MOBILE & SMALL TABLET CAROUSEL VIEW WITH TOUCH SWIPE & SCROLL REVEAL (< 768px) ── */}
       <motion.div
         initial={{ opacity: 0, y: 45 }}
@@ -230,14 +229,15 @@ export default function ProductScrollStory({
       </motion.div>
 
       {/* ── 2. DESKTOP STICKY SCROLL VIEW (>= 768px) ── */}
-
-      <div className="hidden md:grid md:grid-cols-2">
-        {/* Editorial title side (desktop sticky) */}
+      <div className="hidden md:grid md:grid-cols-2 relative w-full items-start">
+        {/* Editorial title side (desktop sticky pinned to section) */}
         <div
-          className={`flex items-center sticky top-0 h-screen ${flip ? 'md:order-2 justify-end' : 'justify-start'
-            }`}
+          className={`self-start sticky top-0 h-screen flex items-center ${
+            flip ? 'md:order-2 justify-end text-right' : 'justify-start text-left'
+          }`}
         >
-          <div className={flip ? 'text-right' : 'text-left'}>
+          <div>
+
             {eyebrow && (
               <p className="font-suisse uppercase tracking-[0.12em] text-[22px] md:text-[26px] text-[var(--brand-cream)]/70 mb-3">
                 {eyebrow}

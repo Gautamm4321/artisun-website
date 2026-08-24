@@ -143,21 +143,29 @@ export default function ClimateVideoSection() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="relative w-full bg-[#0b0605] z-20">
+    <section
+      ref={sectionRef}
+      className="relative w-full z-20"
+      style={{
+        background:
+          'radial-gradient(135% 120% at 50% 20%, #E8551E 0%, #C43612 28%, #8D180C 60%, #460905 100%)',
+      }}
+    >
       <div
         ref={pinRef}
         className="relative w-full h-[100svh] min-h-[620px] overflow-hidden flex flex-col lg:flex-row"
       >
         {/* ── LEFT (66%) — full-bleed weather stack. Product never moves; the
               weather crossfades around it. ── */}
-        <div className="relative w-full h-[56svh] lg:h-full lg:w-2/3 overflow-hidden bg-[#07100e]">
+        <div className="relative w-full h-[56svh] lg:h-full lg:w-2/3 overflow-hidden bg-transparent">
+
           {CARDS.map((card, i) => (
-            <div
-              key={card.city}
-              ref={(el) => { imageRefs.current[i] = el; }}
-              className="absolute inset-0 will-change-[opacity]"
-              style={{ opacity: i === 0 ? 1 : 0 }}
-            >
+              <div
+                key={card.city}
+                ref={(el) => { textRefs.current[i] = el; }}
+                className="absolute inset-0 flex flex-col justify-center items-start px-6 sm:px-10 lg:px-12 xl:px-16 will-change-[opacity,transform]"
+                style={{ opacity: i === 0 ? 1 : 0 }}
+              >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={card.image}
@@ -182,12 +190,7 @@ export default function ClimateVideoSection() {
         </div>
 
         {/* ── RIGHT (33%) — text, vertically centred, left aligned. ── */}
-        <div className="relative w-full flex-1 lg:w-1/3 lg:h-full bg-[#0b0605]">
-          {/* subtle warmth so the panel isn't flat black */}
-          <div
-            className="absolute inset-0 pointer-events-none"
-            style={{ background: 'radial-gradient(120% 90% at 0% 30%, rgba(201,59,26,0.10) 0%, transparent 60%)' }}
-          />
+        <div className="relative w-full flex-1 lg:w-1/3 lg:h-full bg-transparent">
 
           {/* Crossfading lines, all stacked so they swap in place */}
           <div className="relative h-full w-full">
@@ -198,22 +201,9 @@ export default function ClimateVideoSection() {
                 className="absolute inset-0 flex flex-col justify-center px-6 sm:px-10 lg:px-12 xl:px-16 pb-16 lg:pb-20 will-change-[opacity,transform]"
                 style={{ opacity: i === 0 ? 1 : 0 }}
               >
-                <div className="flex items-center gap-3">
-                  <span className="font-suisse text-[12px] tracking-[0.28em] uppercase text-[var(--brand-cream)]/50">
-                    {String(i + 1).padStart(2, '0')}
-                  </span>
-                  <span className="h-px w-8 bg-[var(--brand-cream)]/25" />
-                  <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.04] px-3 py-1">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#F2812E]" />
-                    <span className="font-suisse text-[11px] tracking-[0.16em] uppercase text-white/85">{card.condition}</span>
-                  </span>
-                </div>
 
-                <h3 className="mt-4 font-editorial text-[var(--brand-cream)] text-[34px] sm:text-[44px] lg:text-[46px] xl:text-[54px] leading-[1.02]">
-                  {card.city}
-                </h3>
+                <p className="font-editorial text-[var(--brand-cream)] text-[22px] sm:text-[26px] lg:text-[28px] xl:text-[32px] leading-[1.34] max-w-[24ch]">
 
-                <p className="mt-4 font-editorial text-[var(--brand-cream)] text-[19px] sm:text-[23px] lg:text-[22px] xl:text-[26px] leading-[1.34] max-w-[24ch]">
                   {card.text.split(' ').map((word, j) => (
                     <span
                       key={j}

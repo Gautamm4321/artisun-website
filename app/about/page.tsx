@@ -129,10 +129,14 @@ export default function AboutPage() {
   }, []);
 
   return (
-    <main className="relative w-full min-h-[100svh] overflow-clip snap-y snap-proximity">
+    <main
+      className="relative w-full min-h-[100svh]"
+      style={{
+        background:
+          'radial-gradient(135% 120% at 50% 20%, #E8551E 0%, #C43612 28%, #8D180C 60%, #460905 100%)',
+      }}
+    >
       <ScrollProgressBar />
-
-      <div id="global-bg" className="theme-molten-core" />
 
       <CustomCursor mouseProxy={mouseProxy} />
       <GlobalHeader />

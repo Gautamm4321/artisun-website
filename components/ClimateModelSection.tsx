@@ -46,9 +46,9 @@ export default function ClimateModelSection() {
       {/* 3. Model Cutout (Enlarged and Grounded to Bottom) */}
       <div className="absolute inset-0 z-20 pointer-events-none flex items-end justify-center">
         <img
-          src={asset('/700211e6d574c25b6404e29a33e7111c.jpg-removebg-preview.png')}
+          src={asset('/2.png')}
           alt="Model wearing Artisun"
-          className="h-[88vh] sm:h-[94vh] lg:h-[98vh] w-auto max-w-[95vw] object-contain object-bottom drop-shadow-[0_25px_40px_rgba(0,0,0,0.85)]"
+          className="h-[80vh] sm:h-[90vh] lg:h-[94vh] w-auto max-w-[95vw] object-contain object-bottom drop-shadow-[0_25px_40px_rgba(0,0,0,0.85)]"
         />
       </div>
 

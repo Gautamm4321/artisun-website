@@ -25,12 +25,15 @@ export default function SkinwearPage() {
   }, []);
 
   return (
-    <main className="relative w-full min-h-[100svh] overflow-clip">
-      {/* 👈 YEH PROGRESS BAR ADD KARO */}
+    <main
+      className="relative w-full min-h-[100svh] overflow-clip"
+      style={{
+        background:
+          'radial-gradient(135% 120% at 50% 20%, #E8551E 0%, #C43612 28%, #8D180C 60%, #460905 100%)',
+      }}
+    >
+      {/* Scroll Progress Bar */}
       <ScrollProgressBar />
-
-      {/* Brand gradient background */}
-      <div id="global-bg" className="theme-molten-core" />
 
       {/* CustomCursor is pointer-device only; touch devices never trigger mousemove */}
       <CustomCursor mouseProxy={mouseProxy} />
