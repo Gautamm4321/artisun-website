@@ -167,7 +167,7 @@ export default function HomeHeader({ ready = false }: { ready?: boolean }) {
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           ref={wordmarkRef}
-          src={asset('/logo-cream.png')}
+          src={asset('Artisun Primary Logo.png')}
           alt="ARTISUN"
           className="w-[min(90vw,1300px)] h-auto select-none drop-shadow-[0_6px_30px_rgba(0,0,0,0.45)]"
           draggable={false}

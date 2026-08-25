@@ -50,7 +50,7 @@ const PRODUCTS: Product[] = [
     leftSub: 'Skin protection & adaptive hydration',
     rightTitle: 'into skin',
     rightSub: 'soft, dewy finish, never heavy.',
-    desc: 'Pearls you choose as per the weather —\nmore when dry, fewer when humid.',
+    desc: 'Pearls you choose as per the weather more when dry, fewer when humid.',
     specs: 'SPF 40 · PA++++',
     ingredients: 'Formulated with Ectoin Bisabolol',
     model: asset('/1.glb'),
@@ -101,7 +101,7 @@ export default function ProductShowcaseSection() {
 
   return (
     <section
-      className="relative w-full min-h-[100svh] overflow-hidden z-[110] flex items-center justify-center text-[var(--brand-cream,#f5f0eb)] px-6 sm:px-10 lg:px-16 pt-28 pb-14 sm:pt-32 sm:pb-16 lg:py-16"
+      className="relative w-full min-h-[100svh] overflow-hidden z-[110] flex items-center justify-center text-[var(--brand-cream,#f5f0eb)] px-3 sm:px-5 lg:px-6 pt-28 pb-14 sm:pt-32 sm:pb-16 lg:py-16"
       style={{
         background:
           'radial-gradient(135% 120% at 50% 20%, #E8551E 0%, #C43612 28%, #8D180C 60%, #460905 100%)',
@@ -140,12 +140,11 @@ export default function ProductShowcaseSection() {
         </Canvas>
       </div>
 
-      {/* Content Container */}
-      <div className="relative z-20 w-full max-w-[1100px] mx-auto min-h-[82vh] flex flex-col justify-between">
+      {/* Content Container (Full Width Bleed) */}
+      <div className="relative z-20 w-full max-w-[1720px] px-4 sm:px-8 lg:px-12 mx-auto min-h-[85vh] flex flex-col justify-between">
 
-
-        {/* ── ROW 1: TOP SWITCH CARDS ── */}
-        <div className="relative z-[120] flex items-center justify-between w-full mt-4 sm:mt-6 md:mt-8 pointer-events-auto">
+        {/* ── ROW 1: TOP SWITCH CARDS (Shifted Together to Right) ── */}
+        <div className="relative z-[120] flex items-center justify-end gap-3 sm:gap-4 w-full mt-2 sm:mt-4 pointer-events-auto">
           {/* Origin Card */}
           <button
             type="button"
@@ -155,11 +154,10 @@ export default function ProductShowcaseSection() {
               setActive(0);
             }}
             aria-label="Switch to Origin"
-            className={`cursor-pointer relative z-[120] flex items-center justify-center h-16 w-16 sm:h-20 sm:w-20 md:h-[88px] md:w-[88px] rounded-2xl border transition-all duration-300 backdrop-blur-md overflow-hidden ${
-              active === 0
+            className={`cursor-pointer relative z-[120] flex items-center justify-center h-14 w-14 sm:h-16 sm:w-16 md:h-[72px] md:w-[72px] rounded-xl border transition-all duration-300 backdrop-blur-md overflow-hidden ${active === 0
                 ? 'border-white/90 bg-black/50 scale-105 shadow-xl ring-2 ring-white/40'
                 : 'border-white/20 bg-black/20 opacity-60 hover:opacity-100 hover:scale-100'
-            }`}
+              }`}
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
@@ -168,7 +166,7 @@ export default function ProductShowcaseSection() {
               className="h-full w-full object-cover pointer-events-none"
             />
             {active === 0 && (
-              <span className="absolute bottom-1.5 w-1.5 h-1.5 rounded-full bg-white shadow-glow pointer-events-none" />
+              <span className="absolute bottom-1 w-1.5 h-1.5 rounded-full bg-white shadow-glow pointer-events-none" />
             )}
           </button>
 
@@ -181,11 +179,10 @@ export default function ProductShowcaseSection() {
               setActive(1);
             }}
             aria-label="Switch to Aura"
-            className={`cursor-pointer relative z-[120] flex items-center justify-center h-16 w-16 sm:h-20 sm:w-20 md:h-[88px] md:w-[88px] rounded-2xl border transition-all duration-300 backdrop-blur-md overflow-hidden ${
-              active === 1
+            className={`cursor-pointer relative z-[120] flex items-center justify-center h-14 w-14 sm:h-16 sm:w-16 md:h-[72px] md:w-[72px] rounded-xl border transition-all duration-300 backdrop-blur-md overflow-hidden ${active === 1
                 ? 'border-white/90 bg-black/50 scale-105 shadow-xl ring-2 ring-white/40'
                 : 'border-white/20 bg-black/20 opacity-60 hover:opacity-100 hover:scale-100'
-            }`}
+              }`}
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
@@ -194,15 +191,14 @@ export default function ProductShowcaseSection() {
               className="h-full w-full object-cover pointer-events-none"
             />
             {active === 1 && (
-              <span className="absolute bottom-1.5 w-1.5 h-1.5 rounded-full bg-white shadow-glow pointer-events-none" />
+              <span className="absolute bottom-1 w-1.5 h-1.5 rounded-full bg-white shadow-glow pointer-events-none" />
             )}
           </button>
         </div>
 
-
-        {/* ── MIDDLE ROW: MAIN TITLES BESIDE BOTTLE (LEFT & RIGHT) ── */}
-        <div className="grid grid-cols-2 gap-8 sm:gap-14 lg:gap-24 items-center my-auto w-full">
-          {/* Left Title */}
+        {/* ── MIDDLE ROW: MAIN TITLES BESIDE BOTTLE (Edge to Center Dot) ── */}
+        <div className="grid grid-cols-2 gap-4 sm:gap-6 lg:gap-8 items-center my-auto w-full">
+          {/* Left Title: Spans from screen edge directly to bottle dot */}
           <AnimatePresence mode="wait">
             <motion.div
               key={product.id + '-center-left'}
@@ -210,18 +206,18 @@ export default function ProductShowcaseSection() {
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -15 }}
               transition={{ duration: 0.5, ease: EASE }}
-              className="flex flex-col items-start pr-2 sm:pr-6"
+              className="flex flex-col items-start text-left w-full pl-0 sm:pl-2"
             >
-              <h2 className="font-editorial text-[clamp(34px,5.4vw,88px)] leading-[0.92] tracking-tight">
+              <h2 className="font-editorial text-[clamp(44px,7.2vw,118px)] leading-[0.88] tracking-[-0.02em] whitespace-nowrap drop-shadow-md">
                 {product.leftTitle}
               </h2>
-              <p className="font-suisse text-xs sm:text-sm lg:text-[17px] text-white/85 mt-3 sm:mt-4">
+              <p className="font-suisse text-sm sm:text-base lg:text-[24px] leading-snug text-white/90 mt-3 sm:mt-5 tracking-wide">
                 {product.leftSub}
               </p>
             </motion.div>
           </AnimatePresence>
 
-          {/* Right Title */}
+          {/* Right Title: Spans from bottle dot directly to screen edge */}
           <AnimatePresence mode="wait">
             <motion.div
               key={product.id + '-center-right'}
@@ -229,12 +225,12 @@ export default function ProductShowcaseSection() {
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: 15 }}
               transition={{ duration: 0.5, ease: EASE }}
-              className="flex flex-col items-end text-right pl-2 sm:pl-6"
+              className="flex flex-col items-end text-right w-full pr-0 sm:pr-2"
             >
-              <h2 className="font-editorial text-[clamp(34px,5.4vw,88px)] leading-[0.92] tracking-tight">
+              <h2 className="font-editorial text-[clamp(44px,7.2vw,118px)] leading-[0.88] tracking-[-0.02em] whitespace-nowrap drop-shadow-md">
                 {product.rightTitle}
               </h2>
-              <p className="font-suisse text-xs sm:text-sm lg:text-[16px] text-white/85 mt-3 sm:mt-4">
+              <p className="font-suisse text-sm sm:text-base lg:text-[24px] leading-snug text-white/90 mt-3 sm:mt-5 tracking-wide">
                 {product.rightSub}
               </p>
             </motion.div>
@@ -243,7 +239,7 @@ export default function ProductShowcaseSection() {
 
         {/* ── BOTTOM ROW: DESCRIPTION & CTA SPECS ── */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-10 lg:gap-16 items-end w-full pb-6 sm:pb-8 lg:pb-10 -translate-y-3 sm:-translate-y-4">
-          {/* Bottom Left: Description */}
+          {/* Bottom Left: Description (Stretched to Bottom-Center Dot) */}
           <AnimatePresence mode="wait">
             <motion.div
               key={product.id + '-desc'}
@@ -251,9 +247,9 @@ export default function ProductShowcaseSection() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
               transition={{ duration: 0.5, ease: EASE }}
-              className="max-w-[340px]"
+              className="max-w-[560px] text-left pl-0 sm:pl-2"
             >
-              <p className="font-suisse text-xs sm:text-sm lg:text-[16px] leading-[1.5] text-white/85 whitespace-pre-line">
+              <p className="font-suisse text-base sm:text-lg lg:text-[24px] leading-[1.35] text-white/95 whitespace-pre-line drop-shadow-sm font-light">
                 {product.desc}
               </p>
             </motion.div>
@@ -275,10 +271,10 @@ export default function ProductShowcaseSection() {
               >
                 Add to bag
               </Link>
-              <p className="font-editorial text-sm sm:text-[16px] tracking-wide text-white/95 pt-0.5">
+              <p className="font-editorial text-base sm:text-lg lg:text-[19px] tracking-wider text-white pt-1">
                 {product.specs}
               </p>
-              <p className="font-suisse text-[12px] sm:text-[13px] text-white/75">
+              <p className="font-suisse text-[14px] sm:text-[16px] lg:text-[18px] text-white/90 tracking-wide">
                 {product.ingredients}
               </p>
             </motion.div>

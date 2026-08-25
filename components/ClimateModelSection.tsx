@@ -29,7 +29,7 @@ export default function ClimateModelSection() {
       pin: true,               // Screen ko visually settle karega
       pinSpacing: true,
       onEnter: () => {
-        video.play().catch(() => {});
+        video.play().catch(() => { });
       },
       onLeaveBack: () => {
         video.pause();
@@ -43,11 +43,11 @@ export default function ClimateModelSection() {
   }, []);
 
   return (
-    <section 
+    <section
       ref={sectionRef}
       className="relative w-full h-[100svh] min-h-[680px] overflow-hidden select-none bg-[#0a0504]"
     >
-      
+
       {/* 1. Background City Video Layer — edge to edge, cover */}
       <div className="absolute inset-0 z-0 overflow-hidden">
         <video
@@ -63,7 +63,7 @@ export default function ClimateModelSection() {
       </div>
 
       {/* 2. Cinematic Atmospheric Gradient & Vignette Overlay */}
-      <div 
+      <div
         className="absolute inset-0 z-10 pointer-events-none"
         style={{
           background:
@@ -80,13 +80,37 @@ export default function ClimateModelSection() {
         />
       </div>
 
-      {/* 4. Left Side Text Block */}
-      <div className="absolute bottom-12 sm:bottom-16 left-6 sm:left-12 lg:left-16 z-30 max-w-[340px] sm:max-w-[440px] text-left pointer-events-auto">
-        <h3 className="font-editorial text-[var(--brand-cream,#f5f0eb)] text-[26px] sm:text-[34px] lg:text-[40px] leading-[1.12] tracking-tight drop-shadow-md">
-          So we made one that&rsquo;s ready for all of it.
-        </h3>
-        <p className="font-suisse text-[var(--brand-cream,#f5f0eb)]/85 text-[14.5px] sm:text-[15.5px] leading-relaxed mt-3 drop-shadow-sm">
-          The first Climate Smart&trade; sun care line &mdash; Built for your day &amp; weather, not just your skin type.
+
+
+
+      {/* 4. Top-Left & Mid-Left Split Typography */}
+      <div className="absolute top-[20%] sm:top-[23%] left-4 sm:left-12 lg:left-15 z-30 w-auto max-w-[900px] pointer-events-none text-left">
+        {/* Top-Left Sans Subtitle */}
+        {/* Top-Left Sans Subtitle */}
+      <p className="font-suisse text-[var(--brand-cream,#f5f0eb)] text-[18px] sm:text-[24px] lg:text-[32px] font-normal leading-[1.04] tracking-[-0.015em] drop-shadow-[0_2px_10px_rgba(0,0,0,0.7)] translate-y-6 sm:translate-y-7 lg:translate-y-8">
+  So we made one<br />
+  that&rsquo;s ready for all of it
+</p>
+
+
+
+
+        {/* Big Editorial Serif Headline */}
+     <h2 className="font-editorial text-[var(--brand-cream,#f5f0eb)] text-[40px] sm:text-[66px] lg:text-[76px] leading-[0.98] tracking-[0.06em] sm:tracking-[0.062em] lg:tracking-[0.08em] origin-left scale-x-[1.08] whitespace-nowrap mt-6 sm:mt-8 lg:mt-10 drop-shadow-[0_4px_16px_rgba(0,0,0,0.8)]">
+  The first<br />
+  Climate-smart<span className="text-[0.25em] align-top tracking-normal font-sans ml-1">TM</span><br />
+  sun care line
+</h2>
+      </div>
+
+
+
+
+      {/* 5. Bottom-Right Subtitle */}
+      <div className="absolute bottom-10 sm:bottom-14 right-6 sm:right-12 lg:right-16 z-30 w-auto max-w-[650px] text-right pointer-events-none">
+        <p className="font-suisse text-[var(--brand-cream,#f5f0eb)] text-[16px] sm:text-[22px] lg:text-[26px] font-light leading-[1.12] tracking-[0.035em] sm:tracking-[0.05em] origin-right scale-x-[1.18] whitespace-nowrap drop-shadow-[0_2px_10px_rgba(0,0,0,0.7)]">
+          Built for your day &amp; weather,<br />
+          not just your skin type.
         </p>
       </div>
 

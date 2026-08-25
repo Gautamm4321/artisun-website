@@ -41,32 +41,35 @@ function GlassCard({ card }: { card: ProductCard }) {
     <Link
       href={card.href}
       aria-label={`${card.name} — ${card.sub}`}
-      className="group flex items-center gap-3.5 w-[240px] sm:w-[260px] md:w-[280px] p-3 sm:p-3.5 rounded-[20px] bg-white/[0.08] backdrop-blur-xl border border-white/25 transition-all duration-300 hover:border-white/50 hover:bg-white/[0.14] shadow-none"
+      className="group flex items-center gap-3 sm:gap-3.5 w-[255px] sm:w-[285px] md:w-[298px] p-2.5 sm:p-3 rounded-[20px] bg-transparent border border-white/20 transition-all duration-300 hover:border-white/50 hover:bg-white/[0.05] shadow-none drop-shadow-none"
     >
-      <span className="relative block h-11 w-11 sm:h-12 sm:w-12 md:h-14 md:w-14 shrink-0 overflow-hidden rounded-[12px] ring-1 ring-white/30 bg-black/10">
+      {/* Bigger Square Image Box */}
+      <span className="relative block h-14 w-14 sm:h-16 sm:w-16 md:h-[68px] md:w-[68px] shrink-0 overflow-hidden rounded-[14px] ring-1 ring-white/35 bg-black/25">
         <Image
           src={card.img}
           alt={card.name}
           fill
-          sizes="56px"
-          className="object-cover"
+          sizes="70px"
+          className="object-cover transition-transform duration-500 group-hover:scale-105"
         />
       </span>
 
-      <span className="flex-1 min-w-0">
-        <span className="block font-editorial text-white text-[16px] md:text-[18px] leading-none">
+      {/* Compact Info Layout with Bigger Features Text */}
+      <span className="flex-1 min-w-0 pr-1">
+        <span className="block font-editorial text-white text-[17px] sm:text-[18.5px] md:text-[20px] leading-tight font-normal">
           {card.name}
         </span>
-        <span className="mt-1 block font-suisse text-[11px] md:text-[12px] text-white/85 truncate">
+        <span className="mt-1 block font-suisse text-[12.5px] sm:text-[13.5px] md:text-[14.5px] text-white/95 truncate font-normal">
           {card.sub}
         </span>
-        <span className="mt-0.5 block font-suisse text-[9px] md:text-[10px] tracking-[0.12em] uppercase text-white/60">
+        <span className="mt-0.5 block font-suisse text-[10px] sm:text-[11px] md:text-[11.5px] tracking-[0.06em] uppercase text-white/80 font-medium">
           {card.spec}
         </span>
       </span>
 
-      <span className="shrink-0 text-white opacity-80 transition-transform duration-300 group-hover:translate-x-1 group-hover:opacity-100">
-        <svg className="h-4.5 w-4.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      {/* Clean Right Arrow */}
+      <span className="shrink-0 text-white opacity-75 transition-transform duration-300 group-hover:translate-x-1 group-hover:opacity-100">
+        <svg className="h-4.5 w-4.5 sm:h-5 sm:w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
           <path d="M5 12h14M13 6l6 6-6 6" />
         </svg>
       </span>
@@ -89,19 +92,19 @@ export default function WornSection() {
         }}
       />
 
-      {/* ── 1. LEFT: FULL-HEIGHT BLEED MODEL IMAGE ── */}
-      <div className="absolute left-0 bottom-0 top-0 z-10 w-[90%] sm:w-[76%] lg:w-[54%] h-full pointer-events-none flex items-end overflow-hidden">
-        <div className="relative w-full h-full scale-[1.10] origin-left translate-y-3">
-          <Image
-            src={asset('/3.png')}
-            alt="Artisun Model"
-            fill
-            priority
-            sizes="(max-width: 1024px) 72vw, 52vw"
-            className="object-contain object-left-bottom select-none"
-          />
-        </div>
-      </div>
+      {/* ── 1. LEFT: FULL-HEIGHT BLEED MODEL IMAGE (Flush Left & Scaled to Aura) ── */}
+<div className="absolute left-0 bottom-0 top-0 z-10 w-[95vw] sm:w-[85vw] lg:w-[78vw] h-full pointer-events-none flex items-end justify-start overflow-visible">
+  <div className="relative w-full h-[120vh] sm:h-[135vh] lg:h-[150vh] origin-bottom-left -translate-x-[13%] lg:-translate-x-[12%] translate-y-0 sm:translate-y-1 lg:translate-y-2">
+    <Image
+      src={asset('/Without bg.png')}
+      alt="Artisun Model"
+      fill
+      priority
+      sizes="(max-width: 1024px) 95vw, 75vw"
+      className="object-contain object-left-bottom select-none drop-shadow-[0_25px_50px_rgba(0,0,0,0.5)]"
+    />
+  </div>
+</div>
 
       {/* ── 2. RIGHT-ALIGNED TEXT BLOCK ── */}
       <div
@@ -114,7 +117,7 @@ export default function WornSection() {
         </h2>
 
         {/* 2-Line Sub-Description */}
-        <p className="font-suisse text-[var(--brand-cream,#f5f0eb)]/90 text-[clamp(18px,1.2vw,18px)] leading-[1.4] font-normal mt-6 sm:mt-8 md:mt-10 max-w-[460px] drop-shadow-sm">
+        <p className="font-suisse text-[var(--brand-cream,#f5f0eb)]/90 text-[clamp(20px,1.4vw,18px)] leading-[1.4] font-normal mt-6 sm:mt-8 md:mt-10 max-w-[460px] drop-shadow-sm">
           Because you’ll only wear it every day if it<br className="hidden sm:inline" /> survives every kind of day.
         </p>
       </div>
