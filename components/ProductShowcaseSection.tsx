@@ -36,7 +36,7 @@ const PRODUCTS: Product[] = [
     rightSub: 'lightweight milky step.',
     desc: 'Best for all weathers, all cities.\nNo matter where you are or what \nthe day looks like.',
     specs: 'SPF 50+ · PA++++',
-    ingredients: ' Fromulated with Beta-glucan and Camellia Sinensis Extract',
+    ingredients: 'Formulated with Beta-glucan\nand Camellia Sinensis Extract',
     model: asset('/1.glb'),
     scale: 0.48,
     thumb: asset('/about-media/origin-hero.jpg'),
@@ -270,8 +270,8 @@ export default function ProductShowcaseSection() {
             >
               <Link
                 href={product.href}
-                style={{ backgroundColor: '#FFFFFF', color: '#1A1A1A' }}
-                className="pointer-events-auto font-suisse text-xs sm:text-sm tracking-wider uppercase px-7 sm:px-9 py-2.5 sm:py-3 font-medium hover:opacity-90 transition-opacity shadow-lg rounded-none mb-1.5"
+                style={{ backgroundColor: '#edc6a2', color: '#3A0D08' }}
+                className="pointer-events-auto font-suisse text-xs sm:text-sm tracking-wider uppercase px-7 sm:px-9 py-2.5 sm:py-3 font-medium hover:bg-white transition-colors shadow-lg rounded-none mb-1.5"
               >
                 Add to bag
               </Link>
@@ -281,12 +281,12 @@ export default function ProductShowcaseSection() {
               >
                 {product.specs}
               </p>
-              <p 
-                style={{ color: '#edc6a2' }}
-                className="font-suisse text-[14px] sm:text-[16px] lg:text-[18px] leading-tight tracking-wide"
-              >
-                {product.ingredients}
-              </p>
+              <p
+  style={{ color: '#edc6a2' }}
+  className="font-suisse text-[14px] sm:text-[16px] lg:text-[18px] leading-tight tracking-wide whitespace-pre-line"
+>
+  {product.ingredients}
+</p>
             </motion.div>
           </AnimatePresence>
         </div>

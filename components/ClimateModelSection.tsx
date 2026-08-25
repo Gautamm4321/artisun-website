@@ -96,11 +96,11 @@ export default function ClimateModelSection() {
 
 
         {/* Big Editorial Serif Headline */}
-       <h2 className="font-editorial font-[200] text-[var(--brand-cream,#f5f0eb)] text-[44px] sm:text-[72px] lg:text-[84px] leading-[0.94] tracking-[-0.01em] sm:tracking-[-0.015em] lg:tracking-[-0.02em] origin-left scale-x-[1.12] whitespace-nowrap mt-7 sm:mt-10 lg:mt-13 translate-y-4 sm:translate-y-5 lg:translate-y-6 drop-shadow-[0_4px_16px_rgba(0,0,0,0.8)] [text-stroke:0px] antialiased">
-  The first<br />
-  Climate-smart<span className="text-[0.25em] align-top tracking-normal font-sans ml-1">TM</span><br />
-  sun care line
-</h2>
+        <h2 className="font-editorial font-[200] text-[var(--brand-cream,#f5f0eb)] text-[44px] sm:text-[72px] lg:text-[84px] leading-[0.94] tracking-[-0.01em] sm:tracking-[-0.015em] lg:tracking-[-0.02em] origin-left scale-x-[1.12] whitespace-nowrap mt-7 sm:mt-10 lg:mt-13 translate-y-4 sm:translate-y-5 lg:translate-y-6 drop-shadow-[0_4px_16px_rgba(0,0,0,0.8)] [text-stroke:0px] antialiased">
+          The first<br />
+          Climate-smart<span className="text-[0.25em] align-top tracking-normal font-sans ml-1">TM</span><br />
+          sun care line
+        </h2>
       </div>
 
 
@@ -108,7 +108,7 @@ export default function ClimateModelSection() {
 
       {/* 5. Bottom-Right Subtitle */}
       <div className="absolute bottom-10 sm:bottom-14 right-6 sm:right-12 lg:right-16 z-30 w-auto max-w-[650px] text-right pointer-events-none">
-        <p className="font-suisse text-[var(--brand-cream,#f5f0eb)] text-[16px] sm:text-[22px] lg:text-[26px] font-light leading-[1.12] tracking-[0.035em] sm:tracking-[0.05em] origin-right scale-x-[1.18] whitespace-nowrap drop-shadow-[0_2px_10px_rgba(0,0,0,0.7)]">
+        <p className="font-suisse text-[var(--brand-cream,#f5f0eb)] text-[16px] sm:text-[22px] lg:text-[26px] font-normal leading-[1.04] tracking-[-0.015em] drop-shadow-[0_2px_10px_rgba(0,0,0,0.7)]">
           Built for your day &amp; weather,<br />
           not just your skin type.
         </p>

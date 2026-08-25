@@ -57,19 +57,10 @@ export default function Footer() {
       // the footer element itself, so the background gradient stays fully
       // painted and flows continuously from CTASection above instead of
       // clipping away to reveal the page's raw background underneath. ──
-      gsap.set(contentWrapRef.current, {
-        clipPath: 'polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%)',
-      });
-      ScrollTrigger.create({
-        trigger: containerRef.current,
-        start: 'top 90%',
-        end: 'top 20%',
-        scrub: true,
-        animation: gsap.to(contentWrapRef.current, {
-          clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)',
-          ease: 'power2.out',
-        }),
-      });
+     
+
+      // REMOVED clipPath wipe - ye hi footer kaat raha tha
+
 
       gsap.fromTo(
         '.footer-reveal',
@@ -93,7 +84,7 @@ export default function Footer() {
   return (
     <footer
       ref={containerRef}
-      className="relative w-full overflow-hidden z-10"
+      className="relative w-full overflow-visible z-10"
       style={{
         background: isHome
           ? 'linear-gradient(180deg, #56190C 0%, #4C130A 20%, #3D0F09 42%, #2E0B07 64%, #200705 84%, #170402 100%)'
@@ -116,13 +107,13 @@ export default function Footer() {
       )}
 
       <div ref={contentWrapRef} className="w-full flex items-center justify-center">
-      <div className="relative z-10 px-6 md:px-12 lg:px-20 py-14 md:py-22 lg:py-26 w-full">
+              <div className="relative z-10 px-6 md:px-12 lg:px-20 py-14 md:py-16 lg:py-20 w-full overflow-visible">
         <div className="flex flex-col md:flex-row md:justify-between gap-14 md:gap-8">
 
           {/* Quick Links + Policies */}
           <div className="flex gap-16 sm:gap-20 lg:gap-28 footer-reveal">
             <div className="flex flex-col gap-3 md:gap-4">
-              <h4 className="font-suisse text-lg md:text-xl lg:text-2xl text-[var(--brand-cream)] font-medium">
+              <h4 className="font-suisse text-lg md:text-xl lg:text-2xl text-[var(--brand-cream)] font-medium leading-[1.3] overflow-visible pt-1">
                 Quick Links
               </h4>
               {quickLinks.map(link => (
@@ -137,7 +128,7 @@ export default function Footer() {
             </div>
 
             <div className="flex flex-col gap-3 md:gap-4">
-              <h4 className="font-suisse text-lg md:text-xl lg:text-2xl text-[var(--brand-cream)] font-medium">
+              <h4 className="font-suisse text-lg md:text-xl lg:text-2xl text-[var(--brand-cream)] font-medium leading-[1.3] overflow-visible pt-1">
                 Policies
               </h4>
               {policyLinks.map(link => (
