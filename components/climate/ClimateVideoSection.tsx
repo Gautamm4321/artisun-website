@@ -42,14 +42,12 @@ const CARDS = [
 
 const N = CARDS.length;
 
-// Word-by-word highlight — the same "dim → bright as you scroll" reveal used on
-// the home page (TextRevealSection): words sit at 0.2 opacity and light up in a
-// left-to-right stagger, here scoped to each city's own scroll window.
-const DIM = 0.2; // matches Tailwind opacity-20 used on the home page
-const REVEAL_START = 0.05; // where in a city's segment the reveal begins (0..1)
-const REVEAL_SPAN = 0.6; // how much of the segment the reveal takes
-const STAGGER_SPREAD = 0.7; // portion of the reveal used to stagger word starts
-const WORD_FADE = 0.3; // each word's own fade length
+// Word-by-word highlight configuration
+const DIM = 0.2;
+const REVEAL_START = 0.05;
+const REVEAL_SPAN = 0.6;
+const STAGGER_SPREAD = 0.7;
+const WORD_FADE = 0.3;
 
 const clamp = (v: number, min: number, max: number) => Math.min(max, Math.max(min, v));
 const smoothstep = (a: number, b: number, x: number) => {
@@ -57,12 +55,8 @@ const smoothstep = (a: number, b: number, x: number) => {
   return t * t * (3 - 2 * t);
 };
 
-// Opacity of city `i` given the continuous scroll position `u` in [0, N].
-// Each city holds fully in the middle of its unit segment and crossfades over a
-// symmetric band centred on each boundary — the rising city and the falling
-// city share the exact same ramp, so their opacities always sum to 1 (no flash,
-// no gap). First and last cities never fade on the outer edge.
-const BAND = 0.55; // width of each crossfade, in segments (1 = one full city)
+// Opacity interpolation across scroll progress
+const BAND = 0.55;
 function cityOpacity(i: number, u: number) {
   const rise = i === 0 ? 1 : smoothstep(i - BAND / 2, i + BAND / 2, u);
   const fall = i === N - 1 ? 1 : 1 - smoothstep(i + 1 - BAND / 2, i + 1 + BAND / 2, u);
@@ -81,13 +75,13 @@ export default function ClimateVideoSection() {
     gsap.registerPlugin(ScrollTrigger);
 
     const ctx = gsap.context(() => {
-      // Initial state: only the first weather / first line is visible.
+      // Initial state setup
       imageRefs.current.forEach((el, i) => el && gsap.set(el, { opacity: i === 0 ? 1 : 0 }));
       textRefs.current.forEach((el, i) => el && gsap.set(el, { opacity: i === 0 ? 1 : 0, y: 0 }));
       fillRefs.current.forEach((el) => el && gsap.set(el, { scaleX: 0 }));
 
       const render = (progress: number) => {
-        const u = progress * N; // 0 → N across the pinned range
+        const u = progress * N;
 
         for (let i = 0; i < N; i++) {
           const op = cityOpacity(i, u);
@@ -97,15 +91,12 @@ export default function ClimateVideoSection() {
 
           const txt = textRefs.current[i];
           if (txt) {
-            // Incoming line drifts up from just below; outgoing line lifts away.
             const rel = clamp(u - (i + 0.5), -1, 1);
             txt.style.opacity = String(op);
             txt.style.transform = `translate3d(0, ${(-rel * 10).toFixed(2)}px, 0)`;
           }
 
-          // Word-by-word highlight, scoped to this city's own scroll window.
-          // Block opacity (above) handles the crossfade between cities; this
-          // handles the dim→bright reveal within the one that's on screen.
+          // Word-by-word reveal
           const words = wordRefs.current[i];
           if (words && words.length) {
             const r = clamp((u - i - REVEAL_START) / REVEAL_SPAN, 0, 1);
@@ -127,7 +118,6 @@ export default function ClimateVideoSection() {
       ScrollTrigger.create({
         trigger: pinRef.current,
         start: 'top top',
-        // ~0.9 viewport of scroll per weather — unhurried, but never draggy.
         end: () => '+=' + window.innerHeight * N * 0.9,
         pin: true,
         pinSpacing: true,
@@ -156,17 +146,17 @@ export default function ClimateVideoSection() {
         ref={pinRef}
         className="relative w-full h-[100svh] min-h-[620px] overflow-hidden flex flex-col lg:flex-row"
       >
-        {/* ── LEFT (66%) — full-bleed weather stack. Product never moves; the
-              weather crossfades around it. ── */}
+        {/* ── LEFT (66%) — full-bleed weather stack ── */}
         <div className="relative w-full h-[56svh] lg:h-full lg:w-2/3 overflow-hidden bg-transparent">
-
           {CARDS.map((card, i) => (
-              <div
-                key={card.city}
-                ref={(el) => { textRefs.current[i] = el; }}
-                className="absolute inset-0 flex flex-col justify-center items-start px-6 sm:px-10 lg:px-12 xl:px-16 will-change-[opacity,transform]"
-                style={{ opacity: i === 0 ? 1 : 0 }}
-              >
+            <div
+              key={card.city}
+              ref={(el) => {
+                imageRefs.current[i] = el;
+              }}
+              className="absolute inset-0 w-full h-full will-change-[opacity]"
+              style={{ opacity: i === 0 ? 1 : 0 }}
+            >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={card.image}
@@ -178,8 +168,7 @@ export default function ClimateVideoSection() {
             </div>
           ))}
 
-          {/* Seam softeners: darken the edge that meets the text panel so the
-              two halves read as one composition. */}
+          {/* Seam softeners */}
           <div
             className="absolute inset-0 pointer-events-none hidden lg:block"
             style={{ background: 'linear-gradient(90deg, transparent 78%, rgba(11,6,5,0.55) 100%)' }}
@@ -190,19 +179,19 @@ export default function ClimateVideoSection() {
           />
         </div>
 
-        {/* ── RIGHT (33%) — text, vertically centred, left aligned. ── */}
+        {/* ── RIGHT (33%) — text content ── */}
         <div className="relative w-full flex-1 lg:w-1/3 lg:h-full bg-transparent">
-
-        {/* Crossfading lines, all stacked so they swap in place */}
           <div className="relative h-full w-full">
             {CARDS.map((card, i) => {
               const headingWords = card.heading.split(' ');
               const descWords = card.desc.split(' ');
-              
+
               return (
                 <div
                   key={card.city}
-                  ref={(el) => { textRefs.current[i] = el; }}
+                  ref={(el) => {
+                    textRefs.current[i] = el;
+                  }}
                   className="absolute inset-0 flex flex-col justify-center px-6 sm:px-10 lg:px-12 xl:px-16 pb-16 lg:pb-20 will-change-[opacity,transform]"
                   style={{ opacity: i === 0 ? 1 : 0 }}
                 >
@@ -247,13 +236,18 @@ export default function ClimateVideoSection() {
             })}
           </div>
 
-          {/* Segmented progress — one bar per weather, fills as you scroll through it */}
+          {/* Segmented progress bar */}
           <div className="absolute bottom-8 lg:bottom-10 left-6 sm:left-10 lg:left-12 xl:left-16 right-6 sm:right-10 lg:right-12 xl:right-16">
             <div className="flex items-center gap-2">
               {CARDS.map((card, i) => (
-                <div key={card.city} className="relative h-[3px] flex-1 rounded-full bg-[var(--brand-cream)]/15 overflow-hidden">
+                <div
+                  key={card.city}
+                  className="relative h-[3px] flex-1 rounded-full bg-[var(--brand-cream)]/15 overflow-hidden"
+                >
                   <span
-                    ref={(el) => { fillRefs.current[i] = el; }}
+                    ref={(el) => {
+                      fillRefs.current[i] = el;
+                    }}
                     className="absolute inset-0 origin-left rounded-full bg-[var(--brand-cream)]"
                     style={{ transform: 'scaleX(0)' }}
                   />

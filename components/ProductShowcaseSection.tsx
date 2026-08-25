@@ -36,7 +36,7 @@ const PRODUCTS: Product[] = [
     rightSub: 'lightweight milky step.',
     desc: 'Best for all weathers, all cities.\nNo matter where you are or what \nthe day looks like.',
     specs: 'SPF 50+ · PA++++',
-    ingredients: 'Formulated with Ectoin Bisabolol',
+    ingredients: ' Fromulated with Beta-glucan and Camellia Sinensis Extract',
     model: asset('/1.glb'),
     scale: 0.48,
     thumb: asset('/about-media/origin-hero.jpg'),
@@ -46,13 +46,13 @@ const PRODUCTS: Product[] = [
     id: 'aura',
     name: 'Aura',
     type: 'Pearl Skinwear™',
-    leftTitle: 'Pearls melt',
-    leftSub: 'Skin protection & adaptive hydration',
-    rightTitle: 'into skin',
-    rightSub: 'soft, dewy finish, never heavy.',
-    desc: 'Pearls you choose as per the weather more when dry, fewer when humid.',
+    leftTitle: 'Pearls that\nmelt into',
+    leftSub: '',
+    rightTitle: 'sun\nprotection',
+    rightSub: '',
+    desc: 'Best for: When you need something\nto adjust to changing weathers, or\nwhen your day is moody.',
     specs: 'SPF 40 · PA++++',
-    ingredients: 'Formulated with Ectoin Bisabolol',
+    ingredients: 'Formulated with Ectoin and Bisabolol',
     model: asset('/1.glb'),
     scale: 0.48,
     thumb: asset('/about-media/aura-1.jpg'),
@@ -155,8 +155,8 @@ export default function ProductShowcaseSection() {
             }}
             aria-label="Switch to Origin"
             className={`cursor-pointer relative z-[120] flex items-center justify-center h-14 w-14 sm:h-16 sm:w-16 md:h-[72px] md:w-[72px] rounded-xl border transition-all duration-300 backdrop-blur-md overflow-hidden ${active === 0
-                ? 'border-white/90 bg-black/50 scale-105 shadow-xl ring-2 ring-white/40'
-                : 'border-white/20 bg-black/20 opacity-60 hover:opacity-100 hover:scale-100'
+              ? 'border-white/90 bg-black/50 scale-105 shadow-xl ring-2 ring-white/40'
+              : 'border-white/20 bg-black/20 opacity-60 hover:opacity-100 hover:scale-100'
               }`}
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -180,8 +180,8 @@ export default function ProductShowcaseSection() {
             }}
             aria-label="Switch to Aura"
             className={`cursor-pointer relative z-[120] flex items-center justify-center h-14 w-14 sm:h-16 sm:w-16 md:h-[72px] md:w-[72px] rounded-xl border transition-all duration-300 backdrop-blur-md overflow-hidden ${active === 1
-                ? 'border-white/90 bg-black/50 scale-105 shadow-xl ring-2 ring-white/40'
-                : 'border-white/20 bg-black/20 opacity-60 hover:opacity-100 hover:scale-100'
+              ? 'border-white/90 bg-black/50 scale-105 shadow-xl ring-2 ring-white/40'
+              : 'border-white/20 bg-black/20 opacity-60 hover:opacity-100 hover:scale-100'
               }`}
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -208,7 +208,7 @@ export default function ProductShowcaseSection() {
               transition={{ duration: 0.5, ease: EASE }}
               className="flex flex-col items-start text-left w-full pl-0 sm:pl-2"
             >
-              <h2 className="font-editorial text-[clamp(44px,7.2vw,118px)] leading-[0.88] tracking-[-0.02em] whitespace-nowrap drop-shadow-md">
+              <h2 className="font-editorial text-[clamp(44px,7.2vw,118px)] leading-[0.88] tracking-[-0.02em] whitespace-pre-line drop-shadow-md">
                 {product.leftTitle}
               </h2>
               <p className="font-suisse text-sm sm:text-base lg:text-[24px] leading-snug text-white/90 mt-3 sm:mt-5 tracking-wide">
@@ -227,7 +227,7 @@ export default function ProductShowcaseSection() {
               transition={{ duration: 0.5, ease: EASE }}
               className="flex flex-col items-end text-right w-full pr-0 sm:pr-2"
             >
-              <h2 className="font-editorial text-[clamp(44px,7.2vw,118px)] leading-[0.88] tracking-[-0.02em] whitespace-nowrap drop-shadow-md">
+              <h2 className="font-editorial text-[clamp(44px,7.2vw,118px)] leading-[0.88] tracking-[-0.02em] whitespace-pre-line drop-shadow-md">
                 {product.rightTitle}
               </h2>
               <p className="font-suisse text-sm sm:text-base lg:text-[24px] leading-snug text-white/90 mt-3 sm:mt-5 tracking-wide">
@@ -237,9 +237,9 @@ export default function ProductShowcaseSection() {
           </AnimatePresence>
         </div>
 
-        {/* ── BOTTOM ROW: DESCRIPTION & CTA SPECS ── */}
+      {/* ── BOTTOM ROW: DESCRIPTION & CTA SPECS ── */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-10 lg:gap-16 items-end w-full pb-6 sm:pb-8 lg:pb-10 -translate-y-3 sm:-translate-y-4">
-          {/* Bottom Left: Description (Stretched to Bottom-Center Dot) */}
+          {/* Bottom Left: Description */}
           <AnimatePresence mode="wait">
             <motion.div
               key={product.id + '-desc'}
@@ -249,7 +249,10 @@ export default function ProductShowcaseSection() {
               transition={{ duration: 0.5, ease: EASE }}
               className="max-w-[560px] text-left pl-0 sm:pl-2"
             >
-              <p className="font-suisse text-base sm:text-lg lg:text-[24px] leading-[1.35] text-white/95 whitespace-pre-line drop-shadow-sm font-light">
+              <p 
+                style={{ color: '#E8C5A5' }}
+                className="font-suisse text-base sm:text-lg lg:text-[24px] leading-[1.35] whitespace-pre-line drop-shadow-sm font-light"
+              >
                 {product.desc}
               </p>
             </motion.div>
@@ -263,18 +266,25 @@ export default function ProductShowcaseSection() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
               transition={{ duration: 0.5, ease: EASE }}
-              className="flex flex-col items-end text-right space-y-1 sm:space-y-1.5"
+              className="flex flex-col items-end text-right space-y-0.5 sm:space-y-1"
             >
               <Link
                 href={product.href}
-                className="pointer-events-auto font-suisse text-xs sm:text-sm tracking-wider uppercase px-7 sm:px-9 py-2.5 sm:py-3 bg-[var(--brand-cream,#f5f0eb)] text-[var(--brand-dark,#1a1a1a)] font-medium hover:bg-white transition-colors shadow-lg rounded-none mb-1"
+                style={{ backgroundColor: '#FFFFFF', color: '#1A1A1A' }}
+                className="pointer-events-auto font-suisse text-xs sm:text-sm tracking-wider uppercase px-7 sm:px-9 py-2.5 sm:py-3 font-medium hover:opacity-90 transition-opacity shadow-lg rounded-none mb-1.5"
               >
                 Add to bag
               </Link>
-              <p className="font-editorial text-base sm:text-lg lg:text-[19px] tracking-wider text-white pt-1">
+              <p 
+                style={{ color: '#edc6a2' }}
+                className="font-editorial text-base sm:text-lg lg:text-[19px] leading-tight tracking-wider"
+              >
                 {product.specs}
               </p>
-              <p className="font-suisse text-[14px] sm:text-[16px] lg:text-[18px] text-white/90 tracking-wide">
+              <p 
+                style={{ color: '#edc6a2' }}
+                className="font-suisse text-[14px] sm:text-[16px] lg:text-[18px] leading-tight tracking-wide"
+              >
                 {product.ingredients}
               </p>
             </motion.div>

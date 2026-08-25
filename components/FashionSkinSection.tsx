@@ -20,9 +20,9 @@ export default function FashionSkinSection() {
             {/* Model Image */}
             <div className="absolute bottom-0 left-1/2 -translate-x-1/2 z-20 pointer-events-none flex items-end justify-center leading-none">
                 <img
-                    src="/1.png"
+                    src="/wo bg.png"
                     alt=""
-                    className="h-[150vh] max-w-none w-auto object-contain object-bottom block align-bottom"
+                    className="h-[90vh] max-w-none w-auto object-contain object-bottom block align-bottom"
                 />
             </div>
 
@@ -41,12 +41,12 @@ export default function FashionSkinSection() {
                     <span className="inline-block pl-6 sm:pl-8 lg:pl-10">wearing today?</span>
                 </h2>
                 
-                {/* Rectangular Borderless Button — Shifted Right */}
+                {/* Full Heading Width Transparent Box Button - Compact Height */}
                 <button
                     type="button"
-                    className="w-full mt-4 sm:mt-6 py-3 sm:py-3.5 px-4 rounded-none border-0 bg-transparent text-[var(--brand-cream,#f5f0eb)] font-suisse text-[14px] sm:text-[16px] tracking-widest uppercase underline underline-offset-8 decoration-[var(--brand-cream,#f5f0eb)]/50 hover:decoration-[var(--brand-cream,#f5f0eb)] hover:opacity-80 transition-all active:scale-[0.99] translate-x-4 sm:translate-x-8 lg:translate-x-12"
+                    className="w-full mt-5 sm:mt-6 py-2 sm:py-2.5 px-6 rounded-none border border-[var(--brand-cream,#f5f0eb)] bg-transparent text-[var(--brand-cream,#f5f0eb)] font-suisse text-[12px] sm:text-[14px] tracking-[0.18em] uppercase flex items-center justify-center text-center hover:bg-[var(--brand-cream,#f5f0eb)] hover:text-[#420f08] transition-all duration-300 active:scale-[0.99] shadow-sm"
                 >
-                    [Start wearing today button]
+                    Start wearing today
                 </button>
             </div>
 

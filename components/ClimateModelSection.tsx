@@ -87,16 +87,16 @@ export default function ClimateModelSection() {
       <div className="absolute top-[20%] sm:top-[23%] left-4 sm:left-12 lg:left-15 z-30 w-auto max-w-[900px] pointer-events-none text-left">
         {/* Top-Left Sans Subtitle */}
         {/* Top-Left Sans Subtitle */}
-      <p className="font-suisse text-[var(--brand-cream,#f5f0eb)] text-[18px] sm:text-[24px] lg:text-[32px] font-normal leading-[1.04] tracking-[-0.015em] drop-shadow-[0_2px_10px_rgba(0,0,0,0.7)] translate-y-6 sm:translate-y-7 lg:translate-y-8">
-  So we made one<br />
-  that&rsquo;s ready for all of it
-</p>
+        <p className="font-suisse text-[var(--brand-cream,#f5f0eb)] text-[18px] sm:text-[24px] lg:text-[32px] font-normal leading-[1.04] tracking-[-0.015em] drop-shadow-[0_2px_10px_rgba(0,0,0,0.7)] translate-y-6 sm:translate-y-7 lg:translate-y-8">
+          So we made one<br />
+          that&rsquo;s ready for all of it
+        </p>
 
 
 
 
         {/* Big Editorial Serif Headline */}
-     <h2 className="font-editorial text-[var(--brand-cream,#f5f0eb)] text-[40px] sm:text-[66px] lg:text-[76px] leading-[0.98] tracking-[0.06em] sm:tracking-[0.062em] lg:tracking-[0.08em] origin-left scale-x-[1.08] whitespace-nowrap mt-6 sm:mt-8 lg:mt-10 drop-shadow-[0_4px_16px_rgba(0,0,0,0.8)]">
+       <h2 className="font-editorial font-[200] text-[var(--brand-cream,#f5f0eb)] text-[44px] sm:text-[72px] lg:text-[84px] leading-[0.94] tracking-[-0.01em] sm:tracking-[-0.015em] lg:tracking-[-0.02em] origin-left scale-x-[1.12] whitespace-nowrap mt-7 sm:mt-10 lg:mt-13 translate-y-4 sm:translate-y-5 lg:translate-y-6 drop-shadow-[0_4px_16px_rgba(0,0,0,0.8)] [text-stroke:0px] antialiased">
   The first<br />
   Climate-smart<span className="text-[0.25em] align-top tracking-normal font-sans ml-1">TM</span><br />
   sun care line

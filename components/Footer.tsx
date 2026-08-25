@@ -84,19 +84,7 @@ export default function Footer() {
         }
       );
 
-      if (wordmarkRef.current) {
-        gsap.fromTo(
-          wordmarkRef.current,
-          { y: 40, opacity: 0 },
-          {
-            y: 0,
-            opacity: 1,
-            duration: 1.4,
-            ease: 'power3.out',
-            scrollTrigger: { trigger: containerRef.current, start: 'top 40%' },
-          }
-        );
-      }
+     
     }, containerRef);
 
     return () => ctx.revert();
@@ -127,8 +115,8 @@ export default function Footer() {
         />
       )}
 
-      <div ref={contentWrapRef}>
-      <div className="relative z-10 px-6 md:px-12 lg:px-20 pt-16 md:pt-20 lg:pt-24">
+      <div ref={contentWrapRef} className="w-full flex items-center justify-center">
+      <div className="relative z-10 px-6 md:px-12 lg:px-20 py-14 md:py-22 lg:py-26 w-full">
         <div className="flex flex-col md:flex-row md:justify-between gap-14 md:gap-8">
 
           {/* Quick Links + Policies */}
@@ -191,20 +179,7 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* Giant wordmark */}
-      <div
-        ref={wordmarkRef}
-        aria-hidden="true"
-        className="relative w-full flex justify-center overflow-hidden mt-8 md:mt-12 select-none pointer-events-none px-6 md:px-12 lg:px-20 pb-10"
-      >
-        <Image
-          src={asset('/logo.png')}
-          alt="ARTISUN"
-          width={1200}
-          height={267}
-          className="w-full aspect-[4.5/1] object-cover object-center"
-        />
-      </div>
+      
       </div>
     </footer>
   );

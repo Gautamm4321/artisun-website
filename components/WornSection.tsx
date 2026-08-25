@@ -93,14 +93,14 @@ export default function WornSection() {
       />
 
       {/* ── 1. LEFT: FULL-HEIGHT BLEED MODEL IMAGE (Flush Left & Scaled to Aura) ── */}
-<div className="absolute left-0 bottom-0 top-0 z-10 w-[95vw] sm:w-[85vw] lg:w-[78vw] h-full pointer-events-none flex items-end justify-start overflow-visible">
-  <div className="relative w-full h-[120vh] sm:h-[135vh] lg:h-[150vh] origin-bottom-left -translate-x-[13%] lg:-translate-x-[12%] translate-y-0 sm:translate-y-1 lg:translate-y-2">
+<div className="absolute left-0 bottom-0 top-0 z-10 w-[98vw] sm:w-[90vw] lg:w-[86vw] h-full pointer-events-none flex items-end justify-start overflow-visible">
+  <div className="relative w-full h-[130vh] sm:h-[145vh] lg:h-[155vh] origin-bottom-left -translate-x-[12%] lg:-translate-x-[11%] translate-y-0 sm:translate-y-1 lg:translate-y-2">
     <Image
       src={asset('/Without bg.png')}
       alt="Artisun Model"
       fill
       priority
-      sizes="(max-width: 1024px) 95vw, 75vw"
+      sizes="(max-width: 1024px) 98vw, 85vw"
       className="object-contain object-left-bottom select-none drop-shadow-[0_25px_50px_rgba(0,0,0,0.5)]"
     />
   </div>
