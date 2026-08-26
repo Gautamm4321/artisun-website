@@ -17,19 +17,19 @@ export default function FashionSkinSection() {
                 }}
             />
 
-            {/* Model Image: Giant Fit Reaching Blue Dot on Mobile, Hand Fully Visible, Original on Laptop */}
-            <div className="absolute bottom-0 left-1/2 -translate-x-1/2 z-20 pointer-events-none flex items-end justify-center leading-none w-full h-[62vh] sm:h-[68vh] lg:h-full overflow-visible">
+            {/* Model Image: Grounded on Mobile, Full Bleed on Laptop */}
+            <div className="absolute bottom-0 left-1/2 -translate-x-1/2 z-20 pointer-events-none flex items-end justify-center leading-none w-full h-[58vh] sm:h-[65vh] lg:h-full overflow-visible">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                     src="/wo bg.png"
                     alt=""
-                    className="h-[52vh] xs:h-[55vh] sm:h-[65vh] md:h-[75vh] lg:h-[90vh] max-w-none w-auto object-contain object-bottom block align-bottom select-none scale-[1.30] xs:scale-[1.42] sm:scale-100 origin-bottom -translate-x-[8%] lg:translate-x-0 translate-y-0"
+                    className="h-[48vh] xs:h-[50vh] sm:h-[62vh] md:h-[75vh] lg:h-[90vh] max-w-none w-auto object-contain object-bottom block align-bottom select-none scale-[1.14] xs:scale-[1.18] sm:scale-100 origin-bottom -translate-x-[4%] sm:-translate-x-[8%] lg:translate-x-0 translate-y-0"
                 />
             </div>
 
-            {/* Description: Shifted Down on Mobile, Original on Desktop */}
-            <div className="absolute top-[96px] xs:top-[106px] sm:top-[116px] lg:top-[14%] xl:top-[16%] left-1/2 -translate-x-1/2 lg:translate-x-0 lg:left-16 z-30 w-full max-w-[380px] sm:max-w-[460px] lg:max-w-[500px] pointer-events-none text-center lg:text-left px-4 sm:px-0">
-                <p className="font-suisse text-[var(--brand-cream,#f5f0eb)] text-[17px] xs:text-[19px] sm:text-[23px] lg:text-[31px] font-normal lg:font-light leading-[1.22] lg:leading-[1.12] tracking-[-0.01em] drop-shadow-[0_2px_10px_rgba(0,0,0,0.6)]">
+            {/* Description: Top Ceiling Safe-Zone on Mobile */}
+            <div className="absolute top-14 xs:top-16 sm:top-20 lg:top-[14%] xl:top-[16%] left-1/2 -translate-x-1/2 lg:translate-x-0 lg:left-16 z-30 w-full max-w-[340px] sm:max-w-[460px] lg:max-w-[500px] pointer-events-none text-center lg:text-left px-4 sm:px-0">
+                <p className="font-suisse text-[var(--brand-cream,#f5f0eb)] text-[14px] xs:text-[15.5px] sm:text-[20px] lg:text-[31px] font-normal lg:font-light leading-[1.18] lg:leading-[1.12] tracking-[-0.01em] drop-shadow-[0_2px_10px_rgba(0,0,0,0.6)]">
                     <span className="block lg:hidden">
                         Fashion gets weeks.<br />
                         Skin gets a shelf.<br />
@@ -42,9 +42,9 @@ export default function FashionSkinSection() {
                 </p>
             </div>
 
-            {/* Heading & Button: Restored Original Right Placement on Desktop, Spread on Mobile */}
-            <div className="absolute top-[182px] xs:top-[198px] sm:top-[225px] lg:top-[14%] xl:top-[16%] left-1/2 -translate-x-1/2 lg:translate-x-0 lg:left-auto lg:right-14 xl:right-16 z-30 flex flex-col items-center lg:items-end w-[92vw] max-w-[440px] xs:max-w-[460px] sm:max-w-[520px] lg:w-auto lg:max-w-[440px] xl:max-w-[480px] pointer-events-auto text-center lg:text-left px-1 sm:px-0">
-                <h2 className="w-full font-editorial text-[var(--brand-cream,#f5f0eb)] text-[43px] xs:text-[47px] sm:text-[54px] lg:text-[58px] xl:text-[64px] leading-[0.95] lg:leading-[1.02] tracking-[-0.015em] drop-shadow-[0_4px_16px_rgba(0,0,0,0.7)]">
+            {/* Heading & Button: Upper Third Stack (Zero Overlap on Model Face) */}
+            <div className="absolute top-[120px] xs:top-[132px] sm:top-[170px] lg:top-[14%] xl:top-[16%] left-1/2 -translate-x-1/2 lg:translate-x-0 lg:left-auto lg:right-14 xl:right-16 z-30 flex flex-col items-center lg:items-end w-[92vw] max-w-[380px] xs:max-w-[420px] sm:max-w-[520px] lg:w-auto lg:max-w-[440px] xl:max-w-[480px] pointer-events-auto text-center lg:text-left px-1 sm:px-0">
+                <h2 className="w-full font-editorial text-[var(--brand-cream,#f5f0eb)] text-[34px] xs:text-[38px] sm:text-[48px] lg:text-[58px] xl:text-[64px] leading-[0.96] lg:leading-[1.02] tracking-[-0.015em] drop-shadow-[0_4px_16px_rgba(0,0,0,0.7)]">
                     <span className="block lg:hidden">
                         What&rsquo;s your skin<br />
                         wearing today?

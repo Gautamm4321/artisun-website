@@ -92,22 +92,22 @@ export default function WornSection() {
         }}
       />
 
-     {/* ── 1. MODEL IMAGE: Perfect Fit (Uncropped Full Body & Ponytail) ── */}
+     {/* ── 1. MODEL IMAGE: Perfectly Grounded on Mobile, Exact Full-Bleed on Laptop ── */}
       <div className="absolute inset-x-0 lg:right-auto lg:left-0 bottom-0 z-10 w-full lg:w-[86vw] h-full pointer-events-none flex items-end justify-center lg:justify-start overflow-visible">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={asset('/Without bg.png')}
           alt="Artisun Model"
-          className="h-[68vh] sm:h-[80vh] md:h-[85vh] lg:h-[100vh] w-auto max-w-none object-contain object-bottom lg:object-left-bottom select-none -translate-x-[8%] sm:-translate-x-[8%] lg:-translate-x-[11%] translate-y-1 sm:translate-y-0 lg:translate-y-2 drop-shadow-[0_25px_50px_rgba(0,0,0,0.5)]"
+          className="h-[56vh] xs:h-[60vh] sm:h-[75vh] md:h-[82vh] lg:h-[100vh] w-auto max-w-none object-contain object-bottom lg:object-left-bottom select-none -translate-x-[5%] sm:-translate-x-[8%] lg:-translate-x-[11%] translate-y-1 sm:translate-y-0 lg:translate-y-2 drop-shadow-[0_25px_50px_rgba(0,0,0,0.5)]"
         />
       </div>
 
-    {/* ── 2. TEXT BLOCK: Wide Mobile Widths + Original Large Laptop Desc ── */}
+    {/* ── 2. TEXT BLOCK: Top Clamped (Zero Face Overlap on Mobile), Large on Laptop ── */}
       <div
-        className="relative z-20 w-full max-w-full lg:max-w-[760px] xl:max-w-[880px] 2xl:max-w-[980px] ml-auto flex flex-col items-start text-left lg:items-end lg:text-right pt-2 sm:pt-4 lg:pt-0 lg:-translate-y-4 xl:-translate-y-6"
+        className="relative z-20 w-full max-w-full lg:max-w-[760px] xl:max-w-[880px] 2xl:max-w-[980px] ml-auto flex flex-col items-start text-left lg:items-end lg:text-right pt-0 sm:pt-4 lg:pt-0 lg:-translate-y-4 xl:-translate-y-6"
       >
         {/* Main Headline */}
-        <h2 className="font-editorial text-[var(--brand-cream,#f5f0eb)] text-[38px] xs:text-[42px] sm:text-[46px] md:text-[50px] lg:text-[clamp(32px,2.9vw,54px)] leading-[1.08] lg:leading-[1.1] tracking-[-0.02em] font-normal drop-shadow-md w-full max-w-[390px] xs:max-w-[440px] sm:max-w-[560px] lg:max-w-none">
+        <h2 className="font-editorial text-[var(--brand-cream,#f5f0eb)] text-[28px] xs:text-[32px] sm:text-[40px] md:text-[46px] lg:text-[clamp(32px,2.9vw,54px)] leading-[1.04] lg:leading-[1.1] tracking-[-0.02em] font-normal drop-shadow-md w-full max-w-[320px] xs:max-w-[350px] sm:max-w-[560px] lg:max-w-none">
           {/* Mobile & Tablet: Exact 3 Lines */}
           <span className="block lg:hidden">
             Most sunscreens are made<br />
@@ -122,15 +122,15 @@ export default function WornSection() {
           </span>
         </h2>
 
-        {/* Sub-Description: Wider on mobile, Restored large size on Laptop (18px-21px) */}
-        <p className="font-suisse text-[var(--brand-cream,#f5f0eb)]/90 text-[15.5px] xs:text-[17px] sm:text-[18px] lg:text-[18px] xl:text-[20px] 2xl:text-[21px] leading-[1.4] sm:leading-[1.45] font-normal mt-4 sm:mt-5 lg:mt-7 w-full max-w-[380px] xs:max-w-[420px] sm:max-w-[480px] lg:max-w-[480px] drop-shadow-sm">
+        {/* Sub-Description */}
+        <p className="font-suisse text-[var(--brand-cream,#f5f0eb)]/90 text-[13px] xs:text-[14px] sm:text-[16px] lg:text-[18px] xl:text-[20px] 2xl:text-[21px] leading-[1.32] sm:leading-[1.45] font-normal mt-2.5 xs:mt-3 sm:mt-5 lg:mt-7 w-full max-w-[300px] xs:max-w-[330px] sm:max-w-[480px] lg:max-w-[480px] drop-shadow-sm">
           Because you’ll only wear it every day if it<br />
           survives every kind of day.
         </p>
       </div>
 
-      {/* ── 3. PRODUCT CARDS: Centered on Mobile/Tablet, Bottom-Right on Desktop ── */}
-      <div className="relative lg:absolute z-30 w-full lg:w-auto max-w-[430px] sm:max-w-[500px] md:max-w-[560px] lg:max-w-none mx-auto lg:mx-0 mt-auto lg:mt-0 right-auto lg:right-10 xl:right-20 bottom-0 lg:bottom-8 xl:bottom-10 flex flex-row justify-center items-center gap-2 sm:gap-3.5 lg:gap-4 px-1 sm:px-0">
+     {/* ── 3. PRODUCT CARDS: Bottom Anchored on Mobile, Bottom-Right on Desktop ── */}
+      <div className="relative lg:absolute z-30 w-full lg:w-auto max-w-[400px] sm:max-w-[500px] md:max-w-[560px] lg:max-w-none mx-auto lg:mx-0 mt-auto lg:mt-0 right-auto lg:right-10 xl:right-20 bottom-0 lg:bottom-8 xl:bottom-10 flex flex-row justify-center items-center gap-2 sm:gap-3.5 lg:gap-4 px-0 pb-1 sm:pb-0">
         {CARDS.map((card) => (
           <GlassCard key={card.href} card={card} />
         ))}
