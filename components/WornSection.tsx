@@ -98,7 +98,7 @@ export default function WornSection() {
         <img
           src={asset('/Without bg.png')}
           alt="Artisun Model"
-          className="h-[56vh] xs:h-[60vh] sm:h-[75vh] md:h-[82vh] lg:h-[100vh] w-auto max-w-none object-contain object-bottom lg:object-left-bottom select-none -translate-x-[5%] sm:-translate-x-[8%] lg:-translate-x-[11%] translate-y-1 sm:translate-y-0 lg:translate-y-2 drop-shadow-[0_25px_50px_rgba(0,0,0,0.5)]"
+          className="h-[72vh] xs:h-[76vh] sm:h-[84vh] md:h-[82vh] lg:h-[100vh] w-auto max-w-none object-contain object-bottom lg:object-left-bottom select-none -translate-x-[6%] sm:-translate-x-[8%] lg:-translate-x-[11%] translate-y-1 sm:translate-y-0 lg:translate-y-2 drop-shadow-[0_25px_50px_rgba(0,0,0,0.5)]"
         />
       </div>
 
@@ -107,7 +107,7 @@ export default function WornSection() {
         className="relative z-20 w-full max-w-full lg:max-w-[760px] xl:max-w-[880px] 2xl:max-w-[980px] ml-auto flex flex-col items-start text-left lg:items-end lg:text-right pt-0 sm:pt-4 lg:pt-0 lg:-translate-y-4 xl:-translate-y-6"
       >
         {/* Main Headline */}
-        <h2 className="font-editorial text-[var(--brand-cream,#f5f0eb)] text-[28px] xs:text-[32px] sm:text-[40px] md:text-[46px] lg:text-[clamp(32px,2.9vw,54px)] leading-[1.04] lg:leading-[1.1] tracking-[-0.02em] font-normal drop-shadow-md w-full max-w-[320px] xs:max-w-[350px] sm:max-w-[560px] lg:max-w-none">
+        <h2 className="font-editorial text-[var(--brand-cream,#f5f0eb)] text-[30px] xs:text-[34px] sm:text-[42px] md:text-[46px] lg:text-[clamp(32px,2.9vw,54px)] leading-[1.30] lg:leading-[1.1] tracking-[-0.02em] font-normal drop-shadow-md w-full max-w-[320px] xs:max-w-[350px] sm:max-w-[560px] lg:max-w-none">
           {/* Mobile & Tablet: Exact 3 Lines */}
           <span className="block lg:hidden">
             Most sunscreens are made<br />
@@ -123,7 +123,7 @@ export default function WornSection() {
         </h2>
 
         {/* Sub-Description */}
-        <p className="font-suisse text-[var(--brand-cream,#f5f0eb)]/90 text-[13px] xs:text-[14px] sm:text-[16px] lg:text-[18px] xl:text-[20px] 2xl:text-[21px] leading-[1.32] sm:leading-[1.45] font-normal mt-2.5 xs:mt-3 sm:mt-5 lg:mt-7 w-full max-w-[300px] xs:max-w-[330px] sm:max-w-[480px] lg:max-w-[480px] drop-shadow-sm">
+        <p className="font-suisse text-[var(--brand-cream,#f5f0eb)]/90 text-[15px] xs:text-[16px] sm:text-[18px] lg:text-[18px] xl:text-[20px] 2xl:text-[21px] leading-[1.32] sm:leading-[1.45] font-normal mt-2.5 xs:mt-3 sm:mt-5 lg:mt-7 w-full max-w-[300px] xs:max-w-[330px] sm:max-w-[480px] lg:max-w-[480px] drop-shadow-sm">
           Because you’ll only wear it every day if it<br />
           survives every kind of day.
         </p>
