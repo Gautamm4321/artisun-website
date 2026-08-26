@@ -23,13 +23,13 @@ export default function FashionSkinSection() {
                 <img
                     src="/wo bg.png"
                     alt=""
-                    className="h-[48vh] xs:h-[50vh] sm:h-[62vh] md:h-[75vh] lg:h-[90vh] max-w-none w-auto object-contain object-bottom block align-bottom select-none scale-[1.14] xs:scale-[1.18] sm:scale-100 origin-bottom -translate-x-[4%] sm:-translate-x-[8%] lg:translate-x-0 translate-y-0"
+                    className="h-[50vh] xs:h-[53vh] sm:h-[64vh] md:h-[75vh] lg:h-[90vh] max-w-none w-auto object-contain object-bottom block align-bottom select-none scale-[1.18] xs:scale-[1.22] sm:scale-100 origin-bottom -translate-x-[5%] sm:-translate-x-[8%] lg:translate-x-0 translate-y-0"
                 />
             </div>
 
-            {/* Description: Top Ceiling Safe-Zone on Mobile */}
-            <div className="absolute top-14 xs:top-16 sm:top-20 lg:top-[14%] xl:top-[16%] left-1/2 -translate-x-1/2 lg:translate-x-0 lg:left-16 z-30 w-full max-w-[340px] sm:max-w-[460px] lg:max-w-[500px] pointer-events-none text-center lg:text-left px-4 sm:px-0">
-                <p className="font-suisse text-[var(--brand-cream,#f5f0eb)] text-[14px] xs:text-[15.5px] sm:text-[20px] lg:text-[31px] font-normal lg:font-light leading-[1.18] lg:leading-[1.12] tracking-[-0.01em] drop-shadow-[0_2px_10px_rgba(0,0,0,0.6)]">
+            {/* Description: Exactly Matched to 1st Reference Image on Mobile */}
+            <div className="absolute top-[82px] xs:top-[90px] sm:top-[110px] lg:top-[14%] xl:top-[16%] left-1/2 -translate-x-1/2 lg:translate-x-0 lg:left-16 z-30 w-full max-w-[360px] sm:max-w-[460px] lg:max-w-[500px] pointer-events-none text-center lg:text-left px-4 sm:px-0">
+                <p className="font-suisse text-[var(--brand-cream,#f5f0eb)] text-[26px] xs:text-[20px] sm:text-[23px] lg:text-[31px] font-normal lg:font-light leading-[1.2] lg:leading-[1.12] tracking-[-0.01em] drop-shadow-[0_2px_10px_rgba(0,0,0,0.6)]">
                     <span className="block lg:hidden">
                         Fashion gets weeks.<br />
                         Skin gets a shelf.<br />
@@ -42,9 +42,9 @@ export default function FashionSkinSection() {
                 </p>
             </div>
 
-            {/* Heading & Button: Upper Third Stack (Zero Overlap on Model Face) */}
-            <div className="absolute top-[120px] xs:top-[132px] sm:top-[170px] lg:top-[14%] xl:top-[16%] left-1/2 -translate-x-1/2 lg:translate-x-0 lg:left-auto lg:right-14 xl:right-16 z-30 flex flex-col items-center lg:items-end w-[92vw] max-w-[380px] xs:max-w-[420px] sm:max-w-[520px] lg:w-auto lg:max-w-[440px] xl:max-w-[480px] pointer-events-auto text-center lg:text-left px-1 sm:px-0">
-                <h2 className="w-full font-editorial text-[var(--brand-cream,#f5f0eb)] text-[34px] xs:text-[38px] sm:text-[48px] lg:text-[58px] xl:text-[64px] leading-[0.96] lg:leading-[1.02] tracking-[-0.015em] drop-shadow-[0_4px_16px_rgba(0,0,0,0.7)]">
+            {/* Heading & Button: Tightly Proportioned & Close to Model on Mobile */}
+            <div className="absolute top-[192px] xs:top-[205px] sm:top-[230px] lg:top-[14%] xl:top-[16%] left-1/2 -translate-x-1/2 lg:translate-x-0 lg:left-auto lg:right-14 xl:right-16 z-30 flex flex-col items-center lg:items-end w-[92vw] max-w-[420px] xs:max-w-[450px] sm:max-w-[520px] lg:w-auto lg:max-w-[440px] xl:max-w-[480px] pointer-events-auto text-center lg:text-left px-1 sm:px-0">
+                <h2 className="w-full font-editorial text-[var(--brand-cream,#f5f0eb)] text-[60px] xs:text-[49px] sm:text-[54px] lg:text-[58px] xl:text-[64px] leading-[0.94] lg:leading-[1.02] tracking-[-0.02em] drop-shadow-[0_4px_16px_rgba(0,0,0,0.7)]">
                     <span className="block lg:hidden">
                         What&rsquo;s your skin<br />
                         wearing today?

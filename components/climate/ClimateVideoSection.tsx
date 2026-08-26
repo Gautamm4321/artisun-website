@@ -146,8 +146,8 @@ export default function ClimateVideoSection() {
         ref={pinRef}
         className="relative w-full h-[100svh] min-h-[620px] overflow-hidden flex flex-col lg:flex-row"
       >
-        {/* ── TOP (55%) on Mobile / LEFT (66%) on Laptop — weather stack ── */}
-        <div className="relative w-full h-[75svh] lg:h-full lg:w-2/3 overflow-hidden bg-transparent">
+        {/* ── TOP (80%) on Mobile & Tablets / LEFT (66%) on Laptop ── */}
+        <div className="relative w-full h-[80svh] lg:h-full lg:w-2/3 overflow-hidden bg-transparent">
           {CARDS.map((card, i) => (
             <div
               key={card.city}
@@ -174,10 +174,8 @@ export default function ClimateVideoSection() {
           />
         </div>
 
-
-
-        {/* ── BOTTOM (45%) on Mobile / RIGHT (33%) on Laptop — text & progress ── */}
-        <div className="relative w-full flex-1 lg:w-1/3 lg:h-full bg-transparent flex flex-col justify-between">
+        {/* ── BOTTOM (20%) on Mobile & Tablets / RIGHT (33%) on Laptop ── */}
+        <div className="relative w-full h-[20svh] lg:h-full lg:w-1/3 bg-transparent flex flex-col justify-between">
           <div className="relative h-full w-full">
             {CARDS.map((card, i) => {
               const headingWords = card.heading.split(' ');
@@ -189,11 +187,13 @@ export default function ClimateVideoSection() {
                   ref={(el) => {
                     textRefs.current[i] = el;
                   }}
-                  className="absolute inset-0 flex flex-col justify-center items-center text-center lg:items-start lg:text-left px-5 sm:px-8 lg:px-12 xl:px-16 pt-2 sm:pt-4 lg:pt-0 pb-12 sm:pb-14 lg:pb-20 will-change-[opacity,transform]"
+                  className="absolute inset-0 flex flex-col justify-center items-center text-center lg:items-start lg:text-left px-4 sm:px-8 lg:px-12 xl:px-16 pt-0.5 lg:pt-0 pb-6 sm:pb-8 lg:pb-20 will-change-[opacity,transform]"
                   style={{ opacity: i === 0 ? 1 : 0 }}
                 >
-                  {/* 1. Main City Heading: Centered & Large on Mobile */}
-                  <h3 className="w-full font-editorial text-[var(--brand-cream)] text-[38px] xs:text-[42px] sm:text-[48px] lg:text-[42px] xl:text-[46px] leading-[1.05] tracking-tight mb-2.5 sm:mb-3 lg:mb-4 drop-shadow-sm">
+                  {/* 1. Main City Heading: Balanced for 20% Frame Height */}
+                  <h3 className="w-full font-editorial text-[var(--brand-cream)] text-[24px] xs:text-[27px] sm:text-[32px] lg:text-[42px] xl:text-[46px] leading-[1.04] tracking-tight mb-1 lg:mb-4 drop-shadow-sm">
+
+
                     {headingWords.map((word, j) => (
                       <span
                         key={`h-${j}`}
@@ -209,32 +209,32 @@ export default function ClimateVideoSection() {
                     ))}
                   </h3>
 
-                  {/* 2. Smaller Description Text: +2px Increased for Mobile Clarity */}
-<p className="font-suisse text-[var(--brand-cream)]/90 text-[17px] xs:text-[18.5px] sm:text-[20px] lg:text-[22px] leading-[1.35] lg:leading-[1.5] max-w-[340px] xs:max-w-[380px] sm:max-w-[460px] lg:max-w-[28ch] drop-shadow-sm">
-  {descWords.map((word, j) => {
-    const totalIdx = headingWords.length + j;
-    return (
-      <span
-        key={`d-${j}`}
-        ref={(el) => {
-          if (!wordRefs.current[i]) wordRefs.current[i] = [];
-          wordRefs.current[i][totalIdx] = el;
-        }}
-        className="inline-block will-change-[opacity]"
-        style={{ opacity: DIM }}
-      >
-        {word}&nbsp;
-      </span>
-    );
-  })}
-</p>
+                  {/* 2. Smaller Description Text: Proportional 20% Frame Scaling */}
+                  <p className="font-suisse text-[var(--brand-cream)]/90 text-[13px] xs:text-[14.5px] sm:text-[16px] lg:text-[22px] leading-[1.28] lg:leading-[1.5] max-w-[320px] xs:max-w-[360px] sm:max-w-[460px] lg:max-w-[28ch] drop-shadow-sm">
+                    {descWords.map((word, j) => {
+                      const totalIdx = headingWords.length + j;
+                      return (
+                        <span
+                          key={`d-${j}`}
+                          ref={(el) => {
+                            if (!wordRefs.current[i]) wordRefs.current[i] = [];
+                            wordRefs.current[i][totalIdx] = el;
+                          }}
+                          className="inline-block will-change-[opacity]"
+                          style={{ opacity: DIM }}
+                        >
+                          {word}&nbsp;
+                        </span>
+                      );
+                    })}
+                  </p>
                 </div>
               );
             })}
           </div>
 
-          {/* Segmented Progress Bar: Centered on Mobile, Left-aligned on Desktop */}
-          <div className="absolute bottom-5 sm:bottom-6 lg:bottom-10 left-1/2 -translate-x-1/2 lg:translate-x-0 lg:left-12 xl:left-16 w-[88vw] max-w-[340px] sm:max-w-[440px] lg:w-auto lg:max-w-none lg:right-12 xl:right-16 z-30">
+          {/* Segmented Progress Bar: Grounded on Mobile */}
+          <div className="absolute bottom-2 xs:bottom-2.5 sm:bottom-4 lg:bottom-10 left-1/2 -translate-x-1/2 lg:translate-x-0 lg:left-12 xl:left-16 w-[88vw] max-w-[320px] sm:max-w-[440px] lg:w-auto lg:max-w-none lg:right-12 xl:right-16 z-30">
             <div className="flex items-center gap-2.5 sm:gap-3 lg:gap-2">
               {CARDS.map((card, i) => (
                 <div
