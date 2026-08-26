@@ -147,7 +147,7 @@ export default function ClimateVideoSection() {
         className="relative w-full h-[100svh] min-h-[620px] overflow-hidden flex flex-col lg:flex-row"
       >
         {/* ── TOP (55%) on Mobile / LEFT (66%) on Laptop — weather stack ── */}
-        <div className="relative w-full h-[55svh] sm:h-[58svh] lg:h-full lg:w-2/3 overflow-hidden bg-transparent">
+        <div className="relative w-full h-[75svh] lg:h-full lg:w-2/3 overflow-hidden bg-transparent">
           {CARDS.map((card, i) => (
             <div
               key={card.city}
@@ -209,25 +209,25 @@ export default function ClimateVideoSection() {
                     ))}
                   </h3>
 
-                  {/* 2. Smaller Description Text: Centered with Balanced Max Width on Mobile */}
-                  <p className="font-suisse text-[var(--brand-cream)]/90 text-[16px] xs:text-[17.5px] sm:text-[20px] lg:text-[22px] leading-[1.38] lg:leading-[1.5] max-w-[280px] xs:max-w-[320px] sm:max-w-[420px] lg:max-w-[28ch] drop-shadow-sm">
-                    {descWords.map((word, j) => {
-                      const totalIdx = headingWords.length + j;
-                      return (
-                        <span
-                          key={`d-${j}`}
-                          ref={(el) => {
-                            if (!wordRefs.current[i]) wordRefs.current[i] = [];
-                            wordRefs.current[i][totalIdx] = el;
-                          }}
-                          className="inline-block will-change-[opacity]"
-                          style={{ opacity: DIM }}
-                        >
-                          {word}&nbsp;
-                        </span>
-                      );
-                    })}
-                  </p>
+                  {/* 2. Smaller Description Text: +2px Increased for Mobile Clarity */}
+<p className="font-suisse text-[var(--brand-cream)]/90 text-[17px] xs:text-[18.5px] sm:text-[20px] lg:text-[22px] leading-[1.35] lg:leading-[1.5] max-w-[340px] xs:max-w-[380px] sm:max-w-[460px] lg:max-w-[28ch] drop-shadow-sm">
+  {descWords.map((word, j) => {
+    const totalIdx = headingWords.length + j;
+    return (
+      <span
+        key={`d-${j}`}
+        ref={(el) => {
+          if (!wordRefs.current[i]) wordRefs.current[i] = [];
+          wordRefs.current[i][totalIdx] = el;
+        }}
+        className="inline-block will-change-[opacity]"
+        style={{ opacity: DIM }}
+      >
+        {word}&nbsp;
+      </span>
+    );
+  })}
+</p>
                 </div>
               );
             })}

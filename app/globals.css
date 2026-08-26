@@ -24,7 +24,7 @@
    sideways overscroll-chaining is disabled outright. ── */
 html {
   background-color: var(--brand-dark);
-  overflow-x: hidden;
+  overflow-x: clip;
   overscroll-behavior-x: none;
   width: 100%;
 }
@@ -34,7 +34,7 @@ body {
   padding: 0;
   background-color: var(--brand-dark);
   color: var(--brand-cream);
-  overflow-x: hidden;
+  overflow-x: clip;
   overscroll-behavior-x: none;
   position: relative;
   width: 100%;
