@@ -53,7 +53,7 @@ export default function OriginProduct() {
               style={{ background: 'radial-gradient(circle at 50% 45%, rgba(233,85,30,0.35), transparent 65%)' }}
             />
             <Image
-              src={asset('/about-media/origin-hero.jpg')}
+              src={asset('/Second last page.png')}
               alt="Origin 4-in-1 Milk Emulsion SPF 50+"
               fill
               sizes="(max-width: 1024px) 90vw, 380px"

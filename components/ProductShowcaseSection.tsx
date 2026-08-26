@@ -251,7 +251,7 @@ export default function ProductShowcaseSection() {
             >
               <p 
                 style={{ color: '#E8C5A5' }}
-                className="font-suisse text-base sm:text-lg lg:text-[24px] leading-[1.35] whitespace-pre-line drop-shadow-sm font-light"
+                className="font-suisse text-[14px] sm:text-[16px] lg:text-[18px] leading-snug tracking-wide whitespace-pre-line drop-shadow-sm font-normal"
               >
                 {product.desc}
               </p>

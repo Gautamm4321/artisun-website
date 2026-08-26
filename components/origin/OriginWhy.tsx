@@ -16,7 +16,7 @@ const STATS: Stat[] = [
   { index: '05', label: 'Over time', value: 4, suffix: ' weeks', copy: 'to a visibly stronger skin barrier, used daily.', mobileCopy: 'to a visibly stronger skin barrier, used daily.' },
 ];
 
-const BG_IMAGE = '/skinwear-media/worn-product.jpg';
+const BG_IMAGE = '/Specifics page, desktop.png';
 
 export default function OriginWhy() {
   const statsRef = useRef<HTMLDivElement>(null);

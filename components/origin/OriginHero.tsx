@@ -9,10 +9,9 @@ const BADGES = ['SPF 50+', 'PA++++', 'All Weathers', '50ml'];
 
 // Four distinct ORIGIN product shots for the gallery.
 const GALLERY = [
-  '/about-media/origin-hero.jpg',
-  '/about-media/origin-1.jpg',
-  '/about-media/origin-3.jpg',
   '/Origin, PDP_.jpg',
+  '/Origin PDP second picture.png',
+  '/Origin PDP third picture.png',
 ];
 
 const FULL_INGREDIENTS =

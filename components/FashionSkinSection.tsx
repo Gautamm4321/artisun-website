@@ -17,46 +17,61 @@ export default function FashionSkinSection() {
                 }}
             />
 
-            {/* Model Image */}
-            <div className="absolute bottom-0 left-1/2 -translate-x-1/2 z-20 pointer-events-none flex items-end justify-center leading-none">
+            {/* Model Image: Giant Fit Reaching Blue Dot on Mobile, Hand Fully Visible, Original on Laptop */}
+            <div className="absolute bottom-0 left-1/2 -translate-x-1/2 z-20 pointer-events-none flex items-end justify-center leading-none w-full h-[62vh] sm:h-[68vh] lg:h-full overflow-visible">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                     src="/wo bg.png"
                     alt=""
-                    className="h-[90vh] max-w-none w-auto object-contain object-bottom block align-bottom"
+                    className="h-[52vh] xs:h-[55vh] sm:h-[65vh] md:h-[75vh] lg:h-[90vh] max-w-none w-auto object-contain object-bottom block align-bottom select-none scale-[1.30] xs:scale-[1.42] sm:scale-100 origin-bottom -translate-x-[8%] lg:translate-x-0 translate-y-0"
                 />
             </div>
 
-           {/* Left Side: Description (Bigger Font Size & Top Synced) */}
-            <div className="absolute top-[14%] sm:top-[16%] left-6 sm:left-12 lg:left-16 z-30 max-w-[340px] sm:max-w-[500px] pointer-events-none text-left">
-                <p className="font-suisse text-[var(--brand-cream,#f5f0eb)] text-[22px] sm:text-[25px] lg:text-[31px] font-light leading-[1.12] tracking-[-0.01em] drop-shadow-[0_2px_10px_rgba(0,0,0,0.6)]">
-                    Fashion gets weeks. Skin gets<br className="hidden sm:inline" />
-                    a shelf. We&rsquo;re changing that.
+            {/* Description: Shifted Down on Mobile, Original on Desktop */}
+            <div className="absolute top-[96px] xs:top-[106px] sm:top-[116px] lg:top-[14%] xl:top-[16%] left-1/2 -translate-x-1/2 lg:translate-x-0 lg:left-16 z-30 w-full max-w-[380px] sm:max-w-[460px] lg:max-w-[500px] pointer-events-none text-center lg:text-left px-4 sm:px-0">
+                <p className="font-suisse text-[var(--brand-cream,#f5f0eb)] text-[17px] xs:text-[19px] sm:text-[23px] lg:text-[31px] font-normal lg:font-light leading-[1.22] lg:leading-[1.12] tracking-[-0.01em] drop-shadow-[0_2px_10px_rgba(0,0,0,0.6)]">
+                    <span className="block lg:hidden">
+                        Fashion gets weeks.<br />
+                        Skin gets a shelf.<br />
+                        We&rsquo;re changing that.
+                    </span>
+                    <span className="hidden lg:block">
+                        Fashion gets weeks. Skin gets<br />
+                        a shelf. We&rsquo;re changing that.
+                    </span>
                 </p>
             </div>
 
-            {/* Right Side: Indented Heading & Rectangular Borderless Button */}
-            <div className="absolute top-[14%] sm:top-[16%] right-6 sm:right-12 lg:right-20 z-30 flex flex-col items-start w-auto max-w-[340px] sm:max-w-[460px] pointer-events-auto text-left">
-                <h2 className="w-full font-editorial text-[var(--brand-cream,#f5f0eb)] text-[34px] sm:text-[52px] lg:text-[62px] leading-[1.02] tracking-[-0.01em] drop-shadow-[0_4px_16px_rgba(0,0,0,0.7)]">
-                    What&rsquo;s your skin<br />
-                    <span className="inline-block pl-6 sm:pl-8 lg:pl-10">wearing today?</span>
+            {/* Heading & Button: Restored Original Right Placement on Desktop, Spread on Mobile */}
+            <div className="absolute top-[182px] xs:top-[198px] sm:top-[225px] lg:top-[14%] xl:top-[16%] left-1/2 -translate-x-1/2 lg:translate-x-0 lg:left-auto lg:right-14 xl:right-16 z-30 flex flex-col items-center lg:items-end w-[92vw] max-w-[440px] xs:max-w-[460px] sm:max-w-[520px] lg:w-auto lg:max-w-[440px] xl:max-w-[480px] pointer-events-auto text-center lg:text-left px-1 sm:px-0">
+                <h2 className="w-full font-editorial text-[var(--brand-cream,#f5f0eb)] text-[43px] xs:text-[47px] sm:text-[54px] lg:text-[58px] xl:text-[64px] leading-[0.95] lg:leading-[1.02] tracking-[-0.015em] drop-shadow-[0_4px_16px_rgba(0,0,0,0.7)]">
+                    <span className="block lg:hidden">
+                        What&rsquo;s your skin<br />
+                        wearing today?
+                    </span>
+                    <span className="hidden lg:block whitespace-nowrap">
+                        What&rsquo;s your skin<br />
+                        <span className="inline-block pl-8 xl:pl-12">wearing today?</span>
+                    </span>
                 </h2>
-                
-                {/* Full Heading Width Transparent Box Button - Compact Height */}
+
+                {/* Button: Exact Reference Size & Alignment */}
                 <button
                     type="button"
-                    className="w-full mt-5 sm:mt-6 py-2 sm:py-2.5 px-6 rounded-none border border-[var(--brand-cream,#f5f0eb)] bg-transparent text-[var(--brand-cream,#f5f0eb)] font-suisse text-[12px] sm:text-[14px] tracking-[0.18em] uppercase flex items-center justify-center text-center hover:bg-[var(--brand-cream,#f5f0eb)] hover:text-[#420f08] transition-all duration-300 active:scale-[0.99] shadow-sm"
+                    className="hidden lg:flex w-full mt-5 sm:mt-6 py-2 sm:py-2.5 px-6 rounded-none border border-[var(--brand-cream,#f5f0eb)] bg-transparent text-[var(--brand-cream,#f5f0eb)] font-suisse text-[12px] sm:text-[13.5px] tracking-[0.18em] uppercase items-center justify-center text-center hover:bg-[var(--brand-cream,#f5f0eb)] hover:text-[#420f08] transition-all duration-300 active:scale-[0.99] shadow-sm"
                 >
                     Start wearing today
                 </button>
             </div>
 
-            {/* Background ARTISUN Brand Logo (Fitted 100% inside screen, shifted up) */}
+            {/* ARTISUN Logo: Layered above Model (z-30) on Mobile/Tabs, Background (z-10) on Laptop */}
             <div
                 aria-hidden="true"
-                className="absolute bottom-[2vh] sm:bottom-[3vh] lg:bottom-[4vh] left-1/2 -translate-x-1/2 z-10 w-[98vw] max-w-[1500px] px-4 flex justify-center pointer-events-none select-none"
+                className="absolute bottom-0 sm:bottom-[1vh] lg:bottom-[4vh] left-1/2 -translate-x-1/2 z-30 lg:z-10 w-[98vw] sm:w-[94vw] lg:w-[98vw] max-w-[1500px] px-2 sm:px-4 flex justify-center pointer-events-none select-none"
             >
+                {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                    src="Artisun Primary Logo.png"
+                    src="/Artisun Primary Logo.png"
                     alt=""
                     className="w-full h-auto object-contain opacity-95 drop-shadow-[0_10px_35px_rgba(0,0,0,0.3)]"
                     draggable={false}

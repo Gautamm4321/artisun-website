@@ -146,8 +146,8 @@ export default function ClimateVideoSection() {
         ref={pinRef}
         className="relative w-full h-[100svh] min-h-[620px] overflow-hidden flex flex-col lg:flex-row"
       >
-        {/* ── LEFT (66%) — full-bleed weather stack ── */}
-        <div className="relative w-full h-[56svh] lg:h-full lg:w-2/3 overflow-hidden bg-transparent">
+        {/* ── TOP (55%) on Mobile / LEFT (66%) on Laptop — weather stack ── */}
+        <div className="relative w-full h-[55svh] sm:h-[58svh] lg:h-full lg:w-2/3 overflow-hidden bg-transparent">
           {CARDS.map((card, i) => (
             <div
               key={card.city}
@@ -161,26 +161,23 @@ export default function ClimateVideoSection() {
               <img
                 src={card.image}
                 alt={`${card.city} — ${card.condition}`}
-                className="absolute inset-0 w-full h-full object-cover"
-                style={{ objectPosition: '50% 48%' }}
+                className="absolute inset-0 w-full h-full object-cover object-center lg:object-[50%_48%]"
                 draggable={false}
               />
             </div>
           ))}
 
-          {/* Seam softeners */}
+          {/* Seam softeners: Kept exclusively for Desktop */}
           <div
             className="absolute inset-0 pointer-events-none hidden lg:block"
             style={{ background: 'linear-gradient(90deg, transparent 78%, rgba(11,6,5,0.55) 100%)' }}
           />
-          <div
-            className="absolute inset-x-0 bottom-0 h-24 pointer-events-none lg:hidden"
-            style={{ background: 'linear-gradient(to top, #0b0605 0%, transparent 100%)' }}
-          />
         </div>
 
-        {/* ── RIGHT (33%) — text content ── */}
-        <div className="relative w-full flex-1 lg:w-1/3 lg:h-full bg-transparent">
+
+
+        {/* ── BOTTOM (45%) on Mobile / RIGHT (33%) on Laptop — text & progress ── */}
+        <div className="relative w-full flex-1 lg:w-1/3 lg:h-full bg-transparent flex flex-col justify-between">
           <div className="relative h-full w-full">
             {CARDS.map((card, i) => {
               const headingWords = card.heading.split(' ');
@@ -192,11 +189,11 @@ export default function ClimateVideoSection() {
                   ref={(el) => {
                     textRefs.current[i] = el;
                   }}
-                  className="absolute inset-0 flex flex-col justify-center px-6 sm:px-10 lg:px-12 xl:px-16 pb-16 lg:pb-20 will-change-[opacity,transform]"
+                  className="absolute inset-0 flex flex-col justify-center items-center text-center lg:items-start lg:text-left px-5 sm:px-8 lg:px-12 xl:px-16 pt-2 sm:pt-4 lg:pt-0 pb-12 sm:pb-14 lg:pb-20 will-change-[opacity,transform]"
                   style={{ opacity: i === 0 ? 1 : 0 }}
                 >
-                  {/* 1. Main City Heading */}
-                  <h3 className="font-editorial text-[var(--brand-cream)] text-[32px] sm:text-[38px] lg:text-[42px] xl:text-[46px] leading-[1.1] tracking-tight mb-3 sm:mb-4">
+                  {/* 1. Main City Heading: Centered & Large on Mobile */}
+                  <h3 className="w-full font-editorial text-[var(--brand-cream)] text-[38px] xs:text-[42px] sm:text-[48px] lg:text-[42px] xl:text-[46px] leading-[1.05] tracking-tight mb-2.5 sm:mb-3 lg:mb-4 drop-shadow-sm">
                     {headingWords.map((word, j) => (
                       <span
                         key={`h-${j}`}
@@ -212,8 +209,8 @@ export default function ClimateVideoSection() {
                     ))}
                   </h3>
 
-                  {/* 2. Smaller Description Text */}
-                  <p className="font-suisse text-[var(--brand-cream)]/90 text-[17px] sm:text-[17px] lg:text-[22px] leading-[1.5] max-w-[28ch]">
+                  {/* 2. Smaller Description Text: Centered with Balanced Max Width on Mobile */}
+                  <p className="font-suisse text-[var(--brand-cream)]/90 text-[16px] xs:text-[17.5px] sm:text-[20px] lg:text-[22px] leading-[1.38] lg:leading-[1.5] max-w-[280px] xs:max-w-[320px] sm:max-w-[420px] lg:max-w-[28ch] drop-shadow-sm">
                     {descWords.map((word, j) => {
                       const totalIdx = headingWords.length + j;
                       return (
@@ -236,13 +233,13 @@ export default function ClimateVideoSection() {
             })}
           </div>
 
-          {/* Segmented progress bar */}
-          <div className="absolute bottom-8 lg:bottom-10 left-6 sm:left-10 lg:left-12 xl:left-16 right-6 sm:right-10 lg:right-12 xl:right-16">
-            <div className="flex items-center gap-2">
+          {/* Segmented Progress Bar: Centered on Mobile, Left-aligned on Desktop */}
+          <div className="absolute bottom-5 sm:bottom-6 lg:bottom-10 left-1/2 -translate-x-1/2 lg:translate-x-0 lg:left-12 xl:left-16 w-[88vw] max-w-[340px] sm:max-w-[440px] lg:w-auto lg:max-w-none lg:right-12 xl:right-16 z-30">
+            <div className="flex items-center gap-2.5 sm:gap-3 lg:gap-2">
               {CARDS.map((card, i) => (
                 <div
                   key={card.city}
-                  className="relative h-[3px] flex-1 rounded-full bg-[var(--brand-cream)]/15 overflow-hidden"
+                  className="relative h-[2px] sm:h-[3px] flex-1 rounded-full bg-[var(--brand-cream)]/25 overflow-hidden"
                 >
                   <span
                     ref={(el) => {

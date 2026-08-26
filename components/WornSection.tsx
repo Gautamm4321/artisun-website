@@ -41,10 +41,10 @@ function GlassCard({ card }: { card: ProductCard }) {
     <Link
       href={card.href}
       aria-label={`${card.name} — ${card.sub}`}
-      className="group flex items-center gap-3 sm:gap-3.5 w-[255px] sm:w-[285px] md:w-[298px] p-2.5 sm:p-3 rounded-[20px] bg-transparent border border-white/20 transition-all duration-300 hover:border-white/50 hover:bg-white/[0.05] shadow-none drop-shadow-none"
+      className="group flex items-center gap-2 sm:gap-3.5 w-full sm:w-[235px] md:w-[260px] lg:w-[280px] xl:w-[298px] p-2 sm:p-3 rounded-[16px] sm:rounded-[20px] bg-black/45 lg:bg-transparent backdrop-blur-md lg:backdrop-blur-none border border-white/25 lg:border-white/20 transition-all duration-300 hover:border-white/50 hover:bg-white/[0.08]"
     >
-      {/* Bigger Square Image Box */}
-      <span className="relative block h-14 w-14 sm:h-16 sm:w-16 md:h-[68px] md:w-[68px] shrink-0 overflow-hidden rounded-[14px] ring-1 ring-white/35 bg-black/25">
+      {/* Square Image Box */}
+      <span className="relative block h-11 w-11 sm:h-14 sm:w-14 md:h-16 md:w-16 lg:h-[68px] lg:w-[68px] shrink-0 overflow-hidden rounded-[12px] sm:rounded-[14px] ring-1 ring-white/35 bg-black/25">
         <Image
           src={card.img}
           alt={card.name}
@@ -80,7 +80,7 @@ function GlassCard({ card }: { card: ProductCard }) {
 export default function WornSection() {
   return (
     <section
-      className="relative w-full min-h-[100svh] z-20 flex items-center justify-between overflow-hidden px-6 sm:px-10 md:px-14 lg:px-20"
+      className="relative w-full min-h-[100svh] h-[100svh] z-20 flex flex-col lg:flex-row lg:items-center justify-between overflow-hidden px-5 sm:px-8 md:px-12 lg:px-14 xl:px-20 pt-20 sm:pt-24 lg:pt-0 pb-5 sm:pb-6 lg:pb-0"
     >
 
       {/* Background Gradient */}
@@ -92,38 +92,45 @@ export default function WornSection() {
         }}
       />
 
-      {/* ── 1. LEFT: FULL-HEIGHT BLEED MODEL IMAGE (Flush Left & Scaled to Aura) ── */}
-<div className="absolute left-0 bottom-0 top-0 z-10 w-[98vw] sm:w-[90vw] lg:w-[86vw] h-full pointer-events-none flex items-end justify-start overflow-visible">
-  <div className="relative w-full h-[130vh] sm:h-[145vh] lg:h-[155vh] origin-bottom-left -translate-x-[12%] lg:-translate-x-[11%] translate-y-0 sm:translate-y-1 lg:translate-y-2">
-    <Image
-      src={asset('/Without bg.png')}
-      alt="Artisun Model"
-      fill
-      priority
-      sizes="(max-width: 1024px) 98vw, 85vw"
-      className="object-contain object-left-bottom select-none drop-shadow-[0_25px_50px_rgba(0,0,0,0.5)]"
-    />
-  </div>
-</div>
+     {/* ── 1. MODEL IMAGE: Perfect Fit (Uncropped Full Body & Ponytail) ── */}
+      <div className="absolute inset-x-0 lg:right-auto lg:left-0 bottom-0 z-10 w-full lg:w-[86vw] h-full pointer-events-none flex items-end justify-center lg:justify-start overflow-visible">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={asset('/Without bg.png')}
+          alt="Artisun Model"
+          className="h-[68vh] sm:h-[80vh] md:h-[85vh] lg:h-[100vh] w-auto max-w-none object-contain object-bottom lg:object-left-bottom select-none -translate-x-[8%] sm:-translate-x-[8%] lg:-translate-x-[11%] translate-y-1 sm:translate-y-0 lg:translate-y-2 drop-shadow-[0_25px_50px_rgba(0,0,0,0.5)]"
+        />
+      </div>
 
-      {/* ── 2. RIGHT-ALIGNED TEXT BLOCK ── */}
+    {/* ── 2. TEXT BLOCK: Wide Mobile Widths + Original Large Laptop Desc ── */}
       <div
-        className="relative z-20 w-full max-w-[1000px] lg:max-w-[1050px] ml-auto flex flex-col items-end text-right pt-6 sm:pt-0"
+        className="relative z-20 w-full max-w-full lg:max-w-[760px] xl:max-w-[880px] 2xl:max-w-[980px] ml-auto flex flex-col items-start text-left lg:items-end lg:text-right pt-2 sm:pt-4 lg:pt-0 lg:-translate-y-4 xl:-translate-y-6"
       >
-        {/* Main 2-Line Headline */}
-        <h2 className="font-editorial text-[var(--brand-cream,#f5f0eb)] text-[clamp(38px,3.2vw,56px)] leading-[1.12] tracking-[-0.02em] font-normal drop-shadow-md">
-          <span className="block whitespace-nowrap">Most sunscreens are made to be</span>
-          <span className="block whitespace-nowrap">tolerated, ours is designed to be worn.</span>
+        {/* Main Headline */}
+        <h2 className="font-editorial text-[var(--brand-cream,#f5f0eb)] text-[38px] xs:text-[42px] sm:text-[46px] md:text-[50px] lg:text-[clamp(32px,2.9vw,54px)] leading-[1.08] lg:leading-[1.1] tracking-[-0.02em] font-normal drop-shadow-md w-full max-w-[390px] xs:max-w-[440px] sm:max-w-[560px] lg:max-w-none">
+          {/* Mobile & Tablet: Exact 3 Lines */}
+          <span className="block lg:hidden">
+            Most sunscreens are made<br />
+            to be tolerated, ours is<br />
+            designed to be worn.
+          </span>
+
+          {/* Desktop & Laptops: Standard 2 Lines */}
+          <span className="hidden lg:block">
+            <span className="block whitespace-nowrap">Most sunscreens are made to be</span>
+            <span className="block whitespace-nowrap">tolerated, ours is designed to be worn.</span>
+          </span>
         </h2>
 
-        {/* 2-Line Sub-Description */}
-        <p className="font-suisse text-[var(--brand-cream,#f5f0eb)]/90 text-[clamp(20px,1.4vw,18px)] leading-[1.4] font-normal mt-6 sm:mt-8 md:mt-10 max-w-[460px] drop-shadow-sm">
-          Because you’ll only wear it every day if it<br className="hidden sm:inline" /> survives every kind of day.
+        {/* Sub-Description: Wider on mobile, Restored large size on Laptop (18px-21px) */}
+        <p className="font-suisse text-[var(--brand-cream,#f5f0eb)]/90 text-[15.5px] xs:text-[17px] sm:text-[18px] lg:text-[18px] xl:text-[20px] 2xl:text-[21px] leading-[1.4] sm:leading-[1.45] font-normal mt-4 sm:mt-5 lg:mt-7 w-full max-w-[380px] xs:max-w-[420px] sm:max-w-[480px] lg:max-w-[480px] drop-shadow-sm">
+          Because you’ll only wear it every day if it<br />
+          survives every kind of day.
         </p>
       </div>
 
-      {/* ── 3. BOTTOM-RIGHT HORIZONTAL PRODUCT CARDS ── */}
-      <div className="absolute right-6 sm:right-10 md:right-14 lg:right-20 bottom-6 sm:bottom-8 md:bottom-10 z-30 flex flex-row items-center gap-3 sm:gap-4 overflow-x-auto max-w-[calc(100vw-3rem)] sm:max-w-none">
+      {/* ── 3. PRODUCT CARDS: Centered on Mobile/Tablet, Bottom-Right on Desktop ── */}
+      <div className="relative lg:absolute z-30 w-full lg:w-auto max-w-[430px] sm:max-w-[500px] md:max-w-[560px] lg:max-w-none mx-auto lg:mx-0 mt-auto lg:mt-0 right-auto lg:right-10 xl:right-20 bottom-0 lg:bottom-8 xl:bottom-10 flex flex-row justify-center items-center gap-2 sm:gap-3.5 lg:gap-4 px-1 sm:px-0">
         {CARDS.map((card) => (
           <GlassCard key={card.href} card={card} />
         ))}
