@@ -107,16 +107,13 @@ export default function HomeHeader({ ready = false }: { ready?: boolean }) {
       ref={headerRef}
       className="fixed top-0 left-0 w-full z-[100] pointer-events-none opacity-0"
     >
-      {/* Deepening tint — invisible over the hero, legible once content scrolls under */}
+      {/* Clean overlay without text blur */}
       <div
         ref={barTintRef}
-        className="absolute inset-x-0 top-0 h-[92px] md:h-[104px] pointer-events-none"
+        className="absolute inset-x-0 top-0 h-[64px] md:h-[76px] pointer-events-none"
         style={{
           opacity: 0,
-          background:
-            'linear-gradient(to bottom, rgba(15,7,4,0.72) 0%, rgba(15,7,4,0.28) 60%, transparent 100%)',
-          backdropFilter: 'blur(2px)',
-          WebkitBackdropFilter: 'blur(2px)',
+          background: 'transparent',
         }}
       />
 

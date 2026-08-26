@@ -81,14 +81,14 @@ export default function ClimateModelSection() {
         />
       </div>
 
-      {/* 4. Top-Left Typography */}
-      <div className="absolute top-14 xs:top-16 sm:top-24 md:top-28 lg:top-[20%] xl:top-[23%] left-4 sm:left-8 md:left-10 lg:left-15 z-30 w-auto max-w-[85vw] lg:max-w-[900px] pointer-events-none text-left">
-        <p className="font-suisse text-[var(--brand-cream,#f5f0eb)] text-[13px] xs:text-[14px] sm:text-[20px] md:text-[24px] lg:text-[32px] font-normal leading-[1.1] sm:leading-[1.04] tracking-[-0.015em] drop-shadow-[0_2px_10px_rgba(0,0,0,0.7)] translate-y-0 lg:translate-y-8">
+      {/* 4. Top-Left Typography (Shifted Down & Larger/Wider Heading on Mobile) */}
+      <div className="absolute top-[82px] xs:top-[90px] sm:top-24 md:top-28 lg:top-[20%] xl:top-[23%] left-4 xs:left-5 sm:left-8 md:left-10 lg:left-15 z-30 w-full max-w-[92vw] sm:max-w-[85vw] lg:max-w-[900px] pointer-events-none text-left">
+        <p className="font-suisse text-[var(--brand-cream,#f5f0eb)] text-[14px] xs:text-[15.5px] sm:text-[20px] md:text-[24px] lg:text-[32px] font-normal leading-[1.15] sm:leading-[1.04] tracking-[-0.015em] drop-shadow-[0_2px_10px_rgba(0,0,0,0.7)] translate-y-0 lg:translate-y-8">
           So we made one<br />
           that&rsquo;s ready for all of it
         </p>
 
-        <h2 className="font-editorial font-[200] text-[var(--brand-cream,#f5f0eb)] text-[26px] xs:text-[29px] sm:text-[38px] md:text-[46px] lg:text-[84px] leading-[0.98] sm:leading-[0.94] tracking-[-0.01em] sm:tracking-[-0.015em] lg:tracking-[-0.02em] origin-left scale-x-100 lg:scale-x-[1.12] whitespace-normal lg:whitespace-nowrap mt-2 xs:mt-3 sm:mt-6 lg:mt-13 translate-y-0 lg:translate-y-6 drop-shadow-[0_4px_16px_rgba(0,0,0,0.8)] antialiased">
+        <h2 className="font-editorial font-[200] text-[var(--brand-cream,#f5f0eb)] text-[34px] xs:text-[38px] sm:text-[44px] md:text-[46px] lg:text-[84px] leading-[0.95] sm:leading-[0.94] tracking-[-0.015em] lg:tracking-[-0.02em] origin-left scale-x-100 lg:scale-x-[1.12] whitespace-normal lg:whitespace-nowrap mt-2 xs:mt-2.5 sm:mt-6 lg:mt-13 translate-y-0 lg:translate-y-6 drop-shadow-[0_4px_16px_rgba(0,0,0,0.8)] antialiased">
           The first<br />
           Climate-smart<span className="text-[0.25em] align-top tracking-normal font-sans ml-1">TM</span><br />
           sun care line
