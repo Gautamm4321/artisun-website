@@ -239,6 +239,8 @@ export default function ArtisunMainFAQ() {
 
     return (
         <div className="relative w-full min-h-screen text-[var(--brand-cream)] flex flex-col items-center">
+            
+            
             {/* ── Exact About Page Signature Red-Orange Molten Background ── */}
             {/* ── Exact About Hero Radiant Molten Red Glow ── */}
             {/* Base Red Gradient */}

@@ -98,7 +98,7 @@ export default function WornSection() {
         <img
           src={asset('/Without bg.png')}
           alt="Artisun Model"
-          className="h-[72vh] xs:h-[76vh] sm:h-[84vh] md:h-[82vh] lg:h-[100vh] w-auto max-w-none object-contain object-bottom lg:object-left-bottom select-none -translate-x-[6%] sm:-translate-x-[8%] lg:-translate-x-[11%] translate-y-1 sm:translate-y-0 lg:translate-y-2 drop-shadow-[0_25px_50px_rgba(0,0,0,0.5)]"
+          className="h-[69vh] xs:h-[71vh] sm:h-[79vh] md:h-[82vh] lg:h-[100vh] w-auto max-w-none object-contain object-bottom lg:object-left-bottom select-none -translate-x-[6%] sm:-translate-x-[8%] lg:-translate-x-[11%] translate-y-1 sm:translate-y-0 lg:translate-y-2 drop-shadow-[0_25px_50px_rgba(0,0,0,0.5)]"
         />
       </div>
 
@@ -109,7 +109,7 @@ export default function WornSection() {
         {/* Main Headline */}
         <h2 className="font-editorial text-[var(--brand-cream,#f5f0eb)] text-[31px] xs:text-[35px] sm:text-[43px] md:text-[46px] lg:text-[clamp(32px,2.9vw,54px)] leading-[1.24] lg:leading-[1.1] tracking-[-0.02em] font-normal drop-shadow-md w-full max-w-[320px] xs:max-w-[350px] sm:max-w-[560px] lg:max-w-none">
           {/* Mobile & Tablet: Exact 3 Lines */}
-          <span className="block lg:hidden">
+          <span className="block lg:hidden -mt-4">
             Most sunscreens are made<br />
             to be tolerated, ours is<br />
             designed to be worn.
