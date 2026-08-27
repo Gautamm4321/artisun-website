@@ -92,7 +92,7 @@ export default function WornSection() {
         }}
       />
 
-     {/* ── 1. MODEL IMAGE: Perfectly Grounded on Mobile, Exact Full-Bleed on Laptop ── */}
+      {/* ── 1. MODEL IMAGE: Perfectly Grounded on Mobile, Exact Full-Bleed on Laptop ── */}
       <div className="absolute inset-x-0 lg:right-auto lg:left-0 bottom-0 z-10 w-full lg:w-[86vw] h-full pointer-events-none flex items-end justify-center lg:justify-start overflow-visible">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
@@ -102,9 +102,9 @@ export default function WornSection() {
         />
       </div>
 
-    {/* ── 2. TEXT BLOCK: Top Clamped (Zero Face Overlap on Mobile), Large on Laptop ── */}
+      {/* ── 2. TEXT BLOCK: Top Clamped (Zero Face Overlap on Mobile), Large on Laptop ── */}
       <div
-      className="... pt-0 sm:pt-4 lg:pt-0 lg:-translate-y-4 xl:-translate-y-6 -translate-y-6"
+        className="relative z-20 w-full max-w-full lg:max-w-[760px] xl:max-w-[880px] 2xl:max-w-[980px] ml-auto flex flex-col items-start text-left lg:items-end lg:text-right pt-0 sm:pt-4 lg:pt-0 lg:-translate-y-4 xl:-translate-y-6"
       >
         {/* Main Headline */}
         <h2 className="font-editorial text-[var(--brand-cream,#f5f0eb)] text-[31px] xs:text-[35px] sm:text-[43px] md:text-[46px] lg:text-[clamp(32px,2.9vw,54px)] leading-[1.24] lg:leading-[1.1] tracking-[-0.02em] font-normal drop-shadow-md w-full max-w-[320px] xs:max-w-[350px] sm:max-w-[560px] lg:max-w-none">
@@ -129,7 +129,7 @@ export default function WornSection() {
         </p>
       </div>
 
-     {/* ── 3. PRODUCT CARDS: Bottom Anchored on Mobile, Bottom-Right on Desktop ── */}
+      {/* ── 3. PRODUCT CARDS: Bottom Anchored on Mobile, Bottom-Right on Desktop ── */}
       <div className="relative lg:absolute z-30 w-full lg:w-auto max-w-[400px] sm:max-w-[500px] md:max-w-[560px] lg:max-w-none mx-auto lg:mx-0 mt-auto lg:mt-0 right-auto lg:right-10 xl:right-20 bottom-0 lg:bottom-8 xl:bottom-10 flex flex-row justify-center items-center gap-2 sm:gap-3.5 lg:gap-4 px-0 pb-1 sm:pb-0">
         {CARDS.map((card) => (
           <GlassCard key={card.href} card={card} />

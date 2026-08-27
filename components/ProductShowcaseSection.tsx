@@ -1,12 +1,18 @@
 'use client';
 
-import React, { useRef, useState, Suspense } from 'react';
+import React, { useRef, useState, useEffect, Suspense } from 'react';
 import Link from 'next/link';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { useGLTF, Center } from '@react-three/drei';
 import * as THREE from 'three';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { AnimatePresence, motion } from 'framer-motion';
 import { asset } from '@/lib/asset';
+
+if (typeof window !== 'undefined') {
+  gsap.registerPlugin(ScrollTrigger);
+}
 
 type Product = {
   id: string;
@@ -17,6 +23,7 @@ type Product = {
   rightTitle: string;
   rightSub: string;
   desc: string;
+  mobileDesc: string;
   specs: string;
   ingredients: string;
   model: string;
@@ -34,9 +41,10 @@ const PRODUCTS: Product[] = [
     leftSub: 'Serum, moisturiser, primer, SPF',
     rightTitle: 'done in one',
     rightSub: 'lightweight milky step.',
-    desc: 'Best for all weathers, all cities.\nNo matter where you are or what \nthe day looks like.',
+    desc: 'Best for all weathers, all cities.\nNo matter where you are or what\nthe day looks like.',
+    mobileDesc: 'Best for all weathers and cities.',
     specs: 'SPF 50+ · PA++++',
-    ingredients: 'Formulated with Beta-glucan\nand Camellia Sinensis Extract',
+    ingredients: 'Formulated with Beta-Glucan and\nCamellia Sinensis Extract',
     model: asset('/1.glb'),
     scale: 0.48,
     thumb: asset('/about-media/origin-hero.jpg'),
@@ -51,6 +59,7 @@ const PRODUCTS: Product[] = [
     rightTitle: 'sun\nprotection',
     rightSub: '',
     desc: 'Best for: When you need something\nto adjust to changing weathers, or\nwhen your day is moody.',
+    mobileDesc: 'Best for: When you need something\nto adjust to changing weathers, or\nwhen your day is moody.',
     specs: 'SPF 40 · PA++++',
     ingredients: 'Formulated with Ectoin and Bisabolol',
     model: asset('/1.glb'),
@@ -66,10 +75,12 @@ function ModelItem({
   modelPath,
   isActive,
   scale,
+  isMobile,
 }: {
   modelPath: string;
   isActive: boolean;
   scale: number;
+  isMobile: boolean;
 }) {
   const groupRef = useRef<THREE.Group>(null!);
   const { scene } = useGLTF(modelPath);
@@ -80,10 +91,12 @@ function ModelItem({
     groupRef.current.visible = isActive;
     if (!isActive) return;
 
-    // Smooth continuous 360-degree rotation (frame-rate independent)
-    groupRef.current.rotation.y += delta * 0.75;
-    groupRef.current.position.y = Math.sin(Date.now() * 0.0018) * 0.05;
-    groupRef.current.scale.setScalar(scale);
+    groupRef.current.rotation.y += delta * 0.85;
+    const yOffset = isMobile ? 0.20 : 0;
+    groupRef.current.position.y = Math.sin(Date.now() * 0.0018) * 0.04 + yOffset;
+    
+    const targetScale = isMobile ? scale * 0.70 : scale;
+    groupRef.current.scale.setScalar(targetScale);
   });
 
   return (
@@ -96,19 +109,52 @@ function ModelItem({
 }
 
 export default function ProductShowcaseSection() {
+  const sectionRef = useRef<HTMLElement>(null);
   const [active, setActive] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
   const product = PRODUCTS[active];
+
+  useEffect(() => {
+    const checkMob = () => setIsMobile(window.innerWidth < 1024);
+    checkMob();
+    window.addEventListener('resize', checkMob);
+
+    // Scroll-based seamless 360 swap on mobile & desktop
+    const trigger = ScrollTrigger.create({
+      trigger: sectionRef.current,
+      start: 'top top',
+      end: '+=120%',
+      pin: true,
+      anticipatePin: 1,
+      onUpdate: (self) => {
+        if (self.progress < 0.5) {
+          setActive(0); // Origin first
+        } else {
+          setActive(1); // Aura second
+        }
+      },
+    });
+
+    return () => {
+      trigger.kill();
+      window.removeEventListener('resize', checkMob);
+    };
+  }, []);
 
   return (
     <section
-      className="relative w-full min-h-[100svh] overflow-hidden z-[110] flex items-center justify-center text-[var(--brand-cream,#f5f0eb)] px-3 sm:px-5 lg:px-6 pt-28 pb-14 sm:pt-32 sm:pb-16 lg:py-16"
+      ref={sectionRef}
+      className="relative w-full h-[100svh] min-h-[640px] overflow-hidden z-[110] flex items-center justify-center text-[var(--brand-cream,#f5f0eb)] px-3 sm:px-5 lg:px-6 py-6 lg:py-16"
       style={{
         background:
           'radial-gradient(135% 120% at 50% 20%, #E8551E 0%, #C43612 28%, #8D180C 60%, #460905 100%)',
       }}
     >
-      {/* Center Dividing Line */}
-      <div className="absolute top-0 bottom-0 left-1/2 -translate-x-1/2 w-[1px] bg-white/15 z-0 pointer-events-none" />
+      {/* Horizontal Dividing Line: Darker & clearer visible white line */}
+<div className="block lg:hidden absolute top-1/2 left-0 right-0 -translate-y-1/2 h-[1.2px] bg-white/45 z-0 pointer-events-none" />
+
+      {/* Desktop Vertical Dividing Line */}
+      <div className="hidden lg:block absolute top-0 bottom-0 left-1/2 -translate-x-1/2 w-[1px] bg-white/15 z-0 pointer-events-none" />
 
       {/* 3D Bottle Canvas */}
       <div className="absolute inset-0 z-0 pointer-events-none flex items-center justify-center">
@@ -129,22 +175,23 @@ export default function ProductShowcaseSection() {
           <pointLight position={[0, 0.8, -1.2]} intensity={3.5} color="#ffaa66" distance={8} decay={2} />
           <spotLight position={[0, 10, 4]} angle={0.32} penumbra={1} intensity={2.2} />
 
-          <Suspense fallback={null}>
+        <Suspense fallback={null}>
             <ModelItem
               key={product.id}
               modelPath={product.model}
               isActive={true}
               scale={product.scale}
+              isMobile={isMobile}
             />
           </Suspense>
         </Canvas>
       </div>
 
-      {/* Content Container (Full Width Bleed) */}
-      <div className="relative z-20 w-full max-w-[1720px] px-4 sm:px-8 lg:px-12 mx-auto min-h-[85vh] flex flex-col justify-between">
+      {/* Content Container */}
+      <div className="relative z-20 w-full max-w-[1720px] px-4 sm:px-8 lg:px-12 mx-auto h-[92svh] lg:min-h-[85vh] flex flex-col justify-between">
 
-        {/* ── ROW 1: TOP SWITCH CARDS (Shifted Together to Right) ── */}
-        <div className="relative z-[120] flex items-center justify-end gap-3 sm:gap-4 w-full mt-2 sm:mt-4 pointer-events-auto">
+        {/* ── DESKTOP SWITCH CARDS (Hidden on Mobile screens completely) ── */}
+        <div className="hidden lg:flex relative z-[120] items-center justify-end gap-3 sm:gap-4 w-full mt-2 sm:mt-4 pointer-events-auto">
           {/* Origin Card */}
           <button
             type="button"
@@ -154,20 +201,15 @@ export default function ProductShowcaseSection() {
               setActive(0);
             }}
             aria-label="Switch to Origin"
-            className={`cursor-pointer relative z-[120] flex items-center justify-center h-14 w-14 sm:h-16 sm:w-16 md:h-[72px] md:w-[72px] rounded-xl border transition-all duration-300 backdrop-blur-md overflow-hidden ${active === 0
-              ? 'border-white/90 bg-black/50 scale-105 shadow-xl ring-2 ring-white/40'
-              : 'border-white/20 bg-black/20 opacity-60 hover:opacity-100 hover:scale-100'
-              }`}
+            className={`cursor-pointer relative z-[120] flex items-center justify-center h-16 w-16 md:h-[72px] md:w-[72px] rounded-xl border transition-all duration-300 backdrop-blur-md overflow-hidden ${
+              active === 0
+                ? 'border-white/90 bg-black/50 scale-105 shadow-xl ring-2 ring-white/40'
+                : 'border-white/20 bg-black/20 opacity-60 hover:opacity-100 hover:scale-100'
+            }`}
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={PRODUCTS[0].thumb}
-              alt="Origin"
-              className="h-full w-full object-cover pointer-events-none"
-            />
-            {active === 0 && (
-              <span className="absolute bottom-1 w-1.5 h-1.5 rounded-full bg-white shadow-glow pointer-events-none" />
-            )}
+            <img src={PRODUCTS[0].thumb} alt="Origin" className="h-full w-full object-cover pointer-events-none" />
+            {active === 0 && <span className="absolute bottom-1 w-1.5 h-1.5 rounded-full bg-white shadow-glow pointer-events-none" />}
           </button>
 
           {/* Aura Card */}
@@ -179,26 +221,64 @@ export default function ProductShowcaseSection() {
               setActive(1);
             }}
             aria-label="Switch to Aura"
-            className={`cursor-pointer relative z-[120] flex items-center justify-center h-14 w-14 sm:h-16 sm:w-16 md:h-[72px] md:w-[72px] rounded-xl border transition-all duration-300 backdrop-blur-md overflow-hidden ${active === 1
-              ? 'border-white/90 bg-black/50 scale-105 shadow-xl ring-2 ring-white/40'
-              : 'border-white/20 bg-black/20 opacity-60 hover:opacity-100 hover:scale-100'
-              }`}
+            className={`cursor-pointer relative z-[120] flex items-center justify-center h-16 w-16 md:h-[72px] md:w-[72px] rounded-xl border transition-all duration-300 backdrop-blur-md overflow-hidden ${
+              active === 1
+                ? 'border-white/90 bg-black/50 scale-105 shadow-xl ring-2 ring-white/40'
+                : 'border-white/20 bg-black/20 opacity-60 hover:opacity-100 hover:scale-100'
+            }`}
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={PRODUCTS[1].thumb}
-              alt="Aura"
-              className="h-full w-full object-cover pointer-events-none"
-            />
-            {active === 1 && (
-              <span className="absolute bottom-1 w-1.5 h-1.5 rounded-full bg-white shadow-glow pointer-events-none" />
-            )}
+            <img src={PRODUCTS[1].thumb} alt="Aura" className="h-full w-full object-cover pointer-events-none" />
+            {active === 1 && <span className="absolute bottom-1 w-1.5 h-1.5 rounded-full bg-white shadow-glow pointer-events-none" />}
           </button>
         </div>
 
-        {/* ── MIDDLE ROW: MAIN TITLES BESIDE BOTTLE (Edge to Center Dot) ── */}
-        <div className="grid grid-cols-2 gap-4 sm:gap-6 lg:gap-8 items-center my-auto w-full">
-          {/* Left Title: Spans from screen edge directly to bottle dot */}
+        {/* Mobile Middle-Right Circular Action Arrow (Positioned exactly on line) */}
+        <Link
+          href={product.href}
+          aria-label={`Go to ${product.name}`}
+          className="lg:hidden absolute right-4 sm:right-6 top-[50%] -translate-y-[50%] z-40 w-11 h-11 rounded-full border border-white/80 bg-black/20 backdrop-blur-md flex items-center justify-center text-white active:scale-95 shadow-xl pointer-events-auto"
+        >
+          <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+            <line x1="7" y1="17" x2="17" y2="7" />
+            <polyline points="7 7 17 7 17 17" />
+          </svg>
+        </Link>
+
+        {/* ── MOBILE TOP HEADER (Client Image Match) ── */}
+        <div className="lg:hidden w-full flex flex-col items-center text-center pt-6 xs:pt-8 px-3 z-30">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={product.id + '-mobile-top'}
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 10 }}
+              transition={{ duration: 0.4, ease: EASE }}
+              className="w-full flex flex-col items-center"
+            >
+              {product.id === 'origin' ? (
+                <>
+                  <h2 className="font-editorial text-[50px] xs:text-[56px] leading-[0.92] tracking-[-0.01em] text-[var(--brand-cream,#f5f0eb)] whitespace-nowrap drop-shadow-md">
+                    4 steps in 1
+                  </h2>
+                  <p className="font-suisse text-[14px] xs:text-[14.5px] leading-[1.28] text-white/95 mt-2.5 max-w-[290px] xs:max-w-[310px]">
+                    Serum, moisturiser, primer, SPF in one<br />
+                    lightweight milky step
+                  </p>
+                </>
+              ) : (
+                <h2 className="font-editorial text-[38px] xs:text-[44px] leading-[0.98] tracking-tight text-[var(--brand-cream,#f5f0eb)]">
+                  Pearls that melt<br />
+                  into sun protection
+                </h2>
+              )}
+            </motion.div>
+          </AnimatePresence>
+        </div>
+
+        {/* ── DESKTOP MIDDLE ROW (Untouched Left/Right Title Columns) ── */}
+        <div className="hidden lg:grid grid-cols-2 gap-8 items-center my-auto w-full">
+          {/* Left Title */}
           <AnimatePresence mode="wait">
             <motion.div
               key={product.id + '-center-left'}
@@ -206,18 +286,18 @@ export default function ProductShowcaseSection() {
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -15 }}
               transition={{ duration: 0.5, ease: EASE }}
-              className="flex flex-col items-start text-left w-full pl-0 sm:pl-2"
+              className="flex flex-col items-start text-left w-full pl-2"
             >
               <h2 className="font-editorial text-[clamp(44px,7.2vw,118px)] leading-[0.88] tracking-[-0.02em] whitespace-pre-line drop-shadow-md">
                 {product.leftTitle}
               </h2>
-              <p className="font-suisse text-sm sm:text-base lg:text-[24px] leading-snug text-white/90 mt-3 sm:mt-5 tracking-wide">
+              <p className="font-suisse text-[24px] leading-snug text-white/90 mt-5 tracking-wide">
                 {product.leftSub}
               </p>
             </motion.div>
           </AnimatePresence>
 
-          {/* Right Title: Spans from bottle dot directly to screen edge */}
+          {/* Right Title */}
           <AnimatePresence mode="wait">
             <motion.div
               key={product.id + '-center-right'}
@@ -225,20 +305,57 @@ export default function ProductShowcaseSection() {
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: 15 }}
               transition={{ duration: 0.5, ease: EASE }}
-              className="flex flex-col items-end text-right w-full pr-0 sm:pr-2"
+              className="flex flex-col items-end text-right w-full pr-2"
             >
               <h2 className="font-editorial text-[clamp(44px,7.2vw,118px)] leading-[0.88] tracking-[-0.02em] whitespace-pre-line drop-shadow-md">
                 {product.rightTitle}
               </h2>
-              <p className="font-suisse text-sm sm:text-base lg:text-[24px] leading-snug text-white/90 mt-3 sm:mt-5 tracking-wide">
+              <p className="font-suisse text-[24px] leading-snug text-white/90 mt-5 tracking-wide">
                 {product.rightSub}
               </p>
             </motion.div>
           </AnimatePresence>
         </div>
 
-      {/* ── BOTTOM ROW: DESCRIPTION & CTA SPECS ── */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-10 lg:gap-16 items-end w-full pb-6 sm:pb-8 lg:pb-10 -translate-y-3 sm:-translate-y-4">
+        {/* ── MOBILE BOTTOM STACK (Pure Image Match Layout) ── */}
+        <div className="lg:hidden w-full flex flex-col items-center text-center pb-8 xs:pb-10 px-2 z-30">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={product.id + '-mobile-bottom'}
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.4, ease: EASE }}
+              className="w-full flex flex-col items-center space-y-2"
+            >
+              {/* SPF Heading */}
+              <h3 className="font-editorial text-[28px] xs:text-[32px] leading-none tracking-tight text-[var(--brand-cream,#f5f0eb)]">
+                {product.specs}
+              </h3>
+
+              {/* Ingredients formula */}
+              <p className="font-suisse text-[15.5px] xs:text-[15px] leading-snug text-white/90 max-w-[340px]">
+                {product.ingredients}
+              </p>
+
+              {/* Best for Tagline: Locked Line Breaks for Mobile */}
+              <div className="font-suisse text-[13.5px] xs:text-[14.5px] font-normal leading-[1.35] text-white/95 pt-2 text-center w-full">
+                {product.id === 'origin' ? (
+                  <p>Best for all weathers and cities.</p>
+                ) : (
+                  <p>
+                    Best for: When you need something<br />
+                    to adjust to changing weathers, or<br />
+                    when your day is moody.
+                  </p>
+                )}
+              </div>
+            </motion.div>
+          </AnimatePresence>
+        </div>
+
+        {/* ── DESKTOP BOTTOM ROW (Explicit Line Breaks) ── */}
+        <div className="hidden lg:grid grid-cols-2 gap-16 items-end w-full pb-10 -translate-y-4">
           {/* Bottom Left: Description */}
           <AnimatePresence mode="wait">
             <motion.div
@@ -247,14 +364,27 @@ export default function ProductShowcaseSection() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
               transition={{ duration: 0.5, ease: EASE }}
-              className="max-w-[560px] text-left pl-0 sm:pl-2"
+              className="max-w-[560px] text-left pl-2"
             >
-              <p 
-                style={{ color: '#E8C5A5' }}
-                className="font-suisse text-[14px] sm:text-[16px] lg:text-[18px] leading-snug tracking-wide whitespace-pre-line drop-shadow-sm font-normal"
-              >
-                {product.desc}
-              </p>
+              {product.id === 'aura' ? (
+                <p 
+                  style={{ color: '#E8C5A5' }}
+                  className="font-suisse text-[18px] leading-[1.35] tracking-wide drop-shadow-sm font-normal"
+                >
+                  Best for: When you need something<br />
+                  to adjust to changing weathers, or<br />
+                  when your day is moody.
+                </p>
+              ) : (
+                <p 
+                  style={{ color: '#E8C5A5' }}
+                  className="font-suisse text-[18px] leading-[1.35] tracking-wide drop-shadow-sm font-normal"
+                >
+                  Best for all weathers, all cities.<br />
+                  No matter where you are or what<br />
+                  the day looks like.
+                </p>
+              )}
             </motion.div>
           </AnimatePresence>
 
@@ -266,27 +396,27 @@ export default function ProductShowcaseSection() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
               transition={{ duration: 0.5, ease: EASE }}
-              className="flex flex-col items-end text-right space-y-0.5 sm:space-y-1"
+              className="flex flex-col items-end text-right space-y-1"
             >
               <Link
                 href={product.href}
                 style={{ backgroundColor: '#edc6a2', color: '#3A0D08' }}
-                className="pointer-events-auto font-suisse text-xs sm:text-sm tracking-wider uppercase px-7 sm:px-9 py-2.5 sm:py-3 font-medium hover:bg-white transition-colors shadow-lg rounded-none mb-1.5"
+                className="pointer-events-auto font-suisse text-sm tracking-wider uppercase px-9 py-3 font-medium hover:bg-white transition-colors shadow-lg rounded-none mb-1.5"
               >
                 Add to bag
               </Link>
               <p 
                 style={{ color: '#edc6a2' }}
-                className="font-editorial text-base sm:text-lg lg:text-[19px] leading-tight tracking-wider"
+                className="font-editorial text-[19px] leading-tight tracking-wider"
               >
                 {product.specs}
               </p>
               <p
-  style={{ color: '#edc6a2' }}
-  className="font-suisse text-[14px] sm:text-[16px] lg:text-[18px] leading-tight tracking-wide whitespace-pre-line"
->
-  {product.ingredients}
-</p>
+                style={{ color: '#edc6a2' }}
+                className="font-suisse text-[18px] leading-tight tracking-wide whitespace-pre-line"
+              >
+                {product.ingredients}
+              </p>
             </motion.div>
           </AnimatePresence>
         </div>

@@ -4,8 +4,6 @@ import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-const sentence = 'And your city decides what kind of day your skin gets.';
-
 export default function TextRevealSection() {
   const containerRef = useRef<HTMLElement>(null);
 
@@ -16,26 +14,27 @@ export default function TextRevealSection() {
     if (!el) return;
 
     const words = el.querySelectorAll('.reveal-word');
+    const isMobile = window.innerWidth < 768;
 
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: el,
-          start: 'top top',
-          end: '+=140%',
-          pin: true,
-          anticipatePin: 1,
-          scrub: 1,
+          start: isMobile ? 'top 85%' : 'top top',
+          end: isMobile ? 'top 25%' : '+=100%',
+          pin: !isMobile,
+          anticipatePin: isMobile ? 0 : 1,
+          scrub: 0.6,
           invalidateOnRefresh: true,
         },
       });
 
       tl.fromTo(
         words,
-        { opacity: 0.2 },
+        { opacity: 0.25 },
         {
           opacity: 1,
-          stagger: 0.15,
+          stagger: isMobile ? 0.04 : 0.12,
           ease: 'none',
         }
       );
@@ -44,10 +43,13 @@ export default function TextRevealSection() {
     return () => ctx.revert();
   }, []);
 
+  const line1 = ['And', 'your', 'city', 'decides', 'what'];
+  const line2 = ['kind', 'of', 'day', 'your', 'skin', 'gets.'];
+
   return (
     <section
       ref={containerRef}
-      className="text-reveal-trigger relative w-full h-[100svh] z-10 flex items-center justify-center px-6 sm:px-10 md:px-16 lg:px-24 select-none overflow-hidden"
+      className="relative w-full z-10 flex items-center justify-center select-none overflow-hidden py-8 xs:py-10 sm:py-20 md:py-0 md:h-[100svh] px-3 sm:px-6 md:px-18"
     >
       {/* Background Gradient */}
       <div
@@ -58,15 +60,33 @@ export default function TextRevealSection() {
         }}
       />
 
-      <div className="w-full max-w-[1100px] mx-auto text-center flex flex-wrap justify-center items-center gap-x-[0.28em] gap-y-[0.18em] font-editorial font-normal text-[clamp(28px,4.5vw,64px)] leading-[1.18] tracking-tight text-[var(--brand-cream,#f5f0eb)]">
-        {sentence.split(' ').map((word, index) => (
-          <span
-            key={`${word}-${index}`}
-            className="reveal-word opacity-20 inline-block will-change-[opacity]"
-          >
-            {word}
-          </span>
-        ))}
+      {/* 2-Line Locked Editorial Typography */}
+      <div className="w-full max-w-[1280px] mx-auto text-center flex flex-col items-center justify-center font-editorial font-normal text-[clamp(25px,5.12vw,68px)] leading-[1.12] tracking-tight text-[var(--brand-cream,#f5f0eb)]">
+
+        {/* Line 1: Locked single line on mobile */}
+        <div className="flex flex-nowrap justify-center items-center gap-x-[0.22em] whitespace-nowrap">
+          {line1.map((word, idx) => (
+            <span
+              key={`l1-${idx}`}
+              className="reveal-word opacity-25 inline-block will-change-[opacity]"
+            >
+              {word}
+            </span>
+          ))}
+        </div>
+
+        {/* Line 2: Locked second line */}
+        <div className="flex flex-nowrap justify-center items-center gap-x-[0.22em] whitespace-nowrap mt-1 xs:mt-1.5 sm:mt-2">
+          {line2.map((word, idx) => (
+            <span
+              key={`l2-${idx}`}
+              className="reveal-word opacity-25 inline-block will-change-[opacity]"
+            >
+              {word}
+            </span>
+          ))}
+        </div>
+
       </div>
     </section>
   );
