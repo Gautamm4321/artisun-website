@@ -104,10 +104,10 @@ export default function WornSection() {
 
     {/* ── 2. TEXT BLOCK: Top Clamped (Zero Face Overlap on Mobile), Large on Laptop ── */}
       <div
-        className="relative z-20 w-full max-w-full lg:max-w-[760px] xl:max-w-[880px] 2xl:max-w-[980px] ml-auto flex flex-col items-start text-left lg:items-end lg:text-right pt-0 sm:pt-4 lg:pt-0 lg:-translate-y-4 xl:-translate-y-6"
+      className="... pt-0 sm:pt-4 lg:pt-0 lg:-translate-y-4 xl:-translate-y-6 -translate-y-6"
       >
         {/* Main Headline */}
-        <h2 className="font-editorial text-[var(--brand-cream,#f5f0eb)] text-[31px] xs:text-[35px] sm:text-[43px] md:text-[46px] lg:text-[clamp(32px,2.9vw,54px)] leading-[1.30] lg:leading-[1.1] tracking-[-0.02em] font-normal drop-shadow-md w-full max-w-[320px] xs:max-w-[350px] sm:max-w-[560px] lg:max-w-none">
+        <h2 className="font-editorial text-[var(--brand-cream,#f5f0eb)] text-[31px] xs:text-[35px] sm:text-[43px] md:text-[46px] lg:text-[clamp(32px,2.9vw,54px)] leading-[1.24] lg:leading-[1.1] tracking-[-0.02em] font-normal drop-shadow-md w-full max-w-[320px] xs:max-w-[350px] sm:max-w-[560px] lg:max-w-none">
           {/* Mobile & Tablet: Exact 3 Lines */}
           <span className="block lg:hidden">
             Most sunscreens are made<br />
