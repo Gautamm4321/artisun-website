@@ -21,17 +21,17 @@ type ProductCard = {
 const CARDS: ProductCard[] = [
   {
     href: '/origin',
-    img: asset('/about-media/origin-hero.jpg'),
+    img: asset('/pdp/origin-1.jpg'),
     name: 'Origin',
     sub: '4-in-1 Milk Emulsion',
     spec: 'SPF 50+ · PA++++',
   },
   {
     href: '/aura',
-    img: asset('/about-media/aura-1.jpg'),
+    img: asset('/pdp/aura-1.jpg'),
     name: 'Aura',
     sub: 'Pearl Skinwear™',
-    spec: 'SPF 40 · PA+++',
+    spec: 'SPF 40 · PA++++',
   },
 ];
 

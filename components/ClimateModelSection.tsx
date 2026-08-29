@@ -55,7 +55,9 @@ export default function ClimateModelSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
 
-  useEffect(() => {
+
+
+useEffect(() => {
     const section = sectionRef.current;
     const video = videoRef.current;
     if (!section || !video) return;
@@ -66,18 +68,33 @@ export default function ClimateModelSection() {
 
     let raf = 0;
     let listening = false;
+    let freezeTimer: ReturnType<typeof setTimeout> | null = null;
 
     const evaluate = () => {
       raf = 0;
       const r = section.getBoundingClientRect();
       const vh = window.innerHeight || 1;
       const covered = Math.max(0, Math.min(r.bottom, vh) - Math.max(r.top, 0));
-      const coverage = covered / vh; // 1 === section fills the screen
+      const coverage = covered / vh;
 
-      if (coverage >= 0.95) {
-        if (video.paused) video.play().catch(() => {});
-      } else if (!video.paused) {
-        video.pause();
+      // Section reaches ~85%+ on screen
+      if (coverage >= 0.85) {
+        if (video.paused && !freezeTimer) {
+          // 1.5s freeze delay to let section align on screen
+          freezeTimer = setTimeout(() => {
+            if (video && video.paused) {
+              video.play().catch(() => {});
+            }
+          }, 1500);
+        }
+      } else {
+        if (freezeTimer) {
+          clearTimeout(freezeTimer);
+          freezeTimer = null;
+        }
+        if (!video.paused) {
+          video.pause();
+        }
       }
     };
 
@@ -88,8 +105,6 @@ export default function ClimateModelSection() {
     const attach = () => {
       if (listening) return;
       listening = true;
-      // Lenis dispatches native scroll events, so this stays in step with the
-      // smoothed scroll position rather than the raw wheel delta.
       window.addEventListener('scroll', onScroll, { passive: true });
       window.addEventListener('resize', onScroll);
       evaluate();
@@ -102,12 +117,15 @@ export default function ClimateModelSection() {
       window.removeEventListener('resize', onScroll);
     };
 
-    // IO is only a cheap gate on whether the rAF loop runs at all.
     const io = new IntersectionObserver(
       ([e]) => {
         if (e.isIntersecting) attach();
         else {
           detach();
+          if (freezeTimer) {
+            clearTimeout(freezeTimer);
+            freezeTimer = null;
+          }
           video.pause();
         }
       },
@@ -118,6 +136,7 @@ export default function ClimateModelSection() {
     return () => {
       io.disconnect();
       detach();
+      if (freezeTimer) clearTimeout(freezeTimer);
       if (raf) cancelAnimationFrame(raf);
     };
   }, []);
