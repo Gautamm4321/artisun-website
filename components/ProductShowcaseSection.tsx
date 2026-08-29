@@ -9,6 +9,8 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { AnimatePresence, motion } from 'framer-motion';
 import { asset } from '@/lib/asset';
+import { useCart } from './cart/CartProvider';
+import { firstVariant, formatPrice } from '@/lib/shopify';
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
@@ -45,7 +47,7 @@ const PRODUCTS: Product[] = [
     mobileDesc: 'Best for all weathers and cities.',
     specs: 'SPF 50+ · PA++++',
     ingredients: 'Formulated with Beta-Glucan and\nCamellia Sinensis Extract',
-    model: asset('/1.glb'),
+    model: asset('/origin.glb'),
     scale: 0.48,
     thumb: asset('/about-media/origin-hero.jpg'),
     href: '/origin',
@@ -62,7 +64,7 @@ const PRODUCTS: Product[] = [
     mobileDesc: 'Best for: When you need something\nto adjust to changing weathers, or\nwhen your day is moody.',
     specs: 'SPF 40 · PA++++',
     ingredients: 'Formulated with Ectoin and Bisabolol',
-    model: asset('/1.glb'),
+    model: asset('/aura.glb'),
     scale: 0.48,
     thumb: asset('/about-media/aura-1.jpg'),
     href: '/aura',
@@ -71,31 +73,51 @@ const PRODUCTS: Product[] = [
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
+/**
+ * A single bottle.
+ *
+ * Rotation is driven by SCROLL rather than by a constant `delta` spin. The
+ * progress ref is written by ScrollTrigger's onUpdate and read here in useFrame,
+ * so the scroll position never triggers a React re-render — a setState per frame
+ * would re-mount the Canvas subtree and stutter badly on mobile.
+ *
+ * `damp` smooths the value: raw scroll on a trackpad is spiky, and mapping it
+ * straight to rotation.y makes the bottle judder. Damping lets it keep turning
+ * for a beat after the scroll stops, which reads as weight.
+ */
 function ModelItem({
   modelPath,
   isActive,
   scale,
   isMobile,
+  progress,
 }: {
   modelPath: string;
   isActive: boolean;
   scale: number;
   isMobile: boolean;
+  progress: React.MutableRefObject<number>;
 }) {
   const groupRef = useRef<THREE.Group>(null!);
   const { scene } = useGLTF(modelPath);
   const cloned = React.useMemo(() => scene.clone(true), [scene]);
+  const spin = useRef(0);
 
   useFrame((_, delta) => {
     if (!groupRef.current) return;
     groupRef.current.visible = isActive;
     if (!isActive) return;
 
-    groupRef.current.rotation.y += delta * 0.85;
-    const yOffset = isMobile ? 0.20 : 0;
+    // ~1.6 turns across the full pinned scroll, damped so it never snaps.
+    const target = progress.current * Math.PI * 3.2;
+    spin.current = THREE.MathUtils.damp(spin.current, target, 3.5, delta);
+    groupRef.current.rotation.y = spin.current;
+
+    // Slow bob so a stationary scroll still feels alive.
+    const yOffset = isMobile ? 0.2 : 0;
     groupRef.current.position.y = Math.sin(Date.now() * 0.0018) * 0.04 + yOffset;
-    
-    const targetScale = isMobile ? scale * 0.70 : scale;
+
+    const targetScale = isMobile ? scale * 0.7 : scale;
     groupRef.current.scale.setScalar(targetScale);
   });
 
@@ -110,9 +132,14 @@ function ModelItem({
 
 export default function ProductShowcaseSection() {
   const sectionRef = useRef<HTMLElement>(null);
+  const revolveRef = useRef<HTMLDivElement>(null);
+  const progress = useRef(0);
   const [active, setActive] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
+  const { add, products: shopProducts, busy, configured } = useCart();
   const product = PRODUCTS[active];
+  const shopProduct = active === 0 ? shopProducts.origin : shopProducts.aura;
+  const variant = firstVariant(shopProduct);
 
   useEffect(() => {
     const checkMob = () => setIsMobile(window.innerWidth < 1024);
@@ -127,11 +154,14 @@ export default function ProductShowcaseSection() {
       pin: true,
       anticipatePin: 1,
       onUpdate: (self) => {
-        if (self.progress < 0.5) {
-          setActive(0); // Origin first
-        } else {
-          setActive(1); // Aura second
+        // Feed the 3D rotation and the background revolve through refs — writing
+        // these to state would re-render the Canvas on every scroll frame.
+        progress.current = self.progress;
+        if (revolveRef.current) {
+          revolveRef.current.style.transform =
+            `rotate(${(self.progress * 210).toFixed(2)}deg) scale(1.9)`;
         }
+        setActive(self.progress < 0.5 ? 0 : 1);
       },
     });
 
@@ -150,6 +180,28 @@ export default function ProductShowcaseSection() {
           'radial-gradient(135% 120% at 50% 20%, #E8551E 0%, #C43612 28%, #8D180C 60%, #460905 100%)',
       }}
     >
+      {/* ── Revolving gradient. Rotated by scroll in the ScrollTrigger above, so
+          the whole field appears to turn with the bottle. Kept at partial opacity
+          and oversized (scale 1.9) so its edges never enter frame while turning. ── */}
+      <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+        <div
+          ref={revolveRef}
+          className="absolute inset-0 opacity-[0.62] will-change-transform"
+          style={{
+            transform: 'rotate(0deg) scale(1.9)',
+            background:
+              'conic-gradient(from 0deg at 50% 50%, #E8551E 0deg, #8D180C 78deg, #F0762B 150deg, #460905 232deg, #C43612 310deg, #E8551E 360deg)',
+          }}
+        />
+        {/* Softens the conic's hard colour seams into the page gradient. */}
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              'radial-gradient(120% 90% at 50% 25%, rgba(232,85,30,0.30) 0%, rgba(70,9,5,0.55) 68%, rgba(70,9,5,0.8) 100%)',
+          }}
+        />
+      </div>
       {/* Horizontal Dividing Line: Darker & clearer visible white line */}
 <div className="block lg:hidden absolute top-1/2 left-0 right-0 -translate-y-1/2 h-[1.2px] bg-white/45 z-0 pointer-events-none" />
 
@@ -182,6 +234,7 @@ export default function ProductShowcaseSection() {
               isActive={true}
               scale={product.scale}
               isMobile={isMobile}
+              progress={progress}
             />
           </Suspense>
         </Canvas>
@@ -350,6 +403,25 @@ export default function ProductShowcaseSection() {
                   </p>
                 )}
               </div>
+
+              {/* Mobile add to bag */}
+              <button
+                type="button"
+                onClick={() => variant && add(variant.id, 1)}
+                disabled={!configured || !variant || busy || !variant.availableForSale}
+                style={{ backgroundColor: '#edc6a2', color: '#3A0D08' }}
+                className="pointer-events-auto mt-3 font-suisse text-[13px] tracking-wider uppercase px-8 py-3 font-medium active:scale-95 transition-transform shadow-lg disabled:opacity-50"
+              >
+                {!configured
+                  ? 'Add to bag'
+                  : busy
+                    ? 'Adding…'
+                    : !variant
+                      ? 'Unavailable'
+                      : !variant.availableForSale
+                        ? 'Sold out'
+                        : `Add to bag — ${formatPrice(variant.price)}`}
+              </button>
             </motion.div>
           </AnimatePresence>
         </div>
@@ -398,13 +470,23 @@ export default function ProductShowcaseSection() {
               transition={{ duration: 0.5, ease: EASE }}
               className="flex flex-col items-end text-right space-y-1"
             >
-              <Link
-                href={product.href}
+              <button
+                type="button"
+                onClick={() => variant && add(variant.id, 1)}
+                disabled={!configured || !variant || busy || !variant.availableForSale}
                 style={{ backgroundColor: '#edc6a2', color: '#3A0D08' }}
-                className="pointer-events-auto font-suisse text-sm tracking-wider uppercase px-9 py-3 font-medium hover:bg-white transition-colors shadow-lg rounded-none mb-1.5"
+                className="pointer-events-auto font-suisse text-sm tracking-wider uppercase px-9 py-3 font-medium hover:bg-white transition-colors shadow-lg rounded-none mb-1.5 disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                Add to bag
-              </Link>
+                {!configured
+                  ? 'Add to bag'
+                  : busy
+                    ? 'Adding…'
+                    : !variant
+                      ? 'Unavailable'
+                      : !variant.availableForSale
+                        ? 'Sold out'
+                        : `Add to bag — ${formatPrice(variant.price)}`}
+              </button>
               <p 
                 style={{ color: '#edc6a2' }}
                 className="font-editorial text-[19px] leading-tight tracking-wider"
@@ -426,4 +508,5 @@ export default function ProductShowcaseSection() {
   );
 }
 
-useGLTF.preload(asset('/1.glb'));
+useGLTF.preload(asset('/origin.glb'));
+useGLTF.preload(asset('/aura.glb'));

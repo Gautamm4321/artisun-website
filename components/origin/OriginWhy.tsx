@@ -16,7 +16,8 @@ const STATS: Stat[] = [
   { index: '05', label: 'Over time', value: 4, suffix: ' weeks', copy: 'to a visibly stronger skin barrier, used daily.', mobileCopy: 'to a visibly stronger skin barrier, used daily.' },
 ];
 
-const BG_IMAGE = '/Specifics page, desktop.png';
+const BG_IMAGE_DESKTOP = '/pdp/origin-why-desktop.jpg';
+const BG_IMAGE_MOBILE = '/pdp/origin-why-mobile.jpg';
 
 export default function OriginWhy() {
   const statsRef = useRef<HTMLDivElement>(null);
@@ -24,20 +25,37 @@ export default function OriginWhy() {
 
   return (
     <div id="origin-why" className="origin-panel relative w-screen shrink-0 h-screen overflow-hidden">
-      {/* Full-bleed background */}
-      <Image src={asset(BG_IMAGE)} alt="" fill sizes="100vw" className="object-cover object-center" />
-      {/* Scrims for legibility: overall darken + stronger top & bottom */}
-      <div className="absolute inset-0 bg-black/55" />
-      <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/20 to-black/80" />
+      {/* Full-bleed background — shown AS IS. Both scrims are gone: the
+          `bg-black/55` wash and the top/bottom gradient. Legibility now comes
+          from the frosted panels on the copy and stat boxes instead, so the
+          photograph itself stays clean. */}
+      <Image
+        src={asset(BG_IMAGE_MOBILE)}
+        alt=""
+        fill
+        sizes="100vw"
+        priority
+        className="object-cover object-center lg:hidden"
+      />
+      <Image
+        src={asset(BG_IMAGE_DESKTOP)}
+        alt=""
+        fill
+        sizes="100vw"
+        className="object-cover object-center hidden lg:block"
+      />
 
       {/* Content */}
       <div className="relative z-10 h-full w-full max-w-[1500px] mx-auto px-4 sm:px-8 lg:px-14 pt-20 pb-16 sm:pt-24 sm:pb-20 lg:pt-[104px] lg:pb-16 flex flex-col justify-between overflow-hidden">
         {/* Top: Center on mobile, 2-col on desktop */}
-        <div className="flex flex-col items-center lg:items-start text-center lg:text-left gap-2 sm:gap-3 lg:grid lg:grid-cols-2 lg:gap-16 shrink-0 mt-2 sm:mt-4 lg:mt-0">
-          <h2 className="font-editorial text-[var(--brand-cream)] text-[22px] sm:text-[32px] lg:text-[54px] leading-[1.08] tracking-tight max-w-[24ch] lg:max-w-[15ch]">
+        {/* Type sizes on mobile now match frame 3 (OriginWhere): 30px heading,
+            15px body — they were 22px/11px, noticeably smaller than every
+            neighbouring panel. */}
+        <div className="flex flex-col items-center lg:items-start text-center lg:text-left gap-2 sm:gap-3 lg:grid lg:grid-cols-2 lg:gap-16 shrink-0 mt-2 sm:mt-4 lg:mt-0 rounded-2xl lg:rounded-none bg-black/45 lg:bg-transparent backdrop-blur-md lg:backdrop-blur-none p-4 lg:p-0">
+          <h2 className="font-editorial text-[var(--brand-cream)] text-[30px] sm:text-[46px] lg:text-[54px] leading-[1.03] lg:leading-[1.08] tracking-tight max-w-[24ch] lg:max-w-[15ch] drop-shadow-[0_2px_12px_rgba(0,0,0,0.75)]">
             The most boring step in your morning, <br className="hidden sm:inline lg:hidden" />finally worth it.
           </h2>
-          <p className="font-suisse text-[var(--brand-cream)]/80 text-[11px] sm:text-[13px] lg:text-[19px] leading-[1.45] lg:leading-[1.5] max-w-[36ch] sm:max-w-[48ch] lg:pt-2 lg:justify-self-end">
+          <p className="font-suisse text-[var(--brand-cream)]/85 text-[15px] sm:text-[18px] lg:text-[19px] leading-[1.4] lg:leading-[1.5] max-w-[36ch] sm:max-w-[48ch] lg:pt-2 lg:justify-self-end mt-2 lg:mt-0 drop-shadow-[0_2px_10px_rgba(0,0,0,0.7)]">
             You use four products before you&apos;ve even left the house — serum, moisturiser, sunscreen, primer, one after the other. Origin is all four, in one light layer.
           </p>
         </div>
@@ -45,22 +63,25 @@ export default function OriginWhy() {
       {/* Bottom-aligned stats: 2 Top / 3 Bottom on Mobile | 5 Columns on Desktop */}
         <div
           ref={statsRef}
-          className="w-full flex flex-wrap justify-center lg:grid lg:grid-cols-5 gap-2 sm:gap-2.5 lg:gap-x-0 max-w-[390px] lg:max-w-none mx-auto shrink-0 pb-2 sm:pb-3 lg:pb-0"
+          /* Every box is now the same width and height. Previously row 1 was
+             50%-wide / row 2 was 33%-wide, so the five tiles were two different
+             sizes. A 3-col grid makes them uniform and the last two centre
+             themselves. mb-auto pulls the whole block up off the bottom edge —
+             that was the large dead gap in the middle of the page. */
+          className="w-full grid grid-cols-3 lg:grid-cols-5 gap-2 sm:gap-2.5 lg:gap-x-0 max-w-[390px] lg:max-w-none mx-auto shrink-0 mt-4 mb-auto lg:mt-0 lg:mb-0 pb-2 sm:pb-3 lg:pb-0"
         >
           {STATS.map((s, idx) => {
-            const isRow1 = idx < 2;
+            const isLast2 = idx >= 3;
             return (
               <div
                 key={s.index}
-                className={`${
-                  isRow1 ? 'w-[calc(50%-4px)] max-w-[160px]' : 'w-[calc(33.33%-6px)] max-w-[115px]'
-                } h-[84px] sm:h-[92px] lg:w-auto lg:max-w-none lg:h-auto p-2 sm:p-2.5 lg:p-0 rounded-xl lg:rounded-none bg-white/[0.08] lg:bg-transparent backdrop-blur-md lg:backdrop-blur-none border border-white/15 lg:border-0 lg:border-l lg:border-[var(--brand-cream)]/18 lg:first:border-l-0 lg:px-7 lg:first:pl-0 flex flex-col justify-between shadow-lg lg:shadow-none shrink-0`}
+                className={`${isLast2 && idx === 3 ? 'col-start-1 lg:col-start-auto' : ''} h-[92px] sm:h-[100px] lg:w-auto lg:h-auto p-2 sm:p-2.5 lg:p-0 rounded-xl lg:rounded-none bg-black/50 lg:bg-transparent backdrop-blur-md lg:backdrop-blur-none border border-white/20 lg:border-0 lg:border-l lg:border-[var(--brand-cream)]/18 lg:first:border-l-0 lg:px-7 lg:first:pl-0 flex flex-col justify-between shadow-lg lg:shadow-none`}
               >
                 <div>
                   <div className="font-suisse text-[8.5px] sm:text-[9.5px] lg:text-[11px] tracking-[0.12em] uppercase text-[var(--brand-cream)]/60">
                     {s.index} · {s.label}
                   </div>
-                  <div className="font-editorial text-[var(--brand-cream)] text-[18px] sm:text-[22px] lg:text-[60px] leading-none mt-1 lg:mt-2 tabular-nums">
+                  <div className="font-editorial text-[var(--brand-cream)] text-[18px] sm:text-[22px] lg:text-[60px] leading-none mt-1 lg:mt-2 tabular-nums drop-shadow-[0_2px_10px_rgba(0,0,0,0.7)]">
                     <CountUp end={s.value} suffix={s.suffix} play={inView} duration={2} />
                   </div>
                 </div>

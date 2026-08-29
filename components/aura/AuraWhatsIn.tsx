@@ -72,7 +72,7 @@ export default function AuraWhatsIn() {
           {/* Left Visual Image: Perfectly fills tablet/mobile without excessive blank space */}
           <div className="relative w-full h-[24vh] sm:h-[28vh] lg:h-[50vh] xl:h-[54vh] max-h-[480px] rounded-2xl overflow-hidden border border-white/10 shadow-2xl bg-white/5 shrink-0">
             <Image
-              src={asset('/about-media/aura-1.jpg')}
+              src={asset('/pdp/aura-3.jpg')}
               alt="Aura Ingredients"
               fill
               sizes="(max-width: 1024px) 100vw, 45vw"

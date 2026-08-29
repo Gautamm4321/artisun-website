@@ -2,9 +2,11 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { asset } from '@/lib/asset';
+import { useCart } from './cart/CartProvider';
 
 export default function GlobalHeader() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { setOpen: setCartOpen, cart } = useCart();
 
   return (
     <>
@@ -20,9 +22,10 @@ export default function GlobalHeader() {
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img 
-              src={asset('Artisun Primary Logo.png')} 
-              alt="ARTISUN" 
-              className="h-6 w-auto object-contain"
+              src={asset('/logo-artisun.svg')} 
+              alt="" 
+              aria-hidden="true"
+              className="h-7 w-auto object-contain"
             />
           </button>
 
@@ -94,14 +97,20 @@ export default function GlobalHeader() {
           {/* Cart Icon */}
           <button
             type="button"
-            aria-label="Cart"
-            className="group bg-[#E8DAC7] hover:bg-[#A52A2C] px-3.5 py-1.5 flex items-center justify-center transition-all duration-200 h-[36px] cursor-pointer"
+            onClick={() => setCartOpen(true)}
+            aria-label={`Open cart${cart?.totalQuantity ? `, ${cart.totalQuantity} items` : ''}`}
+            className="group relative bg-[#E8DAC7] hover:bg-[#A52A2C] px-3.5 py-1.5 flex items-center justify-center transition-all duration-200 h-[36px] cursor-pointer"
           >
             <svg className="w-5 h-5 text-[#A52A2C] group-hover:text-[#E8DAC7] transition-colors duration-200" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
               <circle cx="9" cy="21" r="1.5"></circle>
               <circle cx="20" cy="21" r="1.5"></circle>
               <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
             </svg>
+            {!!cart?.totalQuantity && (
+              <span className="absolute -top-1.5 -right-1.5 min-w-[16px] h-4 px-1 rounded-full bg-[#A52A2C] text-[#E8DAC7] text-[10px] font-suisse font-medium grid place-items-center">
+                {cart.totalQuantity}
+              </span>
+            )}
           </button>
         </div>
 
@@ -109,12 +118,17 @@ export default function GlobalHeader() {
 
         {/* Mobile Right Cart Button */}
         <div className="md:hidden flex items-center pointer-events-auto">
-          <button type="button" aria-label="Cart" className="text-[var(--brand-cream)] hover:opacity-75 transition-opacity p-1">
+          <button type="button" onClick={() => setCartOpen(true)} aria-label={`Open cart${cart?.totalQuantity ? `, ${cart.totalQuantity} items` : ''}`} className="relative text-[var(--brand-cream)] hover:opacity-75 transition-opacity p-1">
             <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
               <circle cx="9" cy="21" r="1.5"></circle>
               <circle cx="20" cy="21" r="1.5"></circle>
               <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
             </svg>
+            {!!cart?.totalQuantity && (
+              <span className="absolute -top-0.5 -right-0.5 min-w-[16px] h-4 px-1 rounded-full bg-[var(--brand-cream,#f5f0eb)] text-[#5A190D] text-[10px] font-suisse font-medium grid place-items-center">
+                {cart.totalQuantity}
+              </span>
+            )}
           </button>
         </div>
       </header>

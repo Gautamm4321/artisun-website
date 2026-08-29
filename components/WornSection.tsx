@@ -1,6 +1,5 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import gsap from 'gsap';
@@ -80,10 +79,9 @@ function GlassCard({ card }: { card: ProductCard }) {
 export default function WornSection() {
   return (
     <section
-      className="relative w-full min-h-[100svh] h-[100svh] z-20 flex flex-col lg:flex-row lg:items-center justify-between overflow-hidden px-5 sm:px-8 md:px-12 lg:px-14 xl:px-20 pt-20 sm:pt-24 lg:pt-0 pb-5 sm:pb-6 lg:pb-0"
+      className="relative w-full min-h-[100svh] h-[100svh] z-20 flex flex-col lg:flex-row lg:items-center justify-between overflow-hidden px-5 sm:px-8 md:px-12 lg:px-14 xl:px-20 pt-16 sm:pt-20 lg:pt-0 pb-5 sm:pb-6 lg:pb-0"
     >
 
-      {/* Background Gradient */}
       <div
         className="absolute inset-0 -z-10"
         style={{
@@ -98,18 +96,18 @@ export default function WornSection() {
         <img
           src={asset('/Without bg.png')}
           alt="Artisun Model"
-          className="h-[69vh] xs:h-[71vh] sm:h-[79vh] md:h-[82vh] lg:h-[100vh] w-auto max-w-none object-contain object-bottom lg:object-left-bottom select-none -translate-x-[6%] sm:-translate-x-[8%] lg:-translate-x-[11%] translate-y-1 sm:translate-y-0 lg:translate-y-2 drop-shadow-[0_25px_50px_rgba(0,0,0,0.5)]"
+          className="h-[72vh] xs:h-[88vh] sm:h-[72vh] md:h-[78vh] lg:h-[100vh] w-auto max-w-none object-contain object-bottom lg:object-left-bottom select-none -translate-x-[6%] sm:-translate-x-[8%] lg:-translate-x-[11%] translate-y-1 sm:translate-y-0 lg:translate-y-2 drop-shadow-[0_25px_50px_rgba(0,0,0,0.5)]"
         />
       </div>
 
       {/* ── 2. TEXT BLOCK: Top Clamped (Zero Face Overlap on Mobile), Large on Laptop ── */}
       <div
-        className="relative z-20 w-full max-w-full lg:max-w-[760px] xl:max-w-[880px] 2xl:max-w-[980px] ml-auto flex flex-col items-start text-left lg:items-end lg:text-right pt-0 sm:pt-4 lg:pt-0 lg:-translate-y-4 xl:-translate-y-6"
+        className="relative z-20 w-full max-w-full lg:max-w-[760px] xl:max-w-[880px] 2xl:max-w-[980px] ml-auto flex flex-col items-start text-left lg:items-end lg:text-right pt-0 sm:pt-4 lg:pt-0 -translate-y-8 xs:-translate-y-9 sm:-translate-y-6 lg:-translate-y-4 xl:-translate-y-6"
       >
         {/* Main Headline */}
         <h2 className="font-editorial text-[var(--brand-cream,#f5f0eb)] text-[31px] xs:text-[35px] sm:text-[43px] md:text-[46px] lg:text-[clamp(32px,2.9vw,54px)] leading-[1.24] lg:leading-[1.1] tracking-[-0.02em] font-normal drop-shadow-md w-full max-w-[320px] xs:max-w-[350px] sm:max-w-[560px] lg:max-w-none">
           {/* Mobile & Tablet: Exact 3 Lines */}
-          <span className="block lg:hidden -mt-4">
+          <span className="block lg:hidden">
             Most sunscreens are made<br />
             to be tolerated, ours is<br />
             designed to be worn.
@@ -123,7 +121,7 @@ export default function WornSection() {
         </h2>
 
         {/* Sub-Description */}
-        <p className="font-suisse text-[var(--brand-cream,#f5f0eb)]/90 text-[16px] xs:text-[17px] sm:text-[19px] lg:text-[18px] xl:text-[20px] 2xl:text-[21px] leading-[1.32] sm:leading-[1.45] font-normal mt-2.5 xs:mt-3 sm:mt-5 lg:mt-7 w-full max-w-[300px] xs:max-w-[330px] sm:max-w-[480px] lg:max-w-[480px] drop-shadow-sm">
+        <p className="font-suisse text-[var(--brand-cream,#f5f0eb)]/90 text-[16px] xs:text-[17px] sm:text-[19px] lg:text-[18px] xl:text-[20px] 2xl:text-[21px] leading-[1.32] sm:leading-[1.45] font-normal mt-3 xs:mt-3.5 sm:mt-5 lg:mt-7 w-full max-w-[300px] xs:max-w-[330px] sm:max-w-[480px] lg:max-w-[480px] drop-shadow-sm">
           Because you’ll only wear it every day if it<br />
           survives every kind of day.
         </p>

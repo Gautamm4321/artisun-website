@@ -3,7 +3,12 @@
 export default function FashionSkinSection() {
     return (
         <section
-            className="relative w-full h-[100svh] min-h-[650px] overflow-hidden select-none"
+            /* z-20 is load-bearing. HeroSection carries z-[1]; this section had no
+               z-index at all, so it computed to auto (0) and the hero painted ON TOP
+               of it — which is the second face you could see bleeding in from the
+               right edge. Every other home section already declares z-10/z-20; this
+               one was the only one that didn't. */
+            className="relative w-full h-[100svh] min-h-[650px] overflow-hidden select-none z-20"
             style={{
                 background: 'radial-gradient(ellipse at 50% 45%, #D44026 0%, #8A2718 50%, #420f08 100%)',
             }}

@@ -3,16 +3,21 @@
 import { useRef, useState } from 'react';
 import Image from 'next/image';
 import { asset } from '@/lib/asset';
+import TagPills from '@/components/pdp/TagPills';
 import { usePanelEdgeScroll } from '@/hooks/usePanelEdgeScroll';
 
 const BADGES = ['SPF 40', 'PA++++', 'All weathers', '50g'];
 
 // Four distinct AURA product shots for the gallery.
 const GALLERY = [
-  '/about-media/aura-1.jpg',
-  '/about-media/aura-2.jpg',
-  '/about-media/aura-3.jpg',
-  '/artisun1_page-0001.jpg',
+  '/pdp/aura-1.jpg',
+  '/pdp/aura-2.jpg',
+  '/pdp/aura-3.jpg',
+  '/pdp/aura-4.jpg',
+  '/pdp/aura-5.jpg',
+  '/pdp/aura-6.jpg',
+  '/pdp/aura-7.jpg',
+  '/pdp/aura-8.jpg',
 ];
 
 const FULL_INGREDIENTS =
@@ -25,15 +30,20 @@ const FULL_INGREDIENTS =
 
 type NavItem = { n: string; label: string; target: number | null; kind: 'link' | 'accordion' };
 
+/**
+ * "The specifics" and "Product buy" rows are removed.
+ *
+ * The AuraProduct PANEL still exists and still scrolls — only its nav row is
+ * gone, as you asked. AuraStats is removed from the page entirely, so the panel
+ * count drops 8 -> 7 and every target after it shifts down by one.
+ */
 const NAV_ITEMS: NavItem[] = [
   { n: '01', label: 'How to wear', target: 1, kind: 'link' },       // AuraDosage
   { n: '02', label: 'How it feels', target: 2, kind: 'link' },      // AuraTexture
   { n: '03', label: 'Where it works', target: 3, kind: 'link' },    // AuraWhere
   { n: '04', label: "What's in it", target: 4, kind: 'link' },      // AuraWhatsIn
-  { n: '05', label: 'The specifics', target: 5, kind: 'link' },     // AuraStats
-  { n: '06', label: 'Product buy', target: 6, kind: 'link' },       // AuraProduct
-  { n: '07', label: 'Questions', target: 7, kind: 'link' },         // AuraQuestions
-  { n: '08', label: 'Full ingredient list', target: null, kind: 'accordion' },
+  { n: '05', label: 'Questions', target: 6, kind: 'link' },         // AuraQuestions
+  { n: '06', label: 'Full ingredient list', target: null, kind: 'accordion' },
 ];
 
 function Chevron({ dir }: { dir: 'left' | 'right' }) {
@@ -74,8 +84,11 @@ export default function AuraHero({ onNavigate }: { onNavigate: (panelIndex: numb
         <div className="w-full max-w-[1500px] mx-auto px-5 sm:px-8 lg:px-14 flex flex-col lg:grid lg:grid-cols-[1.05fr_0.95fr] gap-5 sm:gap-6 lg:gap-14 items-center lg:items-stretch my-auto">
 
           {/* ── IMAGE: matches Origin hero sizing (top on mobile / left on desktop) ── */}
-          <div className="order-1 flex flex-col h-[42vh] max-h-[400px] lg:h-full lg:max-h-none w-full max-w-[360px] lg:max-w-none shrink-0 min-h-0">
-            <div className="relative w-full h-full rounded-xl lg:rounded-none overflow-hidden bg-white/[0.03] shadow-2xl">
+          <div className="order-1 flex flex-col w-full max-w-[360px] lg:max-w-none shrink-0 min-h-0">
+            {/* Square frame. aspect-square sets the height, so the previous
+                h-[42vh] / lg:h-full pair had to go — with those present the box
+                stayed viewport-shaped and the ratio never took effect. */}
+            <div className="relative w-full aspect-square rounded-xl lg:rounded-none overflow-hidden bg-white/[0.03] shadow-2xl">
               <Image
                 key={activeImg}
                 src={asset(activeImg)}
@@ -128,17 +141,8 @@ export default function AuraHero({ onNavigate }: { onNavigate: (panelIndex: numb
           {/* ── CONTENT: right on desktop / bottom on mobile (scrolls with the image) ── */}
           <div className="order-2 flex flex-col justify-start lg:justify-between w-full max-w-[580px] lg:max-w-none lg:h-full gap-2 sm:gap-2.5 lg:gap-0 py-0.5 lg:py-1">
 
-            {/* Liquid Glass Badges */}
-            <div className="flex flex-wrap gap-2 mb-0.5 sm:mb-1 lg:mb-2">
-              {BADGES.map((b) => (
-                <span
-                  key={b}
-                  className="font-suisse text-[9px] sm:text-[11px] font-medium tracking-wider uppercase px-3 sm:px-3.5 py-0.5 sm:py-1 rounded-full text-white/95 backdrop-blur-md bg-white/[0.08] border border-white/30 shadow-[inset_0_1px_1px_rgba(255,255,255,0.4),inset_0_-1px_1px_rgba(0,0,0,0.25),0_2px_6px_rgba(0,0,0,0.25)] transition-all"
-                >
-                  {b}
-                </span>
-              ))}
-            </div>
+            {/* Outlined tag pills — matches your reference */}
+            <TagPills tags={BADGES} className="mb-0.5 sm:mb-1 lg:mb-2" />
 
             {/* Title */}
             <h1 className="font-editorial text-[var(--brand-cream)] text-[21px] sm:text-[30px] lg:text-[36px] leading-[1.1] tracking-tight">
@@ -170,7 +174,7 @@ export default function AuraHero({ onNavigate }: { onNavigate: (panelIndex: numb
               {NAV_ITEMS.map((item) => {
                 if (item.kind === 'accordion') {
                   return (
-                    <li key={item.n} className="border-b border-[var(--brand-cream)]/10">
+                    <li key={item.n} className="relative border-b border-[var(--brand-cream)]/10">
                       <button
                         onClick={() => setIngredientsOpen((v) => !v)}
                         aria-expanded={ingredientsOpen}
@@ -181,10 +185,18 @@ export default function AuraHero({ onNavigate }: { onNavigate: (panelIndex: numb
                         </span>
                         <span className={`ml-auto text-xs text-[var(--brand-cream)]/50 transition-transform duration-300 ${ingredientsOpen ? 'rotate-45' : ''}`}>+</span>
                       </button>
-                      <div className={`grid transition-[grid-template-rows] duration-[300ms] ease-out ${ingredientsOpen ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'}`}>
-                        <div className="overflow-hidden">
-                          <p className="font-suisse text-[11px] sm:text-[12px] leading-[1.5] text-[var(--brand-cream)]/70 pb-3 pr-1">{FULL_INGREDIENTS}</p>
-                        </div>
+                      {/* Absolutely positioned so expanding cannot resize the row
+                          and shift the page under the cursor — same fix as Origin. */}
+                      <div
+                        className={`absolute left-0 right-0 top-full z-20 origin-top transition-[opacity,transform] duration-300 ease-out ${
+                          ingredientsOpen
+                            ? 'opacity-100 scale-y-100 pointer-events-auto'
+                            : 'opacity-0 scale-y-95 pointer-events-none'
+                        }`}
+                      >
+                        <p className="font-suisse text-[11px] sm:text-[12px] leading-[1.5] text-[var(--brand-cream)]/80 bg-black/70 backdrop-blur-md border border-white/12 rounded-lg p-3 max-h-[34vh] overflow-y-auto [scrollbar-width:none]">
+                          {FULL_INGREDIENTS}
+                        </p>
                       </div>
                     </li>
                   );

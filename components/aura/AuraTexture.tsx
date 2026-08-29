@@ -12,7 +12,7 @@ export default function AuraTexture() {
       {/* ── Top on Mobile / Left on Desktop: Product Image ── */}
       <div className="absolute top-0 left-0 w-full h-1/2 lg:w-1/2 lg:h-full overflow-hidden bg-[#120302]">
         <Image
-          src={asset('/about-media/aura-1.jpg')}
+          src={asset('/pdp/aura-texture-1.jpg')}
           alt="Aura Product"
           fill
           sizes="(max-width: 1024px) 100vw, 50vw"

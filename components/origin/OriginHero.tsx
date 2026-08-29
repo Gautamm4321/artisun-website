@@ -3,15 +3,18 @@
 import { useRef, useState } from 'react';
 import Image from 'next/image';
 import { asset } from '@/lib/asset';
+import TagPills from '@/components/pdp/TagPills';
 import { usePanelEdgeScroll } from '@/hooks/usePanelEdgeScroll';
 
 const BADGES = ['SPF 50+', 'PA++++', 'All Weathers', '50ml'];
 
 // Four distinct ORIGIN product shots for the gallery.
 const GALLERY = [
-  '/Origin, PDP_.jpg',
-  '/Origin PDP second picture.png',
-  '/Origin PDP third picture.png',
+  '/pdp/origin-1.jpg',
+  '/pdp/origin-2.jpg',
+  '/pdp/origin-3.jpg',
+  '/pdp/origin-4.jpg',
+  '/pdp/origin-5.jpg',
 ];
 
 const FULL_INGREDIENTS =
@@ -71,8 +74,11 @@ export default function OriginHero({ onNavigate }: { onNavigate: (panelIndex: nu
         <div className="w-full max-w-[1500px] mx-auto px-5 sm:px-8 lg:px-14 flex flex-col lg:grid lg:grid-cols-[1.05fr_0.95fr] gap-5 sm:gap-6 lg:gap-14 items-center lg:items-stretch my-auto">
 
           {/* ── TOP ON MOBILE / LEFT ON DESKTOP: Product Visual ── */}
-          <div className="order-1 flex flex-col h-[42vh] max-h-[400px] lg:h-full lg:max-h-none w-full max-w-[360px] lg:max-w-none shrink-0 min-h-0">
-            <div className="relative w-full h-full rounded-xl lg:rounded-none overflow-hidden bg-white/[0.03] shadow-2xl">
+          <div className="order-1 flex flex-col w-full max-w-[360px] lg:max-w-none shrink-0 min-h-0">
+            {/* Square frame on every breakpoint. aspect-square drives the height,
+                so the old h-[42vh]/lg:h-full pair is gone — with those still in
+                place the box stayed viewport-shaped and the ratio never applied. */}
+            <div className="relative w-full aspect-square rounded-xl lg:rounded-none overflow-hidden bg-white/[0.03] shadow-2xl">
               <Image
                 key={activeImg}
                 src={asset(activeImg)}
@@ -125,17 +131,8 @@ export default function OriginHero({ onNavigate }: { onNavigate: (panelIndex: nu
 
           {/* ── BOTTOM ON MOBILE / RIGHT ON DESKTOP: Info & Compact Navigation Copy ── */}
           <div className="order-2 flex flex-col justify-start lg:justify-between w-full max-w-[440px] lg:max-w-none lg:h-full gap-2 sm:gap-2 lg:gap-0 py-0.5 lg:py-1">
-            {/* Flat Solid Pill Badges */}
-            <div className="flex flex-wrap gap-1.5 sm:gap-2 mb-0.5 sm:mb-1 lg:mb-2">
-              {BADGES.map((b) => (
-                <span
-                  key={b}
-                  className="font-suisse text-[9px] sm:text-[10.5px] font-medium tracking-wider uppercase px-2.5 sm:px-3.5 py-0.5 sm:py-1 rounded-full text-white bg-white/10"
-                >
-                  {b}
-                </span>
-              ))}
-            </div>
+            {/* Outlined tag pills — matches your reference */}
+            <TagPills tags={BADGES} className="mb-0.5 sm:mb-1 lg:mb-2" />
 
             {/* Title */}
             <h1 className="font-editorial text-[var(--brand-cream)] text-[21px] sm:text-[26px] lg:text-[36px] leading-[1.1] tracking-tight">
@@ -169,7 +166,7 @@ export default function OriginHero({ onNavigate }: { onNavigate: (panelIndex: nu
 
                 if (item.kind === 'accordion') {
                   return (
-                    <li key={item.n} className="border-b border-[var(--brand-cream)]/10">
+                    <li key={item.n} className="relative border-b border-[var(--brand-cream)]/10">
                       <button
                         onClick={() => setIngredientsOpen((v) => !v)}
                         aria-expanded={ingredientsOpen}
@@ -180,10 +177,22 @@ export default function OriginHero({ onNavigate }: { onNavigate: (panelIndex: nu
                         </span>
                         <span className={`ml-auto text-xs text-[var(--brand-cream)]/50 transition-transform duration-300 ${ingredientsOpen ? 'rotate-45' : ''}`}>+</span>
                       </button>
-                      <div className={`grid transition-[grid-template-rows] duration-[300ms] ease-out ${ingredientsOpen ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'}`}>
-                        <div className="overflow-hidden">
-                          <p className="font-suisse text-[11px] sm:text-[12px] leading-[1.5] text-[var(--brand-cream)]/70 pb-3 pr-1">{FULL_INGREDIENTS}</p>
-                        </div>
+                      {/* The list is inside a vertically-centred flex column, so
+                          growing it pushed everything UP and the + slid out from
+                          under the cursor. Fixed by taking the expanded copy OUT
+                          of flow: it is absolutely positioned below the row, so
+                          the row itself never changes height and nothing above it
+                          moves. The <li> is `relative` to anchor it. */}
+                      <div
+                        className={`absolute left-0 right-0 top-full z-20 origin-top transition-[opacity,transform] duration-300 ease-out ${
+                          ingredientsOpen
+                            ? 'opacity-100 scale-y-100 pointer-events-auto'
+                            : 'opacity-0 scale-y-95 pointer-events-none'
+                        }`}
+                      >
+                        <p className="font-suisse text-[11px] sm:text-[12px] leading-[1.5] text-[var(--brand-cream)]/80 bg-black/70 backdrop-blur-md border border-white/12 rounded-lg p-3 max-h-[34vh] overflow-y-auto [scrollbar-width:none]">
+                          {FULL_INGREDIENTS}
+                        </p>
                       </div>
                     </li>
                   );

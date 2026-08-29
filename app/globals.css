@@ -639,3 +639,41 @@ html.lenis, html.lenis body {
 }
 
 /* updated styling */
+
+/* ───────────────────────────────────────────────────────────────
+   MOBILE IMAGE ALIGNMENT — live-tunable knobs
+
+   These only apply below 1024px. Desktop is untouched.
+
+   To try alignments without rebuilding:
+     1. npm run dev, open the site on a phone-width viewport
+     2. DevTools > Elements > select <html>, find this :root block
+     3. Edit a value — the page updates on the keystroke
+     4. When it looks right, copy the number back into this file
+
+   width / height  size of the image
+   x               horizontal nudge; negative moves LEFT
+   y               vertical nudge;   negative moves UP
+   ─────────────────────────────────────────────────────────────── */
+:root {
+  /* Hero — the model crossing the ARTISUN wordmark */
+  --hero-model-w: 200vw;
+  --hero-model-x: -25%;
+  --hero-model-y: 0%;
+
+  /* Climate-smart — "The first Climate-smart sun care line" */
+  --climate-model-h: 90svh;
+  --climate-model-w: 250vw;
+  --climate-model-x: -13%;
+  --climate-model-y: 0%;
+  /* Which part of the frame stays anchored when the box crops or letterboxes.
+     Try: left bottom | center bottom | right bottom | 30% bottom */
+  --climate-model-pos: left bottom;
+}
+
+@media (min-width: 480px) {
+  :root { --hero-model-w: 88vw; }
+}
+@media (min-width: 768px) {
+  :root { --hero-model-w: 76vw; --climate-model-w: 86vw; }
+}

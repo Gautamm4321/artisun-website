@@ -5,6 +5,7 @@ import Link from 'next/link';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { asset } from '@/lib/asset';
+import { useCart } from './cart/CartProvider';
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
@@ -12,9 +13,11 @@ if (typeof window !== 'undefined') {
 
 export default function HomeHeader({ ready = false }: { ready?: boolean }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { setOpen: setCartOpen, cart } = useCart();
   const wordmarkRef = useRef<HTMLImageElement>(null);
   const headerRef = useRef<HTMLElement>(null);
   const navRef = useRef<HTMLDivElement>(null);
+  const menuLogoRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     const img = wordmarkRef.current;
@@ -27,12 +30,23 @@ export default function HomeHeader({ ready = false }: { ready?: boolean }) {
       gsap.set(img, { x: 0, y: 0, scale: 1 });
       const r = img.getBoundingClientRect();
       const isMd = window.innerWidth >= 768;
-      const padX = isMd ? 40 : 20;
       const padY = isMd ? 24 : 18;
       const compactW = isMd ? 140 : 108;
 
       geo.scale = compactW / r.width;
-      geo.tx = padX - r.left;
+
+      // Landing position differs by breakpoint on purpose:
+      //   desktop (>=1024) — ORIGINAL behaviour, lands at the left padding edge
+      //                      so it sits beside the beige nav tabs.
+      //   mobile/tablet    — lands CENTRED, which is what you asked for on
+      //                      28 Aug; the corner slot there holds the menu logo.
+      // transformOrigin is 'left top', so the scaled width is exactly compactW
+      // and the centred target left edge is half the leftover space.
+      const isDesktop = window.innerWidth >= 1024;
+      const padX = isMd ? 40 : 20;
+      const targetLeft = isDesktop ? padX : (window.innerWidth - compactW) / 2;
+
+      geo.tx = targetLeft - r.left;
       geo.ty = padY - r.top;
     };
 
@@ -48,6 +62,16 @@ export default function HomeHeader({ ready = false }: { ready?: boolean }) {
         const navOpacity = p < 0.7 ? 0 : (p - 0.7) / 0.3;
         nav.style.opacity = String(navOpacity);
         nav.style.pointerEvents = navOpacity > 0.5 ? 'auto' : 'none';
+      }
+
+      // Fade the small corner wordmark in on the same curve. Before this point
+      // the big flying wordmark is still mid-flight, and showing both reads as a
+      // duplicate rather than a transition.
+      const menuLogo = menuLogoRef.current;
+      if (menuLogo) {
+        const o = p < 0.75 ? 0 : (p - 0.75) / 0.25;
+        menuLogo.style.opacity = String(o);
+        menuLogo.style.pointerEvents = o > 0.5 ? 'auto' : 'none';
       }
     };
 
@@ -86,16 +110,28 @@ export default function HomeHeader({ ready = false }: { ready?: boolean }) {
         ref={headerRef}
         className="fixed top-0 left-0 w-full z-[100] pointer-events-none opacity-0 flex items-center justify-between px-4 md:px-10 py-4 md:py-6"
       >
-        {/* Left: Shrunk Target Placeholder & Mobile Tap Area */}
+        {/* Left: the ARTISUN wordmark IS the menu trigger on mobile, matching
+            GlobalHeader on every other route. It only appears once the flying
+            wordmark has finished travelling to the centre — otherwise there are
+            two copies of the same logo on screen during the scroll. */}
         <div className="flex items-center pointer-events-auto">
           <button
+            ref={menuLogoRef}
             type="button"
-            onClick={() => {
-              if (window.innerWidth < 768) setMobileMenuOpen(true);
-            }}
-            aria-label="Toggle menu"
-            className="w-[110px] md:w-[145px] h-[36px] opacity-0 cursor-pointer"
-          />
+            onClick={() => setMobileMenuOpen(true)}
+            aria-label="Open menu"
+            aria-expanded={mobileMenuOpen}
+            className="md:hidden flex items-center h-[36px] opacity-0 transition-opacity duration-300 hover:opacity-85"
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={asset('/logo-artisun.svg')}
+              alt=""
+              aria-hidden="true"
+              className="h-6 w-auto object-contain"
+            />
+          </button>
+          <span className="hidden md:block w-[145px] h-[36px]" aria-hidden />
         </div>
 
 
@@ -152,21 +188,27 @@ export default function HomeHeader({ ready = false }: { ready?: boolean }) {
           {/* Cart Icon */}
           <button
             type="button"
-            aria-label="Cart"
-            className="group bg-[#E8DAC7] hover:bg-[#A52A2C] px-3.5 py-1.5 flex items-center justify-center transition-all duration-200 h-[36px] cursor-pointer"
+            onClick={() => setCartOpen(true)}
+            aria-label={`Open cart${cart?.totalQuantity ? `, ${cart.totalQuantity} items` : ''}`}
+            className="group relative bg-[#E8DAC7] hover:bg-[#A52A2C] px-3.5 py-1.5 flex items-center justify-center transition-all duration-200 h-[36px] cursor-pointer"
           >
             <svg className="w-5 h-5 text-[#A52A2C] group-hover:text-[#E8DAC7] transition-colors duration-200" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
               <circle cx="9" cy="21" r="1.5"></circle>
               <circle cx="20" cy="21" r="1.5"></circle>
               <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
             </svg>
+            {!!cart?.totalQuantity && (
+              <span className="absolute -top-1.5 -right-1.5 min-w-[16px] h-4 px-1 rounded-full bg-[#A52A2C] text-[#E8DAC7] text-[10px] font-suisse font-medium grid place-items-center">
+                {cart.totalQuantity}
+              </span>
+            )}
           </button>
         </div>
 
 
         {/* Mobile Right Cart Button */}
         <div className="md:hidden flex items-center pointer-events-auto">
-          <button type="button" aria-label="Cart" className="text-[var(--brand-cream)] hover:opacity-75 transition-opacity p-1">
+          <button type="button" onClick={() => setCartOpen(true)} aria-label={`Open cart${cart?.totalQuantity ? `, ${cart.totalQuantity} items` : ''}`} className="relative text-[var(--brand-cream)] hover:opacity-75 transition-opacity p-1">
             <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
               <circle cx="9" cy="21" r="1.5"></circle>
               <circle cx="20" cy="21" r="1.5"></circle>
@@ -180,7 +222,7 @@ export default function HomeHeader({ ready = false }: { ready?: boolean }) {
           onClick={() => {
             if (window.innerWidth < 768) setMobileMenuOpen(true);
           }}
-          className="pointer-events-none absolute left-0 right-0 top-0 flex justify-center pt-[13vh]"
+          className="pointer-events-none absolute left-0 right-0 top-0 flex justify-center pt-[75vh] lg:pt-[13vh]"
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img

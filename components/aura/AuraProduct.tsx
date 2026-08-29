@@ -3,6 +3,7 @@
 import { useRef } from 'react';
 import Image from 'next/image';
 import { asset } from '@/lib/asset';
+import TagPills from '@/components/pdp/TagPills';
 import { usePanelEdgeScroll } from '@/hooks/usePanelEdgeScroll';
 
 const BADGES = ['SPF 40', 'PA++++', 'All Skin Types', 'All Weathers'];
@@ -21,6 +22,13 @@ const DETAILS = [
     body: 'Ectoin, Bisabolol and Sodium Hyaluronate',
   },
 ];
+
+const FULL_NAME = 'AURA · Pearl Skinwear SPF 40';
+const PRICE = '₹1,799';
+const SIZE = '50g';
+const IMG_DESKTOP = '/pdp/aura-last-desktop.jpg';
+const IMG_MOBILE = '/pdp/aura-last-mobile.jpg';
+
 
 export default function AuraProduct() {
   const scrollerRef = useRef<HTMLDivElement>(null);
@@ -44,49 +52,25 @@ export default function AuraProduct() {
         ref={scrollerRef}
         className="panel-scroll lg:overflow-hidden h-full flex flex-col items-center justify-start lg:justify-center pt-[76px] pb-24 sm:pt-24 sm:pb-24 lg:py-0"
       >
-        <div className="w-full max-w-[900px] mx-auto px-5 sm:px-8 lg:px-14 flex flex-col items-center gap-4 sm:gap-6 lg:gap-7 my-auto">
+        {/* Desktop: copy LEFT, image RIGHT. Mobile: stacked, square image on top.
+            Was a single centred column at every width, which read as a phone
+            layout on a 1440px screen. */}
+        <div className="w-full max-w-[1200px] mx-auto px-5 sm:px-8 lg:px-14 grid grid-cols-1 lg:grid-cols-[1fr_0.9fr] gap-6 lg:gap-14 items-center my-auto">
 
-          {/* ── IMAGE ON TOP ── */}
-          <div className="relative w-full max-w-[300px] sm:max-w-[340px] lg:max-w-[380px] h-[30vh] sm:h-[34vh] lg:h-[40vh] shrink-0">
-            <div
-              className="absolute inset-0 z-0 rounded-full blur-2xl opacity-70"
-              style={{ background: 'radial-gradient(circle at 50% 45%, rgba(233,85,30,0.35), transparent 65%)' }}
-            />
-            <Image
-              src={asset('/about-media/aura-1.jpg')}
-              alt="Aura Pearl Skinwear SPF 40"
-              fill
-              sizes="(max-width: 1024px) 90vw, 380px"
-              className="relative z-10 object-contain object-center drop-shadow-2xl"
-              priority
-            />
-          </div>
+          {/* ── COPY — left on desktop, second on mobile ── */}
+          <div className="order-2 lg:order-1 w-full max-w-[520px] lg:max-w-none mx-auto flex flex-col items-center lg:items-start text-center lg:text-left gap-3 sm:gap-4">
 
-          {/* ── TEXTS ON THE BOTTOM ── */}
-          <div className="w-full max-w-[520px] flex flex-col items-center text-center gap-3 sm:gap-4 shrink-0">
-
-            {/* Wordmark + Badges */}
-            <div className="flex flex-col items-center">
-              <h2 className="font-editorial tracking-[-0.02em] leading-[0.9] text-[var(--brand-cream)] text-[clamp(38px,10vw,86px)]">
-                AURA
+            <div className="flex flex-col items-center lg:items-start w-full">
+              <h2 className="font-editorial tracking-[-0.02em] leading-[1.05] text-[var(--brand-cream)] text-[clamp(24px,6vw,44px)]">
+                {FULL_NAME}
               </h2>
-              <div className="flex flex-wrap justify-center gap-1.5 sm:gap-2 mt-2 sm:mt-3">
-                {BADGES.map((b) => (
-                  <span
-                    key={b}
-                    className="font-suisse text-[9px] sm:text-[11px] font-medium tracking-wider uppercase px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-md text-white/95 backdrop-blur-md bg-white/[0.08] border border-white/20 shadow-sm"
-                  >
-                    {b}
-                  </span>
-                ))}
-              </div>
+              <TagPills tags={BADGES} align="start" className="mt-3 sm:mt-4 justify-center lg:justify-start" />
             </div>
 
-            {/* Glass Price Box */}
-            <div className="w-full max-w-[360px] p-3 sm:p-4 rounded-xl bg-white/[0.06] border border-white/15 backdrop-blur-md shadow-lg space-y-2 sm:space-y-2.5">
+            <div className="w-full max-w-[360px] lg:max-w-[420px] p-3 sm:p-4 rounded-xl bg-white/[0.06] border border-white/15 backdrop-blur-md shadow-lg space-y-2 sm:space-y-2.5">
               <div className="flex items-center justify-between gap-3">
                 <span className="font-editorial text-[var(--brand-cream)] text-[20px] sm:text-[24px] leading-none">
-                  ₹1,799 <span className="font-suisse text-xs text-[var(--brand-cream)]/60">· 50g</span>
+                  {PRICE} <span className="font-suisse text-xs text-[var(--brand-cream)]/60">· {SIZE}</span>
                 </span>
                 <button className="pointer-events-auto font-suisse text-[10px] sm:text-xs uppercase tracking-wider px-3.5 sm:px-4 py-1.5 sm:py-2 bg-[var(--brand-cream)] text-[var(--brand-dark,#1a1a1a)] font-medium hover:bg-white transition-colors">
                   Add to bag
@@ -97,8 +81,7 @@ export default function AuraProduct() {
               </p>
             </div>
 
-            {/* Divided Info Lines */}
-            <div className="w-full max-w-[460px] text-left border-t border-b border-[var(--brand-cream)]/15 divide-y divide-[var(--brand-cream)]/15">
+            <div className="w-full max-w-[460px] lg:max-w-none text-left border-t border-b border-[var(--brand-cream)]/15 divide-y divide-[var(--brand-cream)]/15">
               {DETAILS.map((d) => (
                 <div key={d.title} className="py-2 sm:py-2.5 lg:py-3">
                   <span className="block font-suisse text-[8px] sm:text-[9.5px] tracking-[0.18em] uppercase text-[var(--brand-cream)]/60 font-semibold mb-0.5">
@@ -111,10 +94,32 @@ export default function AuraProduct() {
               ))}
             </div>
 
-            {/* Closing Line */}
             <p className="font-editorial not-italic text-[var(--brand-cream)]/75 text-[16px] sm:text-[20px] tracking-tight pt-0.5">
               What&apos;s your skin wearing today?
             </p>
+          </div>
+
+          {/* ── IMAGE — right on desktop, first on mobile, square on mobile ── */}
+          <div className="order-1 lg:order-2 relative w-full max-w-[340px] lg:max-w-none mx-auto aspect-square lg:aspect-[4/5] rounded-2xl overflow-hidden shrink-0">
+            <div
+              className="absolute inset-0 z-0 rounded-full blur-2xl opacity-70"
+              style={{ background: 'radial-gradient(circle at 50% 45%, rgba(233,85,30,0.35), transparent 65%)' }}
+            />
+            <Image
+              src={asset(IMG_MOBILE)}
+              alt={FULL_NAME}
+              fill
+              sizes="(max-width: 1024px) 90vw, 45vw"
+              className="relative z-10 object-cover object-center lg:hidden"
+              priority
+            />
+            <Image
+              src={asset(IMG_DESKTOP)}
+              alt={FULL_NAME}
+              fill
+              sizes="45vw"
+              className="relative z-10 object-cover object-center hidden lg:block"
+            />
           </div>
 
         </div>

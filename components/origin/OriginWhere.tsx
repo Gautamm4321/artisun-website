@@ -7,19 +7,19 @@ const WEATHER: Weather[] = [
     index: '01',
     title: 'Every season',
     copy: 'Dry summers and humid days. Polluted evenings and sticky monsoons. Diwali smog and December fog.',
-    image: '/Every season.png',
+    image: '/pdp/origin-season.jpg',
   },
   {
     index: '02',
     title: 'Every region',
     copy: 'From busy Indian cities to quiet hill stations. From hot coasts to dry plains. From the city you live in to the beach you escape to.',
-    image: '/Every Region.png',
+    image: '/pdp/origin-region.jpg',
   },
   {
     index: '03',
     title: 'Every skin',
     copy: 'Oily, dry, combination or sensitive. One formula that works across all of them — no sorting, no second bottle.',
-    image: '/Every skin tone.png',
+    image: '/pdp/origin-skin.jpg',
   },
 ];
 export default function OriginWhere() {
@@ -80,9 +80,7 @@ export default function OriginWhere() {
                   </p>
                 </div>
               </div>
-              <span className="ow-hint block font-suisse text-[10px] tracking-[0.18em] uppercase text-[var(--brand-cream)]/55 mt-3 transition-opacity duration-300">
-                Hover to read
-              </span>
+
             </div>
           </article>
         ))}
@@ -93,18 +91,15 @@ export default function OriginWhere() {
       */}
       <style jsx>{`
         @media (hover: hover) {
-         .ow-card:hover.ow-img {
+         .ow-card:hover .ow-img {
             filter: blur(8px) brightness(0.4);
             transform: scale(1.06);
           }
-         .ow-card:hover.ow-veil {
+         .ow-card:hover .ow-veil {
             background: rgba(0, 0, 0, 0.5);
           }
-         .ow-card:hover.ow-desc {
+         .ow-card:hover .ow-desc {
             grid-template-rows: 1fr;
-          }
-         .ow-card:hover.ow-hint {
-            opacity: 0;
           }
         }
         @media (hover: none) {
@@ -116,9 +111,6 @@ export default function OriginWhere() {
           }
          .ow-desc {
             grid-template-rows: 1fr;
-          }
-         .ow-hint {
-            display: none;
           }
         }
        .ow-strip::-webkit-scrollbar {

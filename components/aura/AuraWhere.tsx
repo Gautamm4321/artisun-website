@@ -10,19 +10,19 @@ const WEATHER: Weather[] = [
     index: '01',
     title: 'Every region',
     copy: "From Chennai's coast to Manali's cold. From Ahmedabad's dry heat to Kolkata's damp. Wherever you are, it holds.",
-    image: '/skinwear-media/worn-product.jpg',
+    image: '/pdp/aura-region.jpg',
   },
   {
     index: '02',
     title: 'Every season',
     copy: 'Peak summer heat. Sticky monsoon air. Dry winter cold. Polluted city evenings — it holds through all of them.',
-    image: '/about-media/aura-2.jpg',
+    image: '/pdp/aura-season.jpg',
   },
   {
     index: '03',
     title: 'Every skin type',
     copy: 'Oily, dry, combination or sensitive. Every skin type — in just the right amount for the day.. Built for your weather, not just your skin type.',
-    image: '/skinwear-media/model-portrait.jpg',
+    image: '/pdp/aura-skin.jpg',
   },
 ];
 
@@ -79,9 +79,6 @@ export default function AuraWhere() {
                 </div>
               </div>
 
-              <span className="ow-hint block font-suisse text-[10px] tracking-[0.18em] uppercase text-[var(--brand-cream)]/55 mt-3 transition-opacity duration-300">
-                Hover to read
-              </span>
             </div>
           </article>
         ))}
@@ -99,9 +96,6 @@ export default function AuraWhere() {
           .ow-card:hover .ow-desc {
             grid-template-rows: 1fr;
           }
-          .ow-card:hover .ow-hint {
-            opacity: 0;
-          }
         }
         @media (hover: none) {
           .ow-img {
@@ -112,9 +106,6 @@ export default function AuraWhere() {
           }
           .ow-desc {
             grid-template-rows: 1fr;
-          }
-          .ow-hint {
-            display: none;
           }
         }
         .ow-strip::-webkit-scrollbar {

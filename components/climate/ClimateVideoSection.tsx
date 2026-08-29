@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { asset } from '@/lib/asset';
@@ -42,12 +42,14 @@ const CARDS = [
 
 const N = CARDS.length;
 
-// Word-by-word highlight configuration
-const DIM = 0.2;
-const REVEAL_START = 0.05;
-const REVEAL_SPAN = 0.6;
-const STAGGER_SPREAD = 0.7;
-const WORD_FADE = 0.3;
+// ── Text-swap animation, ported from climate-transition.html ──
+// The source file's mechanic: on a city change the copy fades to 0, sits blank
+// for SWAP_MS, then fades back in — the heading over CITY_MS and the body over
+// BODY_MS. The two durations differ on purpose; the stagger is what makes the
+// line feel like it's being *replaced* rather than cross-dissolved.
+const SWAP_MS = 180;
+const CITY_MS = 500;
+const BODY_MS = 700;
 
 const clamp = (v: number, min: number, max: number) => Math.min(max, Math.max(min, v));
 const smoothstep = (a: number, b: number, x: number) => {
@@ -67,9 +69,13 @@ export default function ClimateVideoSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const pinRef = useRef<HTMLDivElement>(null);
   const imageRefs = useRef<(HTMLDivElement | null)[]>([]);
-  const textRefs = useRef<(HTMLDivElement | null)[]>([]);
   const fillRefs = useRef<(HTMLSpanElement | null)[]>([]);
-  const wordRefs = useRef<(HTMLSpanElement | null)[][]>([]);
+
+  // `active` is the card the scroll position currently sits on. `shown` lags it
+  // by SWAP_MS — that gap is the blank beat from the source file.
+  const [active, setActive] = useState(0);
+  const [shown, setShown] = useState(0);
+  const [visible, setVisible] = useState(true);
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
@@ -77,11 +83,14 @@ export default function ClimateVideoSection() {
     const ctx = gsap.context(() => {
       // Initial state setup
       imageRefs.current.forEach((el, i) => el && gsap.set(el, { opacity: i === 0 ? 1 : 0 }));
-      textRefs.current.forEach((el, i) => el && gsap.set(el, { opacity: i === 0 ? 1 : 0, y: 0 }));
       fillRefs.current.forEach((el) => el && gsap.set(el, { scaleX: 0 }));
 
       const render = (progress: number) => {
         const u = progress * N;
+
+        // Which card the scroll is sitting on. setActive is a no-op when the
+        // value is unchanged, so this is safe to call every frame.
+        setActive(Math.min(N - 1, Math.floor(u)));
 
         for (let i = 0; i < N; i++) {
           const op = cityOpacity(i, u);
@@ -89,26 +98,6 @@ export default function ClimateVideoSection() {
           const img = imageRefs.current[i];
           if (img) img.style.opacity = String(op);
 
-          const txt = textRefs.current[i];
-          if (txt) {
-            const rel = clamp(u - (i + 0.5), -1, 1);
-            txt.style.opacity = String(op);
-            txt.style.transform = `translate3d(0, ${(-rel * 10).toFixed(2)}px, 0)`;
-          }
-
-          // Word-by-word reveal
-          const words = wordRefs.current[i];
-          if (words && words.length) {
-            const r = clamp((u - i - REVEAL_START) / REVEAL_SPAN, 0, 1);
-            const W = words.length;
-            for (let j = 0; j < W; j++) {
-              const wnode = words[j];
-              if (!wnode) continue;
-              const start = W > 1 ? (j / (W - 1)) * STAGGER_SPREAD : 0;
-              const wp = clamp((r - start) / WORD_FADE, 0, 1);
-              wnode.style.opacity = String(DIM + (1 - DIM) * wp);
-            }
-          }
 
           const fill = fillRefs.current[i];
           if (fill) fill.style.transform = `scaleX(${clamp(u - i, 0, 1)})`;
@@ -132,6 +121,21 @@ export default function ClimateVideoSection() {
 
     return () => ctx.revert();
   }, []);
+
+  // ── The swap itself (climate-transition.html mechanic) ──
+  // `shown` trails `active`: fade out → hold blank for SWAP_MS → swap the copy →
+  // fade back in. Doing it with a lagging index rather than animating the same
+  // node keeps React's render and the animation in step; animating text content
+  // directly would show the new string during the fade-out frame.
+  useEffect(() => {
+    if (active === shown) return;
+    setVisible(false);
+    const t = setTimeout(() => {
+      setShown(active);
+      setVisible(true);
+    }, SWAP_MS);
+    return () => clearTimeout(t);
+  }, [active, shown]);
 
   return (
     <section
@@ -177,60 +181,32 @@ export default function ClimateVideoSection() {
         {/* ── BOTTOM (20%) on Mobile & Tablets / RIGHT (33%) on Laptop ── */}
         <div className="relative w-full h-[20svh] lg:h-full lg:w-1/3 bg-transparent flex flex-col justify-between">
           <div className="relative h-full w-full">
-            {CARDS.map((card, i) => {
-              const headingWords = card.heading.split(' ');
-              const descWords = card.desc.split(' ');
+            {/* One panel. The copy is swapped underneath a fade rather than
+                cross-dissolving four stacked absolute layers — that is what the
+                source HTML does, and it reads as a deliberate replacement. */}
+            <div className="absolute inset-0 flex flex-col justify-center items-center text-center lg:items-start lg:text-left px-4 sm:px-8 lg:px-12 xl:px-16 pt-0.5 lg:pt-0 pb-6 sm:pb-8 lg:pb-20">
+              {/* Heading — fades over CITY_MS */}
+              <h3
+                className="w-full font-editorial text-[var(--brand-cream)] text-[24px] xs:text-[27px] sm:text-[32px] lg:text-[42px] xl:text-[46px] leading-[1.04] tracking-tight mb-1 lg:mb-4 drop-shadow-sm will-change-[opacity]"
+                style={{
+                  opacity: visible ? 1 : 0,
+                  transition: `opacity ${CITY_MS}ms ease`,
+                }}
+              >
+                {CARDS[shown].heading}
+              </h3>
 
-              return (
-                <div
-                  key={card.city}
-                  ref={(el) => {
-                    textRefs.current[i] = el;
-                  }}
-                  className="absolute inset-0 flex flex-col justify-center items-center text-center lg:items-start lg:text-left px-4 sm:px-8 lg:px-12 xl:px-16 pt-0.5 lg:pt-0 pb-6 sm:pb-8 lg:pb-20 will-change-[opacity,transform]"
-                  style={{ opacity: i === 0 ? 1 : 0 }}
-                >
-                  {/* 1. Main City Heading: Balanced for 20% Frame Height */}
-                  <h3 className="w-full font-editorial text-[var(--brand-cream)] text-[24px] xs:text-[27px] sm:text-[32px] lg:text-[42px] xl:text-[46px] leading-[1.04] tracking-tight mb-1 lg:mb-4 drop-shadow-sm">
-
-
-                    {headingWords.map((word, j) => (
-                      <span
-                        key={`h-${j}`}
-                        ref={(el) => {
-                          if (!wordRefs.current[i]) wordRefs.current[i] = [];
-                          wordRefs.current[i][j] = el;
-                        }}
-                        className="inline-block will-change-[opacity]"
-                        style={{ opacity: DIM }}
-                      >
-                        {word}&nbsp;
-                      </span>
-                    ))}
-                  </h3>
-
-                  {/* 2. Smaller Description Text: Proportional 20% Frame Scaling */}
-                  <p className="font-suisse text-[var(--brand-cream)]/90 text-[13px] xs:text-[14.5px] sm:text-[16px] lg:text-[22px] leading-[1.28] lg:leading-[1.5] max-w-[320px] xs:max-w-[360px] sm:max-w-[460px] lg:max-w-[28ch] drop-shadow-sm">
-                    {descWords.map((word, j) => {
-                      const totalIdx = headingWords.length + j;
-                      return (
-                        <span
-                          key={`d-${j}`}
-                          ref={(el) => {
-                            if (!wordRefs.current[i]) wordRefs.current[i] = [];
-                            wordRefs.current[i][totalIdx] = el;
-                          }}
-                          className="inline-block will-change-[opacity]"
-                          style={{ opacity: DIM }}
-                        >
-                          {word}&nbsp;
-                        </span>
-                      );
-                    })}
-                  </p>
-                </div>
-              );
-            })}
+              {/* Body — fades over BODY_MS, deliberately slower than the heading */}
+              <p
+                className="font-suisse text-[var(--brand-cream)]/90 text-[13px] xs:text-[14.5px] sm:text-[16px] lg:text-[22px] leading-[1.28] lg:leading-[1.5] max-w-[320px] xs:max-w-[360px] sm:max-w-[460px] lg:max-w-[28ch] drop-shadow-sm will-change-[opacity]"
+                style={{
+                  opacity: visible ? 1 : 0,
+                  transition: `opacity ${BODY_MS}ms ease`,
+                }}
+              >
+                {CARDS[shown].desc}
+              </p>
+            </div>
           </div>
 
           {/* Segmented Progress Bar: Grounded on Mobile */}

@@ -108,11 +108,19 @@ export default function OriginWhatsIn() {
                     </span>
 
                     {/* Bottom-Right / Bottom-Left: Name Always on Image */}
-                    <h3 className={`absolute bottom-2 font-suisse font-medium text-[11.5px] sm:text-[13px] text-[var(--brand-cream)] tracking-tight transition-all duration-300 ${
-                      isOpen ? 'left-2.5 right-auto text-[10px] leading-tight max-w-[85%]' : 'right-9'
+                    <div className={`absolute bottom-2 transition-all duration-300 ${
+                      isOpen ? 'left-2.5 right-auto max-w-[85%]' : 'left-2.5 right-9 text-right'
                     }`}>
-                      {item.name}
-                    </h3>
+                      <h3 className={`font-suisse font-medium text-[var(--brand-cream)] tracking-tight ${isOpen ? 'text-[10px] leading-tight' : 'text-[11.5px] sm:text-[13px]'}`}>
+                        {item.name}
+                      </h3>
+                      {/* byline, visible without opening the card */}
+                      {!isOpen && (
+                        <p className="font-suisse text-[8.5px] sm:text-[9.5px] leading-[1.25] text-[var(--brand-cream)]/75 mt-0.5 line-clamp-2">
+                          {item.hook}
+                        </p>
+                      )}
+                    </div>
                   </div>
 
                   {/* Toggle Arrow Button */}
@@ -132,11 +140,8 @@ export default function OriginWhatsIn() {
                   {/* Right Half: Only Hook + Detail (No duplicate Name) */}
                   {isOpen && (
                     <div className="w-[56%] h-full flex flex-col justify-center px-2.5 py-1.5 bg-black/50 backdrop-blur-md border-l border-white/10 overflow-hidden">
-                      <div className="space-y-1 overflow-y-auto max-h-full pr-1 [scrollbar-width:none]">
-                        <p className="font-suisse text-[9px] font-medium text-[var(--brand-cream)] leading-[1.25]">
-                          {item.hook}
-                        </p>
-                        <p className="font-suisse text-[8px] text-[var(--brand-cream)]/75 leading-[1.28]">
+                      <div className="overflow-y-auto max-h-full pr-1 [scrollbar-width:none]">
+                        <p className="font-suisse text-[8.5px] text-[var(--brand-cream)]/80 leading-[1.3]">
                           {item.detail}
                         </p>
                       </div>
@@ -164,11 +169,20 @@ export default function OriginWhatsIn() {
                   <div className="p-4 flex flex-col bg-black/25 border-t border-white/10">
                     <div
                       onClick={() => toggleAccordion(idx)}
-                      className="flex items-center justify-between cursor-pointer select-none"
+                      className="flex items-start justify-between gap-3 cursor-pointer select-none"
                     >
-                      <h3 className="font-suisse font-medium text-[16px] text-[var(--brand-cream)] tracking-tight">
-                        {item.name}
-                      </h3>
+                      {/* Name + byline. The hook used to appear only after the +
+                          was pressed; it now reads alongside the name so the card
+                          means something at a glance. It is removed from the
+                          expanded panel below to avoid showing twice. */}
+                      <div className="min-w-0">
+                        <h3 className="font-suisse font-medium text-[16px] text-[var(--brand-cream)] tracking-tight">
+                          {item.name}
+                        </h3>
+                        <p className="font-suisse text-[11.5px] leading-[1.35] text-[var(--brand-cream)]/70 mt-1">
+                          {item.hook}
+                        </p>
+                      </div>
                       <button
                         type="button"
                         aria-label="Toggle details"
@@ -184,11 +198,8 @@ export default function OriginWhatsIn() {
                       className={`grid transition-[grid-template-rows] duration-400 ease-out ${isOpen ? 'grid-rows-[1fr] mt-2.5 pt-2.5 border-t border-white/10' : 'grid-rows-[0fr]'
                         }`}
                     >
-                      <div className="overflow-hidden space-y-1.5 max-h-[16vh] overflow-y-auto [scrollbar-width:none]">
-                        <p className="font-suisse text-[12px] font-medium text-[var(--brand-cream)] leading-[1.35]">
-                          {item.hook}
-                        </p>
-                        <p className="font-suisse text-[11px] text-[var(--brand-cream)]/70 leading-[1.45]">
+                      <div className="overflow-hidden max-h-[16vh] overflow-y-auto [scrollbar-width:none]">
+                        <p className="font-suisse text-[11px] text-[var(--brand-cream)]/75 leading-[1.45]">
                           {item.detail}
                         </p>
                       </div>

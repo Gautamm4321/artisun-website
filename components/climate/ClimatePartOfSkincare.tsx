@@ -1,11 +1,11 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion, type Variants } from 'framer-motion';
 import Image from 'next/image';
 import { asset } from '@/lib/asset';
 
 // Fast Pointer Variants for Desktop/Tablet
-const leftPointerVariants = {
+const leftPointerVariants: Variants = {
   hidden: { opacity: 0, x: -25 },
   visible: (i: number) => ({
     opacity: 1,
@@ -18,7 +18,7 @@ const leftPointerVariants = {
   }),
 };
 
-const rightPointerVariants = {
+const rightPointerVariants: Variants = {
   hidden: { opacity: 0, x: 25 },
   visible: (i: number) => ({
     opacity: 1,

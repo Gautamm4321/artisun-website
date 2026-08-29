@@ -18,21 +18,21 @@ const PEARL_TABS: PearlTab[] = [
     label: '1 Pearl',
     weather: 'Humid & Sticky',
     desc: 'Light, weightless coverage for high humidity days when skin needs minimal layers.',
-    image: '/about-media/aura-1.jpg',
+    image: '/pdp/aura-dosage.jpg',
   },
   {
     pearls: 2,
     label: '2 Pearls',
     weather: 'Mild & Everyday',
     desc: 'Two pearls when it’s humid. Perfect balance for your standard daily commute.',
-    image: '/about-media/aura-2.jpg',
+    image: '/pdp/aura-dosage.jpg',
   },
   {
     pearls: 3,
     label: '3 Pearls',
     weather: 'Dry & Cold Winter',
     desc: 'Three when it’s dry. Deeper hydration so you are never under-protected in a Delhi winter.',
-    image: '/about-media/aura-3.jpg',
+    image: '/pdp/aura-dosage.jpg',
   },
 ];
 

@@ -13,13 +13,12 @@ import AuraDosage from '@/components/aura/AuraDosage';
 import AuraTexture from '@/components/aura/AuraTexture';
 import AuraWhere from '@/components/aura/AuraWhere';
 import AuraWhatsIn from '@/components/aura/AuraWhatsIn';
-import AuraStats from '@/components/aura/AuraStats';
 import AuraProduct from '@/components/aura/AuraProduct';
 import AuraQuestions from '@/components/aura/AuraQuestions';
 import AuraStickyCartBar from '@/components/aura/AuraStickyCartBar';
 import { asset } from '@/lib/asset';
 
-const PANELS = 8;
+const PANELS = 7;
 
 export default function AuraPage() {
   const mouseProxy = useRef({ x: 0, y: 0, px: 0, py: 0 });
@@ -129,7 +128,6 @@ export default function AuraPage() {
           <AuraTexture />
           <AuraWhere />
           <AuraWhatsIn />
-          <AuraStats />
           <AuraProduct />
           <AuraQuestions />
         </div>

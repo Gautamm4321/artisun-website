@@ -10,7 +10,7 @@ export default function AuraStickyCartBar() {
         {/* Left: Compact Thumb + Title */}
         <div className="flex items-center gap-3">
           <div className="relative h-7 w-7 sm:h-8 sm:w-8 overflow-hidden shrink-0 border border-white/15">
-            <Image src={asset('/about-media/aura-1.jpg')} alt="Aura" fill sizes="32px" className="object-cover" />
+            <Image src={asset('/pdp/aura-1.jpg')} alt="Aura" fill sizes="32px" className="object-cover" />
           </div>
           <div className="flex items-center gap-2">
             <span className="font-editorial text-[var(--brand-cream)] text-sm sm:text-base leading-none tracking-wide">
