@@ -51,42 +51,44 @@ export default function OriginWhy() {
         {/* Type sizes on mobile now match frame 3 (OriginWhere): 30px heading,
             15px body — they were 22px/11px, noticeably smaller than every
             neighbouring panel. */}
-        <div className="flex flex-col items-center lg:items-start text-center lg:text-left gap-2 sm:gap-3 lg:grid lg:grid-cols-2 lg:gap-16 shrink-0 mt-2 sm:mt-4 lg:mt-0 rounded-2xl lg:rounded-none bg-black/45 lg:bg-transparent backdrop-blur-md lg:backdrop-blur-none p-4 lg:p-0">
-          <h2 className="font-editorial text-[var(--brand-cream)] text-[30px] sm:text-[46px] lg:text-[54px] leading-[1.03] lg:leading-[1.08] tracking-tight max-w-[24ch] lg:max-w-[15ch] drop-shadow-[0_2px_12px_rgba(0,0,0,0.75)]">
-            The most boring step in your morning, <br className="hidden sm:inline lg:hidden" />finally worth it.
+        <div className="flex flex-col items-center lg:items-start text-center lg:text-left lg:grid lg:grid-cols-2 lg:gap-16 shrink-0 mt-2 sm:mt-4 lg:mt-0">
+          {/* 2 Lines on mobile */}
+          <h2 className="font-editorial text-[var(--brand-cream)] text-[36px] sm:text-[44px] lg:text-[54px] leading-[1.08] tracking-tight text-center lg:text-left drop-shadow-[0_2px_12px_rgba(0,0,0,0.75)]">
+            The most boring step in your<br className="lg:hidden" /> morning finally worth it
           </h2>
-          <p className="font-suisse text-[var(--brand-cream)]/85 text-[15px] sm:text-[18px] lg:text-[19px] leading-[1.4] lg:leading-[1.5] max-w-[36ch] sm:max-w-[48ch] lg:pt-2 lg:justify-self-end mt-2 lg:mt-0 drop-shadow-[0_2px_10px_rgba(0,0,0,0.7)]">
-            You use four products before you&apos;ve even left the house — serum, moisturiser, sunscreen, primer, one after the other. Origin is all four, in one light layer.
+          
+          {/* Mobile Description with large top spacing */}
+          <p className="font-suisse text-[var(--brand-cream)]/90 text-[17.5px] sm:text-[15px] leading-[1.4] text-center max-w-[34ch] mt-[26vh] mb-4 lg:hidden drop-shadow-[0_2px_8px_rgba(0,0,0,0.85)]">
+            Four layers before your morning chai? Origin makes it one. So your morning is faster, no heaviness, no pilling & no greasiness.
+          </p>
+
+          {/* Desktop Description (Untouched) */}
+          <p className="hidden lg:block font-suisse text-[var(--brand-cream)]/85 text-[19px] leading-[1.5] max-w-[48ch] pt-2 justify-self-end drop-shadow-[0_2px_10px_rgba(0,0,0,0.7)]">
+            Nobody misses layering four things before they’ve even had their chai. Origin is one light layer that sorts your skin for the day - so your morning is faster, with no heaviness, no pilling by noon & no greasiness.
           </p>
         </div>
 
-      {/* Bottom-aligned stats: 2 Top / 3 Bottom on Mobile | 5 Columns on Desktop */}
         <div
           ref={statsRef}
-          /* Every box is now the same width and height. Previously row 1 was
-             50%-wide / row 2 was 33%-wide, so the five tiles were two different
-             sizes. A 3-col grid makes them uniform and the last two centre
-             themselves. mb-auto pulls the whole block up off the bottom edge —
-             that was the large dead gap in the middle of the page. */
-          className="w-full grid grid-cols-3 lg:grid-cols-5 gap-2 sm:gap-2.5 lg:gap-x-0 max-w-[390px] lg:max-w-none mx-auto shrink-0 mt-4 mb-auto lg:mt-0 lg:mb-0 pb-2 sm:pb-3 lg:pb-0"
+          className="w-full grid grid-cols-2 lg:grid-cols-5 gap-2.5 sm:gap-3 lg:gap-4 max-w-[340px] sm:max-w-[420px] lg:max-w-none mx-auto shrink-0 mb-auto lg:mb-0 pb-3 lg:pb-0"
         >
           {STATS.map((s, idx) => {
-            const isLast2 = idx >= 3;
+            const isLastOne = idx === 4;
             return (
               <div
                 key={s.index}
-                className={`${isLast2 && idx === 3 ? 'col-start-1 lg:col-start-auto' : ''} h-[92px] sm:h-[100px] lg:w-auto lg:h-auto p-2 sm:p-2.5 lg:p-0 rounded-xl lg:rounded-none bg-black/50 lg:bg-transparent backdrop-blur-md lg:backdrop-blur-none border border-white/20 lg:border-0 lg:border-l lg:border-[var(--brand-cream)]/18 lg:first:border-l-0 lg:px-7 lg:first:pl-0 flex flex-col justify-between shadow-lg lg:shadow-none`}
+                className={`${isLastOne ? 'col-span-2 justify-self-center w-[52%] lg:w-full lg:col-span-1' : 'w-full'} min-h-[82px] sm:min-h-[92px] lg:min-h-[175px] p-2.5 sm:p-3 lg:p-4 rounded-xl bg-gradient-to-b from-[#6e140d]/75 to-[#380805]/90 backdrop-blur-md border border-white/20 lg:border-white/15 flex flex-col justify-between shadow-lg hover:border-white/30 transition-all`}
               >
                 <div>
                   <div className="font-suisse text-[8.5px] sm:text-[9.5px] lg:text-[11px] tracking-[0.12em] uppercase text-[var(--brand-cream)]/60">
                     {s.index} · {s.label}
                   </div>
-                  <div className="font-editorial text-[var(--brand-cream)] text-[18px] sm:text-[22px] lg:text-[60px] leading-none mt-1 lg:mt-2 tabular-nums drop-shadow-[0_2px_10px_rgba(0,0,0,0.7)]">
+                  <div className="font-editorial text-[var(--brand-cream)] text-[21px] sm:text-[22px] lg:text-[60px] leading-none mt-1 lg:mt-2 tabular-nums drop-shadow-[0_2px_10px_rgba(0,0,0,0.7)]">
                     <CountUp end={s.value} suffix={s.suffix} play={inView} duration={2} />
                   </div>
                 </div>
 
-                <p className="font-suisse text-[8px] sm:text-[9.5px] lg:text-[13px] leading-[1.2] lg:leading-[1.5] text-[var(--brand-cream)]/75 mt-1 lg:mt-3 line-clamp-2">
+                <p className="font-suisse text-[11px] sm:text-[9.5px] lg:text-[13.5px] leading-[1.2] lg:leading-[1.45] text-[var(--brand-cream)]/90 lg:text-white mt-1 lg:mt-2 line-clamp-2 lg:line-clamp-none drop-shadow-[0_1px_4px_rgba(0,0,0,0.8)]">
                   <span className="lg:hidden">{s.mobileCopy}</span>
                   <span className="hidden lg:inline">{s.copy}</span>
                 </p>

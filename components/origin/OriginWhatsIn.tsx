@@ -16,33 +16,33 @@ const INGREDIENTS_DATA: IngredientItem[] = [
   {
     name: 'Beta-Glucan',
     country: 'Finland',
-    hook: 'Holds moisture deeper than hyaluronic acid.',
+    hook: ' Finland’s finest cosmetic beta-glucan.',
     detail:
-      'Finland grows the world’s finest cosmetic beta-glucan, with forty years of dermatology behind it. It strengthens the skin’s outer layer and keeps moisture locked in through the day — deeper and longer than hyaluronic acid manages. Not the active you notice. The one you’d notice gone.',
+      'Strengthens the barrier and locks in moisture — deeper and longer than hyaluronic acid.',
     image: asset('/beta.jpeg'),
   },
   {
     name: 'Camellia Sinensis',
     country: 'Japan',
-    hook: 'Green tea, 100× the antioxidant strength of vitamin E.',
+    hook: 'Japanese green tea at its most concentrated. ',
     detail:
-      'Japanese green tea, refined to its most concentrated form. Up to 100× the antioxidant power of vitamin E, taking on the pollution and particulate matter your skin meets on any ordinary day out. Quietly defensive, always working.',
+      'Up to 100× the antioxidant power of vitamin E, taking on the pollution your skin meets every day.',
     image: asset('/camelia.jpeg'),
   },
   {
     name: 'Uvinul A Plus',
     country: 'Germany',
-    hook: 'One of the most advanced UVA filters made anywhere in the world.',
+    hook: 'One of the most advanced UVA filters made. ',
     detail:
-      'It holds its structure in sunlight instead of degrading through the morning — so the protection you put on at eight is still the protection you have at four.',
+      'It holds in sunlight instead of fading — the protection you put on at eight is still there at four.',
     image: asset('/unival.jpeg'),
   },
   {
     name: 'Betaine',
-    country: 'Canada',
-    hook: 'Sugar Beet — Keeps skin balanced and hydrated as the weather shifts.',
+    country: 'Finland',
+    hook: 'A natural humectant from sugar beet. ',
     detail:
-      "Drawn from sugar beet, betaine is a natural humectant that pulls moisture into the skin and holds it there. As the weather shifts through the day — dry heat, office air, humidity — it keeps the skin's balance steady, soft and comfortable. The quiet regulator that keeps everything else working.",
+      "Pulls moisture into the skin and holds it there as the weather shifts through the day.",
     image: asset('/betaine.jpeg'),
   },
 ];

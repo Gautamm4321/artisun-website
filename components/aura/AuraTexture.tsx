@@ -22,15 +22,17 @@ export default function AuraTexture() {
         <div className="absolute inset-0 bg-black/35 pointer-events-none" />
       </div>
 
-      {/* ── Bottom on Mobile / Right on Desktop: Red-Orange-Black Texture ── */}
-      <div
-        className="absolute bottom-0 left-0 lg:top-0 lg:left-auto lg:right-0 w-full h-1/2 lg:w-1/2 lg:h-full overflow-hidden"
-        style={{
-          background:
-            'radial-gradient(ellipse at 70% 40%, #c43a1d 0%, #70160b 45%, #180302 85%, #050001 100%)',
-        }}
-      >
-        <div className="absolute inset-0 bg-[radial-gradient(#ffffff0a_1px,transparent_1px)] [background-size:16px_16px] opacity-40 mix-blend-overlay" />
+      {/* ── Bottom on Mobile / Right on Desktop: Liquid Gel Texture Image ── */}
+      <div className="absolute bottom-0 left-0 lg:top-0 lg:left-auto lg:right-0 w-full h-1/2 lg:w-1/2 lg:h-full overflow-hidden bg-[#120302]">
+        <Image
+          src={asset('/Third page, second image.jpg')}
+          alt="Aura Texture"
+          fill
+          sizes="(max-width: 1024px) 100vw, 50vw"
+          className="object-cover object-center"
+          priority
+        />
+        <div className="absolute inset-0 bg-black/25 pointer-events-none" />
       </div>
 
       {/* ── Center Divider Line (Horizontal on Mobile / Vertical on Desktop) ── */}
@@ -50,17 +52,14 @@ export default function AuraTexture() {
           the second they touch skin.
         </h2>
 
-        {/* Subtext: Parallel width & right-offset in exact 3 lines */}
-        <div className="w-full max-w-[860px] grid grid-cols-1 lg:grid-cols-2 mt-4 sm:mt-6">
-          <div className="hidden lg:block" /> {/* Left side empty spacer */}
-
-          <div className="text-center lg:text-left lg:pl-6 px-4 sm:px-0">
-            <p className="font-suisse text-[11px] sm:text-[12px] lg:text-[12.5px] leading-[1.5] text-white/90 drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)] max-w-[34ch] mx-auto lg:mx-0">
-              Our texture shifts from fluid to plush as you smooth it on, then disappears into skin. No heaviness. No grease. No film sitting on top.
-            </p>
-          </div>
+        {/* Subtext: Perfectly centered under heading with larger font */}
+        <div className="w-full max-w-[900px] mt-1 sm:mt-2 lg:mt-3 flex justify-center px-4">
+          <p className="font-suisse text-[12px] sm:text-[14px] lg:text-[17px] leading-[1.6] text-white/90 drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)] text-center max-w-[48ch]">
+            Our texture shifts from fluid to plush as you<br className="hidden lg:inline" />
+            smooth it on, then disappears into skin. No<br className="hidden lg:inline" />
+            heaviness. No grease. No film sitting on top.
+          </p>
         </div>
-
       </div>
     </div>
   );

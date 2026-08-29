@@ -1,8 +1,9 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import Image from 'next/image';
 import { asset } from '@/lib/asset';
+import { usePanelEdgeScroll } from '@/hooks/usePanelEdgeScroll';
 
 type PearlTab = {
   pearls: number;
@@ -38,13 +39,16 @@ const PEARL_TABS: PearlTab[] = [
 
 export default function AuraDosage() {
   const [activeTab, setActiveTab] = useState(1);
+  const scrollerRef = useRef<HTMLDivElement>(null);
+  usePanelEdgeScroll(scrollerRef);
 
   const current = PEARL_TABS[activeTab];
 
   return (
     <div
       id="aura-dosage"
-      className="aura-panel relative w-screen shrink-0 h-[100svh] overflow-hidden flex flex-col justify-between py-14 sm:py-16 lg:py-20 px-5 sm:px-8 lg:px-14 bg-[var(--brand-red,#8B0000)] text-[var(--brand-cream)]"
+      ref={scrollerRef}
+      className="aura-panel relative w-screen shrink-0 h-[100svh] overflow-y-auto lg:overflow-hidden flex flex-col justify-between pt-20 pb-28 sm:py-16 lg:py-20 px-5 sm:px-8 lg:px-14 bg-[var(--brand-red,#8B0000)] text-[var(--brand-cream)]"
     >
       {/* Top Heading */}
       <div className="relative z-10 max-w-[1500px] w-full mx-auto pt-6 sm:pt-8 lg:pt-10">

@@ -61,9 +61,9 @@ export default function AuraProduct() {
           <div className="order-2 lg:order-1 w-full max-w-[520px] lg:max-w-none mx-auto flex flex-col items-center lg:items-start text-center lg:text-left gap-3 sm:gap-4">
 
             <div className="flex flex-col items-center lg:items-start w-full">
-              <h2 className="font-editorial tracking-[-0.02em] leading-[1.05] text-[var(--brand-cream)] text-[clamp(24px,6vw,44px)]">
-                {FULL_NAME}
-              </h2>
+              <h2 className="font-editorial tracking-tight leading-[1.05] text-[var(--brand-cream)] text-[clamp(17px,7vw,45px)] whitespace-nowrap lg:whitespace-normal">
+            {FULL_NAME}
+          </h2>
               <TagPills tags={BADGES} align="start" className="mt-3 sm:mt-4 justify-center lg:justify-start" />
             </div>
 
@@ -100,7 +100,7 @@ export default function AuraProduct() {
           </div>
 
           {/* ── IMAGE — right on desktop, first on mobile, square on mobile ── */}
-          <div className="order-1 lg:order-2 relative w-full max-w-[340px] lg:max-w-none mx-auto aspect-square lg:aspect-[4/5] rounded-2xl overflow-hidden shrink-0">
+      <div className="order-1 lg:order-2 relative w-[calc(100%+2.5rem)] -mx-5 sm:-mx-8 lg:mx-auto max-w-none lg:w-full aspect-[4/3] sm:aspect-square lg:aspect-[4/5] rounded-none lg:rounded-2xl overflow-hidden shrink-0">
             <div
               className="absolute inset-0 z-0 rounded-full blur-2xl opacity-70"
               style={{ background: 'radial-gradient(circle at 50% 45%, rgba(233,85,30,0.35), transparent 65%)' }}

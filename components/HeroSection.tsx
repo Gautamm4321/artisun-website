@@ -56,8 +56,8 @@ export default function HeroSection({ ready = false }: { ready?: boolean }) {
 
         /* Mobile full-bleed original portrait alignment */
         .hero-model-mobile {
-          height: 85svh;
-          width: auto;
+          height: 92svh;
+          width: auto;  
           max-width: none;
           transform: translate(var(--hero-model-x, 0%), var(--hero-model-y, 0%));
         }
