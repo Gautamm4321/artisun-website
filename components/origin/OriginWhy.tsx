@@ -53,7 +53,7 @@ export default function OriginWhy() {
             neighbouring panel. */}
         <div className="flex flex-col items-center lg:items-start text-center lg:text-left lg:grid lg:grid-cols-2 lg:gap-16 shrink-0 mt-2 sm:mt-4 lg:mt-0">
           {/* 2 Lines on mobile */}
-          <h2 className="font-editorial text-[var(--brand-cream)] text-[36px] sm:text-[44px] lg:text-[54px] leading-[1.08] tracking-tight text-center lg:text-left drop-shadow-[0_2px_12px_rgba(0,0,0,0.75)]">
+          <h2 className="font-editorial text-[var(--brand-cream)] text-[28px] sm:text-[44px] lg:text-[54px] leading-[1.08] tracking-tight text-center lg:text-left drop-shadow-[0_2px_12px_rgba(0,0,0,0.75)]">
             The most boring step in your<br className="lg:hidden" /> morning finally worth it
           </h2>
           

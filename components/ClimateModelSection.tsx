@@ -55,89 +55,57 @@ export default function ClimateModelSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
 
-
-
 useEffect(() => {
-    const section = sectionRef.current;
     const video = videoRef.current;
-    if (!section || !video) return;
+    const section = sectionRef.current;
+    if (!video || !section) return;
 
+    // Direct mobile video hardware overrides
+    video.defaultMuted = true;
     video.muted = true;
+    video.setAttribute('muted', '');
+    video.setAttribute('playsinline', '');
+    video.setAttribute('webkit-playsinline', '');
 
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-
-    let raf = 0;
-    let listening = false;
-    let freezeTimer: ReturnType<typeof setTimeout> | null = null;
-
-    const evaluate = () => {
-      raf = 0;
-      const r = section.getBoundingClientRect();
-      const vh = window.innerHeight || 1;
-      const covered = Math.max(0, Math.min(r.bottom, vh) - Math.max(r.top, 0));
-      const coverage = covered / vh;
-
-      // Section reaches ~85%+ on screen
-      if (coverage >= 0.85) {
-        if (video.paused && !freezeTimer) {
-          // 1.5s freeze delay to let section align on screen
-          freezeTimer = setTimeout(() => {
-            if (video && video.paused) {
-              video.play().catch(() => {});
-            }
-          }, 1500);
-        }
-      } else {
-        if (freezeTimer) {
-          clearTimeout(freezeTimer);
-          freezeTimer = null;
-        }
-        if (!video.paused) {
-          video.pause();
+    const tryPlay = () => {
+      if (video && video.paused) {
+        const promise = video.play();
+        if (promise !== undefined) {
+          promise.catch(() => {
+            // First user swipe/scroll/touch trigger fallback
+            const handleFirstGesture = () => {
+              if (video) video.play().catch(() => {});
+              window.removeEventListener('touchstart', handleFirstGesture);
+              window.removeEventListener('scroll', handleFirstGesture);
+            };
+            window.addEventListener('touchstart', handleFirstGesture, { once: true, passive: true });
+            window.addEventListener('scroll', handleFirstGesture, { once: true, passive: true });
+          });
         }
       }
     };
 
-    const onScroll = () => {
-      if (!raf) raf = requestAnimationFrame(evaluate);
-    };
+    // Instant autoplay trigger on mount
+    tryPlay();
 
-    const attach = () => {
-      if (listening) return;
-      listening = true;
-      window.addEventListener('scroll', onScroll, { passive: true });
-      window.addEventListener('resize', onScroll);
-      evaluate();
-    };
-
-    const detach = () => {
-      if (!listening) return;
-      listening = false;
-      window.removeEventListener('scroll', onScroll);
-      window.removeEventListener('resize', onScroll);
-    };
-
+    // Standard Intersection Observer: 15% visibility par instantly play karega
     const io = new IntersectionObserver(
-      ([e]) => {
-        if (e.isIntersecting) attach();
-        else {
-          detach();
-          if (freezeTimer) {
-            clearTimeout(freezeTimer);
-            freezeTimer = null;
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          tryPlay();
+        } else {
+          if (!video.paused) {
+            video.pause();
           }
-          video.pause();
         }
       },
-      { threshold: 0 },
+      { threshold: 0.15 }
     );
 
     io.observe(section);
+
     return () => {
       io.disconnect();
-      detach();
-      if (freezeTimer) clearTimeout(freezeTimer);
-      if (raf) cancelAnimationFrame(raf);
     };
   }, []);
 
@@ -155,9 +123,10 @@ useEffect(() => {
           loop
           muted
           playsInline
-          preload="metadata"
+          autoPlay
+          preload="auto"
           aria-hidden
-          className="w-full h-full object-cover opacity-90 brightness-90"
+          className="w-full h-full object-cover opacity-90 brightness-90 pointer-events-none"
         />
       </div>
 
@@ -269,7 +238,7 @@ useEffect(() => {
           max-width: none;
           object-fit: contain;
           object-position: var(--climate-model-pos, left bottom);
-          transform: translate(var(--climate-model-x, 0%), var(--climate-model-y, 0%));
+          transform: translate(-32%, 0%);
         }
         /* Desktop: the ORIGINAL geometry — 94vh tall, centred, capped at 95vw.
            None of the mobile variables apply here. */

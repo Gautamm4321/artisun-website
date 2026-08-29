@@ -15,7 +15,7 @@ const GALLERY = [
   '/pdp/aura-3.jpg',
   '/pdp/aura-4.jpg',
   '/pdp/aura-5.jpg',
-  '/pdp/aura-6.jpg',
+  '/pdp/First page, sixth image.png',
   '/pdp/aura-7.jpg',
   '/pdp/aura-8.jpg',
 ];
@@ -81,14 +81,11 @@ export default function AuraHero({ onNavigate }: { onNavigate: (panelIndex: numb
         ref={scrollerRef}
         className="panel-scroll lg:overflow-hidden h-full flex flex-col justify-start lg:justify-center pt-[76px] pb-24 sm:pt-24 sm:pb-24 lg:py-0"
       >
-        <div className="w-full max-w-[1500px] mx-auto px-5 sm:px-8 lg:px-14 flex flex-col lg:grid lg:grid-cols-[1.05fr_0.95fr] gap-5 sm:gap-6 lg:gap-14 items-center lg:items-stretch my-auto">
+        <div className="w-full max-w-[1240px] mx-auto px-5 sm:px-8 lg:px-12 flex flex-col lg:grid lg:grid-cols-[460px_1fr] xl:grid-cols-[500px_1fr] gap-5 sm:gap-6 lg:gap-16 items-center my-auto">
 
           {/* ── IMAGE: matches Origin hero sizing (top on mobile / left on desktop) ── */}
-          <div className="order-1 flex flex-col w-full max-w-[360px] lg:max-w-none shrink-0 min-h-0">
-            {/* Square frame. aspect-square sets the height, so the previous
-                h-[42vh] / lg:h-full pair had to go — with those present the box
-                stayed viewport-shaped and the ratio never took effect. */}
-            <div className="relative w-full aspect-square rounded-xl lg:rounded-none overflow-hidden bg-white/[0.03] shadow-2xl">
+          <div className="order-1 flex flex-col w-full max-w-[360px] lg:max-w-[440px] xl:max-w-[480px] shrink-0 min-h-0">
+            <div className="relative w-full aspect-square lg:aspect-[4/4.75] lg:max-h-[74vh] rounded-xl lg:rounded-2xl overflow-hidden bg-white/[0.03] shadow-2xl">
               <Image
                 key={activeImg}
                 src={asset(activeImg)}
@@ -139,35 +136,35 @@ export default function AuraHero({ onNavigate }: { onNavigate: (panelIndex: numb
           </div>
 
           {/* ── CONTENT: right on desktop / bottom on mobile (scrolls with the image) ── */}
-          <div className="order-2 flex flex-col justify-start lg:justify-between w-full max-w-[580px] lg:max-w-none lg:h-full gap-2 sm:gap-2.5 lg:gap-0 py-0.5 lg:py-1">
+          <div className="order-2 flex flex-col justify-center w-full max-w-[440px] lg:max-w-[540px] gap-2 lg:gap-2.5 py-0">
 
-            {/* Outlined tag pills — matches your reference */}
-            <TagPills tags={BADGES} className="mb-0.5 sm:mb-1 lg:mb-2" />
+            {/* Outlined tag pills */}
+            <TagPills tags={BADGES} className="mb-0" />
 
             {/* Title */}
-            <h1 className="font-editorial text-[var(--brand-cream)] text-[21px] sm:text-[30px] lg:text-[36px] leading-[1.1] tracking-tight">
+            <h1 className="font-editorial text-[var(--brand-cream)] text-[21px] sm:text-[26px] lg:text-[34px] leading-[1.08] tracking-tight">
               AURA&nbsp;·&nbsp;Pearl Skinwear SPF&nbsp;40
             </h1>
 
             {/* Description */}
-            <div className="font-suisse text-[var(--brand-cream)]/80 text-[12px] sm:text-[14px] leading-[1.5] sm:leading-[1.6] mt-1 sm:mt-2 space-y-1 w-full max-w-[500px]">
-              <p className="text-[var(--brand-cream)] font-medium">
+            <div className="w-full font-suisse text-[var(--brand-cream)]/85 text-[12px] sm:text-[13px] lg:text-[13.5px] leading-[1.4] mt-0.5 space-y-0.5">
+              <p className="text-[var(--brand-cream)] font-medium text-[12.5px] sm:text-[13px]">
                 Pearls that melt into sun protection.
               </p>
-              <p>
+              <p className="w-full text-left">
                 Beads that break on your skin and sink in. No white cast. A soft, dewy finish. Every skin tone, every Indian weather. Easiest absorption ever.
               </p>
             </div>
 
             {/* Price + Buy */}
-            <div className="flex items-center gap-3 sm:gap-4 my-2 sm:my-3">
-              <span className="font-editorial text-[var(--brand-cream)] text-[18px] sm:text-[26px]">₹1,799</span>
-              <button className="pointer-events-auto font-suisse text-[10px] sm:text-sm tracking-wide uppercase px-4 sm:px-6 py-1.5 sm:py-2.5 bg-[var(--brand-cream)] text-[var(--brand-dark)] hover:bg-white transition-colors font-medium">
+            <div className="flex items-center gap-3 sm:gap-4 my-1">
+              <span className="font-editorial text-[var(--brand-cream)] text-[18px] sm:text-[22px] lg:text-[26px]">₹1,799</span>
+              <button className="pointer-events-auto font-suisse text-[10px] sm:text-xs uppercase tracking-wide px-5 sm:px-6 py-2 bg-[var(--brand-cream)] text-[var(--brand-dark)] hover:bg-white transition-colors font-medium rounded-sm">
                 Add to bag
               </button>
             </div>
 
-            <div className="h-px w-full bg-[var(--brand-cream)]/12 mb-0.5 sm:mb-1" />
+            <div className="h-px w-full bg-[var(--brand-cream)]/15 my-0.5" />
 
             {/* Sidebar Navigation */}
             <ul className="flex flex-col">
@@ -178,25 +175,31 @@ export default function AuraHero({ onNavigate }: { onNavigate: (panelIndex: numb
                       <button
                         onClick={() => setIngredientsOpen((v) => !v)}
                         aria-expanded={ingredientsOpen}
-                        className="pointer-events-auto w-full flex items-center gap-3 py-1.5 sm:py-2 text-left group"
+                        className="pointer-events-auto w-full flex items-center gap-2 sm:gap-3 py-1.5 text-left group"
                       >
-                        <span className="font-suisse text-[11.5px] sm:text-[13px] lg:text-[14px] text-[var(--brand-cream)]/90 group-hover:text-[var(--brand-cream)] transition-colors">
+                        <span className="font-suisse text-[11.5px] sm:text-[12.5px] lg:text-[13.5px] text-[var(--brand-cream)]/90 group-hover:text-[var(--brand-cream)] transition-colors">
                           {item.label}
                         </span>
-                        <span className={`ml-auto text-xs text-[var(--brand-cream)]/50 transition-transform duration-300 ${ingredientsOpen ? 'rotate-45' : ''}`}>+</span>
+                        <span className={`ml-auto text-sm text-[var(--brand-cream)]/60 transition-transform duration-300 ${ingredientsOpen ? 'rotate-45' : ''}`}>+</span>
                       </button>
-                      {/* Absolutely positioned so expanding cannot resize the row
-                          and shift the page under the cursor — same fix as Origin. */}
+
+                      {/* Bottom-anchored popover to prevent clipping at screen edge */}
                       <div
-                        className={`absolute left-0 right-0 top-full z-20 origin-top transition-[opacity,transform] duration-300 ease-out ${
+                        className={`absolute left-0 right-0 bottom-full mb-2 z-50 origin-bottom transition-[opacity,transform] duration-200 ease-out ${
                           ingredientsOpen
-                            ? 'opacity-100 scale-y-100 pointer-events-auto'
-                            : 'opacity-0 scale-y-95 pointer-events-none'
+                            ? 'opacity-100 scale-100 pointer-events-auto'
+                            : 'opacity-0 scale-95 pointer-events-none'
                         }`}
                       >
-                        <p className="font-suisse text-[11px] sm:text-[12px] leading-[1.5] text-[var(--brand-cream)]/80 bg-black/70 backdrop-blur-md border border-white/12 rounded-lg p-3 max-h-[34vh] overflow-y-auto [scrollbar-width:none]">
-                          {FULL_INGREDIENTS}
-                        </p>
+                        <div className="bg-[#120403]/95 backdrop-blur-xl border border-white/20 shadow-2xl rounded-lg p-3.5">
+                          <div className="flex items-center justify-between pb-1.5 mb-1.5 border-b border-white/10">
+                            <span className="font-suisse text-[11px] uppercase tracking-wider text-[var(--brand-cream)] font-medium">Full Ingredients</span>
+                            <button onClick={() => setIngredientsOpen(false)} className="text-white/60 hover:text-white text-xs">✕</button>
+                          </div>
+                          <p className="font-suisse text-[10.5px] sm:text-[11.5px] leading-[1.5] text-[var(--brand-cream)]/85 max-h-[26vh] overflow-y-auto pr-1">
+                            {FULL_INGREDIENTS}
+                          </p>
+                        </div>
                       </div>
                     </li>
                   );
