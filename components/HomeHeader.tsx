@@ -19,66 +19,107 @@ export default function HomeHeader({ ready = false }: { ready?: boolean }) {
   const navRef = useRef<HTMLDivElement>(null);
   const menuLogoRef = useRef<HTMLButtonElement>(null);
 
+  /* ── Wordmark → header morph ───────────────────────────────────────────
+     Previously this ran through a scrubbed ScrollTrigger that re-measured on
+     every refresh. On mobile that is the source of the shake: the browser
+     resizes the viewport as the address bar collapses mid-scroll, which fires
+     a refresh, which re-measures against a different innerHeight — so the
+     travel distance (and therefore the wordmark's position) changes underfoot,
+     several times per gesture.
+
+     The morph now runs on its own rAF loop instead:
+       • geometry is measured ONCE and only re-measured when the viewport WIDTH
+         changes, so address-bar height wobble can never move the target;
+       • the travel length is frozen at first measure for the same reason;
+       • raw scroll is eased toward with a light lerp, so a spiky scroll
+         position maps to a continuous transform;
+       • the transform is written as one translate3d + scale string, keeping
+         the element on its own compositor layer for the whole flight.
+     ───────────────────────────────────────────────────────────────────── */
   useEffect(() => {
     const img = wordmarkRef.current;
     const nav = navRef.current;
     if (!img) return;
 
     const geo = { tx: 0, ty: 0, scale: 1 };
+    let travel = 1;          // px of scroll the morph is spread across
+    let lastWidth = 0;
+    let smoothed = 0;        // eased progress actually painted
+    let rafId = 0;
+    let navOpacity = -1;     // cached so we only touch the DOM on change
+
+    img.style.transformOrigin = 'left top';
+    img.style.willChange = 'transform';
 
     const measure = () => {
-      gsap.set(img, { x: 0, y: 0, scale: 1 });
+      // Read the resting box with the transform neutralised, then restore it in
+      // the same frame so nothing is ever painted mid-measure.
+      img.style.transform = 'none';
       const r = img.getBoundingClientRect();
+
       const isDesktop = window.innerWidth >= 1024;
       const isMd = window.innerWidth >= 768;
       const padY = isDesktop ? 24 : 16;
-      const padX = isDesktop ? 40 : (isMd ? 24 : 16);
+      const padX = isDesktop ? 40 : isMd ? 24 : 16;
       const compactW = isDesktop ? 140 : 100;
 
-      geo.scale = compactW / r.width;
-
-      // Desktop & Mobile both land at left padding
+      geo.scale = r.width > 0 ? compactW / r.width : 1;
       geo.tx = padX - r.left;
       geo.ty = padY - r.top;
+
+      travel = Math.max(1, window.innerHeight * 0.85);
+      lastWidth = window.innerWidth;
+      paint(smoothed);
     };
 
-    const apply = (p: number) => {
-      gsap.set(img, {
-        x: geo.tx * p,
-        y: geo.ty * p,
-        scale: 1 + (geo.scale - 1) * p,
-        transformOrigin: 'left top',
-      });
+    const paint = (p: number) => {
+      const s = 1 + (geo.scale - 1) * p;
+      img.style.transform = `translate3d(${geo.tx * p}px, ${geo.ty * p}px, 0) scale(${s})`;
 
-      // Controls header background & all buttons opacity on scroll (Reveals on 2nd frame)
-      const controlsOpacity = p < 0.5 ? 0 : (p - 0.5) / 0.4;
-      if (nav) {
-        nav.style.opacity = String(controlsOpacity);
-        nav.style.pointerEvents = controlsOpacity > 0.5 ? 'auto' : 'none';
+      // Header bar + controls fade in over the back half of the flight.
+      const o = p < 0.5 ? 0 : Math.min(1, (p - 0.5) / 0.4);
+      if (nav && Math.abs(o - navOpacity) > 0.001) {
+        navOpacity = o;
+        nav.style.opacity = String(o);
+        nav.style.pointerEvents = o > 0.5 ? 'auto' : 'none';
       }
     };
 
-    const st = ScrollTrigger.create({
-      trigger: document.documentElement,
-      start: 'top top',
-      end: () => window.innerHeight * 0.85,
-      scrub: true,
-      invalidateOnRefresh: true,
-      onRefresh: () => measure(),
-      onUpdate: (self) => apply(self.progress),
-    });
-
-    const onLoad = () => {
-      measure();
-      apply(0);
-      ScrollTrigger.refresh();
+    const tick = () => {
+      const target = Math.min(1, Math.max(0, window.scrollY / travel));
+      // Light critically-damped follow: kills scroll jitter without adding
+      // noticeable lag. Snap once we're inside a pixel of the target so the
+      // transform string stops changing and the layer can settle.
+      smoothed += (target - smoothed) * 0.18;
+      if (Math.abs(target - smoothed) < 0.0004) smoothed = target;
+      paint(smoothed);
+      rafId = requestAnimationFrame(tick);
     };
-    if (img.complete) onLoad();
-    else img.addEventListener('load', onLoad, { once: true });
+
+    // Only a WIDTH change is a real layout change worth re-measuring for.
+    // Height-only changes are the address bar, and must be ignored.
+    const onResize = () => {
+      if (window.innerWidth !== lastWidth) measure();
+    };
+
+    const start = () => {
+      measure();
+      smoothed = Math.min(1, Math.max(0, window.scrollY / travel));
+      paint(smoothed);
+    };
+
+    if (img.complete) start();
+    else img.addEventListener('load', start, { once: true });
+
+    rafId = requestAnimationFrame(tick);
+    window.addEventListener('resize', onResize);
+    window.addEventListener('orientationchange', measure);
 
     return () => {
-      st.kill();
-      img.removeEventListener('load', onLoad);
+      cancelAnimationFrame(rafId);
+      window.removeEventListener('resize', onResize);
+      window.removeEventListener('orientationchange', measure);
+      img.removeEventListener('load', start);
     };
   }, []);
 
@@ -212,9 +253,13 @@ export default function HomeHeader({ ready = false }: { ready?: boolean }) {
           </div>
         </div>
 
-        {/* Flying Animated Wordmark */}
+        {/* Flying Animated Wordmark.
+            Mobile/tablet: the wordmark rests on the FLOOR of the first screen —
+            the box is a full 100svh tall and aligns its child to the bottom, so
+            the resting position tracks the real visible viewport rather than a
+            guessed percentage. Desktop keeps its original top-anchored spot. */}
         <div
-          className="pointer-events-none absolute left-0 right-0 top-0 flex justify-center pt-[66svh] sm:pt-[70svh] lg:pt-[8vh]"
+          className="pointer-events-none absolute left-0 right-0 top-0 h-[100svh] flex items-end justify-center pb-[4.5svh] lg:h-auto lg:items-start lg:pb-0 lg:pt-[8vh]"
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img

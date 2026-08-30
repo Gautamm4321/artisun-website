@@ -101,7 +101,7 @@ export default function ClimatePartOfSkincare() {
             className="relative sm:w-[220px] sm:h-[280px] md:w-[220px] md:h-[280px] lg:w-[320px] lg:h-[400px] xl:w-[420px] xl:h-[520px] flex-shrink-0 overflow-hidden shadow-2xl z-10 rounded-none border border-white/10"
           >
             <Image
-              src={asset('/skinwear-media/model-portrait.jpg')}
+              src={asset('/climate-face.png')}
               alt="Climate impact on skin"
               fill
               sizes="(max-width: 768px) 220px, (max-width: 1024px) 320px, 420px"
@@ -156,7 +156,7 @@ export default function ClimatePartOfSkincare() {
             className="relative w-[130px] min-[400px]:w-[145px] h-[210px] min-[400px]:h-[235px] flex-shrink-0 overflow-hidden shadow-xl rounded-none border border-white/10"
           >
             <Image
-              src={asset('/skinwear-media/model-portrait.jpg')}
+              src={asset('/climate-face.png')}
               alt="Climate impact on skin"
               fill
               sizes="145px"

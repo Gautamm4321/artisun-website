@@ -6,7 +6,10 @@ export default function HeroSection({ ready = false }: { ready?: boolean }) {
   void ready;
 
   return (
-    <section className="relative w-full h-[100svh] overflow-hidden z-[1] flex items-end justify-center bg-[radial-gradient(135%_120%_at_50%_20%,_#E8551E_0%,_#C43612_28%,_#8D180C_60%,_#460905_100%)]">
+    <section
+      className="relative w-full h-[100svh] overflow-hidden z-[1] flex items-end justify-center"
+      style={{ background: 'var(--bg-eclipse)' }}
+    >
       {/* Subtle centre glow */}
       <div
         className="absolute inset-0 pointer-events-none"

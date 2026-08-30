@@ -42,6 +42,17 @@ export default function AuraPage() {
     gsap.registerPlugin(ScrollTrigger);
     ScrollTrigger.config({ ignoreMobileResize: true });
 
+    // The horizontal track is driven by page scroll, so ANY leftover scroll
+    // offset on entry shows up as the first panel already part-way slid off to
+    // the left with the second one peeking in on the right. Two things cause
+    // that offset: the browser restoring a previous scroll position, and the
+    // mobile address bar collapsing during load. Taking manual control of
+    // restoration and pinning the page to the top before the trigger is built
+    // guarantees the first panel is framed exactly to the screen on arrival.
+    const prevRestoration = history.scrollRestoration;
+    if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+    window.scrollTo(0, 0);
+
     const lenis = new Lenis({
       duration: 1.15,
       easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -89,11 +100,20 @@ export default function AuraPage() {
     }
 
 
+    // Re-assert the top position after the pin is measured — anticipatePin and
+    // the initial refresh can both nudge scroll by a few px on mobile.
+    requestAnimationFrame(() => {
+      window.scrollTo(0, 0);
+      lenis.scrollTo(0, { immediate: true });
+      ScrollTrigger.refresh();
+    });
+
     setTimeout(() => {
       ScrollTrigger.refresh();
     }, 100);
 
     return () => {
+      if ('scrollRestoration' in history) history.scrollRestoration = prevRestoration;
       gsap.ticker.remove(raf);
       lenis.destroy();
       lenisRef.current = null;

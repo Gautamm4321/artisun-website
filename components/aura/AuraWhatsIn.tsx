@@ -44,7 +44,8 @@ export default function AuraWhatsIn() {
   return (
     <div
       id="aura-whatsin"
-      className="aura-panel relative w-screen shrink-0 h-[100svh] overflow-hidden flex flex-col justify-start lg:justify-between pt-16 sm:pt-20 lg:pt-24 pb-16 lg:pb-14 px-5 sm:px-8 lg:px-14 bg-[var(--brand-red,#8B0000)] text-[var(--brand-cream)]"
+      className="aura-panel relative w-screen shrink-0 h-[100svh] overflow-hidden flex flex-col justify-start lg:justify-between pt-24 sm:pt-24 lg:pt-24 pb-16 lg:pb-14 px-5 sm:px-8 lg:px-14 text-[var(--brand-cream)]"
+      style={{ background: 'var(--bg-eclipse)' }}
     >
       {/* Background Glow */}
       <div
@@ -58,10 +59,10 @@ export default function AuraWhatsIn() {
       <div className="relative z-10 h-full w-full max-w-[1440px] mx-auto flex flex-col justify-start lg:justify-between">
         {/* Heading */}
         <div className="shrink-0">
-          <span className="font-suisse text-[10px] sm:text-xs tracking-[0.22em] uppercase text-[var(--brand-cream)]/70">
+          <span className="font-suisse text-[11px] sm:text-xs tracking-[0.22em] uppercase text-[var(--brand-cream)]/70">
             What&apos;s in it
           </span>
-          <h2 className="font-editorial text-[24px] sm:text-[38px] lg:text-[54px] leading-[1.08] tracking-tight mt-1 max-w-[18ch]">
+          <h2 className="font-editorial text-[24px] sm:text-[38px] lg:text-[54px] leading-[1.08] tracking-tight mt-2 max-w-[18ch]">
             Sourced better than they needed to be.
           </h2>
         </div>
@@ -72,7 +73,7 @@ export default function AuraWhatsIn() {
           {/* Left Visual Image: Perfectly fills tablet/mobile without excessive blank space */}
           <div className="relative w-full h-[24vh] sm:h-[28vh] lg:h-[50vh] xl:h-[54vh] max-h-[480px] rounded-2xl overflow-hidden border border-white/10 shadow-2xl bg-white/5 shrink-0">
             <Image
-              src={asset('/pdp/aura-3.jpg')}
+              src={asset('/pdp/aura-whatsin.jpg')}
               alt="Aura Ingredients"
               fill
               sizes="(max-width: 1024px) 100vw, 45vw"
@@ -127,13 +128,6 @@ export default function AuraWhatsIn() {
             })}
           </div>
 
-        </div>
-
-        {/* Subline */}
-        <div className="shrink-0 pt-1.5 pb-0.5">
-          <p className="font-suisse text-[11px] sm:text-xs text-[var(--brand-cream)]/65">
-            Fuller version available on click.
-          </p>
         </div>
 
       </div>

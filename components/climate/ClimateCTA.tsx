@@ -36,19 +36,27 @@ export default function ClimateCTA() {
           </p>
         </motion.div>
 
-        {/* 3. Styled Pill Button */}
+        {/* 3. Styled Pill Buttons */}
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true, margin: '-50px' }}
           transition={{ duration: 0.8, delay: 0.4 }}
+          className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 mt-4"
         >
-          <button
-            type="button"
-            className="bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/25 rounded-full px-6 md:px-8 py-2.5 md:py-3 text-xs sm:text-sm md:text-base font-sans font-medium tracking-wide text-white transition-all duration-300 shadow-lg cursor-default"
+          <a
+            href="/origin"
+            className="inline-flex items-center justify-center min-w-[200px] px-8 py-3.5 md:py-4 bg-[#EAE3D2] hover:bg-[#FAF6EE] text-[#8B1E13] font-editorial text-[17px] md:text-[19px] font-medium tracking-wide rounded-full shadow-[0_4px_20px_rgba(0,0,0,0.35)] transition-all duration-300 hover:scale-105 active:scale-95 text-center"
           >
-            [ Shop Now ]
-          </button>
+            Shop Origin
+          </a>
+
+          <a
+            href="/aura"
+            className="inline-flex items-center justify-center min-w-[200px] px-8 py-3.5 md:py-4 bg-[#EAE3D2] hover:bg-[#FAF6EE] text-[#8B1E13] font-editorial text-[17px] md:text-[19px] font-medium tracking-wide rounded-full shadow-[0_4px_20px_rgba(0,0,0,0.35)] transition-all duration-300 hover:scale-105 active:scale-95 text-center"
+          >
+            Shop Aura
+          </a>
         </motion.div>
 
       </div>

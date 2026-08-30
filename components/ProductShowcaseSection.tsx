@@ -1,10 +1,7 @@
 'use client';
 
-import React, { useRef, useState, useEffect, Suspense } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Canvas, useFrame } from '@react-three/fiber';
-import { useGLTF, Center } from '@react-three/drei';
-import * as THREE from 'three';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { AnimatePresence, motion } from 'framer-motion';
@@ -28,8 +25,7 @@ type Product = {
   mobileDesc: string;
   specs: string;
   ingredients: string;
-  model: string;
-  scale: number;
+  image: string;
   thumb: string;
   href: string;
 };
@@ -47,9 +43,8 @@ const PRODUCTS: Product[] = [
     mobileDesc: 'Best for all weathers and cities.',
     specs: 'SPF 50+ · PA++++',
     ingredients: 'Formulated with Beta-Glucan and\nCamellia Sinensis Extract',
-    model: asset('/origin.glb'),
-    scale: 0.48,
-    thumb: asset('/about-media/origin-hero.jpg'),
+    image: asset('/products/origin-square.png'),
+    thumb: asset('/products/origin-square.png'),
     href: '/origin',
   },
   {
@@ -64,9 +59,8 @@ const PRODUCTS: Product[] = [
     mobileDesc: 'Best for: When you need something\nto adjust to changing weathers, or\nwhen your day is moody.',
     specs: 'SPF 40 · PA++++',
     ingredients: 'Formulated with Ectoin and Bisabolol',
-    model: asset('/aura.glb'),
-    scale: 0.48,
-    thumb: asset('/about-media/aura-1.jpg'),
+    image: asset('/products/aura-square.png'),
+    thumb: asset('/products/aura-square.png'),
     href: '/aura',
   },
 ];
@@ -74,79 +68,79 @@ const PRODUCTS: Product[] = [
 const EASE = [0.22, 1, 0.36, 1] as const;
 
 /**
- * A single bottle.
+ * Where each product's still sits.
  *
- * Rotation is driven by SCROLL rather than by a constant `delta` spin. The
- * progress ref is written by ScrollTrigger's onUpdate and read here in useFrame,
- * so the scroll position never triggers a React re-render — a setState per frame
- * would re-mount the Canvas subtree and stutter badly on mobile.
+ * Two clocks drive this, not one:
  *
- * `damp` smooths the value: raw scroll on a trackpad is spiky, and mapping it
- * straight to rotation.y makes the bottle judder. Damping lets it keep turning
- * for a beat after the scroll stops, which reads as weight.
+ *   `approach` (0 → 1)  the section rising into view, before it pins.
+ *                       Origin uses this for its entrance, so by the time the
+ *                       section locks to the screen the bottle is already
+ *                       centred. Driving the entrance off the PIN instead left
+ *                       the stage empty for a whole screen-height of scrolling,
+ *                       with the background's centre seam on show.
+ *
+ *   `pinned`   (0 → 1)  the pinned scroll. Origin holds centre through the
+ *                       first half and leaves to the left at the midpoint;
+ *                       Aura arrives from the right at that same midpoint, so
+ *                       the swap stays exactly where it was on the old 3D
+ *                       version and reads as one continuous rightward motion.
+ *
+ * `x` is a fraction of the card's own width (1 = fully off-frame right,
+ * -1 = fully off-frame left); `o` is opacity.
  */
-function ModelItem({
-  modelPath,
-  isActive,
-  scale,
-  isMobile,
-  progress,
-}: {
-  modelPath: string;
-  isActive: boolean;
-  scale: number;
-  isMobile: boolean;
-  progress: React.MutableRefObject<number>;
-}) {
-  const groupRef = useRef<THREE.Group>(null!);
-  const { scene } = useGLTF(modelPath);
-  const cloned = React.useMemo(() => scene.clone(true), [scene]);
-  const spin = useRef(0);
+const SLIDE_IN = 0.18;   // pinned-progress units Aura's entrance takes
+const SLIDE_OUT = 0.14;  // pinned-progress units Origin's exit takes
+const SWAP = 0.5;        // where the product changes over
 
-  useFrame((_, delta) => {
-    if (!groupRef.current) return;
-    groupRef.current.visible = isActive;
-    if (!isActive) return;
+// Cubic ease-out — fast off the mark, glides into place.
+const easeOut = (k: number) => 1 - Math.pow(1 - k, 3);
+const clamp01 = (k: number) => (k < 0 ? 0 : k > 1 ? 1 : k);
 
-    // ~1.6 turns across the full pinned scroll, damped so it never snaps.
-    const target = progress.current * Math.PI * 3.2;
-    spin.current = THREE.MathUtils.damp(spin.current, target, 3.5, delta);
-    groupRef.current.rotation.y = spin.current;
+function slideFor(i: number, pinned: number, approach: number) {
+  if (i === 0) {
+    // Still on the way in — the card tracks the section's approach.
+    if (pinned <= 0.0005) {
+      const k = easeOut(clamp01(approach));
+      return { x: 1 - k, o: clamp01(k * 1.4) };
+    }
+    if (pinned < SWAP) return { x: 0, o: 1 };
+    const k = clamp01((pinned - SWAP) / SLIDE_OUT);
+    return { x: -easeOut(k), o: 1 - k };
+  }
 
-    // Slow bob so a stationary scroll still feels alive.
-    const yOffset = isMobile ? 0.2 : 0;
-    groupRef.current.position.y = Math.sin(Date.now() * 0.0018) * 0.04 + yOffset;
-
-    const targetScale = isMobile ? scale * 0.7 : scale;
-    groupRef.current.scale.setScalar(targetScale);
-  });
-
-  return (
-    <group ref={groupRef}>
-      <Center>
-        <primitive object={cloned} />
-      </Center>
-    </group>
-  );
+  // Aura waits off-frame right until the swap point, then slides to centre.
+  if (pinned < SWAP) return { x: 1, o: 0 };
+  const k = easeOut(clamp01((pinned - SWAP) / SLIDE_IN));
+  return { x: 1 - k, o: clamp01(k * 1.6) };
 }
 
 export default function ProductShowcaseSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const revolveRef = useRef<HTMLDivElement>(null);
-  const progress = useRef(0);
+  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const progress = useRef(0);   // raw pinned progress, written by ScrollTrigger
+  const approach = useRef(0);   // 0→1 as the section rises into view
+  const eased = useRef(0);      // smoothed pinned value actually painted
+  const easedApproach = useRef(0);
   const [active, setActive] = useState(0);
-  const [isMobile, setIsMobile] = useState(false);
   const { add, products: shopProducts, busy, configured } = useCart();
   const product = PRODUCTS[active];
   const shopProduct = active === 0 ? shopProducts.origin : shopProducts.aura;
   const variant = firstVariant(shopProduct);
 
   useEffect(() => {
-    const checkMob = () => setIsMobile(window.innerWidth < 1024);
-    checkMob();
-    window.addEventListener('resize', checkMob);
+    // Clock 1 — the approach. Spans the section travelling from the bottom of
+    // the viewport up to the top, i.e. everything before the pin engages.
+    const entry = ScrollTrigger.create({
+      trigger: sectionRef.current,
+      start: 'top bottom',
+      end: 'top top',
+      onUpdate: (self) => {
+        approach.current = self.progress;
+      },
+    });
 
-    // Scroll-based seamless 360 swap on mobile & desktop
+    // Clock 2 — the pinned scroll.
     const trigger = ScrollTrigger.create({
       trigger: sectionRef.current,
       start: 'top top',
@@ -154,30 +148,73 @@ export default function ProductShowcaseSection() {
       pin: true,
       anticipatePin: 1,
       onUpdate: (self) => {
-        // Feed the 3D rotation and the background revolve through refs — writing
-        // these to state would re-render the Canvas on every scroll frame.
+        // Scroll position is fed through a ref, never state: a setState here
+        // would re-render the whole section on every scroll frame.
         progress.current = self.progress;
-        if (revolveRef.current) {
-          revolveRef.current.style.transform =
-            `rotate(${(self.progress * 210).toFixed(2)}deg) scale(1.9)`;
-        }
         setActive(self.progress < 0.5 ? 0 : 1);
       },
     });
 
+    // ── Render loop ──────────────────────────────────────────────────────
+    // The slide is painted here rather than straight from onUpdate so the
+    // motion survives a spiky scroll source. Raw wheel/touch deltas arrive in
+    // clumps; easing toward them each frame turns those clumps into one
+    // continuous glide, and writing plain transform strings keeps both cards
+    // on their own compositor layers for the whole travel.
+    let rafId = 0;
+    let painted = -1;
+    const tick = () => {
+      eased.current += (progress.current - eased.current) * 0.12;
+      if (Math.abs(progress.current - eased.current) < 0.0002) {
+        eased.current = progress.current;
+      }
+      easedApproach.current += (approach.current - easedApproach.current) * 0.14;
+      if (Math.abs(approach.current - easedApproach.current) < 0.0002) {
+        easedApproach.current = approach.current;
+      }
+      const t = eased.current;
+      const a = easedApproach.current;
+
+      const key = t * 1000 + a;
+      if (key === painted) {
+        rafId = requestAnimationFrame(tick);
+        return;
+      }
+      painted = key;
+
+      for (let i = 0; i < PRODUCTS.length; i++) {
+        const el = cardRefs.current[i];
+        if (!el) continue;
+        const { x, o } = slideFor(i, t, a);
+        el.style.transform = `translate3d(${(x * 100).toFixed(3)}%, 0, 0)`;
+        el.style.opacity = o.toFixed(3);
+        // Off-frame cards must not swallow taps meant for the copy beneath.
+        el.style.visibility = o < 0.01 ? 'hidden' : 'visible';
+      }
+
+      if (revolveRef.current) {
+        revolveRef.current.style.transform =
+          `rotate(${(t * 210).toFixed(2)}deg) scale(1.9)`;
+      }
+
+      rafId = requestAnimationFrame(tick);
+    };
+    rafId = requestAnimationFrame(tick);
+
     return () => {
+      cancelAnimationFrame(rafId);
+      entry.kill();
       trigger.kill();
-      window.removeEventListener('resize', checkMob);
     };
   }, []);
 
   return (
     <section
       ref={sectionRef}
-      className="relative w-full h-[100svh] min-h-[640px] overflow-hidden z-[110] flex items-center justify-center text-[var(--brand-cream,#f5f0eb)] px-3 sm:px-5 lg:px-6 py-6 lg:py-16"
+      className="relative w-full h-[100lvh] min-h-[640px] overflow-hidden z-[110] flex items-center justify-center text-[var(--brand-cream,#f5f0eb)] px-3 sm:px-5 lg:px-6 py-6 lg:py-16"
       style={{
         background:
-          'radial-gradient(135% 120% at 50% 20%, #E8551E 0%, #C43612 28%, #8D180C 60%, #460905 100%)',
+          'var(--bg-eclipse)',
       }}
     >
       {/* ── Revolving gradient. Rotated by scroll in the ScrollTrigger above, so
@@ -186,11 +223,11 @@ export default function ProductShowcaseSection() {
       <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
         <div
           ref={revolveRef}
-          className="absolute inset-0 opacity-[0.62] will-change-transform"
+          className="absolute inset-0 opacity-[0.38] will-change-transform"
           style={{
             transform: 'rotate(0deg) scale(1.9)',
             background:
-              'conic-gradient(from 0deg at 50% 50%, #E8551E 0deg, #8D180C 78deg, #F0762B 150deg, #460905 232deg, #C43612 310deg, #E8551E 360deg)',
+              'conic-gradient(from 0deg at 50% 50%, #FF2A17 0deg, #4D0007 78deg, #A4000F 150deg, #220003 232deg, #A4000F 310deg, #FF2A17 360deg)',
           }}
         />
         {/* Softens the conic's hard colour seams into the page gradient. */}
@@ -198,7 +235,7 @@ export default function ProductShowcaseSection() {
           className="absolute inset-0"
           style={{
             background:
-              'radial-gradient(120% 90% at 50% 25%, rgba(232,85,30,0.30) 0%, rgba(70,9,5,0.55) 68%, rgba(70,9,5,0.8) 100%)',
+              'radial-gradient(120% 90% at 50% 25%, rgba(255,42,23,0.24) 0%, rgba(34,0,3,0.60) 68%, rgba(9,5,6,0.85) 100%)',
           }}
         />
       </div>
@@ -208,36 +245,40 @@ export default function ProductShowcaseSection() {
       {/* Desktop Vertical Dividing Line */}
       <div className="hidden lg:block absolute top-0 bottom-0 left-1/2 -translate-x-1/2 w-[1px] bg-white/15 z-0 pointer-events-none" />
 
-      {/* 3D Bottle Canvas */}
-      <div className="absolute inset-0 z-0 pointer-events-none flex items-center justify-center">
-        <Canvas
-          style={{ pointerEvents: 'none' }}
-          dpr={[1, 2]}
-          camera={{ position: [0, 0.2, 5], fov: 36 }}
-          gl={{
-            antialias: true,
-            toneMapping: THREE.ACESFilmicToneMapping,
-            toneMappingExposure: 1.05,
-            alpha: true,
-          }}
-        >
-          <ambientLight intensity={0.5} />
-          <directionalLight position={[5, 8, 5]} intensity={2.0} />
-          <directionalLight position={[-4, 3, -5]} intensity={0.6} color="#ffcc88" />
-          <pointLight position={[0, 0.8, -1.2]} intensity={3.5} color="#ffaa66" distance={8} decay={2} />
-          <spotLight position={[0, 10, 4]} angle={0.32} penumbra={1} intensity={2.2} />
+      {/* ── PRODUCT STILL ──────────────────────────────────────────────────
+          Replaces the GLB viewer. Both stills are mounted at once and parked
+          off-frame; the rAF loop above drives whichever one the scroll calls
+          for from the right edge into the centre.
 
-        <Suspense fallback={null}>
-            <ModelItem
-              key={product.id}
-              modelPath={product.model}
-              isActive={true}
-              scale={product.scale}
-              isMobile={isMobile}
-              progress={progress}
-            />
-          </Suspense>
-        </Canvas>
+          Sizing: the card fits the viewport WIDTH with a small breathing gutter
+          either side, and stays square. It sits on z-0, behind the copy, exactly
+          where the bottle used to — so the headings and buy controls keep
+          scrolling over it as before. ── */}
+      <div className="absolute inset-0 z-0 pointer-events-none flex items-center justify-center overflow-hidden">
+        <div className="relative w-[calc(100vw-2.25rem)] max-w-[560px] lg:w-[min(38vw,480px)] aspect-square">
+          {PRODUCTS.map((p, i) => (
+            <div
+              key={p.id}
+              ref={(el) => {
+                cardRefs.current[i] = el;
+              }}
+              className="absolute inset-0 will-change-transform"
+              style={{
+                transform: 'translate3d(100%, 0, 0)',
+                opacity: i === 0 ? 1 : 0,
+              }}
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={p.image}
+                alt={`${p.name} — ${p.type}`}
+                className="h-full w-full object-contain select-none rounded-[22px] shadow-[0_30px_80px_-24px_rgba(0,0,0,0.75)]"
+                draggable={false}
+                loading="eager"
+              />
+            </div>
+          ))}
+        </div>
       </div>
 
       {/* Content Container */}
@@ -286,20 +327,9 @@ export default function ProductShowcaseSection() {
           </button>
         </div>
 
-        {/* Mobile Middle-Right Circular Action Arrow (Positioned exactly on line) */}
-        <Link
-          href={product.href}
-          aria-label={`Go to ${product.name}`}
-          className="lg:hidden absolute right-4 sm:right-6 top-[50%] -translate-y-[50%] z-40 w-11 h-11 rounded-full border border-white/80 bg-black/20 backdrop-blur-md flex items-center justify-center text-white active:scale-95 shadow-xl pointer-events-auto"
-        >
-          <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-            <line x1="7" y1="17" x2="17" y2="7" />
-            <polyline points="7 7 17 7 17 17" />
-          </svg>
-        </Link>
-
-        {/* ── MOBILE TOP HEADER (Client Image Match) ── */}
-        <div className="lg:hidden w-full flex flex-col items-center text-center pt-6 xs:pt-8 px-3 z-30">
+        
+{/* ── MOBILE TOP HEADER (Exact Screenshot Match) ── */}
+        <div className="lg:hidden w-full flex flex-col items-center text-center pt-4 xs:pt-6 px-4 z-30">
           <AnimatePresence mode="wait">
             <motion.div
               key={product.id + '-mobile-top'}
@@ -309,26 +339,32 @@ export default function ProductShowcaseSection() {
               transition={{ duration: 0.4, ease: EASE }}
               className="w-full flex flex-col items-center"
             >
+              {/* Top Tag Badge */}
+              <div className="inline-flex items-center justify-center px-3 py-1 mb-3 bg-[#EAE3D2] text-[#8B1E13] font-suisse text-[12px] tracking-[0.06em] uppercase font-normal rounded-none shadow-sm">
+                {product.id === 'origin' ? 'ORIGIN · 4-in-1 Milk Emulsion' : 'AURA · Pearl Skinwear'}
+              </div>
+
+              {/* Main Heading & Subtitle */}
               {product.id === 'origin' ? (
                 <>
-                  <h2 className="font-editorial text-[50px] xs:text-[56px] leading-[0.92] tracking-[-0.01em] text-[var(--brand-cream,#f5f0eb)] whitespace-nowrap drop-shadow-md">
-                    4 steps in 1
+                  <h2 className="font-editorial text-[38px] xs:text-[44px] leading-[1.02] tracking-[-0.01em] text-[var(--brand-cream,#f5f0eb)] drop-shadow-md">
+                    4 steps done in 1
                   </h2>
-                  <p className="font-suisse text-[14px] xs:text-[14.5px] leading-[1.28] text-white/95 mt-2.5 max-w-[290px] xs:max-w-[310px]">
+                  <p className="font-suisse text-[14px] xs:text-[15px] leading-[1.35] text-[var(--brand-cream,#f5f0eb)]/90 mt-2 max-w-[320px]">
                     Serum, moisturiser, primer, SPF in one<br />
                     lightweight milky step
                   </p>
                 </>
               ) : (
-                <h2 className="font-editorial text-[38px] xs:text-[44px] leading-[0.98] tracking-tight text-[var(--brand-cream,#f5f0eb)]">
-                  Pearls that melt<br />
-                  into sun protection
+                <h2 className="font-editorial text-[36px] xs:text-[42px] leading-[1.02] tracking-[-0.01em] text-[var(--brand-cream,#f5f0eb)] drop-shadow-md max-w-[340px]">
+                  Pearls that melt into<br />
+                  sun protection
                 </h2>
               )}
             </motion.div>
           </AnimatePresence>
         </div>
-
+        
         {/* ── DESKTOP MIDDLE ROW (Untouched Left/Right Title Columns) ── */}
         <div className="hidden lg:grid grid-cols-2 gap-8 items-center my-auto w-full">
           {/* Left Title */}
@@ -370,8 +406,8 @@ export default function ProductShowcaseSection() {
           </AnimatePresence>
         </div>
 
-        {/* ── MOBILE BOTTOM STACK (Pure Image Match Layout) ── */}
-        <div className="lg:hidden w-full flex flex-col items-center text-center pb-8 xs:pb-10 px-2 z-30">
+        {/* ── MOBILE BOTTOM STACK (Exact Screenshot Match) ── */}
+        <div className="lg:hidden w-full flex flex-col items-center text-center pb-6 xs:pb-8 px-4 z-30">
           <AnimatePresence mode="wait">
             <motion.div
               key={product.id + '-mobile-bottom'}
@@ -379,49 +415,47 @@ export default function ProductShowcaseSection() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
               transition={{ duration: 0.4, ease: EASE }}
-              className="w-full flex flex-col items-center space-y-2"
+              className="w-full flex flex-col items-center"
             >
-              {/* SPF Heading */}
-              <h3 className="font-editorial text-[28px] xs:text-[32px] leading-none tracking-tight text-[var(--brand-cream,#f5f0eb)]">
+              {/* Row: Add to Bag + Circle Diagonal Arrow */}
+              <div className="flex items-center justify-center gap-3 mb-4">
+                <button
+                  type="button"
+                  onClick={() => variant && add(variant.id, 1)}
+                  disabled={!configured || !variant || busy || !variant.availableForSale}
+                  className="pointer-events-auto bg-[#EAE3D2] text-[#8B1E13] font-editorial text-[17px] font-medium tracking-wide px-7 py-2.5 rounded-none active:scale-95 transition-transform shadow-md disabled:opacity-50"
+                >
+                  Add to bag
+                </button>
+
+                <Link
+                  href={product.href}
+                  aria-label={`Go to ${product.name}`}
+                  className="w-[42px] h-[42px] rounded-full border border-[var(--brand-cream,#f5f0eb)]/80 bg-transparent flex items-center justify-center text-[var(--brand-cream,#f5f0eb)] active:scale-95 transition-transform shadow-md pointer-events-auto"
+                >
+                  <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+                    <line x1="7" y1="17" x2="17" y2="7" />
+                    <polyline points="7 7 17 7 17 17" />
+                  </svg>
+                </Link>
+              </div>
+
+              {/* Specs Headline (SPF) */}
+              <h3 className="font-editorial text-[24px] xs:text-[27px] leading-tight tracking-tight text-[var(--brand-cream,#f5f0eb)] mb-1">
                 {product.specs}
               </h3>
 
-              {/* Ingredients formula */}
-              <p className="font-suisse text-[15.5px] xs:text-[15px] leading-snug text-white/90 max-w-[340px]">
-                {product.ingredients}
-              </p>
-
-              {/* Best for Tagline: Locked Line Breaks for Mobile */}
-              <div className="font-suisse text-[13.5px] xs:text-[14.5px] font-normal leading-[1.35] text-white/95 pt-2 text-center w-full">
+              {/* Formula & Tagline */}
+              <div className="font-suisse text-[13px] xs:text-[14px] leading-[1.35] text-[var(--brand-cream,#f5f0eb)]/90 max-w-[330px] space-y-0.5">
+                <p>{product.ingredients}</p>
                 {product.id === 'origin' ? (
                   <p>Best for all weathers and cities.</p>
                 ) : (
                   <p>
-                    Best for: When you need something<br />
-                    to adjust to changing weathers, or<br />
-                    when your day is moody.
+                    <span className="font-medium text-white">Best for:</span> When you need something to adjust to changing weathers.
                   </p>
                 )}
               </div>
-
-              {/* Mobile add to bag */}
-              <button
-                type="button"
-                onClick={() => variant && add(variant.id, 1)}
-                disabled={!configured || !variant || busy || !variant.availableForSale}
-                style={{ backgroundColor: '#edc6a2', color: '#3A0D08' }}
-                className="pointer-events-auto mt-3 font-suisse text-[13px] tracking-wider uppercase px-8 py-3 font-medium active:scale-95 transition-transform shadow-lg disabled:opacity-50"
-              >
-                {!configured
-                  ? 'Add to bag'
-                  : busy
-                    ? 'Adding…'
-                    : !variant
-                      ? 'Unavailable'
-                      : !variant.availableForSale
-                        ? 'Sold out'
-                        : `Add to bag — ${formatPrice(variant.price)}`}
-              </button>
             </motion.div>
           </AnimatePresence>
         </div>
@@ -507,6 +541,3 @@ export default function ProductShowcaseSection() {
     </section>
   );
 }
-
-useGLTF.preload(asset('/origin.glb'));
-useGLTF.preload(asset('/aura.glb'));

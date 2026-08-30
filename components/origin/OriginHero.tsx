@@ -1,9 +1,9 @@
 'use client';
 
 import { useRef, useState } from 'react';
-import Image from 'next/image';
-import { asset } from '@/lib/asset';
+
 import TagPills from '@/components/pdp/TagPills';
+import PdpGallery from '@/components/pdp/PdpGallery';
 import { usePanelEdgeScroll } from '@/hooks/usePanelEdgeScroll';
 
 const BADGES = ['SPF 50+', 'PA++++', 'All Weathers', '50ml'];
@@ -12,9 +12,12 @@ const BADGES = ['SPF 50+', 'PA++++', 'All Weathers', '50ml'];
 const GALLERY = [
   '/pdp/origin-1.jpg',
   '/pdp/origin-2.jpg',
+  '/pdp/First page, third image.png',
   '/pdp/origin-3.jpg',
   '/pdp/origin-4.jpg',
+  '/pdp/First page, fifth picture (1).png',
   '/pdp/First page, fifth picture.png',
+  '/pdp/First page, eighth picture.png',
 ];
 
 const FULL_INGREDIENTS =
@@ -34,25 +37,12 @@ const NAV_ITEMS: NavItem[] = [
   { n: '05', label: 'Full ingredient list', target: null, kind: 'accordion' },
 ];
 
-function Chevron({ dir }: { dir: 'left' | 'right' }) {
-  return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-      {dir === 'left' ? <polyline points="15 18 9 12 15 6" /> : <polyline points="9 18 15 12 9 6" />}
-    </svg>
-  );
-}
-
 export default function OriginHero({ onNavigate }: { onNavigate: (panelIndex: number) => void }) {
-  const [index, setIndex] = useState(0);
   const [ingredientsOpen, setIngredientsOpen] = useState(false);
   const scrollerRef = useRef<HTMLDivElement>(null);
   // Whole-section vertical scroll (image + copy together) that releases into the
   // horizontal track at the edges. Inert on desktop where everything fits.
   usePanelEdgeScroll(scrollerRef);
-
-  const activeImg = GALLERY[index];
-  const prev = () => setIndex((p) => (p - 1 + GALLERY.length) % GALLERY.length);
-  const next = () => setIndex((p) => (p + 1) % GALLERY.length);
 
   return (
     <div className="origin-panel relative w-screen shrink-0 h-[100svh] overflow-hidden">
@@ -61,7 +51,7 @@ export default function OriginHero({ onNavigate }: { onNavigate: (panelIndex: nu
         className="absolute inset-0 -z-10"
         style={{
           background:
-            'radial-gradient(135% 120% at 50% 20%, #E8551E 0%, #C43612 28%, #8D180C 60%, #460905 100%)',
+            'var(--bg-eclipse)',
         }}
       />
 
@@ -75,56 +65,12 @@ export default function OriginHero({ onNavigate }: { onNavigate: (panelIndex: nu
 
           {/* ── TOP ON MOBILE / LEFT ON DESKTOP: Product Visual ── */}
           <div className="order-1 flex flex-col w-full max-w-[360px] lg:max-w-[460px] xl:max-w-[500px] shrink-0 min-h-0">
-            <div className="relative w-full aspect-square max-h-[70vh] rounded-xl lg:rounded-2xl overflow-hidden bg-white/[0.03] shadow-2xl">
-              <Image
-                key={activeImg}
-                src={asset(activeImg)}
-                alt="Origin 4-in-1 Milk Emulsion"
-                fill
-                sizes="(max-width: 1024px) 90vw, 50vw"
-                priority
-                className="object-cover object-center animate-[originHeroFade_0.45s_ease]"
-              />
-
-              {/* Thumbnails */}
-              <div className="absolute top-3 left-3 z-10 flex gap-2">
-                {GALLERY.map((src, i) => {
-                  const active = i === index;
-                  return (
-                    <button
-                      key={`${src}-${i}`}
-                      onClick={() => setIndex(i)}
-                      aria-label={`View image ${i + 1}`}
-                      className={`pointer-events-auto relative h-9 w-9 sm:h-11 sm:w-11 overflow-hidden rounded-md border transition-all duration-300 ${active
-                        ? 'opacity-100 border-white/70'
-                        : 'opacity-50 hover:opacity-80 border-white/20'
-                        }`}
-                    >
-                      <Image src={asset(src)} alt="" fill sizes="48px" className="object-cover" />
-                    </button>
-                  );
-                })}
-              </div>
-
-              {/* Controls */}
-              <button
-                onClick={prev}
-                aria-label="Previous image"
-                className="pointer-events-auto absolute left-3 top-1/2 -translate-y-1/2 w-8 h-8 sm:w-9 sm:h-9 rounded-full grid place-items-center bg-black/30 backdrop-blur-sm border border-white/20 text-white hover:bg-black/60 transition-all duration-300"
-              >
-                <Chevron dir="left" />
-              </button>
-
-              <button
-                onClick={next}
-                aria-label="Next image"
-                className="pointer-events-auto absolute right-3 top-1/2 -translate-y-1/2 w-8 h-8 sm:w-9 sm:h-9 rounded-full grid place-items-center bg-black/30 backdrop-blur-sm border border-white/20 text-white hover:bg-black/60 transition-all duration-300"
-              >
-                <Chevron dir="right" />
-              </button>
-            </div>
+            <PdpGallery
+              images={GALLERY}
+              alt="Origin 4-in-1 Milk Emulsion"
+              frameClassName="aspect-square max-h-[70vh]"
+            />
           </div>
-
 
           {/* ── BOTTOM ON MOBILE / RIGHT ON DESKTOP: Info & Compact Navigation Copy ── */}
           <div className="order-2 flex flex-col justify-center w-full max-w-[440px] lg:max-w-[540px] gap-2 lg:gap-2.5 py-0">
@@ -227,12 +173,6 @@ export default function OriginHero({ onNavigate }: { onNavigate: (panelIndex: nu
         </div>
       </div>
 
-      <style jsx global>{`
-        @keyframes originHeroFade {
-          from { opacity: 0; }
-          to { opacity: 1; }
-        }
-      `}</style>
     </div>
   );
 }

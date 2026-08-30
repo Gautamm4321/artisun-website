@@ -64,7 +64,7 @@ export default function OriginWhatsIn() {
         className="absolute inset-0 -z-10"
         style={{
           background:
-            'radial-gradient(135% 120% at 50% 20%, #E8551E 0%, #C43612 28%, #8D180C 60%, #460905 100%)',
+            'var(--bg-eclipse)',
         }}
       />
       <div className="relative z-10 w-full max-w-[1500px] mx-auto px-4 sm:px-8 lg:px-14 flex flex-col justify-between lg:justify-start h-full max-h-[calc(100svh-125px)] lg:max-h-none lg:h-auto overflow-hidden">

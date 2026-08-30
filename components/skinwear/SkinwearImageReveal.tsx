@@ -44,7 +44,7 @@ export default function SkinwearImageReveal() {
         >
           <div className="relative w-full h-full overflow-hidden">
             <Image
-              src={asset('/bg1.png')}
+              src={asset('/skinwear-media/First picture landscape.PNG')}
               alt="Artisun Skinwear Hero"
               fill
               sizes="100vw"
@@ -71,7 +71,7 @@ export default function SkinwearImageReveal() {
           {/* Big model frame — 3:4 portrait (clean without any text inside) */}
           <div className="relative w-full h-full overflow-hidden rounded-xl shadow-[0_50px_120px_rgba(0,0,0,0.9)] group backdrop-blur-sm">
             <Image
-              src={asset('/skinwear-media/model-portrait.jpg')}
+              src={asset('/skinwear-media/Second picture.PNG')}
               alt="Skinwear"
               fill
               sizes="(max-width: 768px) 68vw, 38vw"

@@ -86,7 +86,7 @@ export default function WornSection() {
         className="absolute inset-0 -z-10"
         style={{
           background:
-            'radial-gradient(135% 120% at 50% 20%, #E8551E 0%, #C43612 28%, #8D180C 60%, #460905 100%)',
+            'var(--bg-eclipse)',
         }}
       />
 
@@ -122,8 +122,7 @@ export default function WornSection() {
 
         {/* Sub-Description */}
         <p className="font-suisse text-[var(--brand-cream,#f5f0eb)]/90 text-[16px] xs:text-[17px] sm:text-[19px] lg:text-[18px] xl:text-[20px] 2xl:text-[21px] leading-[1.32] sm:leading-[1.45] font-normal mt-3 xs:mt-3.5 sm:mt-5 lg:mt-7 w-full max-w-[300px] xs:max-w-[330px] sm:max-w-[480px] lg:max-w-[480px] drop-shadow-sm">
-          Because you’ll only wear it every day if it<br />
-          survives every kind of day.
+          Light, invisible, and built for Indian cities.
         </p>
       </div>
 

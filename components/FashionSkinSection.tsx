@@ -60,13 +60,21 @@ export default function FashionSkinSection() {
                     </span>
                 </h2>
 
-                {/* Button: Exact Reference Size & Alignment */}
-                <button
-                    type="button"
-                    className="hidden lg:flex w-full mt-5 sm:mt-6 py-2 sm:py-2.5 px-6 rounded-none border border-[var(--brand-cream,#f5f0eb)] bg-transparent text-[var(--brand-cream,#f5f0eb)] font-suisse text-[12px] sm:text-[13.5px] tracking-[0.18em] uppercase items-center justify-center text-center hover:bg-[var(--brand-cream,#f5f0eb)] hover:text-[#420f08] transition-all duration-300 active:scale-[0.99] shadow-sm"
-                >
-                    Start wearing today
-                </button>
+                {/* 2 Parallel Buttons: Exact Reference Style & Heading Width Match */}
+                <div className="flex w-full gap-3 mt-4 sm:mt-5 lg:mt-6">
+                    <a
+                        href="/origin"
+                        className="flex-1 py-2 sm:py-2.5 px-2 sm:px-4 border border-[var(--brand-cream,#f5f0eb)] bg-transparent text-[var(--brand-cream,#f5f0eb)] font-suisse text-[11px] sm:text-[12.5px] lg:text-[13px] tracking-[0.14em] uppercase items-center justify-center text-center hover:bg-[var(--brand-cream,#f5f0eb)] hover:text-[#420f08] transition-all duration-300 active:scale-[0.98] whitespace-nowrap"
+                    >
+                        Wear Origin
+                    </a>
+                    <a
+                        href="/aura"
+                        className="flex-1 py-2 sm:py-2.5 px-2 sm:px-4 border border-[var(--brand-cream,#f5f0eb)] bg-transparent text-[var(--brand-cream,#f5f0eb)] font-suisse text-[11px] sm:text-[12.5px] lg:text-[13px] tracking-[0.14em] uppercase items-center justify-center text-center hover:bg-[var(--brand-cream,#f5f0eb)] hover:text-[#420f08] transition-all duration-300 active:scale-[0.98] whitespace-nowrap"
+                    >
+                        Wear Aura
+                    </a>
+                </div>
             </div>
 
             {/* ARTISUN Logo: Layered above Model (z-30) on Mobile/Tabs, Background (z-10) on Laptop */}

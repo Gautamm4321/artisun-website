@@ -56,7 +56,7 @@ export default function TextRevealSection() {
         className="absolute inset-0 -z-10"
         style={{
           background:
-            'radial-gradient(135% 120% at 50% 20%, #E8551E 0%, #C43612 28%, #8D180C 60%, #460905 100%)',
+            'var(--bg-eclipse)',
         }}
       />
 

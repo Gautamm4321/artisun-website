@@ -3,11 +3,20 @@ import { asset } from '@/lib/asset';
 
 
 const IMAGES = [
+  // Everything the first two screens of the home page paint with. The
+  // preloader's percentage is what fills the monogram on the loading screen,
+  // so this list is deliberately the REAL home-page media rather than a
+  // stand-in — the mark reaching full beige should mean the page is ready.
+  asset('/Artisun Primary Logo.png'),
+  asset('/hero-model.png'),
+  asset('/Adjusting_head_direction_to_right_202608281524.png'),
+  asset('/Without bg.png'),
+  asset('/b1.png'),
+  asset('/b2.png'),
+  asset('/products/origin-square.png'),
+  asset('/products/aura-square.png'),
   asset('/logo.png'),
   asset('/keyhole-bg.webp'),
-  asset('/a-new-language-of-suncare.png'),
-  asset('/a-new-language-of-suncare-2.webp'),
-  asset('/a-new-language-of-suncare-3.webp'),
   // Climate-smart weather crossfade — same product, only the weather changes.
   asset('/climate-weather/shimla.webp'),
   asset('/climate-weather/jaipur.webp'),

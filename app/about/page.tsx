@@ -129,13 +129,9 @@ export default function AboutPage() {
   }, []);
 
   return (
-    <main
-      className="relative w-full min-h-[100svh]"
-      style={{
-        background:
-          'radial-gradient(135% 120% at 50% 20%, #E8551E 0%, #C43612 28%, #8D180C 60%, #460905 100%)',
-      }}
-    >
+    <main className="relative w-full min-h-[100svh]">
+      {/* Mood: Red Eclipse — fixed so it holds all the way down the page */}
+      <div className="artisun-bg" aria-hidden />
       <ScrollProgressBar />
 
       <CustomCursor mouseProxy={mouseProxy} />
@@ -166,7 +162,7 @@ export default function AboutPage() {
         productLabel="Origin"
         productSub=""
         paragraphs={ORIGIN_PARAS}
-        images={['/about-media/origin-1.jpg', '/about-media/origin-2.jpg', '/about-media/origin-3.jpg']}
+        images={['/about-story/beginning/1.jpg', '/about-story/beginning/2.jpg', '/about-story/beginning/3.jpg']}
         eyebrow="The Beginning"
         heading={['It started with a', 'bottle in a drawer']}
       />
@@ -176,7 +172,7 @@ export default function AboutPage() {
         productLabel="Aura"
         productSub="Pearl Skinwear"
         paragraphs={AURA_PARAS}
-        images={['/about-media/aura-1.jpg', '/about-media/aura-2.jpg', '/about-media/aura-3.jpg']}
+        images={['/about-story/problem/1.jpg', '/about-story/problem/2.jpg', '/about-story/problem/3.jpg']}
         flip
         eyebrow="The Problem"
         heading={['It was made for a lab.', "You don't live in one."]}
@@ -187,7 +183,7 @@ export default function AboutPage() {
         productLabel="Origin"
         productSub=""
         paragraphs={ORIGIN_PARAS_2}
-        images={['/about-media/aura-1.jpg', '/about-media/aura-2.jpg', '/about-media/aura-3.jpg']}
+        images={['/about-story/feeling/1.jpg', '/about-story/feeling/2.jpg', '/about-story/feeling/3.jpg']}
         eyebrow="The Feeling"
         heading={['Fashion gets the world.', 'Skin gets a shelf.']}
       />
@@ -197,7 +193,7 @@ export default function AboutPage() {
         productLabel="Aura"
         productSub="Pearl Skinwear"
         paragraphs={AURA_PARAS_2}
-        images={['/about-media/aura-1.jpg', '/about-media/aura-2.jpg', '/about-media/aura-3.jpg']}
+        images={['/about-story/what-we-made/1.jpg', '/about-story/what-we-made/2.jpg', '/about-story/what-we-made/3.jpg']}
         flip
         eyebrow="What We Made"
         heading={['Sun care you', 'will want to wear.']}
@@ -208,7 +204,7 @@ export default function AboutPage() {
         productLabel="Origin"
         productSub=""
         paragraphs={ORIGIN_PARAS_3}
-        images={['/about-media/origin-1.jpg', '/about-media/origin-2.jpg', '/about-media/origin-3.jpg']}
+        images={['/about-story/what-we-call-it/1.jpg', '/about-story/what-we-call-it/2.jpg', '/about-story/what-we-call-it/3.jpg']}
         eyebrow="What We Call It"
         heading={['Artisun Skinwear™']}
       />
@@ -217,7 +213,7 @@ export default function AboutPage() {
       <section className="relative z-16 w-full px-6 md:px-16 lg:px-24 py-8 md:py-12 mx-auto overflow-hidden flex flex-col items-center justify-center">
         <div className="relative w-full h-[220px] md:h-[320px] lg:h-[440px] rounded-[10px] overflow-hidden">
           <Image
-            src={asset('/ARTISUN IMAGE.png')}
+            src={asset('/Artisun about us last.png')}
             alt="Artisun sun care"
             fill
             sizes="100vw"

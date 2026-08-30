@@ -251,7 +251,7 @@ export default function OriginQuestions() {
         className="absolute inset-0 -z-10"
         style={{
           background:
-            'radial-gradient(135% 120% at 50% 20%, #E8551E 0%, #C43612 28%, #8D180C 60%, #460905 100%)',
+            'var(--bg-eclipse)',
         }}
       />
       <div className="w-full max-w-[920px] mx-auto px-4 sm:px-8 lg:px-12 my-auto flex flex-col justify-center max-h-[calc(100svh-140px)] lg:max-h-[84vh]">

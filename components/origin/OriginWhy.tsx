@@ -24,7 +24,7 @@ export default function OriginWhy() {
   const inView = useInView(statsRef, { once: true, margin: '-15%' });
 
   return (
-    <div id="origin-why" className="origin-panel relative w-screen shrink-0 h-screen overflow-hidden">
+    <div id="origin-why" className="origin-panel relative w-screen shrink-0 h-[100svh] overflow-hidden">
       {/* Full-bleed background — shown AS IS. Both scrims are gone: the
           `bg-black/55` wash and the top/bottom gradient. Legibility now comes
           from the frosted panels on the copy and stat boxes instead, so the
@@ -46,7 +46,7 @@ export default function OriginWhy() {
       />
 
       {/* Content */}
-      <div className="relative z-10 h-full w-full max-w-[1500px] mx-auto px-4 sm:px-8 lg:px-14 pt-20 pb-16 sm:pt-24 sm:pb-20 lg:pt-[104px] lg:pb-16 flex flex-col justify-between overflow-hidden">
+      <div className="relative z-10 h-full w-full max-w-[1500px] mx-auto px-4 sm:px-8 lg:px-14 pt-20 pb-24 sm:pt-24 sm:pb-24 lg:pt-[104px] lg:pb-16 flex flex-col justify-between overflow-hidden">
         {/* Top: Center on mobile, 2-col on desktop */}
         {/* Type sizes on mobile now match frame 3 (OriginWhere): 30px heading,
             15px body — they were 22px/11px, noticeably smaller than every
@@ -58,7 +58,7 @@ export default function OriginWhy() {
           </h2>
           
           {/* Mobile Description with large top spacing */}
-          <p className="font-suisse text-[var(--brand-cream)]/90 text-[17.5px] sm:text-[15px] leading-[1.4] text-center max-w-[34ch] mt-[26vh] mb-4 lg:hidden drop-shadow-[0_2px_8px_rgba(0,0,0,0.85)]">
+          <p className="font-suisse text-[var(--brand-cream)]/90 text-[17.5px] sm:text-[15px] leading-[1.4] text-center max-w-[34ch] mt-[15svh] mb-3 lg:hidden drop-shadow-[0_2px_8px_rgba(0,0,0,0.85)]">
             Four layers before your morning chai? Origin makes it one. So your morning is faster, no heaviness, no pilling & no greasiness.
           </p>
 

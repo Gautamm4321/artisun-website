@@ -25,13 +25,9 @@ export default function SkinwearPage() {
   }, []);
 
   return (
-    <main
-      className="relative w-full min-h-[100svh] overflow-clip"
-      style={{
-        background:
-          'radial-gradient(135% 120% at 50% 20%, #E8551E 0%, #C43612 28%, #8D180C 60%, #460905 100%)',
-      }}
-    >
+    <main className="relative w-full min-h-[100svh] overflow-clip">
+      {/* Mood: Red Eclipse — fixed so it holds all the way down the page */}
+      <div className="artisun-bg" aria-hidden />
       {/* Scroll Progress Bar */}
       <ScrollProgressBar />
 

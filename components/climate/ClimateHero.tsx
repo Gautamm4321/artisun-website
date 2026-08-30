@@ -327,7 +327,7 @@ export default function ClimateHero() {
           <div className="p-2.5 sm:p-5 flex items-start gap-2 sm:gap-4">
             <div className="relative w-14 h-14 min-[400px]:w-16 min-[400px]:h-16 sm:w-24 sm:h-24 md:w-28 md:h-28 bg-[#8B3A32] flex-shrink-0 overflow-hidden rounded-none">
               <Image
-                src={asset('/skinwear-media/daily-product.jpg')}
+                src={asset('/pdp/aura-1.jpg')}
                 alt="Aura"
                 fill
                 className="object-cover opacity-90 group-hover:scale-105 transition-transform duration-500"
@@ -351,7 +351,7 @@ export default function ClimateHero() {
           <div className="p-2.5 sm:p-5 flex items-start gap-2 sm:gap-4">
             <div className="relative w-14 h-14 min-[400px]:w-16 min-[400px]:h-16 sm:w-24 sm:h-24 md:w-28 md:h-28 bg-[#8B3A32] flex-shrink-0 overflow-hidden rounded-none">
               <Image
-                src={asset('/about-media/origin-1.jpg')}
+                src={asset('/pdp/origin-1.jpg')}
                 alt="Origin"
                 fill
                 className="object-cover opacity-90 group-hover:scale-105 transition-transform duration-500"

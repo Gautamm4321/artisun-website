@@ -41,6 +41,17 @@ export default function OriginPage() {
     gsap.registerPlugin(ScrollTrigger);
     ScrollTrigger.config({ ignoreMobileResize: true });
 
+    // The horizontal track is driven by page scroll, so ANY leftover scroll
+    // offset on entry shows up as the first panel already part-way slid off to
+    // the left with the second one peeking in on the right. Two things cause
+    // that offset: the browser restoring a previous scroll position, and the
+    // mobile address bar collapsing during load. Taking manual control of
+    // restoration and pinning the page to the top before the trigger is built
+    // guarantees the first panel is framed exactly to the screen on arrival.
+    const prevRestoration = history.scrollRestoration;
+    if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+    window.scrollTo(0, 0);
+
     // A) Lenis setup with syncTouch: false
     const lenis = new Lenis({
       duration: 1.1,
@@ -92,9 +103,18 @@ export default function OriginPage() {
       stRef.current = st;
     }
 
+    // Re-assert the top position after the pin is measured — anticipatePin and
+    // the initial refresh can both nudge scroll by a few px on mobile.
+    requestAnimationFrame(() => {
+      window.scrollTo(0, 0);
+      lenis.scrollTo(0, { immediate: true });
+      ScrollTrigger.refresh();
+    });
+
     document.fonts.ready.then(() => ScrollTrigger.refresh());
 
     return () => {
+      if ('scrollRestoration' in history) history.scrollRestoration = prevRestoration;
       gsap.ticker.remove(raf);
       lenis.destroy();
       lenisRef.current = null;
@@ -112,7 +132,7 @@ export default function OriginPage() {
   };
 
   return (
-    <main className="relative w-full min-h-screen overflow-clip">
+    <main className="relative w-full min-h-[100svh] overflow-clip">
       <ScrollProgressBar marker={asset('/b2.png')} markerHeight={20} />
       <div id="global-bg" className="theme-molten-core" />
 
@@ -126,11 +146,11 @@ export default function OriginPage() {
       `}</style>
 
       {/* ── 6 EXACT ORDERED PANELS ── */}
-      <div ref={wrapperRef} className="relative w-full h-screen overflow-hidden">
+      <div ref={wrapperRef} className="relative w-full h-[100svh] overflow-hidden">
         {/* C) Fixed 600vw width on track */}
         <div
           ref={trackRef}
-          className="flex flex-row flex-nowrap h-screen w-[600vw] will-change-transform"
+          className="flex flex-row flex-nowrap h-full w-[600vw] will-change-transform"
         >
           {/* 1. Home Section */}
           <OriginHero onNavigate={goToPanel} />

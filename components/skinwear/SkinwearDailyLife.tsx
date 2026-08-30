@@ -7,16 +7,18 @@ export default function SkinwearDailyLife() {
     <section className="relative w-full py-6 sm:py-8 md:py-14 px-4 sm:px-8 md:px-12 lg:px-20 z-[16]">
       <div className="w-full max-w-[1300px] mx-auto flex flex-col items-center text-center">
 
-        {/* 1. TOP LANDSCAPE IMAGE */}
+        {/* 1. TOP LANDSCAPE IMAGE FRAME */}
         <div className="
           w-full relative overflow-hidden rounded-xl shadow-2xl mb-5 sm:mb-6 md:mb-8
-          h-[220px] xs:h-[260px] sm:h-[320px] md:h-[380px] lg:h-[280px]
+          aspect-[16/9] sm:aspect-[2/1] lg:aspect-[21/9]
+          max-h-[500px] bg-black/20 border border-white/10 box-border
         ">
           <Image
-            src="/skinwear.shrink.img.jpeg"
+            src="/skinwear-media/Fifth_last picture.JPG"
             alt="What's your skin wearing today"
             fill
-            className="object-cover object-center"
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 90vw, 1200px"
+            className="object-cover object-center w-full h-full"
             priority
           />
         </div>
@@ -41,22 +43,22 @@ export default function SkinwearDailyLife() {
           We&apos;re asking the same about your skin.
         </p>
 
-        {/* 4. CTA BUTTON */}
-        <button
-          type="button"
-          className="
-            px-7 sm:px-9 md:px-10
-            py-3 sm:py-3.5 md:py-4
-            rounded-full bg-[#EAE3D2] hover:bg-[#F2EBDC]
-            text-[#8B1E13] font-editorial font-medium
-            text-[16px] sm:text-[19px] md:text-[22px]
-            transition-all duration-300 shadow-md
-            hover:scale-[1.03] active:scale-[0.97]
-            cursor-pointer
-          "
-        >
-          Wear Now
-        </button>
+        {/* 4. CTA BUTTONS */}
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 mt-2">
+          <a
+            href="/origin"
+            className="inline-flex items-center justify-center min-w-[190px] px-8 py-3.5 md:py-4 rounded-full bg-[#EAE3D2] hover:bg-[#FAF6EE] text-[#8B1E13] font-editorial font-medium text-[17px] md:text-[19px] tracking-wide shadow-[0_4px_20px_rgba(0,0,0,0.35)] transition-all duration-300 hover:scale-105 active:scale-95 text-center cursor-pointer"
+          >
+            Wear Origin
+          </a>
+
+          <a
+            href="/aura"
+            className="inline-flex items-center justify-center min-w-[190px] px-8 py-3.5 md:py-4 rounded-full bg-[#EAE3D2] hover:bg-[#FAF6EE] text-[#8B1E13] font-editorial font-medium text-[17px] md:text-[19px] tracking-wide shadow-[0_4px_20px_rgba(0,0,0,0.35)] transition-all duration-300 hover:scale-105 active:scale-95 text-center cursor-pointer"
+          >
+            Wear Aura
+          </a>
+        </div>
 
       </div>
     </section>

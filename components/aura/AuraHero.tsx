@@ -1,9 +1,9 @@
 'use client';
 
 import { useRef, useState } from 'react';
-import Image from 'next/image';
-import { asset } from '@/lib/asset';
+
 import TagPills from '@/components/pdp/TagPills';
+import PdpGallery from '@/components/pdp/PdpGallery';
 import { usePanelEdgeScroll } from '@/hooks/usePanelEdgeScroll';
 
 const BADGES = ['SPF 40', 'PA++++', 'All weathers', '50g'];
@@ -15,8 +15,9 @@ const GALLERY = [
   '/pdp/aura-3.jpg',
   '/pdp/aura-4.jpg',
   '/pdp/aura-5.jpg',
-  '/pdp/First page, sixth image.png',
   '/pdp/aura-7.jpg',
+  '/pdp/Aura, seventh image.png',
+  '/pdp/First page, sixth image.png',
   '/pdp/aura-8.jpg',
 ];
 
@@ -46,25 +47,12 @@ const NAV_ITEMS: NavItem[] = [
   { n: '06', label: 'Full ingredient list', target: null, kind: 'accordion' },
 ];
 
-function Chevron({ dir }: { dir: 'left' | 'right' }) {
-  return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-      {dir === 'left' ? <polyline points="15 18 9 12 15 6" /> : <polyline points="9 18 15 12 9 6" />}
-    </svg>
-  );
-}
-
 export default function AuraHero({ onNavigate }: { onNavigate: (panelIndex: number) => void }) {
-  const [index, setIndex] = useState(0);
   const [ingredientsOpen, setIngredientsOpen] = useState(false);
   const scrollerRef = useRef<HTMLDivElement>(null);
   // Whole section (image + copy) scrolls vertically, then releases into the
   // horizontal track — the image is no longer pinned while only the text moves.
   usePanelEdgeScroll(scrollerRef);
-
-  const activeImg = GALLERY[index];
-  const prev = () => setIndex((p) => (p - 1 + GALLERY.length) % GALLERY.length);
-  const next = () => setIndex((p) => (p + 1) % GALLERY.length);
 
   return (
     <div className="aura-panel relative w-screen shrink-0 h-[100svh] overflow-hidden">
@@ -73,7 +61,7 @@ export default function AuraHero({ onNavigate }: { onNavigate: (panelIndex: numb
         className="absolute inset-0 -z-10"
         style={{
           background:
-            'radial-gradient(135% 120% at 50% 20%, #E8551E 0%, #C43612 28%, #8D180C 60%, #460905 100%)',
+            'var(--bg-eclipse)',
         }}
       />
 
@@ -85,54 +73,11 @@ export default function AuraHero({ onNavigate }: { onNavigate: (panelIndex: numb
 
           {/* ── IMAGE: matches Origin hero sizing (top on mobile / left on desktop) ── */}
           <div className="order-1 flex flex-col w-full max-w-[360px] lg:max-w-[440px] xl:max-w-[480px] shrink-0 min-h-0">
-            <div className="relative w-full aspect-square lg:aspect-[4/4.75] lg:max-h-[74vh] rounded-xl lg:rounded-2xl overflow-hidden bg-white/[0.03] shadow-2xl">
-              <Image
-                key={activeImg}
-                src={asset(activeImg)}
-                alt="Aura Pearl Skinwear"
-                fill
-                sizes="(max-width: 1024px) 90vw, 50vw"
-                priority
-                className="object-cover object-center animate-[auraHeroFade_0.45s_ease]"
-              />
-
-              {/* Thumbnails */}
-              <div className="absolute top-3 left-3 z-10 flex gap-2">
-                {GALLERY.map((src, i) => {
-                  const active = i === index;
-                  return (
-                    <button
-                      key={`${src}-${i}`}
-                      onClick={() => setIndex(i)}
-                      aria-label={`View image ${i + 1}`}
-                      className={`pointer-events-auto relative h-9 w-9 sm:h-11 sm:w-11 overflow-hidden rounded-md border transition-all duration-300 ${active
-                        ? 'opacity-100 border-white/70'
-                        : 'opacity-50 hover:opacity-80 border-white/20'
-                        }`}
-                    >
-                      <Image src={asset(src)} alt="" fill sizes="48px" className="object-cover" />
-                    </button>
-                  );
-                })}
-              </div>
-
-              {/* Controls */}
-              <button
-                onClick={prev}
-                aria-label="Previous image"
-                className="pointer-events-auto absolute left-3 top-1/2 -translate-y-1/2 w-8 h-8 sm:w-9 sm:h-9 rounded-full grid place-items-center bg-black/40 backdrop-blur-sm border border-white/20 text-white hover:bg-black/70 transition-all duration-300"
-              >
-                <Chevron dir="left" />
-              </button>
-
-              <button
-                onClick={next}
-                aria-label="Next image"
-                className="pointer-events-auto absolute right-3 top-1/2 -translate-y-1/2 w-8 h-8 sm:w-9 sm:h-9 rounded-full grid place-items-center bg-black/40 backdrop-blur-sm border border-white/20 text-white hover:bg-black/70 transition-all duration-300"
-              >
-                <Chevron dir="right" />
-              </button>
-            </div>
+            <PdpGallery
+              images={GALLERY}
+              alt="Aura Pearl Skinwear"
+              frameClassName="aspect-square lg:aspect-[4/4.75] lg:max-h-[74vh]"
+            />
           </div>
 
           {/* ── CONTENT: right on desktop / bottom on mobile (scrolls with the image) ── */}
@@ -229,12 +174,6 @@ export default function AuraHero({ onNavigate }: { onNavigate: (panelIndex: numb
         </div>
       </div>
 
-      <style jsx global>{`
-        @keyframes auraHeroFade {
-          from { opacity: 0; }
-          to { opacity: 1; }
-        }
-      `}</style>
     </div>
   );
 }

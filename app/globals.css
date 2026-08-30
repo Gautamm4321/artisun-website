@@ -6,12 +6,59 @@
   --brand-red:      #C93B1A;
   --brand-cream:    #E8DCC8;
   --brand-cream-dk: #C9B89A;
-  --brand-dark:     #0F0C09;
+  --brand-dark:     #180307;
   --brand-glow:     rgba(201,59,26,0.22);
-  
+
+  /* ── MOOD: RED ECLIPSE ──────────────────────────────────────────────
+     The single background treatment for the whole site, lifted verbatim
+     from art-grad ("Mood: Red Eclipse"). Every page, every panel reads
+     from these two tokens, so the mood can be re-tuned in one place.
+
+     --bg-eclipse       viewport-locked (vh stops). Use on fixed, full-screen
+                        background layers and on any panel that is ~100svh tall.
+     --bg-eclipse-fill  element-relative (% stops). Same look, but it scales
+                        with whatever box it is painted on — for elements whose
+                        height is not one viewport.
+     ------------------------------------------------------------------ */
+  --bg-eclipse: radial-gradient(circle at 50% 80vh,
+      #FF2A17 0vh,
+      #A4000F 30vh,
+      #4D0007 55vh,
+      #220003 80vh,
+      #090506 100vh);
+
+  --bg-eclipse-fill: radial-gradient(circle at 50% 78%,
+      #FF2A17 0%,
+      #A4000F 34%,
+      #4D0007 62%,
+      #220003 88%,
+      #090506 100%);
+
   --font-headline: var(--font-editorial), Georgia, serif;
   --font-subhead:  var(--font-suisse), 'Helvetica Neue', sans-serif;
   --font-body:     var(--font-suisse), 'Helvetica Neue', sans-serif;
+}
+
+/* Fixed, full-viewport Red Eclipse layer. Long pages (About, Climate,
+   Skinwear) mount this instead of painting the gradient onto a tall <main>,
+   where viewport-relative stops would flatten out below the first screen. */
+.artisun-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+  background: var(--bg-eclipse);
+}
+.artisun-bg::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -10vw;
+  width: 120vw;
+  height: 100%;
+  background: radial-gradient(ellipse at 50% 70vh, rgba(255, 100, 40, 0.07), transparent 60%);
+  animation: moveLightX 25s ease-in-out infinite;
+  pointer-events: none;
 }
 
 * {
@@ -32,7 +79,15 @@ html {
 body {
   margin: 0;
   padding: 0;
-  background-color: var(--brand-dark);
+  /* Deliberately transparent, NOT the brand dark.
+     `body` is position:relative here, which makes it a positioned element with
+     z-index:auto — so it paints in a LATER layer than any negative-z-index
+     descendant. Giving it an opaque colour therefore buried every background
+     layer that sits at a negative z-index (#global-bg, .artisun-bg), leaving
+     pages looking near-black instead of showing the Red Eclipse gradient.
+     The canvas colour is carried by <html> above, which propagates correctly
+     and still covers overscroll. */
+  background-color: transparent;
   color: var(--brand-cream);
   overflow-x: clip;
   overscroll-behavior-x: none;
@@ -121,16 +176,12 @@ html.lenis, html.lenis body {
     z-index: -2;
     will-change: background;
 }
-/* 2. The Molten Core Gradient Curve */
-.theme-molten-core {
-    background: radial-gradient(circle farthest-corner at 50% var(--mc-center),
-        #E8601A  var(--mc-pos-1),
-        #B52010  var(--mc-pos-2),
-        #7A0808  var(--mc-pos-3),
-        #3D0305  var(--mc-pos-4),
-        #180102  var(--mc-pos-5),
-        #050505  var(--mc-pos-6)
-    );
+/* 2. Red Eclipse — the site-wide mood.
+   The class name is kept so the existing markup keeps working, but the
+   gradient it paints is now Red Eclipse rather than Molten Core. */
+.theme-molten-core,
+.theme-red-eclipse {
+    background: var(--bg-eclipse);
 }
 
 /* 4. Soft Animated Light Overlay */
@@ -677,3 +728,45 @@ html.lenis, html.lenis body {
 @media (min-width: 768px) {
   :root { --hero-model-w: 76vw; --climate-model-w: 86vw; }
 }
+
+/* ─────────────────────────────────────────────────────────────
+   PDP GALLERY (Origin / Aura hero shots)
+   Mobile swipes between shots; the direction of the flick decides
+   which edge the incoming shot slides in from. Desktop is a plain
+   fade, since there the change comes from a click, not a gesture.
+   ───────────────────────────────────────────────────────────── */
+@keyframes pdpSlideFromRight {
+  from { opacity: 0; transform: translate3d(14%, 0, 0); }
+  to   { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+@keyframes pdpSlideFromLeft {
+  from { opacity: 0; transform: translate3d(-14%, 0, 0); }
+  to   { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+@keyframes pdpFade {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.pdp-slide-r { animation: pdpSlideFromRight 0.42s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.pdp-slide-l { animation: pdpSlideFromLeft 0.42s cubic-bezier(0.22, 1, 0.36, 1) both; }
+
+@media (min-width: 1024px) {
+  .pdp-slide-r,
+  .pdp-slide-l { animation: pdpFade 0.45s ease both; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pdp-slide-r,
+  .pdp-slide-l { animation: pdpFade 0.2s ease both; }
+}
+
+/* Preview strip under the shot — scrollable when a product has many angles,
+   but the scrollbar itself stays out of the composition. */
+.pdp-thumbs {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-x: contain;
+}
+.pdp-thumbs::-webkit-scrollbar { display: none; }

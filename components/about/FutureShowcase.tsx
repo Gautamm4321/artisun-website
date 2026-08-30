@@ -50,10 +50,19 @@ export default function FutureShowcase() {
             </p>
           </motion.div>
 
-          <motion.div {...rise(0.24, reduce)} className="mt-10 flex justify-center">
-            <a href="/shop" className="group relative inline-flex items-center justify-center px-10 py-4 md:px-12 md:py-5 bg-[#C02D19] border border-[#E8601A]/30 text-[var(--brand-cream)] font-suisse uppercase tracking-[0.2em] text-xs md:text-[13px] font-medium rounded-full overflow-hidden transition-all duration-700 hover:scale-[1.03] hover:shadow-[0_0_36px_rgba(192,45,25,0.55)]">
-              <span className="relative z-10">Find your dailywear</span>
-              <span className="absolute inset-0 bg-[#A52A2C] origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-700 ease-out" />
+          <motion.div {...rise(0.24, reduce)} className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6">
+            <a 
+              href="/origin" 
+              className="inline-flex items-center justify-center min-w-[200px] px-8 py-3.5 md:py-4 bg-[#EAE3D2] hover:bg-[#FAF6EE] text-[#8B1E13] font-editorial text-[17px] md:text-[19px] font-medium tracking-wide rounded-full shadow-[0_4px_20px_rgba(0,0,0,0.35)] transition-all duration-300 hover:scale-105 active:scale-95 text-center"
+            >
+              Shop Origin
+            </a>
+
+            <a 
+              href="/aura" 
+              className="inline-flex items-center justify-center min-w-[200px] px-8 py-3.5 md:py-4 bg-[#EAE3D2] hover:bg-[#FAF6EE] text-[#8B1E13] font-editorial text-[17px] md:text-[19px] font-medium tracking-wide rounded-full shadow-[0_4px_20px_rgba(0,0,0,0.35)] transition-all duration-300 hover:scale-105 active:scale-95 text-center"
+            >
+              Shop Aura
             </a>
           </motion.div>
         </div>
