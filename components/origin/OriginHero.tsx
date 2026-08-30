@@ -61,10 +61,10 @@ export default function OriginHero({ onNavigate }: { onNavigate: (panelIndex: nu
         ref={scrollerRef}
         className="panel-scroll lg:overflow-hidden h-full flex flex-col justify-start lg:justify-center pt-[76px] pb-24 sm:pt-24 sm:pb-24 lg:py-0"
       >
-<div className="w-full max-w-[1240px] mx-auto px-5 sm:px-8 lg:px-12 flex flex-col lg:grid lg:grid-cols-[460px_1fr] xl:grid-cols-[500px_1fr] gap-5 sm:gap-6 lg:gap-16 items-center my-auto">
+        <div className="w-full max-w-[1400px] mx-auto px-5 sm:px-8 lg:px-12 flex flex-col lg:grid lg:grid-cols-[540px_1fr] xl:grid-cols-[580px_1fr] gap-5 sm:gap-6 lg:gap-12 items-center my-auto">
 
           {/* ── TOP ON MOBILE / LEFT ON DESKTOP: Product Visual ── */}
-          <div className="order-1 flex flex-col w-full max-w-[360px] lg:max-w-[460px] xl:max-w-[500px] shrink-0 min-h-0">
+          <div className="order-1 flex flex-col w-full max-w-[360px] lg:max-w-[540px] xl:max-w-[580px] shrink-0 min-h-0">
             <PdpGallery
               images={GALLERY}
               alt="Origin 4-in-1 Milk Emulsion"

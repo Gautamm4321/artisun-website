@@ -240,7 +240,7 @@ export default function ProductShowcaseSection() {
         />
       </div>
       {/* Horizontal Dividing Line: Darker & clearer visible white line */}
-<div className="block lg:hidden absolute top-1/2 left-0 right-0 -translate-y-1/2 h-[1.2px] bg-white/45 z-0 pointer-events-none" />
+      <div className="block lg:hidden absolute top-1/2 left-0 right-0 -translate-y-1/2 h-[1.2px] bg-white/45 z-0 pointer-events-none" />
 
       {/* Desktop Vertical Dividing Line */}
       <div className="hidden lg:block absolute top-0 bottom-0 left-1/2 -translate-x-1/2 w-[1px] bg-white/15 z-0 pointer-events-none" />
@@ -295,11 +295,10 @@ export default function ProductShowcaseSection() {
               setActive(0);
             }}
             aria-label="Switch to Origin"
-            className={`cursor-pointer relative z-[120] flex items-center justify-center h-16 w-16 md:h-[72px] md:w-[72px] rounded-xl border transition-all duration-300 backdrop-blur-md overflow-hidden ${
-              active === 0
+            className={`cursor-pointer relative z-[120] flex items-center justify-center h-16 w-16 md:h-[72px] md:w-[72px] rounded-xl border transition-all duration-300 backdrop-blur-md overflow-hidden ${active === 0
                 ? 'border-white/90 bg-black/50 scale-105 shadow-xl ring-2 ring-white/40'
                 : 'border-white/20 bg-black/20 opacity-60 hover:opacity-100 hover:scale-100'
-            }`}
+              }`}
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={PRODUCTS[0].thumb} alt="Origin" className="h-full w-full object-cover pointer-events-none" />
@@ -315,11 +314,10 @@ export default function ProductShowcaseSection() {
               setActive(1);
             }}
             aria-label="Switch to Aura"
-            className={`cursor-pointer relative z-[120] flex items-center justify-center h-16 w-16 md:h-[72px] md:w-[72px] rounded-xl border transition-all duration-300 backdrop-blur-md overflow-hidden ${
-              active === 1
+            className={`cursor-pointer relative z-[120] flex items-center justify-center h-16 w-16 md:h-[72px] md:w-[72px] rounded-xl border transition-all duration-300 backdrop-blur-md overflow-hidden ${active === 1
                 ? 'border-white/90 bg-black/50 scale-105 shadow-xl ring-2 ring-white/40'
                 : 'border-white/20 bg-black/20 opacity-60 hover:opacity-100 hover:scale-100'
-            }`}
+              }`}
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={PRODUCTS[1].thumb} alt="Aura" className="h-full w-full object-cover pointer-events-none" />
@@ -327,8 +325,8 @@ export default function ProductShowcaseSection() {
           </button>
         </div>
 
-        
-{/* ── MOBILE TOP HEADER (Exact Screenshot Match) ── */}
+
+        {/* ── MOBILE TOP HEADER (Exact Screenshot Match) ── */}
         <div className="lg:hidden w-full flex flex-col items-center text-center pt-4 xs:pt-6 px-4 z-30">
           <AnimatePresence mode="wait">
             <motion.div
@@ -364,7 +362,7 @@ export default function ProductShowcaseSection() {
             </motion.div>
           </AnimatePresence>
         </div>
-        
+
         {/* ── DESKTOP MIDDLE ROW (Untouched Left/Right Title Columns) ── */}
         <div className="hidden lg:grid grid-cols-2 gap-8 items-center my-auto w-full">
           {/* Left Title */}
@@ -423,7 +421,7 @@ export default function ProductShowcaseSection() {
                   type="button"
                   onClick={() => variant && add(variant.id, 1)}
                   disabled={!configured || !variant || busy || !variant.availableForSale}
-                  className="pointer-events-auto bg-[#EAE3D2] text-[#8B1E13] font-editorial text-[17px] font-medium tracking-wide px-7 py-2.5 rounded-none active:scale-95 transition-transform shadow-md disabled:opacity-50"
+                  className="btn-solid-beige pointer-events-auto bg-[#E8C5A5] text-[#8B1E13] font-editorial text-[17px] font-medium tracking-wide px-7 py-2.5 rounded-none active:scale-95 transition-transform shadow-md"
                 >
                   Add to bag
                 </button>
@@ -473,7 +471,7 @@ export default function ProductShowcaseSection() {
               className="max-w-[560px] text-left pl-2"
             >
               {product.id === 'aura' ? (
-                <p 
+                <p
                   style={{ color: '#E8C5A5' }}
                   className="font-suisse text-[18px] leading-[1.35] tracking-wide drop-shadow-sm font-normal"
                 >
@@ -482,7 +480,7 @@ export default function ProductShowcaseSection() {
                   when your day is moody.
                 </p>
               ) : (
-                <p 
+                <p
                   style={{ color: '#E8C5A5' }}
                   className="font-suisse text-[18px] leading-[1.35] tracking-wide drop-shadow-sm font-normal"
                 >
@@ -508,8 +506,8 @@ export default function ProductShowcaseSection() {
                 type="button"
                 onClick={() => variant && add(variant.id, 1)}
                 disabled={!configured || !variant || busy || !variant.availableForSale}
-                style={{ backgroundColor: '#edc6a2', color: '#3A0D08' }}
-                className="pointer-events-auto font-suisse text-sm tracking-wider uppercase px-9 py-3 font-medium hover:bg-white transition-colors shadow-lg rounded-none mb-1.5 disabled:opacity-50 disabled:cursor-not-allowed"
+                style={{ backgroundColor: '#E8C5A5', color: '#3A0D08' }}
+                className="btn-solid-beige pointer-events-auto font-suisse text-sm tracking-wider uppercase px-9 py-3 font-medium shadow-lg rounded-none mb-1.5 hover:bg-[#FAF6EE] transition-colors"
               >
                 {!configured
                   ? 'Add to bag'
@@ -521,7 +519,13 @@ export default function ProductShowcaseSection() {
                         ? 'Sold out'
                         : `Add to bag — ${formatPrice(variant.price)}`}
               </button>
-              <p 
+
+              <style jsx>{`
+  .btn-solid-beige:disabled {
+    opacity: 1 !important;
+  }
+`}</style>
+              <p
                 style={{ color: '#edc6a2' }}
                 className="font-editorial text-[19px] leading-tight tracking-wider"
               >

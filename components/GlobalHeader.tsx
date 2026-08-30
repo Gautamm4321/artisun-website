@@ -37,29 +37,33 @@ export default function GlobalHeader() {
             Climate-smart
           </Link>
 
-          {/* Origin Bottle Icon (Red Silhouette -> Beige on Hover) */}
+          {/* Origin Bottle Box */}
           <Link
             href="/origin"
             aria-label="Origin SPF 50+"
             className="group bg-[#E8DAC7] hover:bg-[#A52A2C] px-3.5 py-1.5 flex items-center justify-center transition-all duration-200 h-[36px]"
           >
-            <svg className="h-[21px] w-auto fill-[#A52A2C] group-hover:fill-[#E8DAC7] transition-colors duration-200" viewBox="0 0 24 38">
-              <circle cx="12" cy="7" r="7" />
-              <path d="M7 15 L17 15 L21 38 L3 38 Z" />
-            </svg>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={asset('/Pattern & Shapes-02.png')}
+              alt="Origin"
+              className="h-[21px] w-auto object-contain"
+            />
           </Link>
 
-          {/* Aura Jar Icon (Red Silhouette -> Beige on Hover) */}
-          <Link
-            href="/aura"
-            aria-label="Aura SPF 40"
-            className="group bg-[#E8DAC7] hover:bg-[#A52A2C] px-3.5 py-1.5 flex items-center justify-center transition-all duration-200 h-[36px]"
-          >
-            <svg className="h-[15px] w-auto fill-[#A52A2C] group-hover:fill-[#E8DAC7] transition-colors duration-200" viewBox="0 0 34 22">
-              <path d="M7 6 Q17 0 27 6 Q31 9 27 10 Q17 11 7 10 Q3 9 7 6 Z" />
-              <path d="M5 11 L29 11 L33 22 L1 22 Z" />
-            </svg>
-          </Link>
+          {/* Aura Jar Box */}
+            <Link
+              href="/aura"
+              aria-label="Aura SPF 40"
+              className="group bg-[#E8DAC7] hover:bg-[#A52A2C] px-3.5 py-1.5 flex items-center justify-center transition-all duration-200 h-[36px]"
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={asset('/Pattern & Shapes-03.png')}
+                alt="Aura"
+                className="h-[28px] w-auto object-contain scale-110"
+              />
+            </Link>
 
           {/* Skinwear™ */}
           <Link
